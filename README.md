@@ -23,8 +23,9 @@
 	- pobeda: oslobođenje zemlje
 	- poraz: uništenje ustanka
 
-## TODO:
+## Technology
 
-- svg ili canvas renderer
-- react ili vanila
-- game loop ili samo events
+- svg ili canvas renderer? svg
+- react ili vanila? react
+- game loop ili samo events? react
+- state - redux ili globalni state + game loop? react + useReducer
