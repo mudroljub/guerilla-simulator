@@ -1,0 +1,779 @@
+{
+  "Beograd": {
+    "koordinate": {
+      "lat": 44.7866,
+      "lon": 20.4489
+    },
+    "stanovnika": 397911
+  },
+  "Zagreb": {
+    "koordinate": {
+      "lat": 45.8150,
+      "lon": 15.9819
+    },
+    "stanovnika": 279623
+  },
+  "Skoplje": {
+    "koordinate": {
+      "lat": 41.9973,
+      "lon": 21.4280
+    },
+    "stanovnika": 97692
+  },
+  "Sarajevo": {
+    "koordinate": {
+      "lat": 43.8563,
+      "lon": 18.4131
+    },
+    "stanovnika": 115761
+  },
+  "Ljubljana": {
+    "koordinate": {
+      "lat": 46.0569,
+      "lon": 14.5058
+    },
+    "stanovnika": 121123
+  },
+  "Novi Sad": {
+    "koordinate": {
+      "lat": 45.2671,
+      "lon": 19.8335
+    },
+    "stanovnika": 69431
+  },
+  "Niš": {
+    "koordinate": {
+      "lat": 43.3209,
+      "lon": 21.8958
+    },
+    "stanovnika": 48651
+  },
+  "Split": {
+    "koordinate": {
+      "lat": 43.5081,
+      "lon": 16.4402
+    },
+    "stanovnika": 48015
+  },
+  "Rijeka": {
+    "koordinate": {
+      "lat": 45.3271,
+      "lon": 14.4422
+    },
+    "stanovnika": 36084
+  },
+  "Banja Luka": {
+    "koordinate": {
+      "lat": 44.7722,
+      "lon": 17.1910
+    },
+    "stanovnika": 38246
+  },
+  "Priština": {
+    "koordinate": {
+      "lat": 42.6629,
+      "lon": 21.1655
+    },
+    "stanovnika": 19800
+  },
+  "Osijek": {
+    "koordinate": {
+      "lat": 45.5550,
+      "lon": 18.6955
+    },
+    "stanovnika": 49037
+  },
+  "Maribor": {
+    "koordinate": {
+      "lat": 46.5547,
+      "lon": 15.6459
+    },
+    "stanovnika": 52833
+  },
+  "Tuzla": {
+    "koordinate": {
+      "lat": 44.5384,
+      "lon": 18.6671
+    },
+    "stanovnika": 27647
+  },
+  "Zenica": {
+    "koordinate": {
+      "lat": 44.2034,
+      "lon": 17.9077
+    },
+    "stanovnika": 15650
+  },
+  "Mostar": {
+    "koordinate": {
+      "lat": 43.3438,
+      "lon": 17.8078
+    },
+    "stanovnika": 26351
+  },
+  "Kragujevac": {
+    "koordinate": {
+      "lat": 44.0128,
+      "lon": 20.9114
+    },
+    "stanovnika": 27820
+  },
+  "Subotica": {
+    "koordinate": {
+      "lat": 46.1000,
+      "lon": 19.6675
+    },
+    "stanovnika": 55587
+  },
+  "Bitolj": {
+    "koordinate": {
+      "lat": 41.0314,
+      "lon": 21.3347
+    },
+    "stanovnika": 30700
+  },
+  "Titograd": {
+    "koordinate": {
+      "lat": 42.4304,
+      "lon": 19.2594
+    },
+    "stanovnika": 10700
+  },
+  "Sombor": {
+    "koordinate": {
+      "lat": 45.7739,
+      "lon": 19.1122
+    },
+    "stanovnika": 30900
+  },
+  "Zrenjanin": {
+    "koordinate": {
+      "lat": 45.3836,
+      "lon": 20.3819
+    },
+    "stanovnika": 38100
+  },
+  "Pančevo": {
+    "koordinate": {
+      "lat": 44.8700,
+      "lon": 20.6403
+    },
+    "stanovnika": 26800
+  },
+  "Sremska Mitrovica": {
+    "koordinate": {
+      "lat": 44.9774,
+      "lon": 19.6123
+    },
+    "stanovnika": 18600
+  },
+  "Vršac": {
+    "koordinate": {
+      "lat": 45.1167,
+      "lon": 21.3036
+    },
+    "stanovnika": 21300
+  },
+  "Šabac": {
+    "koordinate": {
+      "lat": 44.7544,
+      "lon": 19.6923
+    },
+    "stanovnika": 20600
+  },
+  "Valjevo": {
+    "koordinate": {
+      "lat": 44.2751,
+      "lon": 19.8982
+    },
+    "stanovnika": 13900
+  },
+  "Užice": {
+    "koordinate": {
+      "lat": 43.8589,
+      "lon": 19.8425
+    },
+    "stanovnika": 11900
+  },
+  "Čačak": {
+    "koordinate": {
+      "lat": 43.8914,
+      "lon": 20.3497
+    },
+    "stanovnika": 12500
+  },
+  "Kraljevo": {
+    "koordinate": {
+      "lat": 43.7248,
+      "lon": 20.6890
+    },
+    "stanovnika": 14400
+  },
+  "Kruševac": {
+    "koordinate": {
+      "lat": 43.5800,
+      "lon": 21.3339
+    },
+    "stanovnika": 16400
+  },
+  "Požarevac": {
+    "koordinate": {
+      "lat": 44.6213,
+      "lon": 21.1878
+    },
+    "stanovnika": 13200
+  },
+  "Smederevo": {
+    "koordinate": {
+      "lat": 44.6644,
+      "lon": 20.9276
+    },
+    "stanovnika": 10500
+  },
+  "Jagodina": {
+    "koordinate": {
+      "lat": 43.9771,
+      "lon": 21.2612
+    },
+    "stanovnika": 9800
+  },
+  "Leskovac": {
+    "koordinate": {
+      "lat": 42.9981,
+      "lon": 21.9461
+    },
+    "stanovnika": 14200
+  },
+  "Vranje": {
+    "koordinate": {
+      "lat": 42.5514,
+      "lon": 21.9003
+    },
+    "stanovnika": 9900
+  },
+  "Pirot": {
+    "koordinate": {
+      "lat": 43.1530,
+      "lon": 22.5861
+    },
+    "stanovnika": 10900
+  },
+  "Bor": {
+    "koordinate": {
+      "lat": 44.0749,
+      "lon": 22.0953
+    },
+    "stanovnika": 5200
+  },
+  "Zaječar": {
+    "koordinate": {
+      "lat": 43.9036,
+      "lon": 22.2641
+    },
+    "stanovnika": 10900
+  },
+  "Loznica": {
+    "koordinate": {
+      "lat": 44.5333,
+      "lon": 19.2258
+    },
+    "stanovnika": 8400
+  },
+  "Doboj": {
+    "koordinate": {
+      "lat": 44.7310,
+      "lon": 18.0870
+    },
+    "stanovnika": 6900
+  },
+  "Travnik": {
+    "koordinate": {
+      "lat": 44.2264,
+      "lon": 17.6658
+    },
+    "stanovnika": 6500
+  },
+  "Prijedor": {
+    "koordinate": {
+      "lat": 44.9808,
+      "lon": 16.7136
+    },
+    "stanovnika": 9600
+  },
+  "Bihać": {
+    "koordinate": {
+      "lat": 44.8167,
+      "lon": 15.8667
+    },
+    "stanovnika": 7200
+  },
+  "Livno": {
+    "koordinate": {
+      "lat": 43.8269,
+      "lon": 17.0075
+    },
+    "stanovnika": 6100
+  },
+  "Jajce": {
+    "koordinate": {
+      "lat": 44.3422,
+      "lon": 17.2694
+    },
+    "stanovnika": 5200
+  },
+  "Mrkonjić Grad": {
+    "koordinate": {
+      "lat": 44.4175,
+      "lon": 17.0828
+    },
+    "stanovnika": 4200
+  },
+  "Foča": {
+    "koordinate": {
+      "lat": 43.5050,
+      "lon": 18.7786
+    },
+    "stanovnika": 3500
+  },
+  "Trebinje": {
+    "koordinate": {
+      "lat": 42.7119,
+      "lon": 18.3436
+    },
+    "stanovnika": 5800
+  },
+  "Konjic": {
+    "koordinate": {
+      "lat": 43.6514,
+      "lon": 17.9614
+    },
+    "stanovnika": 4800
+  },
+  "Bugojno": {
+    "koordinate": {
+      "lat": 44.0586,
+      "lon": 17.4508
+    },
+    "stanovnika": 4300
+  },
+  "Goražde": {
+    "koordinate": {
+      "lat": 43.6670,
+      "lon": 18.9764
+    },
+    "stanovnika": 3200
+  },
+  "Visoko": {
+    "koordinate": {
+      "lat": 43.9886,
+      "lon": 18.1781
+    },
+    "stanovnika": 5200
+  },
+  "Kakanj": {
+    "koordinate": {
+      "lat": 44.1331,
+      "lon": 18.1229
+    },
+    "stanovnika": 4700
+  },
+  "Zavidovići": {
+    "koordinate": {
+      "lat": 44.4450,
+      "lon": 18.1497
+    },
+    "stanovnika": 4100
+  },
+  "Maglaj": {
+    "koordinate": {
+      "lat": 44.5475,
+      "lon": 18.1025
+    },
+    "stanovnika": 3900
+  },
+  "Gradačac": {
+    "koordinate": {
+      "lat": 44.8797,
+      "lon": 18.4256
+    },
+    "stanovnika": 5200
+  },
+  "Derventa": {
+    "koordinate": {
+      "lat": 44.9808,
+      "lon": 17.9081
+    },
+    "stanovnika": 7300
+  },
+  "Bosanska Gradiška": {
+    "koordinate": {
+      "lat": 45.1447,
+      "lon": 17.2542
+    },
+    "stanovnika": 7600
+  },
+  "Laktaši": {
+    "koordinate": {
+      "lat": 44.9060,
+      "lon": 17.3010
+    },
+    "stanovnika": 3100
+  },
+  "Knin": {
+    "koordinate": {
+      "lat": 44.0406,
+      "lon": 16.1966
+    },
+    "stanovnika": 6100
+  },
+  "Sinj": {
+    "koordinate": {
+      "lat": 43.7036,
+      "lon": 16.6403
+    },
+    "stanovnika": 6800
+  },
+  "Imotski": {
+    "koordinate": {
+      "lat": 43.4461,
+      "lon": 17.2167
+    },
+    "stanovnika": 3400
+  },
+  "Dubrovnik": {
+    "koordinate": {
+      "lat": 42.6507,
+      "lon": 18.0944
+    },
+    "stanovnika": 21000
+  },
+  "Slavonski Brod": {
+    "koordinate": {
+      "lat": 45.1603,
+      "lon": 18.0156
+    },
+    "stanovnika": 11500
+  },
+  "Vinkovci": {
+    "koordinate": {
+      "lat": 45.2886,
+      "lon": 18.8040
+    },
+    "stanovnika": 10800
+  },
+  "Koprivnica": {
+    "koordinate": {
+      "lat": 46.1631,
+      "lon": 16.8335
+    },
+    "stanovnika": 7200
+  },
+  "Bjelovar": {
+    "koordinate": {
+      "lat": 45.8988,
+      "lon": 16.8422
+    },
+    "stanovnika": 8400
+  },
+  "Gospić": {
+    "koordinate": {
+      "lat": 44.5469,
+      "lon": 15.3745
+    },
+    "stanovnika": 5700
+  },
+  "Koper": {
+    "koordinate": {
+      "lat": 45.5481,
+      "lon": 13.7300
+    },
+    "stanovnika": 16000
+  },
+  "Celje": {
+    "koordinate": {
+      "lat": 46.2397,
+      "lon": 15.2677
+    },
+    "stanovnika": 36000
+  },
+  "Kranj": {
+    "koordinate": {
+      "lat": 46.2389,
+      "lon": 14.3556
+    },
+    "stanovnika": 22000
+  },
+  "Novo Mesto": {
+    "koordinate": {
+      "lat": 45.8030,
+      "lon": 15.1689
+    },
+    "stanovnika": 15000
+  },
+  "Velenje": {
+    "koordinate": {
+      "lat": 46.3592,
+      "lon": 15.1103
+    },
+    "stanovnika": 6000
+  },
+  "Ptuj": {
+    "koordinate": {
+      "lat": 46.4200,
+      "lon": 15.8702
+    },
+    "stanovnika": 8800
+  },
+  "Velika Gorica": {
+    "koordinate": {
+      "lat": 45.7120,
+      "lon": 16.0750
+    },
+    "stanovnika": 6200
+  },
+  "Kumanovo": {
+    "koordinate": {
+      "lat": 42.1322,
+      "lon": 21.7144
+    },
+    "stanovnika": 17800
+  },
+  "Tetovo": {
+    "koordinate": {
+      "lat": 42.0097,
+      "lon": 20.9716
+    },
+    "stanovnika": 14800
+  },
+  "Prilep": {
+    "koordinate": {
+      "lat": 41.3451,
+      "lon": 21.5550
+    },
+    "stanovnika": 13400
+  },
+  "Ohrid": {
+    "koordinate": {
+      "lat": 41.1231,
+      "lon": 20.8016
+    },
+    "stanovnika": 9400
+  },
+  "Štip": {
+    "koordinate": {
+      "lat": 41.7461,
+      "lon": 22.1995
+    },
+    "stanovnika": 10500
+  },
+  "Strumica": {
+    "koordinate": {
+      "lat": 41.4378,
+      "lon": 22.6427
+    },
+    "stanovnika": 7800
+  },
+  "Gostivar": {
+    "koordinate": {
+      "lat": 41.7960,
+      "lon": 20.9082
+    },
+    "stanovnika": 7100
+  },
+  "Kavadarci": {
+    "koordinate": {
+      "lat": 41.4331,
+      "lon": 22.0119
+    },
+    "stanovnika": 6200
+  },
+  "Nikšić": {
+    "koordinate": {
+      "lat": 42.7731,
+      "lon": 18.9445
+    },
+    "stanovnika": 18300
+  },
+  "Cetinje": {
+    "koordinate": {
+      "lat": 42.3906,
+      "lon": 18.9142
+    },
+    "stanovnika": 9500
+  },
+  "Bar": {
+    "koordinate": {
+      "lat": 42.0931,
+      "lon": 19.1003
+    },
+    "stanovnika": 11400
+  },
+  "Herceg Novi": {
+    "koordinate": {
+      "lat": 42.4531,
+      "lon": 18.5375
+    },
+    "stanovnika": 8500
+  },
+  "Titograd": {
+    "koordinate": {
+      "lat": 42.4304,
+      "lon": 19.2594
+    },
+    "stanovnika": 10700
+  },
+  "Podgorica": {
+    "koordinate": {
+      "lat": 42.4410,
+      "lon": 19.2620
+    },
+    "stanovnika": 10700
+  },
+  "Bijelo Polje": {
+    "koordinate": {
+      "lat": 42.8217,
+      "lon": 19.7553
+    },
+    "stanovnika": 7800
+  },
+  "Prizren": {
+    "koordinate": {
+      "lat": 42.2139,
+      "lon": 20.7397
+    },
+    "stanovnika": 13400
+  },
+  "Gnjilane": {
+    "koordinate": {
+      "lat": 42.4635,
+      "lon": 21.4694
+    },
+    "stanovnika": 10200
+  },
+  "Mitrovica": {
+    "koordinate": {
+      "lat": 42.8914,
+      "lon": 20.8650
+    },
+    "stanovnika": 10600
+  },
+  "Peć": {
+    "koordinate": {
+      "lat": 42.6591,
+      "lon": 20.2883
+    },
+    "stanovnika": 7600
+  },
+  "Đakovica": {
+    "koordinate": {
+      "lat": 42.3803,
+      "lon": 20.4308
+    },
+    "stanovnika": 8100
+  },
+  "Foča": {
+    "koordinate": {
+      "lat": 43.5050,
+      "lon": 18.7786
+    },
+    "stanovnika": 3500
+  },
+  "Šipovo": {
+    "koordinate": {
+      "lat": 44.2839,
+      "lon": 17.0864
+    },
+    "stanovnika": 2800
+  },
+  "Drvar": {
+    "koordinate": {
+      "lat": 44.3739,
+      "lon": 16.3808
+    },
+    "stanovnika": 2400
+  },
+  "Bosansko Grahovo": {
+    "koordinate": {
+      "lat": 44.1797,
+      "lon": 16.3639
+    },
+    "stanovnika": 1700
+  },
+  "Sinj": {
+    "koordinate": {
+      "lat": 43.7036,
+      "lon": 16.6403
+    },
+    "stanovnika": 6800
+  },
+  "Imotski": {
+    "koordinate": {
+      "lat": 43.4461,
+      "lon": 17.2167
+    },
+    "stanovnika": 3400
+  },
+  "Tomislavgrad": {
+    "koordinate": {
+      "lat": 43.7186,
+      "lon": 17.2250
+    },
+    "stanovnika": 3800
+  },
+  "Šibenik": {
+    "koordinate": {
+      "lat": 43.7350,
+      "lon": 15.8952
+    },
+    "stanovnika": 14000
+  },
+  "Zadar": {
+    "koordinate": {
+      "lat": 44.1194,
+      "lon": 15.2314
+    },
+    "stanovnika": 25000
+  },
+  "Pula": {
+    "koordinate": {
+      "lat": 44.8666,
+      "lon": 13.8496
+    },
+    "stanovnika": 45000
+  },
+  "Karlovac": {
+    "koordinate": {
+      "lat": 45.4929,
+      "lon": 15.5553
+    },
+    "stanovnika": 27000
+  },
+  "Sisak": {
+    "koordinate": {
+      "lat": 45.4872,
+      "lon": 16.3758
+    },
+    "stanovnika": 32000
+  },
+  "Varaždin": {
+    "koordinate": {
+      "lat": 46.3057,
+      "lon": 16.3366
+    },
+    "stanovnika": 30000
+  },
+  "Koprivnica": {
+    "koordinate": {
+      "lat": 46.1631,
+      "lon": 16.8335
+    },
+    "stanovnika": 7200
+  },
+  "Bjelovar": {
+    "koordinate": {
+      "lat": 45.8988,
+      "lon": 16.8422
+    },
+    "stanovnika": 8400
+  }
+}

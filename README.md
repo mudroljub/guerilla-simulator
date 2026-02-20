@@ -25,7 +25,13 @@
 
 ## Technology
 
-- svg ili canvas renderer? svg
-- react ili vanila? react
-- game loop ili samo events? react
-- state - redux ili globalni state + game loop? react + useReducer
+- svg renderer
+- react + typescript
+- useReducer + local state
+
+## TODO
+
+- naći lokacije gradova + broj stanovnika
+- renderovati gradove na pozadini
+	- naći render funkciju iz partisan games
+- napraviti react projekat
