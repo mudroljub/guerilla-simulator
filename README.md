@@ -54,6 +54,7 @@ npm start
 	- ostale na hover ili tako nešto
 	- prikazivati tačku grada
 	- tačka srazmerno veličini
+- pozicija da bude objekat
 - stanja 
 	- dodati stanja
 	- dodati promenu stanja na klik

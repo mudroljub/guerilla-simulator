@@ -12,8 +12,8 @@ interface ScrollPos {
   top: number;
 }
 
-const MAP_WIDTH = 2000;
-const MAP_HEIGHT = 2000;
+const MAP_WIDTH = 2500;
+const MAP_HEIGHT = 2500;
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);

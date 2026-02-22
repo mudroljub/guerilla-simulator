@@ -7,6 +7,14 @@ interface Props {
   region: IRegion;
 }
 
+const CIRCLE_SIZES = [2, 4, 6, 8, 10];
+
+export function getRadius(normalizedSize: number): number {
+  const biased = Math.pow(normalizedSize, 0.3) // faktor nagnutosti
+  const index = Math.floor(biased * CIRCLE_SIZES.length)
+  return CIRCLE_SIZES[Math.min(index, CIRCLE_SIZES.length - 1)]
+}
+
 function getPathData(polygon: [number, number][], center: [number, number]): string {
   return polygon
     .map(([x, y], idx) => {
@@ -30,8 +38,13 @@ export default function Region({ region }: Props) {
         d={pathData}
         className={styles.regionShape}
       />
-      {
-        region.size > 0.01 &&
+      <circle
+        cx={region.position[0]}
+        cy={region.position[1]}
+        r={getRadius(region.size)}
+        className={styles.regionCenter}
+      />
+      {region.size > 0.01 && (
         <text
           x={region.position[0]}
           y={region.position[1]}
@@ -41,7 +54,7 @@ export default function Region({ region }: Props) {
         >
           {region.name}
         </text>
-      }
+      )}
     </g>
   );
 }
