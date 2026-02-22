@@ -3,6 +3,7 @@ import styles from './Region.module.scss';
 
 const MAX_RADIUS = 150;
 const RADIUS_STEPS = [2, 4, 6, 8, 10];
+const TEXT_OFFSET_Y = -10;
 
 interface Props {
   region: IRegion;
@@ -46,11 +47,9 @@ export default function Region({ region }: Props) {
       {region.size > 0.01 && (
         <text
           x={region.position[0]}
-          y={region.position[1]}
+          y={region.position[1] + TEXT_OFFSET_Y} 
           textAnchor="middle"
-          alignmentBaseline="middle"
           className={styles.regionLabel}
-          style={{ overflow: 'visible', whiteSpace: 'pre' }}
         >
           {region.name}
         </text>

@@ -51,9 +51,10 @@ npm start
 	- dodati manja partizanska mesta sa znaka ✓
 - nazivi
 	- prikazivati samo nazive većih gradova ✓
-	- ostale na hover ili tako nešto
-	- prikazivati tačku grada
-	- tačka srazmerno veličini
+		- ostale na hover ili tako nešto
+	- prikazivati tačku grada ✓
+	- tačka srazmerno veličini ✓
+	- ne preklapati tačku i naziv
 - pozicija da bude objekat
 - stanja 
 	- dodati stanja
