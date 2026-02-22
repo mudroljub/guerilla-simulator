@@ -1,0 +1,16 @@
+.regionShape {
+  fill: #ccd1be;
+  stroke: black;
+  stroke-width: 1;
+  transition: fill 0.15s ease;
+}
+
+.region:hover .regionShape {
+  fill: #debac1; /* #cc5263 */
+  // cursor: pointer;
+}
+
+.regionLabel {
+  font-size: 14px;
+  pointer-events: none;
+}

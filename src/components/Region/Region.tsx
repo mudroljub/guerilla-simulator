@@ -1,4 +1,5 @@
 import { IRegion } from '../../types/types';
+import styles from './Region.module.scss';
 
 const MAX_RADIUS = 200;
 
@@ -22,15 +23,19 @@ function getPathData(polygon: [number, number][], center: [number, number]): str
 
 export default function Region({ region }: Props) {
   const pathData = getPathData(region.polygon, region.position);
+
   return (
-    <g>
-      <path d={pathData} fill="none" stroke="black" strokeWidth={1} />
+    <g className={styles.region}>
+      <path
+        d={pathData}
+        className={styles.regionShape}
+      />
       <text
         x={region.position[0]}
         y={region.position[1]}
         textAnchor="middle"
         alignmentBaseline="middle"
-        style={{ fontSize: 14, pointerEvents: 'none' }}
+        className={styles.regionLabel}
       >
         {region.name}
       </text>
