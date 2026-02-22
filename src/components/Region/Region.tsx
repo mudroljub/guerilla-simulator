@@ -1,21 +1,22 @@
+import { IRegion } from '../../types/settlements';
+
 interface Props {
   pathData: string;
-  point: [number, number];
-  name: string;
+  region: IRegion;
 }
 
-export default function Region({ pathData, point, name }: Props) {
+export default function Region({ pathData, region }: Props) {
   return (
     <g>
       <path d={pathData} fill="none" stroke="black" strokeWidth={1} />
       <text
-        x={point[0]}
-        y={point[1]}
+        x={region.position[0]}
+        y={region.position[1]}
         textAnchor="middle"
         alignmentBaseline="middle"
         style={{ fontSize: 14, pointerEvents: 'none' }}
       >
-        {name}
+        {region.name}
       </text>
     </g>
   );

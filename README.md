@@ -44,5 +44,6 @@ npm start
 	- fiksirati aspect ratio 1:1 i smisliti zoom (scroll) ✓
 - implementirati voronoi oblasti
 	- dodati voronoi ✓
-	- dodati granice države
-	- napraviti komponentu za oblast
+	- napraviti komponentu za oblast ✓
+	- dodati granice države (ili neki limit ✓)
+	- veličinu mape setovati na jednom mestu, ne u css-u
