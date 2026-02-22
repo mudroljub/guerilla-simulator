@@ -132,13 +132,6 @@
     },
     "stanovnika": 30700
   },
-  "Titograd": {
-    "koordinate": {
-      "lat": 42.4304,
-      "lon": 19.2594
-    },
-    "stanovnika": 10700
-  },
   "Sombor": {
     "koordinate": {
       "lat": 45.7739,
@@ -614,13 +607,6 @@
       "lon": 18.5375
     },
     "stanovnika": 8500
-  },
-  "Titograd": {
-    "koordinate": {
-      "lat": 42.4304,
-      "lon": 19.2594
-    },
-    "stanovnika": 10700
   },
   "Podgorica": {
     "koordinate": {

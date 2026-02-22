@@ -43,7 +43,6 @@ export default function Map() {
 
   const handleMouseUp = () => setDragging(false);
 
-  // Voronoi tačke u px
   const points = useMemo(
     () => Object.values(gradovi).map(g => [g.position.x * MAP_WIDTH, g.position.y * MAP_HEIGHT]) as [number, number][],
     []
@@ -67,35 +66,34 @@ export default function Map() {
             const polygon = voronoi.cellPolygon(i);
             if (!polygon) return null;
 
-            // Clip poligona na max radijus od centra
             const pathData = polygon
               .map(([x, y], idx) => {
                 const dx = x - point[0];
                 const dy = y - point[1];
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const scale = dist > MAX_RADIUS ? MAX_RADIUS / dist : 1;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const scale = distance > MAX_RADIUS ? MAX_RADIUS / distance : 1;
                 const nx = point[0] + dx * scale;
                 const ny = point[1] + dy * scale;
                 return `${idx === 0 ? 'M' : 'L'}${nx},${ny}`;
               })
               .join(' ') + ' Z';
 
-            return <path key={i} d={pathData} fill="none" stroke="black" strokeWidth={1} />;
+            return (
+              <g key={i}>
+                <path d={pathData} fill="none" stroke="black" strokeWidth={1} />
+                <text
+                  x={point[0]}
+                  y={point[1]}
+                  textAnchor="middle"
+                  alignmentBaseline="middle"
+                  style={{ fontSize: 14, pointerEvents: 'none' }}
+                >
+                  {Object.keys(gradovi)[i]}
+                </text>
+              </g>
+            )
           })}
         </svg>
-
-        {Object.entries(gradovi).map(([naziv, grad]: [string, Settlement]) =>
-          <div
-            key={naziv}
-            className={styles.grad}
-            style={{
-              top: `${grad.position.y * MAP_HEIGHT}px`,
-              left: `${grad.position.x * MAP_WIDTH}px`
-            }}
-          >
-            {naziv}
-          </div>
-        )}
       </div>
     </div>
   );
