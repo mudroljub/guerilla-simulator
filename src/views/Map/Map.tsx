@@ -18,6 +18,7 @@ interface ScrollPos {
 
 const MAP_WIDTH = 2000;
 const MAP_HEIGHT = 2000;
+const MAX_RADIUS = 200; // maksimalna udaljenost poligona od centra grada u px
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,9 +43,11 @@ export default function Map() {
 
   const handleMouseUp = () => setDragging(false);
 
-  const points = useMemo(() =>
-    Object.values(gradovi).map(g => [g.position.x * MAP_WIDTH, g.position.y * MAP_HEIGHT] as [number, number])
-    , []);
+  // Voronoi tačke u px
+  const points = useMemo(
+    () => Object.values(gradovi).map(g => [g.position.x * MAP_WIDTH, g.position.y * MAP_HEIGHT]) as [number, number][],
+    []
+  );
 
   const delaunay = useMemo(() => Delaunay.from(points), [points]);
   const voronoi = useMemo(() => delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]), [delaunay]);
@@ -60,10 +63,23 @@ export default function Map() {
     >
       <div className={styles.map}>
         <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: 'absolute', top: 0, left: 0 }}>
-          {points.map((_, i) => {
+          {points.map((point, i) => {
             const polygon = voronoi.cellPolygon(i);
             if (!polygon) return null;
-            const pathData = polygon.map(([x, y], idx) => `${idx === 0 ? 'M' : 'L'}${x},${y}`).join(' ') + ' Z';
+
+            // Clip poligona na max radijus od centra
+            const pathData = polygon
+              .map(([x, y], idx) => {
+                const dx = x - point[0];
+                const dy = y - point[1];
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const scale = dist > MAX_RADIUS ? MAX_RADIUS / dist : 1;
+                const nx = point[0] + dx * scale;
+                const ny = point[1] + dy * scale;
+                return `${idx === 0 ? 'M' : 'L'}${nx},${ny}`;
+              })
+              .join(' ') + ' Z';
+
             return <path key={i} d={pathData} fill="none" stroke="black" strokeWidth={1} />;
           })}
         </svg>
@@ -73,8 +89,8 @@ export default function Map() {
             key={naziv}
             className={styles.grad}
             style={{
-              top: `${grad.position.y * 100}%`,
-              left: `${grad.position.x * 100}%`
+              top: `${grad.position.y * MAP_HEIGHT}px`,
+              left: `${grad.position.x * MAP_WIDTH}px`
             }}
           >
             {naziv}

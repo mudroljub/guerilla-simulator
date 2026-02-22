@@ -43,3 +43,6 @@ npm start
 	- naći render funkciju iz partisan games ✓
 	- fiksirati aspect ratio 1:1 i smisliti zoom (scroll) ✓
 - implementirati voronoi oblasti
+	- dodati voronoi ✓
+	- dodati granice države
+	- napraviti komponentu za oblast
