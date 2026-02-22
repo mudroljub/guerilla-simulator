@@ -49,7 +49,7 @@ npm start
 	- veličinu mape setovati na jednom mestu, ne u css-u ✓
 - podaci
 	- dodati manja partizanska mesta sa znaka ✓
-	- pronaći duplikate
+	- pronaći duplikate ✓
 - nazivi
 	- prikazivati samo nazive većih gradova ✓
 		- ostale na hover ili tako nešto
