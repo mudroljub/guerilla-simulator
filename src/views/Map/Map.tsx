@@ -2,7 +2,8 @@ import React, { useRef, useState, useMemo } from "react";
 import { Delaunay } from "d3-delaunay";
 import gradoviJSON from '../../data/gradovi_normalizovano.json';
 import styles from './Map.module.scss';
-import { Settlement, Settlements } from '../../types/settlements';
+import { Settlements } from '../../types/settlements';
+import Region from '../../components/Region/Region';
 
 const gradovi: Settlements = gradoviJSON;
 
@@ -18,7 +19,23 @@ interface ScrollPos {
 
 const MAP_WIDTH = 2000;
 const MAP_HEIGHT = 2000;
-const MAX_RADIUS = 200; // maksimalna udaljenost poligona od centra grada u px
+const MAX_RADIUS = 200;
+
+function getPathData(polygon: [number, number][], center: [number, number]): string {
+  return (
+    polygon
+      .map(([x, y], idx) => {
+        const dx = x - center[0];
+        const dy = y - center[1];
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const scale = distance > MAX_RADIUS ? MAX_RADIUS / distance : 1;
+        const nx = center[0] + dx * scale;
+        const ny = center[1] + dy * scale;
+        return `${idx === 0 ? 'M' : 'L'}${nx},${ny}`;
+      })
+      .join(' ') + ' Z'
+  );
+}
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,6 +68,8 @@ export default function Map() {
   const delaunay = useMemo(() => Delaunay.from(points), [points]);
   const voronoi = useMemo(() => delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]), [delaunay]);
 
+  const cityNames = Object.keys(gradovi);
+
   return (
     <div
       ref={containerRef}
@@ -66,32 +85,10 @@ export default function Map() {
             const polygon = voronoi.cellPolygon(i);
             if (!polygon) return null;
 
-            const pathData = polygon
-              .map(([x, y], idx) => {
-                const dx = x - point[0];
-                const dy = y - point[1];
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const scale = distance > MAX_RADIUS ? MAX_RADIUS / distance : 1;
-                const nx = point[0] + dx * scale;
-                const ny = point[1] + dy * scale;
-                return `${idx === 0 ? 'M' : 'L'}${nx},${ny}`;
-              })
-              .join(' ') + ' Z';
+            const pathData = getPathData(polygon, point);
+            const name = cityNames[i];
 
-            return (
-              <g key={i}>
-                <path d={pathData} fill="none" stroke="black" strokeWidth={1} />
-                <text
-                  x={point[0]}
-                  y={point[1]}
-                  textAnchor="middle"
-                  alignmentBaseline="middle"
-                  style={{ fontSize: 14, pointerEvents: 'none' }}
-                >
-                  {Object.keys(gradovi)[i]}
-                </text>
-              </g>
-            )
+            return <Region key={i} pathData={pathData} point={point} name={name} />;
           })}
         </svg>
       </div>

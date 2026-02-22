@@ -3,9 +3,9 @@ export interface Position {
   y: number;
 }
 
-export interface Settlement {
+export interface SettlementData {
   position: Position;
   size: number;
 }
 
-export type Settlements = Record<string, Settlement>;
+export type Settlements = Record<string, SettlementData>;
