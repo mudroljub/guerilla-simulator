@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
-import data from '../../data/gradovi_normalizovano.json';
+import React, { useRef, useState, useMemo } from "react";
+import { Delaunay } from "d3-delaunay";
+import gradoviJSON from '../../data/gradovi_normalizovano.json';
 import styles from './Map.module.scss';
-import { Settlement, Settlements } from '../../types';
+import { Settlement, Settlements } from '../../types/settlements';
 
-const gradovi: Settlements = data;
+const gradovi: Settlements = gradoviJSON;
 
 interface DragPos {
   x: number;
@@ -14,6 +15,9 @@ interface ScrollPos {
   left: number;
   top: number;
 }
+
+const MAP_WIDTH = 2000;
+const MAP_HEIGHT = 2000;
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,6 +42,13 @@ export default function Map() {
 
   const handleMouseUp = () => setDragging(false);
 
+  const points = useMemo(() =>
+    Object.values(gradovi).map(g => [g.position.x * MAP_WIDTH, g.position.y * MAP_HEIGHT] as [number, number])
+    , []);
+
+  const delaunay = useMemo(() => Delaunay.from(points), [points]);
+  const voronoi = useMemo(() => delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]), [delaunay]);
+
   return (
     <div
       ref={containerRef}
@@ -48,19 +59,28 @@ export default function Map() {
       onMouseLeave={handleMouseUp}
     >
       <div className={styles.map}>
-        {Object.entries(gradovi).map(([key, grad]: [string, Settlement]) =>
+        <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: 'absolute', top: 0, left: 0 }}>
+          {points.map((_, i) => {
+            const polygon = voronoi.cellPolygon(i);
+            if (!polygon) return null;
+            const pathData = polygon.map(([x, y], idx) => `${idx === 0 ? 'M' : 'L'}${x},${y}`).join(' ') + ' Z';
+            return <path key={i} d={pathData} fill="none" stroke="black" strokeWidth={1} />;
+          })}
+        </svg>
+
+        {Object.entries(gradovi).map(([naziv, grad]: [string, Settlement]) =>
           <div
-            key={key}
+            key={naziv}
             className={styles.grad}
             style={{
               top: `${grad.position.y * 100}%`,
               left: `${grad.position.x * 100}%`
             }}
           >
-            {key}
+            {naziv}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
