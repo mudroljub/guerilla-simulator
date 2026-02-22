@@ -30,15 +30,18 @@ export default function Region({ region }: Props) {
         d={pathData}
         className={styles.regionShape}
       />
-      <text
-        x={region.position[0]}
-        y={region.position[1]}
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        className={styles.regionLabel}
-      >
-        {region.name}
-      </text>
+      {
+        region.size > 0.01 &&
+        <text
+          x={region.position[0]}
+          y={region.position[1]}
+          textAnchor="middle"
+          alignmentBaseline="middle"
+          className={styles.regionLabel}
+        >
+          {region.name}
+        </text>
+      }
     </g>
   );
 }

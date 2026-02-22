@@ -49,6 +49,11 @@ npm start
 	- veličinu mape setovati na jednom mestu, ne u css-u ✓
 - podaci
 	- dodati manja partizanska mesta sa znaka ✓
+- nazivi
+	- prikazivati samo nazive većih gradova ✓
+	- ostale na hover ili tako nešto
+	- prikazivati tačku grada
+	- tačka srazmerno veličini
 - stanja 
 	- dodati stanja
 	- dodati promenu stanja na klik

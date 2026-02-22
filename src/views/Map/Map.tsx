@@ -24,6 +24,7 @@ export default function Map() {
   const regions: IRegion[] = useMemo(() => {
     const objects = Object.entries(gradovi).map(([name, grad]) => ({
       name,
+      size: grad.size,
       position: [grad.position.x * MAP_WIDTH, grad.position.y * MAP_HEIGHT] as [number, number]
     }));
 
