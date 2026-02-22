@@ -1,10 +1,10 @@
-import React from 'react';
 import './App.css';
+import Main from './views/Main/Main'
 
 function App() {
   return (
     <div className="App">
-      <h1>Zdravo Svete</h1>
+      <Main />
     </div>
   );
 }

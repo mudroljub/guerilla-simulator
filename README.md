@@ -1,5 +1,11 @@
 # Guerilla simulator
 
+## Dev
+
+```
+npm start
+```
+
 ## Game Document
 
 - u pozadini mapa yu
