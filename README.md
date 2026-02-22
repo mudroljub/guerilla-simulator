@@ -52,13 +52,16 @@ npm start
 	- pronaći duplikate ✓
 - nazivi
 	- prikazivati samo nazive većih gradova ✓
-		- ostale na hover ili tako nešto
 	- prikazivati tačku grada ✓
 	- tačka srazmerno veličini ✓
 	- ne preklapati tačku i naziv ✓
+	- prikazivati naziv na hover
 - pozicija da bude objekat ✓
 - stanja 
 	- dodati stanja
 	- dodati promenu stanja na klik
-- BUG: zbog MAX_RADIUS ne graniče se susedni periferni gradovi
-	
+
+### BUGS
+
+- zbog MAX_RADIUS ne graniče se susedni periferni gradovi
+- granice regije seku naziv
