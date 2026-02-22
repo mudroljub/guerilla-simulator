@@ -46,4 +46,11 @@ npm start
 	- dodati voronoi ✓
 	- napraviti komponentu za oblast ✓
 	- dodati granice države (ili neki limit ✓)
-	- veličinu mape setovati na jednom mestu, ne u css-u
+	- veličinu mape setovati na jednom mestu, ne u css-u ✓
+- podaci
+	- dodati manja partizanska mesta sa znaka ✓
+- stanja 
+	- dodati stanja
+	- dodati promenu stanja na klik
+- BUG: zbog MAX_RADIUS ne graniče se susedni periferni gradovi
+	

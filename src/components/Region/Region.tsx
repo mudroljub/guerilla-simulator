@@ -1,7 +1,7 @@
 import { IRegion } from '../../types/types';
 import styles from './Region.module.scss';
 
-const MAX_RADIUS = 200;
+const MAX_RADIUS = 150;
 
 interface Props {
   region: IRegion;
