@@ -1,0 +1,15 @@
+.mapContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.map {
+  position: relative;
+  width: 2000px;
+  height: 2000px;
+  // overflow: auto;
+  cursor: grab; 
+  // background: url('/tvoja-mapa.png') no-repeat center/cover;
+}

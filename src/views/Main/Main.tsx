@@ -1,6 +1,6 @@
 import { Properties } from 'csstype';
 import gradovi from '../../data/gradovi_normalizovano.json'
-console.log(gradovi);
+import styles from './Main.module.scss'
 
 const html = Object.entries(gradovi).map(([naziv, grad]) => {
   const style: Properties  = {
@@ -10,7 +10,7 @@ const html = Object.entries(gradovi).map(([naziv, grad]) => {
     left: `${grad.pozicija.x * 100}%`,
   }
   return (
-    <div className='menu-btn' style={style}>
+    <div style={style}>
       <br/>{naziv}
     </div>
   )
@@ -18,8 +18,8 @@ const html = Object.entries(gradovi).map(([naziv, grad]) => {
 
 export default function Main() {
   return (
-    <>
+    <div className={styles.map}>
       {html}
-    </>
+    </div>
   )
 }
