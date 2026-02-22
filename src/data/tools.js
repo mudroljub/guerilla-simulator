@@ -54,8 +54,8 @@ const obradjeno = Object.fromEntries(
   Object.entries(gradovi).map(([naziv, grad]) => [
     naziv,
    {
-    pozicija: coordToPercent(grad.koordinate, latRange, lngRange),
-    velicina: sizeToPercent(grad.stanovnika, najmanji, najveci)
+    position: coordToPercent(grad.koordinate, latRange, lngRange),
+    size: sizeToPercent(grad.stanovnika, najmanji, najveci)
    }
   ])
 )

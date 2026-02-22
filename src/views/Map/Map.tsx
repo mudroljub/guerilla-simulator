@@ -1,12 +1,25 @@
 import React, { useRef, useState } from "react";
-import gradovi from '../../data/gradovi_normalizovano.json';
+import data from '../../data/gradovi_normalizovano.json';
 import styles from './Map.module.scss';
+import { Settlement, Settlements } from '../../types';
+
+const gradovi: Settlements = data;
+
+interface DragPos {
+  x: number;
+  y: number;
+}
+
+interface ScrollPos {
+  left: number;
+  top: number;
+}
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dragging, setDragging] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const [startScroll, setStartScroll] = useState({ left: 0, top: 0 });
+  const [dragging, setDragging] = useState<boolean>(false);
+  const [startPos, setStartPos] = useState<DragPos>({ x: 0, y: 0 });
+  const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -35,19 +48,19 @@ export default function Map() {
       onMouseLeave={handleMouseUp}
     >
       <div className={styles.map}>
-        {Object.entries(gradovi).map(([naziv, grad]) =>
+        {Object.entries(gradovi).map(([key, grad]: [string, Settlement]) =>
           <div
-            key={naziv}
+            key={key}
             className={styles.grad}
             style={{
-              top: `${grad.pozicija.y * 100}%`,
-              left: `${grad.pozicija.x * 100}%`
+              top: `${grad.position.y * 100}%`,
+              left: `${grad.position.x * 100}%`
             }}
           >
-            {naziv}
+            {key}
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }
