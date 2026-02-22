@@ -25,10 +25,13 @@ export default function Map() {
     const objects = Object.entries(gradovi).map(([name, grad]) => ({
       name,
       size: grad.size,
-      position: [grad.position.x * MAP_WIDTH, grad.position.y * MAP_HEIGHT] as [number, number]
+      position: {
+        x: grad.position.x * MAP_WIDTH,
+        y: grad.position.y * MAP_HEIGHT,
+      }
     }));
 
-    const delaunay = Delaunay.from(objects.map(o => o.position));
+    const delaunay = Delaunay.from(objects.map(o => [o.position.x, o.position.y]));
     const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]);
 
     return objects

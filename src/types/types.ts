@@ -10,9 +10,7 @@ export interface SettlementData {
 
 export type Settlements = Record<string, SettlementData>;
 
-export interface IRegion {
+export interface IRegion extends SettlementData {
   name: string;
-  position: [number, number];
-  size: number;
   polygon: [number, number][];
 }
