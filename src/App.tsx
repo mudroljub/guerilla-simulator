@@ -1,10 +1,10 @@
 import './App.css';
-import Main from './views/Main/Main'
+import Map from './views/Map/Map'
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <Map />
     </div>
   );
 }

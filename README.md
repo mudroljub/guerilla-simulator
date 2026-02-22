@@ -37,8 +37,9 @@ npm start
 
 ## TODO
 
-- napraviti react projekat
-- naći lokacije gradova + broj stanovnika
-- renderovati gradove na pozadini
-	- naći render funkciju iz partisan games
-	- fiksirati aspect ratio 1:1 i smisliti zoom (scroll) 
+- napraviti react projekat ✓
+- naći lokacije gradova + broj stanovnika ✓
+- renderovati gradove na pozadini ✓
+	- naći render funkciju iz partisan games ✓
+	- fiksirati aspect ratio 1:1 i smisliti zoom (scroll) ✓
+- implementirati voronoi oblasti
