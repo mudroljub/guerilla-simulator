@@ -1,18 +1,25 @@
-import data from '../../data/gradovi_normalizovano.json'
-console.log(data);
+import { Properties } from 'csstype';
+import gradovi from '../../data/gradovi_normalizovano.json'
+console.log(gradovi);
 
-// očekuje procente u data
-// const renderIcon = (key, data) => {
-//   const style = `"transform: translate(-50%, -50%); top: ${data.procenti.y * 100}%; left: ${data.procenti.x * 100}%;"`
-//   return /* html */`
-//     <div value='${key}' class='menu-btn js-start' style=${style}>
-//       <br>${data.name}
-//     </div>
-//   `
-// }
+const html = Object.entries(gradovi).map(([naziv, grad]) => {
+  const style: Properties  = {
+    position: 'absolute',
+    transform: 'translate(-50%, -50%)', 
+    top: `${grad.pozicija.y * 100}%`,
+    left: `${grad.pozicija.x * 100}%`,
+  }
+  return (
+    <div className='menu-btn' style={style}>
+      <br/>{naziv}
+    </div>
+  )
+})
 
 export default function Main() {
   return (
-    <h1>Zdravo Svete</h1>
+    <>
+      {html}
+    </>
   )
 }
