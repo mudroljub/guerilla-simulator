@@ -2,17 +2,10 @@ import { IRegion } from '../../types/types';
 import styles from './Region.module.scss';
 
 const MAX_RADIUS = 150;
+const RADIUS_STEPS = [2, 4, 6, 8, 10];
 
 interface Props {
   region: IRegion;
-}
-
-const CIRCLE_SIZES = [2, 4, 6, 8, 10];
-
-export function getRadius(normalizedSize: number): number {
-  const biased = Math.pow(normalizedSize, 0.3) // faktor nagnutosti
-  const index = Math.floor(biased * CIRCLE_SIZES.length)
-  return CIRCLE_SIZES[Math.min(index, CIRCLE_SIZES.length - 1)]
 }
 
 function getPathData(polygon: [number, number][], center: [number, number]): string {
@@ -29,11 +22,17 @@ function getPathData(polygon: [number, number][], center: [number, number]): str
     .join(' ') + ' Z';
 }
 
+function getRadius(normalizedSize: number): number {
+  const biased = Math.pow(normalizedSize, 0.3);
+  const index = Math.floor(biased * RADIUS_STEPS.length);
+  return RADIUS_STEPS[Math.min(index, RADIUS_STEPS.length - 1)];
+}
+
 export default function Region({ region }: Props) {
   const pathData = getPathData(region.polygon, region.position);
 
   return (
-    <g className={styles.region}>
+    <g className={styles.region} style={{ overflow: 'visible' }}>
       <path
         d={pathData}
         className={styles.regionShape}
@@ -51,6 +50,7 @@ export default function Region({ region }: Props) {
           textAnchor="middle"
           alignmentBaseline="middle"
           className={styles.regionLabel}
+          style={{ overflow: 'visible', whiteSpace: 'pre' }}
         >
           {region.name}
         </text>
