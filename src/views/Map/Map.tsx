@@ -2,15 +2,10 @@ import React, { useRef, useState, useMemo } from "react";
 import { Delaunay } from "d3-delaunay";
 import gradoviJSON from '../../data/gradovi_normalizovano.json';
 import styles from './Map.module.scss';
-import { Settlements, IRegion } from '../../types/settlements';
+import { Settlements, IRegion, Position } from '../../types/types';
 import Region from '../../components/Region/Region';
 
 const gradovi: Settlements = gradoviJSON;
-
-interface DragPos {
-  x: number;
-  y: number;
-}
 
 interface ScrollPos {
   left: number;
@@ -19,26 +14,11 @@ interface ScrollPos {
 
 const MAP_WIDTH = 2000;
 const MAP_HEIGHT = 2000;
-const MAX_RADIUS = 200;
-
-function getPathData(polygon: [number, number][], center: [number, number]): string {
-  return polygon
-    .map(([x, y], idx) => {
-      const dx = x - center[0];
-      const dy = y - center[1];
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const scale = distance > MAX_RADIUS ? MAX_RADIUS / distance : 1;
-      const nx = center[0] + dx * scale;
-      const ny = center[1] + dy * scale;
-      return `${idx === 0 ? 'M' : 'L'}${nx},${ny}`;
-    })
-    .join(' ') + ' Z';
-}
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<boolean>(false);
-  const [startPos, setStartPos] = useState<DragPos>({ x: 0, y: 0 });
+  const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
 
   const regions: IRegion[] = useMemo(() => {
@@ -87,10 +67,7 @@ export default function Map() {
     >
       <div className={styles.map}>
         <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: 'absolute', top: 0, left: 0 }}>
-          {regions.map((region, i) => {
-            const pathData = getPathData(region.polygon!, region.position);
-            return <Region key={i} pathData={pathData} region={region} />;
-          })}
+          {regions.map((region, i) => <Region key={i} region={region} />)}
         </svg>
       </div>
     </div>
