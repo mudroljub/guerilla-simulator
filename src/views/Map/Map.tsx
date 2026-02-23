@@ -15,9 +15,11 @@ interface ScrollPos {
 }
 
 const MAP_SIZE = 3000;
-// original svg viewBox
+// original viewBox iz svg
 const SFRJ_W = 1219.65;
 const SFRJ_H = 1057.485;
+const SCALE_X = MAP_SIZE / SFRJ_W
+const SCALE_Y = MAP_SIZE / SFRJ_H
 
 const regions: IRegion[] = initRegions(gradovi, MAP_SIZE)
 
@@ -78,13 +80,13 @@ export default function Map() {
               <path
                 d={SFRJ_D}
                 fill="white"
-                transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
+                transform={`scale(${SCALE_X} ${SCALE_Y})`}
               />
 
               <path
                 d={SFRJ_D_ADRIA}
                 fill="black"
-                transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
+                transform={`scale(${SCALE_X} ${SCALE_Y})`}
               />
             </mask>
           </defs>
@@ -92,7 +94,16 @@ export default function Map() {
           <path
             d={SFRJ_D_ADRIA}
             fill="#bcc8be"
-            transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
+            transform={`scale(${SCALE_X} ${SCALE_Y})`}
+          />
+
+          <path
+            d={SFRJ_D}
+            fill="none"
+            stroke="#1a1a1a"
+            strokeWidth={1}
+            pointerEvents="none" 
+            transform={`scale(${SCALE_X} ${SCALE_Y})`}
           />
 
           <g mask="url(#mask-land)">
