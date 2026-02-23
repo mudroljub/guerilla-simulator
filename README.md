@@ -45,7 +45,6 @@ npm start
 	- dodati more ✓
 	- srediti isečenu južnu granicu (naći ispravan svg) !!
 	- dodati crnu granicu ✓
-- dodati ukrasni okvir mape
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

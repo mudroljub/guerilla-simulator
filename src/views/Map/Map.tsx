@@ -14,7 +14,7 @@ interface ScrollPos {
   top: number;
 }
 
-const MAP_SIZE = 3000;
+const MAP_SIZE = window.innerWidth * 1.5;
 // original viewBox iz svg
 const SFRJ_W = 1219.65;
 const SFRJ_H = 1057.485;
