@@ -50,7 +50,7 @@ export default function Map() {
   const handleMouseUp = () => setDragging(false);
 
   return (
-    <MapProvider regionsBase={regions}>
+    <MapProvider regions={regions}>
       <div
         ref={containerRef}
         className={styles.mapContainer}
