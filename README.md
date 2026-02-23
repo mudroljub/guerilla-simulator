@@ -45,12 +45,13 @@ npm start
 	- dodati more ✓
 	- srediti isečenu južnu granicu (naći ispravan svg) !!
 	- dodati crnu granicu ✓ 
-- prikazivati prozor na select
-	- proširiti region stanje da bude objekat
+- dodatna stanja
+	- proširiti region stanje da bude objekat ✓
 	- dodati selected u initialState ✓
 	- toggle selected na klik ✓
 	- dodavati crnu granicu na selected ✓
 	- otvarati prozor za selected
+	- setovati inicijalno stanje u store
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

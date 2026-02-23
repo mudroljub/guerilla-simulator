@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { IRegion, Status } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useMapStore } from "../../store/mapStore";
+import { useMapStore } from "../../store/store";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
 

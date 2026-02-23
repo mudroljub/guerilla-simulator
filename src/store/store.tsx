@@ -2,13 +2,13 @@ import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } f
 import { mapReducer, MapAction, MapState } from "./mapReducer";
 import { IRegion, RegionData } from "../types/types";
 
-interface MapStore {
+interface Store {
   regions: IRegion[];
   mapState: MapState;
   dispatch: Dispatch<MapAction>;
 }
 
-const MapContext = createContext<MapStore | undefined>(undefined);
+const MapContext = createContext<Store | undefined>(undefined);
 
 const initialState = (regions: IRegion[]): MapState => ({
   regions: regions.reduce((acc, r) => {

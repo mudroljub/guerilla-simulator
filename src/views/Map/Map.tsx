@@ -3,7 +3,7 @@ import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
 import { Settlements, IRegion, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { MapProvider } from "../../store/mapStore";
+import { MapProvider } from "../../store/store";
 import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
 import { initRegions } from "./utils";
 
