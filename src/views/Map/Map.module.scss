@@ -3,15 +3,11 @@
   height: 100vh;
   overflow: auto;
   cursor: grab;
+  position: relative;
 
   &:active {
     cursor: grabbing;
   }
-}
-
-.map {
-  position: relative;
-  // background: url('/tvoja-mapa.png') no-repeat center/cover;
 }
 
 .grad {

@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import { IRegion, Position } from '../../types/types';
 import styles from './Region.module.scss';
 
@@ -44,16 +45,14 @@ export default function Region({ region }: Props) {
         r={getRadius(region.size)}
         className={styles.regionCenter}
       />
-      {region.size > 0.01 && (
-        <text
-          x={region.position.x}
-          y={region.position.y + TEXT_OFFSET_Y} 
-          textAnchor="middle"
-          className={styles.regionLabel}
-        >
-          {region.name}
-        </text>
-      )}
+      <text
+        x={region.position.x}
+        y={region.position.y + TEXT_OFFSET_Y} 
+        textAnchor="middle"
+        className={classnames(styles.regionLabel, { [styles.hidden]: region.size <= 0.01 })}
+      >
+        {region.name}
+      </text>
     </g>
-  );
+  )
 }

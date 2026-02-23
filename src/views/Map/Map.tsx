@@ -69,11 +69,9 @@ export default function Map() {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <div className={styles.map} style={{ width: MAP_WIDTH, height: MAP_HEIGHT }}>
-        <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: 'absolute', top: 0, left: 0 }}>
-          {regions.map((region, i) => <Region key={i} region={region} />)}
-        </svg>
-      </div>
+      <svg width={MAP_WIDTH} height={MAP_HEIGHT} style={{ position: 'absolute', top: 0, left: 0 }}>
+        {regions.map((region, i) => <Region key={i} region={region} />)}
+      </svg>
     </div>
   );
 }

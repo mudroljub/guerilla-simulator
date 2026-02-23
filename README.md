@@ -55,7 +55,7 @@ npm start
 	- prikazivati tačku grada ✓
 	- tačka srazmerno veličini ✓
 	- ne preklapati tačku i naziv ✓
-	- prikazivati naziv na hover
+	- prikazivati naziv na hover ✓
 - pozicija da bude objekat ✓
 - stanja 
 	- dodati stanja
