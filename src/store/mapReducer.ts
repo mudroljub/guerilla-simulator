@@ -2,7 +2,7 @@ import { Status } from "../types/types";
 
 export interface MapState {
   regions: Record<string, Status>;
-  selectedRegion: string | null;
+  selected: string | null;
 }
 
 export type MapAction =
@@ -25,13 +25,13 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
     case "SELECT_REGION":
       return {
         ...state,
-        selectedRegion: action.region,
+        selected: action.region,
       };
 
     case "CLEAR_SELECTION":
       return {
         ...state,
-        selectedRegion: null,
+        selected: null,
       };
 
     default:

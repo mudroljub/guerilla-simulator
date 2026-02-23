@@ -21,16 +21,26 @@ const stateStyle = {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
   const status = mapState.regions[region.name];
+  const isSelected = mapState.selected === region.name;
 
   const pathData = useMemo(() => getPathData(region.polygon, region.position), [region.polygon, region.position])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
+  const toggle = () => dispatch({
+    type: isSelected ? "CLEAR_SELECTION" : "SELECT_REGION",
+    region: region.name
+  });
+
   return (
-    <g 
-      className={classnames(styles.region, stateStyle[status])} 
-      onClick={() => dispatch({ type: "SELECT_REGION", region: region.name })}
+    <g
+      className={classnames(styles.region, stateStyle[status])}
+      onClick={toggle}
     >
-      <path d={pathData} />
+      <path
+        d={pathData}
+        stroke={isSelected ? "black" : undefined}
+        strokeWidth={isSelected ? 1 : undefined}
+      />
       <circle
         cx={region.position.x}
         cy={region.position.y}

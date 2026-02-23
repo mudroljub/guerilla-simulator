@@ -46,14 +46,11 @@ npm start
 	- srediti isečenu južnu granicu (naći ispravan svg) !!
 	- dodati crnu granicu ✓ 
 - prikazivati prozor na select
-	- definisati UI state ✓
 	- proširiti region stanje da bude objekat
-	- dodati selected u initialState
-	- toggle selected na klik
-	- dodavati crnu granicu na selected path
-			stroke="black"
-			stroke-width="8"
-	- otvarati prozor
+	- dodati selected u initialState ✓
+	- toggle selected na klik ✓
+	- dodavati crnu granicu na selected ✓
+	- otvarati prozor za selected
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

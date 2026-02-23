@@ -15,7 +15,7 @@ const status = (regions: IRegion[]): MapState => ({
     (acc, r) => ({ ...acc, [r.name]: r.status }),
     {}
   ),
-  selectedRegion: null,
+  selected: null,
 });
 
 export function MapProvider({ regions, children }: { regions: IRegion[]; children: ReactNode }) {
