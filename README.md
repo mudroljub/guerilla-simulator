@@ -63,9 +63,10 @@ npm start
 	- dodati promenu stanja na klik ✓
 	- useReducer za čuvanje stanja ✓
 	- tačkasti region ✓
-- odseći granice mape
+- svg
+	- odseći granice mape ✓
+	- dodati more
 
 ### BUGS
 
-- zbog MAX_RADIUS ne graniče se susedni periferni gradovi
 - granice regije seku naziv
