@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction, MapState } from "./mapReducer";
-import { IRegion, RegionData } from "../types/types";
+import { IRegion, RegionState } from "../types/types";
 
 interface Store {
   regions: IRegion[];
@@ -18,7 +18,7 @@ const initialState = (regions: IRegion[]): MapState => ({
       fraction: "German",
     };
     return acc;
-  }, {} as Record<string, RegionData>),
+  }, {} as Record<string, RegionState>),
   selected: null,
 });
 

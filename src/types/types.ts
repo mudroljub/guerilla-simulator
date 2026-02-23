@@ -16,7 +16,7 @@ export enum Status {
   Liberated = 'liberated',
 }
 
-export interface RegionData {
+export interface RegionState {
   status: Status;
   garrison: number;
   fraction: "German" | "Italian" | "Partisan";
