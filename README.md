@@ -8,11 +8,6 @@ npm start
 
 ## Game Document
 
-- u pozadini mapa yu
-- prikazati najveće gradove na njihovom koordinatama
-- lokacije gradova su centri voronoi podele mape
-- u svakom mestu garnizon sukladno veličini mesta
-- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
 	- faza borbe (slično kao axis and allies)
@@ -66,7 +61,10 @@ npm start
 - svg
 	- odseći granice mape ✓
 	- dodati more ✓
-	- srediti isečenu južnu granicu
+	- srediti isečenu južnu granicu (ne može bez ispravnog svg-a)
+- postaviti trupe
+	- u svakom mestu garnizon sukladno veličini mesta
+	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 
 ### BUGS
 

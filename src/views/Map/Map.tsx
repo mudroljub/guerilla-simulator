@@ -16,8 +16,7 @@ interface ScrollPos {
 
 const MAP_WIDTH = 2500;
 const MAP_HEIGHT = 2500;
-
-// Original SFRJ SVG viewBox
+// original svg viewBox
 const SFRJ_W = 1219.65;
 const SFRJ_H = 1057.485;
 
