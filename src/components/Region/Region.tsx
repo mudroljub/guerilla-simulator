@@ -26,7 +26,10 @@ export default function Region({ region }: Props) {
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   return (
-    <g className={classnames(styles.region, stateStyle[state])} onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}>
+    <g 
+      className={classnames(styles.region, stateStyle[state])} 
+      onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}
+    >
       <path d={pathData} />
       <circle
         cx={region.position.x}
