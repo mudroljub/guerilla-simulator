@@ -1,26 +1,17 @@
-import { Status } from "../types/types";
+import { RegionData, Status } from "../types/types";
 
 export interface MapState {
-  regions: Record<string, Status>;
+  regions: Record<string, RegionData>;
   selected: string | null;
 }
 
 export type MapAction =
-  | { type: "SET_REGION_STATE"; region: string; state: Status }
+  | { type: "ATTACK_REGION"; region: string }
   | { type: "SELECT_REGION"; region: string }
   | { type: "CLEAR_SELECTION" };
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
-
-    case "SET_REGION_STATE":
-      return {
-        ...state,
-        regions: {
-          ...state.regions,
-          [action.region]: action.state,
-        },
-      };
 
     case "SELECT_REGION":
       return {
@@ -32,6 +23,19 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return {
         ...state,
         selected: null,
+      };
+
+    case "ATTACK_REGION":
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.region]: {
+            ...state.regions[action.region],
+            status: Status.Attacked,
+            garrison: state.regions[action.region].garrison - 1
+          }
+        }
       };
 
     default:

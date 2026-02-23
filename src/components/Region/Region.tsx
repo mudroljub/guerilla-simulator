@@ -20,7 +20,7 @@ const stateStyle = {
 
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
-  const status = mapState.regions[region.name];
+  const status = mapState.regions[region.name].status;
   const isSelected = mapState.selected === region.name;
 
   const pathData = useMemo(() => getPathData(region.polygon, region.position), [region.polygon, region.position])
