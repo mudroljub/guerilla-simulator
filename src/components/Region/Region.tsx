@@ -34,7 +34,7 @@ export default function Region({ region }: Props) {
   const pathData = getPathData(region.polygon, region.position);
 
   return (
-    <g className={styles.region} style={{ overflow: 'visible' }}>
+    <g className={styles.region}>
       <path
         d={pathData}
         className={styles.regionShape}
