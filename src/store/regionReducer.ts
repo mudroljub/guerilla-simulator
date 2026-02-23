@@ -1,17 +1,17 @@
-import { State } from "../types/types";
+import { RegionState } from "../types/types";
 
-export type RegionStateMap = Record<string, State>;
+export type MapState = Record<string, RegionState>;
 
 export type RegionAction = { type: "TOGGLE_REGION"; name: string };
 
 export function regionReducer(
-  state: RegionStateMap,
+  state: MapState,
   action: RegionAction,
-): RegionStateMap {
+): MapState {
   switch (action.type) {
     case "TOGGLE_REGION": {
-      const cur = state[action.name] ?? State.Occupied;
-      const next = cur === State.Occupied ? State.Liberated : State.Occupied;
+      const cur = state[action.name] ?? RegionState.Occupied;
+      const next = cur === RegionState.Occupied ? RegionState.Liberated : RegionState.Occupied;
       return { ...state, [action.name]: next };
     }
     default:

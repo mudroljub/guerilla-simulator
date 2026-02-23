@@ -10,7 +10,7 @@ export interface SettlementData {
 
 export type Settlements = Record<string, SettlementData>;
 
-export enum State {
+export enum RegionState {
   Occupied = 'occupied',
   Attacked = 'attacked',
   Liberated = 'liberated',
@@ -19,5 +19,5 @@ export enum State {
 export interface IRegion extends SettlementData {
   name: string;
   polygon: [number, number][];
-  initialState: State;
+  initialState: RegionState;
 }

@@ -1,7 +1,7 @@
 import classnames from "classnames";
-import { IRegion, Position, State } from "../../types/types";
+import { IRegion, Position, RegionState } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useRegions } from "../../store/regionsStore";
+import { useMapStore } from "../../store/regionsStore";
 
 const MAX_RADIUS = 150;
 const RADIUS_STEPS = [2, 4, 6, 8, 10];
@@ -13,9 +13,9 @@ interface Props {
 }
 
 const stateStyle = {
-  [State.Occupied]: styles.occupied,
-  [State.Attacked]: styles.attacked,
-  [State.Liberated]: styles.liberated,
+  [RegionState.Occupied]: styles.occupied,
+  [RegionState.Attacked]: styles.attacked,
+  [RegionState.Liberated]: styles.liberated,
 };
 
 function getPathData(polygon: [number, number][], center: Position): string {
@@ -41,8 +41,8 @@ function getRadius(normalizedSize: number): number {
 }
 
 export default function Region({ region }: Props) {
-  const { regionState, dispatch } = useRegions();
-  const state = regionState[region.name];
+  const { mapState, dispatch } = useMapStore();
+  const state = mapState[region.name];
   const pathData = getPathData(region.polygon, region.position);
 
   return (

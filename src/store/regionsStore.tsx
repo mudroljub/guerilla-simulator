@@ -1,47 +1,28 @@
 import React, { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
-import { regionReducer, RegionAction, RegionStateMap } from "./regionReducer";
+import { regionReducer, RegionAction, MapState } from "./regionReducer";
 import { IRegion } from "../types/types";
 
-interface RegionsContextValue {
+interface MapStore {
   regionsBase: IRegion[];
-  regionState: RegionStateMap;
+  mapState: MapState;
   dispatch: Dispatch<RegionAction>;
 }
 
-const RegionsContext = createContext<RegionsContextValue | undefined>(undefined);
+const MapContext = createContext<MapStore | undefined>(undefined);
 
-const buildInitialState = (regions: IRegion[]): RegionStateMap => 
-  regions.reduce((acc, r) => ({ ...acc, [r.name]: r.initialState }), {});
+const buildInitialState = (regions: IRegion[]): MapState => 
+  Object.fromEntries(regions.map(r => [r.name, r.initialState]));
 
-interface RegionsProviderProps {
-  regionsBase: IRegion[];
-  children: ReactNode;
+export function MapProvider({ regionsBase, children }: { regionsBase: IRegion[]; children: ReactNode }) {
+  const [mapState, dispatch] = useReducer(regionReducer, regionsBase, buildInitialState);
+
+  const value = useMemo(() => ({ regionsBase, mapState, dispatch }), [regionsBase, mapState]);
+
+  return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
 }
 
-export function RegionsProvider({ regionsBase, children }: RegionsProviderProps) {
-  const [regionState, dispatch] = useReducer(
-    regionReducer, 
-    regionsBase, 
-    buildInitialState
-  );
-
-  const contextValue = useMemo(() => ({
-    regionsBase,
-    regionState,
-    dispatch
-  }), [regionsBase, regionState]);
-
-  return (
-    <RegionsContext.Provider value={contextValue}>
-      {children}
-    </RegionsContext.Provider>
-  );
-}
-
-export function useRegions() {
-  const ctx = useContext(RegionsContext);
-  if (ctx === undefined) {
-    throw new Error("useRegions must be used within a RegionsProvider");
-  }
+export const useMapStore = () => {
+  const ctx = useContext(MapContext);
+  if (!ctx) throw new Error("useMapStore must be used within MapProvider");
   return ctx;
-}
+};

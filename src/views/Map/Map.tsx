@@ -2,9 +2,9 @@ import React, { useRef, useState, useMemo } from "react";
 import { Delaunay } from "d3-delaunay";
 import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
-import { Settlements, IRegion, Position, State } from "../../types/types";
+import { Settlements, IRegion, Position, RegionState } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { RegionsProvider } from "../../store/regionsStore";
+import { MapProvider } from "../../store/regionsStore";
 
 const gradovi: Settlements = data;
 
@@ -31,8 +31,8 @@ export default function Map() {
         y: grad.position.y * MAP_HEIGHT,
       },
       initialState: grad.size < 0.1 && Math.random() < 0.1
-        ? State.Liberated
-        : State.Occupied,
+        ? RegionState.Liberated
+        : RegionState.Occupied,
     }));
 
     const delaunay = Delaunay.from(objects.map((o) => [o.position.x, o.position.y]))
@@ -64,7 +64,7 @@ export default function Map() {
   const handleMouseUp = () => setDragging(false);
 
   return (
-    <RegionsProvider regionsBase={regionsBase}>
+    <MapProvider regionsBase={regionsBase}>
       <div
         ref={containerRef}
         className={styles.mapContainer}
@@ -77,6 +77,6 @@ export default function Map() {
           {regionsBase.map((region) => <Region key={region.name} region={region} />)}
         </svg>
       </div>
-    </RegionsProvider>
+    </MapProvider>
   );
 }
