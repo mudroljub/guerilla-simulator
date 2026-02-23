@@ -20,7 +20,10 @@ export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
-  const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
+  const [startScroll, setStartScroll] = useState<ScrollPos>({
+    left: 0,
+    top: 0,
+  });
 
   const regionsBase: IRegion[] = useMemo(() => {
     const objects = Object.entries(gradovi).map(([name, grad]) => ({
@@ -30,13 +33,16 @@ export default function Map() {
         x: grad.position.x * MAP_WIDTH,
         y: grad.position.y * MAP_HEIGHT,
       },
-      initialState: grad.size < 0.1 && Math.random() < 0.1
-        ? RegionState.Liberated
-        : RegionState.Occupied,
+      initialState:
+        grad.size < 0.1 && Math.random() < 0.1
+          ? RegionState.Liberated
+          : RegionState.Occupied,
     }));
 
-    const delaunay = Delaunay.from(objects.map((o) => [o.position.x, o.position.y]))
-    const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT])
+    const delaunay = Delaunay.from(
+      objects.map((o) => [o.position.x, o.position.y]),
+    );
+    const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]);
 
     return objects
       .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
@@ -74,7 +80,22 @@ export default function Map() {
         onMouseLeave={handleMouseUp}
       >
         <svg width={MAP_WIDTH} height={MAP_HEIGHT} className={styles.svgMap}>
-          {regionsBase.map((region) => <Region key={region.name} region={region} />)}
+          <defs>
+            <defs>
+              <pattern
+                id="liberatedPattern"
+                width="8"
+                height="8"
+                patternUnits="userSpaceOnUse"
+              >
+                <rect width="8" height="8" fill="#ccd1be" />
+                <circle cx="4" cy="4" r="3" fill="#cc5263" />
+              </pattern>
+            </defs>
+          </defs>
+          {regionsBase.map((region) => (
+            <Region key={region.name} region={region} />
+          ))}
         </svg>
       </div>
     </MapProvider>

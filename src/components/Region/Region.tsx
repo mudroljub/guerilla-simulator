@@ -27,11 +27,8 @@ export default function Region({ region }: Props) {
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   return (
-    <g className={classnames(styles.region, stateStyle[state])}>
-      <path
-        d={pathData}
-        onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}
-      />
+    <g className={classnames(styles.region, stateStyle[state])} onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}>
+      <path d={pathData} />
       <circle
         cx={region.position.x}
         cy={region.position.y}
@@ -46,7 +43,7 @@ export default function Region({ region }: Props) {
           [styles.hidden]: region.size <= LABEL_THRESHOLD,
         })}
       >
-        {region.name.toUpperCase()}
+        {region.size > LABEL_THRESHOLD ? region.name.toUpperCase() : region.name}
       </text>
     </g>
   );

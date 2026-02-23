@@ -62,6 +62,8 @@ npm start
 	- obojiti stanja ✓
 	- dodati promenu stanja na klik ✓
 	- useReducer za čuvanje stanja ✓
+	- tačkasti region ✓
+- odseći granice mape
 
 ### BUGS
 

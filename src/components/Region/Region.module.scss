@@ -3,7 +3,7 @@ $textColor: white;
 .region {
   transition: fill 0.15s ease;
 
-    &:hover {
+  &:hover {
     opacity: 1;
     pointer-events: auto;
   }
@@ -22,12 +22,15 @@ $textColor: white;
 }
 
 .liberated {
-  fill: #cc5263;
+  path {
+    fill: url(#liberatedPattern);
+  }
 }
 
 .label {
   font-size: 14px;
-  pointer-events: none;
+  // pointer-events: none;
+  font-weight: bold;
   fill: $textColor;
 }
 
