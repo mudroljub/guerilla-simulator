@@ -4,7 +4,7 @@ import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
 import { Settlements, IRegion, Position, RegionState } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { MapProvider } from "../../store/regionsStore";
+import { MapProvider } from "../../store/mapStore";
 
 const gradovi: Settlements = data;
 

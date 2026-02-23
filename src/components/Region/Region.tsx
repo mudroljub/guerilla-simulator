@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { IRegion, Position, RegionState } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useMapStore } from "../../store/regionsStore";
+import { useMapStore } from "../../store/mapStore";
 
 const MAX_RADIUS = 150;
 const RADIUS_STEPS = [2, 4, 6, 8, 10];

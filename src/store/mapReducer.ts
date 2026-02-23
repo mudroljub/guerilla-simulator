@@ -2,11 +2,11 @@ import { RegionState } from "../types/types";
 
 export type MapState = Record<string, RegionState>;
 
-export type RegionAction = { type: "TOGGLE_REGION"; name: string };
+export type MapAction = { type: "TOGGLE_REGION"; name: string };
 
-export function regionReducer(
+export function mapReducer(
   state: MapState,
-  action: RegionAction,
+  action: MapAction,
 ): MapState {
   switch (action.type) {
     case "TOGGLE_REGION": {
