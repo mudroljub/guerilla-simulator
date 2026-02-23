@@ -5,7 +5,7 @@ import styles from "./Map.module.scss";
 import { Settlements, IRegion, Position, RegionState } from "../../types/types";
 import Region from "../../components/Region/Region";
 import { MapProvider } from "../../store/mapStore";
-import { SFRJ_D } from "./paths";
+import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
 
 const gradovi: Settlements = data;
 
@@ -95,7 +95,6 @@ export default function Map() {
                 transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
               />
             </clipPath>
-
             <pattern
               id="liberatedPattern"
               width="8"
@@ -106,6 +105,12 @@ export default function Map() {
               <circle cx="4" cy="4" r="3" fill="#cc5263" />
             </pattern>
           </defs>
+
+          <path
+            d={SFRJ_D_ADRIA}
+            fill="#c0cac2"
+            transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+          />
 
           <g clipPath="url(#clip-sfrj)">
             {regionsBase.map((region) => (

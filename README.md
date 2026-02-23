@@ -65,7 +65,8 @@ npm start
 	- tačkasti region ✓
 - svg
 	- odseći granice mape ✓
-	- dodati more
+	- dodati more ✓
+	- srediti isečenu južnu granicu
 
 ### BUGS
 
