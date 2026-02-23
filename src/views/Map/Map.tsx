@@ -1,10 +1,11 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useReducer } from "react";
 import { Delaunay } from "d3-delaunay";
 import data from '../../data/gradovi-normalizovano.json';
 import styles from './Map.module.scss';
 import { Settlements, IRegion, Position } from '../../types/types';
 import Region from '../../components/Region/Region';
-import { State } from "../../fsm/states";
+import { State } from "../../store/states";
+import { regionReducer, RegionStateMap } from "../../store/regionReducer";
 
 const gradovi: Settlements = data;
 
@@ -16,13 +17,20 @@ interface ScrollPos {
 const MAP_WIDTH = 2500;
 const MAP_HEIGHT = 2500;
 
+function buildInitialState(regions: IRegion[]): RegionStateMap {
+  const m: RegionStateMap = {};
+  for (const r of regions) m[r.name] = r.state;
+  return m;
+}
+
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [dragging, setDragging] = useState<boolean>(false)
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 })
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 })
 
-  const regions: IRegion[] = useMemo(() => {
+  // 1) baza (geometrija + početni random state)
+  const regionsBase: IRegion[] = useMemo(() => {
     const objects = Object.entries(gradovi).map(([name, grad]) => ({
       name,
       size: grad.size,
@@ -38,8 +46,23 @@ export default function Map() {
 
     return objects
       .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
-      .filter(Boolean) as IRegion[]
+      .filter(r => r.polygon) as IRegion[]
   }, [])
+
+  // 2) inicijalno stanje za reducer (name -> state)
+  const initialRegionState = useMemo(
+    () => buildInitialState(regionsBase),
+    [regionsBase]
+  )
+
+  // 3) centralizovano stanje (FSM store)
+  const [regionState, dispatch] = useReducer(regionReducer, initialRegionState)
+
+  // 4) ono što renderuješ: baza + trenutno stanje
+  const regions: IRegion[] = useMemo(
+    () => regionsBase.map(r => ({ ...r, state: regionState[r.name] ?? r.state })),
+    [regionsBase, regionState]
+  )
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return
@@ -68,7 +91,13 @@ export default function Map() {
       onMouseLeave={handleMouseUp}
     >
       <svg width={MAP_WIDTH} height={MAP_HEIGHT} className={styles.svgMap}>
-        {regions.map((region) => <Region key={region.name} region={region} />)}
+        {regions.map((region) => (
+          <Region
+            key={region.name}
+            region={region}
+            onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}
+          />
+        ))}
       </svg>
     </div>
   )

@@ -1,7 +1,8 @@
 import classnames from 'classnames'
 import { IRegion, Position } from '../../types/types';
 import styles from './Region.module.scss';
-import { State } from '../../fsm/states';
+import { State } from '../../store/states';
+import { MouseEventHandler } from 'react';
 
 const MAX_RADIUS = 150;
 const RADIUS_STEPS = [2, 4, 6, 8, 10];
@@ -10,6 +11,7 @@ const labelThreshold = 0.01
 
 interface Props {
   region: IRegion;
+  onClick: MouseEventHandler;
 }
 
 const stateStyle = {
@@ -38,12 +40,12 @@ function getRadius(normalizedSize: number): number {
   return RADIUS_STEPS[Math.min(index, RADIUS_STEPS.length - 1)];
 }
 
-export default function Region({ region }: Props) {
+export default function Region({ region, onClick }: Props) {
   const pathData = getPathData(region.polygon, region.position);
 
   return (
     <g className={classnames(styles.region, stateStyle[region.state])}>
-      <path d={pathData} />
+      <path d={pathData} onClick={onClick} />
       <circle
         cx={region.position.x}
         cy={region.position.y}

@@ -60,8 +60,8 @@ npm start
 - stanja 
 	- dodati osnovna stanja ✓
 	- obojiti stanja ✓
-	- dodati promenu stanja na klik
-	- useReducer za čuvanje stanja?
+	- dodati promenu stanja na klik ✓
+	- useReducer za čuvanje stanja ✓
 
 ### BUGS
 

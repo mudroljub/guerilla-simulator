@@ -1,4 +1,4 @@
-import { State } from "../fsm/states";
+import { State } from "../store/states";
 
 export interface Position {
   x: number;
