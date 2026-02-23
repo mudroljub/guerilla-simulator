@@ -5,8 +5,8 @@ import { useMapStore } from "../../store/mapStore";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
 
+const CITY_THRESHOLD = 0.04;
 const TEXT_OFFSET_Y = -10;
-const LABEL_THRESHOLD = 0.03;
 
 interface Props {
   region: IRegion;
@@ -21,7 +21,7 @@ const stateStyle = {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
   const state = mapState[region.name];
-  
+
   const pathData = useMemo(() => getPathData(region.polygon, region.position), [region.polygon, region.position])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
@@ -32,17 +32,19 @@ export default function Region({ region }: Props) {
         cx={region.position.x}
         cy={region.position.y}
         r={radius}
-        className={styles.regionCenter}
+        className={classnames(styles.regionCenter, {
+          [styles.hidden]: region.size <= CITY_THRESHOLD,
+        })}
       />
       <text
         x={region.position.x}
         y={region.position.y + TEXT_OFFSET_Y}
         textAnchor="middle"
         className={classnames(styles.label, {
-          [styles.hidden]: region.size <= LABEL_THRESHOLD,
+          [styles.hidden]: region.size <= CITY_THRESHOLD,
         })}
       >
-        {region.size > LABEL_THRESHOLD ? region.name.toUpperCase() : region.name}
+        {region.size > CITY_THRESHOLD ? region.name.toUpperCase() : region.name}
       </text>
     </g>
   );
