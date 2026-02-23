@@ -89,12 +89,6 @@ export default function Map() {
           className={styles.svgMap}
         >
           <defs>
-            <clipPath id="clip-sfrj" clipPathUnits="userSpaceOnUse">
-              <path
-                d={SFRJ_D}
-                transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
-              />
-            </clipPath>
             <pattern
               id="liberatedPattern"
               width="8"
@@ -104,15 +98,29 @@ export default function Map() {
               <rect width="8" height="8" fill="#ccd1be" />
               <circle cx="4" cy="4" r="3" fill="#cc5263" />
             </pattern>
+
+            <mask id="mask-land" maskUnits="userSpaceOnUse">
+              <path
+                d={SFRJ_D}
+                fill="white"
+                transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+              />
+
+              <path
+                d={SFRJ_D_ADRIA}
+                fill="black"
+                transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+              />
+            </mask>
           </defs>
 
           <path
             d={SFRJ_D_ADRIA}
-            fill="#c0cac2"
+            fill="#bcc8be"
             transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
           />
 
-          <g clipPath="url(#clip-sfrj)">
+          <g mask="url(#mask-land)">
             {regionsBase.map((region) => (
               <Region key={region.name} region={region} />
             ))}
