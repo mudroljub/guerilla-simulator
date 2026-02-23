@@ -10,8 +10,8 @@ interface MapStore {
 
 const MapContext = createContext<MapStore | undefined>(undefined);
 
-const initialState = (regions: IRegion[]): MapState => 
-  Object.fromEntries(regions.map(r => [r.name, r.initialState]));
+const initialState = (regions: IRegion[]): MapState =>
+  regions.reduce((acc, r) => ({ ...acc, [r.name]: r.initialState }), {});
 
 export function MapProvider({ regionsBase, children }: { regionsBase: IRegion[]; children: ReactNode }) {
   const [mapState, dispatch] = useReducer(mapReducer, regionsBase, initialState);
