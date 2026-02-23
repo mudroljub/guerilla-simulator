@@ -1,9 +1,9 @@
 import { regionsReducer, RegionAction } from "./regionsReducer";
 import { SelectionAction, selectionReducer } from "./selectionReducer";
-import { RegionState } from "../types/types";
+import { RegionsState } from "../types/types";
 
 export interface MapState {
-  regions: Record<string, RegionState>;
+  regions: RegionsState;
   selected: string | null;
 }
 

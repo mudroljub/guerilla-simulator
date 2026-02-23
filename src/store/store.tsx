@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction, MapState } from "./mapReducer";
-import { IRegion, RegionState } from "../types/types";
+import { IRegion, RegionsState } from "../types/types";
 
 interface Store {
   regions: IRegion[];
@@ -11,14 +11,14 @@ interface Store {
 const MapContext = createContext<Store | undefined>(undefined);
 
 const initialState = (regions: IRegion[]): MapState => ({
-  regions: regions.reduce((acc, r) => {
-    acc[r.name] = {
+  regions: regions.reduce((acc, r) => ({
+    ...acc,
+    [r.name]: {
       status: r.status,
       garrison: 0,
       fraction: "German",
-    };
-    return acc;
-  }, {} as Record<string, RegionState>),
+    }
+  }), {} as RegionsState),
   selected: null,
 });
 

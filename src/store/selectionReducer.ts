@@ -3,7 +3,7 @@ export type SelectionAction =
   | { type: "CLEAR_SELECTION"; region: string };
 
 export function selectionReducer(
-  selected: string | null,
+  state: string | null,
   action: SelectionAction
 ): string | null {
   switch (action.type) {
@@ -14,6 +14,6 @@ export function selectionReducer(
       return action.region;
 
     default:
-      return selected;
+      return state;
   }
 }

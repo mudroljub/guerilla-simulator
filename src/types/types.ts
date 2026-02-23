@@ -16,14 +16,16 @@ export enum Status {
   Liberated = 'liberated',
 }
 
+export interface IRegion extends SettlementData {
+  name: string;
+  polygon: [number, number][];
+  status: Status;
+}
+
 export interface RegionState {
   status: Status;
   garrison: number;
   fraction: "German" | "Italian" | "Partisan";
 }
 
-export interface IRegion extends SettlementData {
-  name: string;
-  polygon: [number, number][];
-  status: Status;
-}
+export type RegionsState = Record<string, RegionState>
