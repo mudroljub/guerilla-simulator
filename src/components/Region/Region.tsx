@@ -7,7 +7,7 @@ import { getPathData, getRadius } from "./utils";
 
 const MAX_RADIUS = 150;
 const TEXT_OFFSET_Y = -10;
-const LABEL_THRESHOLD = 0.01;
+const LABEL_THRESHOLD = 0.03;
 
 interface Props {
   region: IRegion;
@@ -46,7 +46,7 @@ export default function Region({ region }: Props) {
           [styles.hidden]: region.size <= LABEL_THRESHOLD,
         })}
       >
-        {region.name}
+        {region.name.toUpperCase()}
       </text>
     </g>
   );
