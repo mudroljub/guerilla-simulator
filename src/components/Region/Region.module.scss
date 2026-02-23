@@ -1,11 +1,32 @@
-.regionShape {
-  fill: #ccd1be;
+.region {
   transition: fill 0.15s ease;
+
+    &:hover {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
-.regionLabel {
+.occupied {
+  fill: #ccd1be;
+
+  &:hover {
+    fill: #debac1;
+  }
+}
+
+.attacked {
+  fill: #debac1;
+}
+
+.liberated {
+  fill: #cc5263;
+}
+
+.label {
   font-size: 14px;
   pointer-events: none;
+  fill: black;
 }
 
 .regionCenter {
@@ -21,9 +42,6 @@
 }
 
 .region:hover {
-  .regionShape {
-    fill: #debac1; /* #cc5263 */
-  }
   .hidden {
     opacity: 1;
     pointer-events: auto;

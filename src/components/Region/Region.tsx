@@ -1,13 +1,21 @@
 import classnames from 'classnames'
 import { IRegion, Position } from '../../types/types';
 import styles from './Region.module.scss';
+import { State } from '../../fsm/states';
 
 const MAX_RADIUS = 150;
 const RADIUS_STEPS = [2, 4, 6, 8, 10];
 const TEXT_OFFSET_Y = -10;
+const labelThreshold = 0.01
 
 interface Props {
   region: IRegion;
+}
+
+const stateStyle = {
+  [State.Occupied]: styles.occupied,
+  [State.Attacked]: styles.attacked,
+  [State.Liberated]: styles.liberated,
 }
 
 function getPathData(polygon: [number, number][], center: Position): string {
@@ -34,11 +42,8 @@ export default function Region({ region }: Props) {
   const pathData = getPathData(region.polygon, region.position);
 
   return (
-    <g className={styles.region}>
-      <path
-        d={pathData}
-        className={styles.regionShape}
-      />
+    <g className={classnames(styles.region, stateStyle[region.state])}>
+      <path d={pathData} />
       <circle
         cx={region.position.x}
         cy={region.position.y}
@@ -49,7 +54,7 @@ export default function Region({ region }: Props) {
         x={region.position.x}
         y={region.position.y + TEXT_OFFSET_Y} 
         textAnchor="middle"
-        className={classnames(styles.regionLabel, { [styles.hidden]: region.size <= 0.01 })}
+        className={classnames(styles.label, { [styles.hidden]: region.size <= labelThreshold })}
       >
         {region.name}
       </text>

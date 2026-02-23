@@ -58,8 +58,10 @@ npm start
 	- prikazivati naziv na hover ✓
 - pozicija da bude objekat ✓
 - stanja 
-	- dodati stanja
+	- dodati osnovna stanja ✓
+	- obojiti stanja ✓
 	- dodati promenu stanja na klik
+	- useReducer za čuvanje stanja?
 
 ### BUGS
 

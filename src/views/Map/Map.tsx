@@ -4,6 +4,7 @@ import gradoviJSON from '../../data/gradovi_normalizovano.json';
 import styles from './Map.module.scss';
 import { Settlements, IRegion, Position } from '../../types/types';
 import Region from '../../components/Region/Region';
+import { State } from "../../fsm/states";
 
 const gradovi: Settlements = gradoviJSON;
 
@@ -28,7 +29,8 @@ export default function Map() {
       position: {
         x: grad.position.x * MAP_WIDTH,
         y: grad.position.y * MAP_HEIGHT,
-      }
+      },
+      state: grad.size < 0.1 && Math.random() < 0.1 ? State.Liberated : State.Occupied,
     }));
 
     const delaunay = Delaunay.from(objects.map(o => [o.position.x, o.position.y]));
