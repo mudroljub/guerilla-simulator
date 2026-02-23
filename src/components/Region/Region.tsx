@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { IRegion, RegionState } from "../../types/types";
+import { IRegion, Status } from "../../types/types";
 import styles from "./Region.module.scss";
 import { useMapStore } from "../../store/mapStore";
 import { useMemo } from "react";
@@ -13,22 +13,22 @@ interface Props {
 }
 
 const stateStyle = {
-  [RegionState.Occupied]: styles.occupied,
-  [RegionState.Attacked]: styles.attacked,
-  [RegionState.Liberated]: styles.liberated,
+  [Status.Occupied]: styles.occupied,
+  [Status.Attacked]: styles.attacked,
+  [Status.Liberated]: styles.liberated,
 };
 
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
-  const state = mapState[region.name];
+  const status = mapState.regions[region.name];
 
   const pathData = useMemo(() => getPathData(region.polygon, region.position), [region.polygon, region.position])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   return (
     <g 
-      className={classnames(styles.region, stateStyle[state])} 
-      onClick={() => dispatch({ type: "TOGGLE_REGION", name: region.name })}
+      className={classnames(styles.region, stateStyle[status])} 
+      onClick={() => dispatch({ type: "SELECT_REGION", region: region.name })}
     >
       <path d={pathData} />
       <circle

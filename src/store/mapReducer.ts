@@ -1,19 +1,39 @@
-import { RegionState } from "../types/types";
+import { Status } from "../types/types";
 
-export type MapState = Record<string, RegionState>;
+export interface MapState {
+  regions: Record<string, Status>;
+  selectedRegion: string | null;
+}
 
-export type MapAction = { type: "TOGGLE_REGION"; name: string };
+export type MapAction =
+  | { type: "SET_REGION_STATE"; region: string; state: Status }
+  | { type: "SELECT_REGION"; region: string }
+  | { type: "CLEAR_SELECTION" };
 
-export function mapReducer(
-  state: MapState,
-  action: MapAction,
-): MapState {
+export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
-    case "TOGGLE_REGION": {
-      const cur = state[action.name] ?? RegionState.Occupied;
-      const next = cur === RegionState.Occupied ? RegionState.Liberated : RegionState.Occupied;
-      return { ...state, [action.name]: next };
-    }
+
+    case "SET_REGION_STATE":
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.region]: action.state,
+        },
+      };
+
+    case "SELECT_REGION":
+      return {
+        ...state,
+        selectedRegion: action.region,
+      };
+
+    case "CLEAR_SELECTION":
+      return {
+        ...state,
+        selectedRegion: null,
+      };
+
     default:
       return state;
   }

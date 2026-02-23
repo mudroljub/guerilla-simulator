@@ -10,11 +10,16 @@ interface MapStore {
 
 const MapContext = createContext<MapStore | undefined>(undefined);
 
-const initialState = (regions: IRegion[]): MapState =>
-  regions.reduce((acc, r) => ({ ...acc, [r.name]: r.initialState }), {});
+const status = (regions: IRegion[]): MapState => ({
+  regions: regions.reduce(
+    (acc, r) => ({ ...acc, [r.name]: r.status }),
+    {}
+  ),
+  selectedRegion: null,
+});
 
 export function MapProvider({ regions, children }: { regions: IRegion[]; children: ReactNode }) {
-  const [mapState, dispatch] = useReducer(mapReducer, regions, initialState);
+  const [mapState, dispatch] = useReducer(mapReducer, regions, status);
 
   const value = useMemo(() => ({ regions, mapState, dispatch }), [regions, mapState]);
 

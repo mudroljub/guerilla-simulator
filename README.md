@@ -47,7 +47,8 @@ npm start
 	- dodati crnu granicu ✓ 
 - prikazivati prozor na select
 	- definisati UI state ✓
-	- dodati UI state u store initialState 
+	- proširiti region stanje da bude objekat
+	- dodati selected u initialState
 	- toggle selected na klik
 	- dodavati crnu granicu na selected path
 			stroke="black"
