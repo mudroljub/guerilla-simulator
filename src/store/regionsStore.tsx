@@ -12,7 +12,7 @@ const RegionsContext = React.createContext<Ctx | null>(null);
 
 function buildInitialState(regions: IRegion[]): RegionStateMap {
   const m: RegionStateMap = {};
-  for (const r of regions) m[r.name] = r.state;
+  for (const r of regions) m[r.name] = r.initialState;
   return m;
 }
 

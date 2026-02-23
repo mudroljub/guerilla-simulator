@@ -1,7 +1,6 @@
 import classnames from "classnames";
-import { IRegion, Position } from "../../types/types";
+import { IRegion, Position, State } from "../../types/types";
 import styles from "./Region.module.scss";
-import { State } from "../../store/states";
 import { useRegions } from "../../store/regionsStore";
 
 const MAX_RADIUS = 150;

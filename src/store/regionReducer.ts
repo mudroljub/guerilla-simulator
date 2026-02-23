@@ -1,4 +1,4 @@
-import { State } from "./states";
+import { State } from "../types/types";
 
 export type RegionStateMap = Record<string, State>;
 

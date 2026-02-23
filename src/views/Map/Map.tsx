@@ -2,9 +2,8 @@ import React, { useRef, useState, useMemo } from "react";
 import { Delaunay } from "d3-delaunay";
 import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
-import { Settlements, IRegion, Position } from "../../types/types";
+import { Settlements, IRegion, Position, State } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { State } from "../../store/states";
 import { RegionsProvider } from "../../store/regionsStore";
 
 const gradovi: Settlements = data;
@@ -31,15 +30,13 @@ export default function Map() {
         x: grad.position.x * MAP_WIDTH,
         y: grad.position.y * MAP_HEIGHT,
       },
-      state: grad.size < 0.1 && Math.random() < 0.1
+      initialState: grad.size < 0.1 && Math.random() < 0.1
         ? State.Liberated
         : State.Occupied,
     }));
 
-    const delaunay = Delaunay.from(
-      objects.map((o) => [o.position.x, o.position.y]),
-    );
-    const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]);
+    const delaunay = Delaunay.from(objects.map((o) => [o.position.x, o.position.y]))
+    const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT])
 
     return objects
       .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
