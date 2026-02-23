@@ -6,24 +6,6 @@
 npm start
 ```
 
-## Game Document
-
-- mehanika bitke
-	- faza napada (susedne oblasti se mogu napasti)
-	- faza borbe (slično kao axis and allies)
-- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
-- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
-- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
-	- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
-	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
-	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
-	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
-	- bonus: ofanzive imaju ime: I, II, III
-- finese: dodati razne okupatore nejednakih karakteristika
-- kraj
-	- pobeda: oslobođenje zemlje
-	- poraz: uništenje ustanka
-
 ## Technology
 
 - svg renderer
@@ -61,10 +43,29 @@ npm start
 - svg
 	- odseći granice mape ✓
 	- dodati more ✓
-	- srediti isečenu južnu granicu (ne može bez ispravnog svg-a)
+	- srediti isečenu južnu granicu (naći ispravan svg) !!
+	- dodati crnu granicu ✓
+- dodati ukrasni okvir mape
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
+		- odlučiti vrste jedinica i ikonice
+		- postaviti ikonice na veća mesta, otvarati prozor sa svim informacijama na hover
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
+- mehanika bitke
+	- faza napada (susedne oblasti se mogu napasti)
+	- faza borbe (slično kao axis and allies)
+- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
+- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
+- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
+	- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
+	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
+	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
+	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
+	- bonus: ofanzive imaju ime: I, II, III
+- finese: dodati razne okupatore nejednakih karakteristika
+- kraj
+	- pobeda: oslobođenje zemlje
+	- poraz: uništenje ustanka
 
 ### BUGS
 

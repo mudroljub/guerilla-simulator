@@ -1,11 +1,11 @@
-import React, { useRef, useState, useMemo } from "react";
-import { Delaunay } from "d3-delaunay";
+import React, { useRef, useState } from "react";
 import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
-import { Settlements, IRegion, Position, RegionState } from "../../types/types";
+import { Settlements, IRegion, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
 import { MapProvider } from "../../store/mapStore";
 import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
+import { initRegions } from "./utils";
 
 const gradovi: Settlements = data;
 
@@ -14,42 +14,18 @@ interface ScrollPos {
   top: number;
 }
 
-const MAP_WIDTH = 2500;
-const MAP_HEIGHT = 2500;
+const MAP_SIZE = 3000;
 // original svg viewBox
 const SFRJ_W = 1219.65;
 const SFRJ_H = 1057.485;
+
+const regions: IRegion[] = initRegions(gradovi, MAP_SIZE)
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
-
-  const regionsBase: IRegion[] = useMemo(() => {
-    const objects = Object.entries(gradovi).map(([name, grad]) => ({
-      name,
-      size: grad.size,
-      position: {
-        x: grad.position.x * MAP_WIDTH,
-        y: grad.position.y * MAP_HEIGHT,
-      },
-      initialState:
-        grad.size < 0.1 && Math.random() < 0.1
-          ? RegionState.Liberated
-          : RegionState.Occupied,
-    }));
-
-    const delaunay = Delaunay.from(
-      objects.map((o) => [o.position.x, o.position.y])
-    );
-
-    const voronoi = delaunay.voronoi([0, 0, MAP_WIDTH, MAP_HEIGHT]);
-
-    return objects
-      .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
-      .filter((r) => r.polygon) as IRegion[];
-  }, []);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -72,7 +48,7 @@ export default function Map() {
   const handleMouseUp = () => setDragging(false);
 
   return (
-    <MapProvider regionsBase={regionsBase}>
+    <MapProvider regionsBase={regions}>
       <div
         ref={containerRef}
         className={styles.mapContainer}
@@ -82,9 +58,9 @@ export default function Map() {
         onMouseLeave={handleMouseUp}
       >
         <svg
-          width={MAP_WIDTH}
-          height={MAP_HEIGHT}
-          viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+          width={MAP_SIZE}
+          height={MAP_SIZE}
+          viewBox={`0 0 ${MAP_SIZE} ${MAP_SIZE}`}
           className={styles.svgMap}
         >
           <defs>
@@ -102,13 +78,13 @@ export default function Map() {
               <path
                 d={SFRJ_D}
                 fill="white"
-                transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+                transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
               />
 
               <path
                 d={SFRJ_D_ADRIA}
                 fill="black"
-                transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+                transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
               />
             </mask>
           </defs>
@@ -116,11 +92,11 @@ export default function Map() {
           <path
             d={SFRJ_D_ADRIA}
             fill="#bcc8be"
-            transform={`scale(${MAP_WIDTH / SFRJ_W} ${MAP_HEIGHT / SFRJ_H})`}
+            transform={`scale(${MAP_SIZE / SFRJ_W} ${MAP_SIZE / SFRJ_H})`}
           />
 
           <g mask="url(#mask-land)">
-            {regionsBase.map((region) => (
+            {regions.map((region) => (
               <Region key={region.name} region={region} />
             ))}
           </g>
