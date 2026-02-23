@@ -1,12 +1,13 @@
 import classnames from "classnames";
-import { IRegion, Position, RegionState } from "../../types/types";
+import { IRegion, RegionState } from "../../types/types";
 import styles from "./Region.module.scss";
 import { useMapStore } from "../../store/mapStore";
+import { useMemo } from "react";
+import { getPathData, getRadius } from "./utils";
 
 const MAX_RADIUS = 150;
-const RADIUS_STEPS = [2, 4, 6, 8, 10];
 const TEXT_OFFSET_Y = -10;
-const labelThreshold = 0.01;
+const LABEL_THRESHOLD = 0.01;
 
 interface Props {
   region: IRegion;
@@ -18,32 +19,12 @@ const stateStyle = {
   [RegionState.Liberated]: styles.liberated,
 };
 
-function getPathData(polygon: [number, number][], center: Position): string {
-  return (
-    polygon
-      .map(([x, y], idx) => {
-        const dx = x - center.x;
-        const dy = y - center.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const scale = distance > MAX_RADIUS ? MAX_RADIUS / distance : 1;
-        const nx = center.x + dx * scale;
-        const ny = center.y + dy * scale;
-        return `${idx === 0 ? "M" : "L"}${nx},${ny}`;
-      })
-      .join(" ") + " Z"
-  );
-}
-
-function getRadius(normalizedSize: number): number {
-  const biased = Math.pow(normalizedSize, 0.3);
-  const index = Math.floor(biased * RADIUS_STEPS.length);
-  return RADIUS_STEPS[Math.min(index, RADIUS_STEPS.length - 1)];
-}
-
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
   const state = mapState[region.name];
-  const pathData = getPathData(region.polygon, region.position);
+  
+  const pathData = useMemo(() => getPathData(region.polygon, region.position, MAX_RADIUS), [region.polygon, region.position])
+  const radius = useMemo(() => getRadius(region.size), [region.size])
 
   return (
     <g className={classnames(styles.region, stateStyle[state])}>
@@ -54,7 +35,7 @@ export default function Region({ region }: Props) {
       <circle
         cx={region.position.x}
         cy={region.position.y}
-        r={getRadius(region.size)}
+        r={radius}
         className={styles.regionCenter}
       />
       <text
@@ -62,7 +43,7 @@ export default function Region({ region }: Props) {
         y={region.position.y + TEXT_OFFSET_Y}
         textAnchor="middle"
         className={classnames(styles.label, {
-          [styles.hidden]: region.size <= labelThreshold,
+          [styles.hidden]: region.size <= LABEL_THRESHOLD,
         })}
       >
         {region.name}

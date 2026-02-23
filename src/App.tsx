@@ -1,9 +1,8 @@
-import './App.css';
 import Map from './views/Map/Map'
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Map />
     </div>
   );
