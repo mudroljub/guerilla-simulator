@@ -1,43 +1,47 @@
-import React from "react";
+import React, { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { regionReducer, RegionAction, RegionStateMap } from "./regionReducer";
 import { IRegion } from "../types/types";
 
-type Ctx = {
+interface RegionsContextValue {
   regionsBase: IRegion[];
   regionState: RegionStateMap;
-  dispatch: React.Dispatch<RegionAction>;
-};
-
-const RegionsContext = React.createContext<Ctx | null>(null);
-
-function buildInitialState(regions: IRegion[]): RegionStateMap {
-  const m: RegionStateMap = {};
-  for (const r of regions) m[r.name] = r.initialState;
-  return m;
+  dispatch: Dispatch<RegionAction>;
 }
 
-export function RegionsProvider({
-  regionsBase,
-  children,
-}: {
+const RegionsContext = createContext<RegionsContextValue | undefined>(undefined);
+
+const buildInitialState = (regions: IRegion[]): RegionStateMap => 
+  regions.reduce((acc, r) => ({ ...acc, [r.name]: r.initialState }), {});
+
+interface RegionsProviderProps {
   regionsBase: IRegion[];
-  children: React.ReactNode;
-}) {
-  const initial = React.useMemo(
-    () => buildInitialState(regionsBase),
-    [regionsBase],
+  children: ReactNode;
+}
+
+export function RegionsProvider({ regionsBase, children }: RegionsProviderProps) {
+  const [regionState, dispatch] = useReducer(
+    regionReducer, 
+    regionsBase, 
+    buildInitialState
   );
-  const [regionState, dispatch] = React.useReducer(regionReducer, initial);
+
+  const contextValue = useMemo(() => ({
+    regionsBase,
+    regionState,
+    dispatch
+  }), [regionsBase, regionState]);
 
   return (
-    <RegionsContext.Provider value={{ regionsBase, regionState, dispatch }}>
+    <RegionsContext.Provider value={contextValue}>
       {children}
     </RegionsContext.Provider>
   );
 }
 
 export function useRegions() {
-  const ctx = React.useContext(RegionsContext);
-  if (!ctx) throw new Error("useRegions must be used within RegionsProvider");
+  const ctx = useContext(RegionsContext);
+  if (ctx === undefined) {
+    throw new Error("useRegions must be used within a RegionsProvider");
+  }
   return ctx;
 }
