@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction, MapState } from "./mapReducer";
-import { IRegion, RegionsState } from "../types/types";
+import { IRegion, RegionsState, Status } from "../types/types";
 
 interface Store {
   regions: IRegion[];
@@ -14,7 +14,9 @@ const initialState = (regions: IRegion[]): MapState => ({
   regionDict: regions.reduce((acc, r) => ({
     ...acc,
     [r.name]: {
-      status: r.status,
+      status: r.size < 0.1 && Math.random() < 0.1
+        ? Status.Liberated
+        : Status.Occupied,
       garrison: 0,
       fraction: "German",
     }

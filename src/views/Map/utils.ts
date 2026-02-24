@@ -1,5 +1,5 @@
 import { Delaunay } from "d3-delaunay";
-import { IRegion, Status, Settlements } from "../../types/types";
+import { IRegion, Settlements } from "../../types/types";
 import data from "../../data/gradovi-normalizovano.json";
 import { MAP_SIZE } from "../../config";
 
@@ -13,9 +13,6 @@ export const initRegions = () => {
       x: grad.position.x * MAP_SIZE,
       y: grad.position.y * MAP_SIZE,
     },
-    status: grad.size < 0.1 && Math.random() < 0.1
-        ? Status.Liberated
-        : Status.Occupied,
   }))
 
   const delaunay = Delaunay.from(regions.map((o) => [o.position.x, o.position.y]));

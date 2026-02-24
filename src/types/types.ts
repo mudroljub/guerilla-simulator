@@ -19,7 +19,6 @@ export enum Status {
 export interface IRegion extends SettlementData {
   name: string;
   polygon: [number, number][];
-  status: Status;
 }
 
 export interface RegionState {

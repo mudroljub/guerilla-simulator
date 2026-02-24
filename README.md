@@ -50,8 +50,8 @@ npm start
 	- dodati selected u initialState ✓
 	- toggle selected na klik ✓
 	- dodavati crnu granicu na selected ✓
+	- setovati inicijalno stanje u store (oslobođene teritorije) ✓
 	- otvarati prozor za selected
-	- setovati inicijalno stanje u store
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice
