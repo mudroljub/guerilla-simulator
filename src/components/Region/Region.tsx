@@ -33,20 +33,19 @@ export default function Region({ region }: Props) {
 
   return (
     <g
-      className={classnames(styles.region, stateStyle[status])}
+      className={classnames(styles.region, stateStyle[status], { [styles.selected]: isSelected })}
       onClick={toggle}
     >
       <path
+        className={classnames(styles.path)}
         d={pathData}
-        stroke={isSelected ? "black" : undefined}
-        strokeWidth={isSelected ? 1 : undefined}
       />
       <circle
         cx={region.position.x}
         cy={region.position.y}
         r={radius}
         className={classnames(styles.regionCenter, {
-          [styles.hidden]: region.size <= CITY_THRESHOLD,
+          [styles.toggle]: region.size <= CITY_THRESHOLD,
         })}
       />
       <text
@@ -54,7 +53,7 @@ export default function Region({ region }: Props) {
         y={region.position.y + TEXT_OFFSET_Y}
         textAnchor="middle"
         className={classnames(styles.label, {
-          [styles.hidden]: region.size <= CITY_THRESHOLD,
+          [styles.toggle]: region.size <= CITY_THRESHOLD,
         })}
       >
         {region.size > CITY_THRESHOLD ? region.name.toUpperCase() : region.name}

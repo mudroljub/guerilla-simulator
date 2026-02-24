@@ -59,9 +59,11 @@ npm start
 - postaviti trupe
 	- garnizon sukladno veličini mesta ✓
 	- dodati razne jedinice (pešaci, tenkovi, topovi, avioni) ✓
-	- izabrati ikonice u assets
-	- staviti ikonice na veća mesta (ili veće poligone)
+	- izabrati ikonice za assets
+	- sve prebaciti u svg
+	- staviti ikonice na veća mesta (veće poligone ili samo random po mapi)
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
+- sortirati regione po veličini pre renderovanja, da manji ne idu preko većih
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
 	- faza borbe (slično kao axis and allies)
