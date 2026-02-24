@@ -1,4 +1,4 @@
-# Guerilla simulator
+# Guerilla Simulator: Uprising in Yugoslavia
 
 ## Dev
 
@@ -45,7 +45,7 @@ npm start
 	- dodati more ✓
 	- srediti isečenu južnu granicu (naći ispravan svg) !!
 	- dodati crnu granicu ✓ 
-- dodatna stanja
+- prozor
 	- proširiti region stanje da bude objekat ✓
 	- dodati selected u initialState ✓
 	- toggle selected na klik ✓
@@ -55,7 +55,7 @@ npm start
 		- slati region data na select ✓
 		- proslediti još podataka prozoru ✓
 			- regije da imaju populaciju ✓
-		- pozicionirati prozor blizu pozicije regije ?
+		- pozicionirati prozor blizu pozicije regije (previše komplikovano a nije bitno)
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

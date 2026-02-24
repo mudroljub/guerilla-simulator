@@ -19,7 +19,7 @@ const initialState = (regions: RegionData[]): MapState => ({
     [r.name]: {
       status,
       garrison: 0,
-      fraction: status == Status.Liberated ? "Partisan" : "German",
+      fraction: status === Status.Liberated ? "Partisan" : "German",
     }
   }}, {} as RegionsState),
   selected: null,
