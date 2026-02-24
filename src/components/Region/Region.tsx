@@ -8,22 +8,22 @@ import { getPathData, getRadius } from "./utils";
 const CITY_THRESHOLD = 0.04;
 const TEXT_OFFSET_Y = -10;
 
-interface Props {
-  region: RegionData;
-}
-
 const stateStyle = {
   [Status.Occupied]: styles.occupied,
   [Status.Attacked]: styles.attacked,
   [Status.Liberated]: styles.liberated,
 };
 
+interface Props {
+  region: RegionData;
+}
+
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
   const status = mapState.regionDict[region.name].status;
   const isSelected = mapState.selected === region.name;
 
-  const pathData = useMemo(() => getPathData(region.polygon, region.position), [region.polygon, region.position])
+  const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   const toggle = () => dispatch({

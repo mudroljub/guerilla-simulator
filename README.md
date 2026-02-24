@@ -51,7 +51,9 @@ npm start
 	- toggle selected na klik ✓
 	- dodavati crnu granicu na selected ✓
 	- setovati inicijalno stanje u store (oslobođene teritorije) ✓
-	- otvarati prozor za selected
+	- otvarati prozor za selected ✓
+		- pozicionirati prozor blizu pozicije regije
+		- problem kako proslediti poziciju regije prozoru
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

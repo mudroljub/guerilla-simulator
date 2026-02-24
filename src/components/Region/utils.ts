@@ -1,23 +1,7 @@
-import { Position } from "../../types/types";
-
 const RADIUS_STEPS = [2, 4, 6, 8, 10];
 
-export function getPathData(
-  polygon: [number, number][],
-  center: Position,
-): string {
-  return (
-    polygon
-      .map(([x, y], idx) => {
-        const dx = x - center.x;
-        const dy = y - center.y;
-        const nx = center.x + dx;
-        const ny = center.y + dy;
-        return `${idx === 0 ? "M" : "L"}${nx},${ny}`;
-      })
-      .join(" ") + " Z"
-  );
-}
+export const getPathData = (polygon: [number, number][]): string =>
+  polygon.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ") + " Z";
 
 export function getRadius(normalizedSize: number): number {
   const biased = Math.pow(normalizedSize, 0.3);

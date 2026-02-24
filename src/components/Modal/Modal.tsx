@@ -4,27 +4,24 @@ export default function Modal() {
   const { mapState, dispatch } = useMapStore();
 
   const selected = mapState.selected;
-
   if (!selected) return null;
 
   const region = mapState.regionDict[selected];
+  console.log(region);
+  
 
   return (
     <div
-      onClick={() => dispatch({ type: "DESELECT" })}
       style={{
         position: "fixed",
-        inset: 0,
-        background: "rgba(0,0,0,0.45)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        top: 40,
+        right: 40,
         zIndex: 1000,
       }}
     >
       <div
-        onClick={(e) => e.stopPropagation()}
         style={{
+          position: "relative",
           background: "#fff",
           padding: "20px 24px",
           borderRadius: 10,
@@ -32,6 +29,23 @@ export default function Modal() {
           boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
         }}
       >
+        {/* CLOSE BUTTON */}
+        <button
+          onClick={() => dispatch({ type: "DESELECT" })}
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 12,
+            background: "transparent",
+            border: "none",
+            fontSize: 18,
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          ×
+        </button>
+
         <h2 style={{ marginTop: 0 }}>{selected}</h2>
 
         <p><strong>Status:</strong> {region.status}</p>
