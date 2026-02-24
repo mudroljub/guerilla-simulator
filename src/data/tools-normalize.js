@@ -53,11 +53,12 @@ const { najmanji, najveci, latRange, lngRange } = findMinMax(gradovi, 0.1) // 10
 const obradjeno = Object.fromEntries(
   Object.entries(gradovi).map(([naziv, grad]) => [
     naziv,
-   {
-    position: coordToPercent(grad.koordinate, latRange, lngRange),
-    size: sizeToPercent(grad.stanovnika, najmanji, najveci)
-   }
+    {
+      position: coordToPercent(grad.koordinate, latRange, lngRange),
+      population: grad.stanovnika,
+      size: sizeToPercent(grad.stanovnika, najmanji, najveci),
+    }
   ])
 )
 
-fs.writeFileSync('gradovi_normalizovano.json', JSON.stringify(obradjeno, null, 2), 'utf8')
+fs.writeFileSync('gradovi-normalizovano.json', JSON.stringify(obradjeno, null, 2), 'utf8')

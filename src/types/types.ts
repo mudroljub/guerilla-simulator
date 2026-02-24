@@ -5,6 +5,7 @@ export interface Position {
 
 export interface SettlementData {
   position: Position;
+  population: number;
   size: number;
 }
 

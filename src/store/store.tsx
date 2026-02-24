@@ -10,16 +10,18 @@ interface Store {
 const MapContext = createContext<Store | undefined>(undefined);
 
 const initialState = (regions: RegionData[]): MapState => ({
-  regionDict: regions.reduce((acc, r) => ({
+  regionDict: regions.reduce((acc, r) => {
+    const status = r.size < 0.1 && Math.random() < 0.1
+        ? Status.Liberated
+        : Status.Occupied
+    return {
     ...acc,
     [r.name]: {
-      status: r.size < 0.1 && Math.random() < 0.1
-        ? Status.Liberated
-        : Status.Occupied,
+      status,
       garrison: 0,
-      fraction: "German",
+      fraction: status == Status.Liberated ? "Partisan" : "German",
     }
-  }), {} as RegionsState),
+  }}, {} as RegionsState),
   selected: null,
 });
 

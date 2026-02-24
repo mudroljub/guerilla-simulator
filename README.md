@@ -53,7 +53,9 @@ npm start
 	- setovati inicijalno stanje u store (oslobođene teritorije) ✓
 	- otvarati prozor za selected ✓
 		- slati region data na select ✓
-		- pozicionirati prozor blizu pozicije regije
+		- proslediti još podataka prozoru ✓
+			- regije da imaju populaciju ✓
+		- pozicionirati prozor blizu pozicije regije ?
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

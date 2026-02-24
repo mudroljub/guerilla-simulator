@@ -1,16 +1,15 @@
 import { useStore } from "../../store/store";
-import { RegionData } from "../../types/types";
+import { RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 
 interface Props {
-  selected: RegionData;
+  region: RegionData;
 }
 
-export default function Modal({ selected }: Props) {
+export default function Modal({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore();
-  console.log(selected);
   
-  const region = regionDict[selected.name];
+  const regionState: RegionState = regionDict[region.name];
 
   return (
     <div className={styles.modalWrapper}>
@@ -22,19 +21,22 @@ export default function Modal({ selected }: Props) {
           ×
         </button>
 
-        <h2 className={styles.title}>{selected.name}</h2>
+        <h2 className={styles.title}>{region.name}</h2>
 
         <p className={styles.text}>
-          <strong>Garrison:</strong> {region.garrison}
+          <strong>Population:</strong> {region.population}
         </p>
         <p className={styles.text}>
-          <strong>Faction:</strong> {region.fraction}
+          <strong>Garrison:</strong> {regionState.garrison}
+        </p>
+        <p className={styles.text}>
+          <strong>Faction:</strong> {regionState.fraction}
         </p>
 
         <button
           className={styles.attackButton}
           onClick={() =>
-            dispatch({ type: "ATTACK_REGION", region: selected.name })
+            dispatch({ type: "ATTACK_REGION", region: region.name })
           }
         >
           Attack

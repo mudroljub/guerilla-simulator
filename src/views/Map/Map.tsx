@@ -57,7 +57,7 @@ export default function Map({ regions }: Props) {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      {selected && <Modal selected={selected} />}
+      {selected && <Modal region={selected} />}
       <svg
         width={MAP_SIZE}
         height={MAP_SIZE}

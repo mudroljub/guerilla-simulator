@@ -5,10 +5,11 @@ import { MAP_SIZE } from "../config";
 
 const gradovi: Settlements = data;
 
-export const initRegions = () => {
+export const initRegions = (): RegionData[] => {
   const regions = Object.entries(gradovi).map(([name, grad]) => ({
     name,
     size: grad.size,
+    population: grad.population,
     position: {
       x: grad.position.x * MAP_SIZE,
       y: grad.position.y * MAP_SIZE,
