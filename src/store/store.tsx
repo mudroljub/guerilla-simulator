@@ -11,7 +11,7 @@ interface Store {
 const MapContext = createContext<Store | undefined>(undefined);
 
 const initialState = (regions: IRegion[]): MapState => ({
-  regions: regions.reduce((acc, r) => ({
+  regionDict: regions.reduce((acc, r) => ({
     ...acc,
     [r.name]: {
       status: r.status,
