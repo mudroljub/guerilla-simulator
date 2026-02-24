@@ -52,9 +52,8 @@ npm start
 	- dodavati crnu granicu na selected ✓
 	- setovati inicijalno stanje u store (oslobođene teritorije) ✓
 	- otvarati prozor za selected ✓
+		- slati region data na select ✓
 		- pozicionirati prozor blizu pozicije regije
-		- problem kako proslediti poziciju regije prozoru
-			- slati region data na select
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

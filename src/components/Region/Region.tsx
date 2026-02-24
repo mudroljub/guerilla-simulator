@@ -21,14 +21,14 @@ interface Props {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useMapStore();
   const status = mapState.regionDict[region.name].status;
-  const isSelected = mapState.selected === region.name;
+  const isSelected = mapState.selected?.name === region.name;
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   const toggle = () => dispatch({
     type: isSelected ? "DESELECT" : "SELECT_REGION",
-    region: region.name
+    region,
   });
 
   return (
