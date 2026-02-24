@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import styles from "./Map.module.scss";
 import { RegionData, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
+import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
 import { MAP_SIZE } from "../../config";
 
 interface Props {

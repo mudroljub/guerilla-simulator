@@ -1,4 +1,4 @@
-$textColor: white;
+@import '../../assets/styles/const.scss';
 
 .region {
   transition: fill 0.15s ease;
@@ -10,15 +10,15 @@ $textColor: white;
 }
 
 .occupied {
-  fill: #ccd1be;
+  fill: $olive;
 
   &:hover {
-    fill: #debac1;
+    fill: $blush;
   }
 }
 
 .attacked {
-  fill: #debac1;
+  fill: $blush;
 }
 
 .liberated {
@@ -31,11 +31,11 @@ $textColor: white;
   font-size: 14px;
   // pointer-events: none;
   font-weight: bold;
-  fill: $textColor;
+  fill: $white;
 }
 
 .regionCenter {
-  fill: $textColor;
+  fill: $white;
   transition: fill 0.2s ease;
 }
 
