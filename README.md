@@ -57,7 +57,7 @@ npm start
 			- regije da imaju populaciju ✓
 		- pozicionirati prozor blizu pozicije regije (ne treba)
 - postaviti trupe
-	- u svakom mestu garnizon sukladno veličini mesta
+	- garnizon sukladno veličini mesta ✓
 		- odlučiti vrste jedinica i ikonice
 		- postaviti ikonice na veća mesta, otvarati prozor sa svim informacijama na hover
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
@@ -72,7 +72,11 @@ npm start
 	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
 	- bonus: ofanzive imaju ime: I, II, III
-- finese: dodati razne okupatore nejednakih karakteristika
+- save game
+	- čuvati stanje da se ne resetuje ni inicijalizuje na reload
+	- resetuje se na new game
+- napredno
+	- dodati razne okupatore nejednakih karakteristika
 - kraj
 	- pobeda: oslobođenje zemlje
 	- poraz: uništenje ustanka
