@@ -6,6 +6,7 @@ import Region from "../../components/Region/Region";
 import { MapProvider } from "../../store/store";
 import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
 import { initRegions } from "./utils";
+import { MAP_SIZE } from "../../config";
 
 const gradovi: Settlements = data;
 
@@ -14,7 +15,6 @@ interface ScrollPos {
   top: number;
 }
 
-const MAP_SIZE = window.innerWidth * 1.5;
 // original viewBox iz svg
 const SFRJ_W = 1219.65;
 const SFRJ_H = 1057.485;
