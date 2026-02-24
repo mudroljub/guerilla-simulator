@@ -1,10 +1,10 @@
-import { RegionsState, Status } from "../types/types";
+import { RegionDict, Status } from "../types/types";
 
 export type RegionAction =
   | { type: "ATTACK_REGION"; region: string }
   | { type: "REINFORCE_REGION"; region: string; troops: number };
 
-export function regionsReducer(state: RegionsState, action: RegionAction): RegionsState {
+export function regionsReducer(state: RegionDict, action: RegionAction): RegionDict {
   switch (action.type) {
     case "ATTACK_REGION":
       return {

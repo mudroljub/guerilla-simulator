@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
-import { MapState, RegionData, RegionsState, Status } from "../types/types";
+import { MapState, RegionData, RegionDict, RegionState, Status } from "../types/types";
 
 interface Store {
   mapState: MapState;
@@ -9,20 +9,24 @@ interface Store {
 
 const MapContext = createContext<Store | undefined>(undefined);
 
-const initialState = (regions: RegionData[]): MapState => ({
-  regionDict: regions.reduce((acc, r) => {
-    const status = r.size < 0.1 && Math.random() < 0.1
+const initRegionState = (region: RegionData) : RegionState => {
+    const status = region.size < 0.1 && Math.random() < 0.1
         ? Status.Liberated
         : Status.Occupied
+
     return {
-    ...acc,
-    [r.name]: {
       status,
       garrison: 0,
       fraction: status === Status.Liberated ? "Partisan" : "German",
     }
-  }}, {} as RegionsState),
+}
+
+const initialState = (regions: RegionData[]): MapState => ({
   selected: null,
+  regionDict: regions.reduce((dict, region) => ({
+    ...dict,
+    [region.name]: initRegionState(region),
+  }), {} as RegionDict),
 });
 
 export function MapProvider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {

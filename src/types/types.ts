@@ -3,6 +3,8 @@ export interface Position {
   y: number;
 }
 
+/** DATA */
+
 export interface SettlementData {
   position: Position;
   population: number;
@@ -16,6 +18,8 @@ export interface RegionData extends SettlementData {
   polygon: [number, number][];
 }
 
+/** STATES */
+
 export enum Status {
   Occupied = 'occupied',
   Attacked = 'attacked',
@@ -28,9 +32,9 @@ export interface RegionState {
   fraction: "German" | "Italian" | "Partisan";
 }
 
-export type RegionsState = Record<string, RegionState>
+export type RegionDict = Record<string, RegionState>
 
 export interface MapState {
-  regionDict: RegionsState;
+  regionDict: RegionDict;
   selected: RegionData | null;
 }
