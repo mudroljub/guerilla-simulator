@@ -1,13 +1,15 @@
 import { useStore } from "../../store/store";
+import { RegionData } from "../../types/types";
 import styles from "./Modal.module.scss";
 
-export default function Modal() {
-  const { mapState, dispatch } = useStore();
+interface Props {
+  selected: RegionData;
+}
 
-  const selected = mapState.selected;
-  if (!selected) return null;
+export default function Modal({ selected }: Props) {
+  const { mapState: { regionDict }, dispatch } = useStore();
 
-  const region = mapState.regionDict[selected.name];
+  const region = regionDict[selected.name];
 
   return (
     <div className={styles.modalWrapper}>
