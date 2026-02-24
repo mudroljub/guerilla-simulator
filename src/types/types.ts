@@ -26,9 +26,16 @@ export enum Status {
   Liberated = 'liberated',
 }
 
+export interface Garrison {
+    infantry: number;
+    artillery: number;
+    tanks: number;
+    aircraft: number;
+}
+
 export interface RegionState {
   status: Status;
-  garrison: number;
+  garrison: Garrison;
   fraction: "German" | "Italian" | "Partisan";
 }
 

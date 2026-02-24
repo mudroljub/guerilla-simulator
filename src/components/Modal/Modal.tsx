@@ -11,6 +11,8 @@ export default function Modal({ region }: Props) {
   
   const regionState: RegionState = regionDict[region.name];
 
+  const garrison = regionState.garrison;
+
   return (
     <div className={styles.modalWrapper}>
       <div className={styles.modalBox}>
@@ -26,9 +28,17 @@ export default function Modal({ region }: Props) {
         <p className={styles.text}>
           <strong>Population:</strong> {region.population}
         </p>
+
         <p className={styles.text}>
-          <strong>Garrison:</strong> {regionState.garrison}
+          <strong>Garrison:</strong>
         </p>
+        <ul className={styles.text}>
+          <li>Infantry: {garrison.infantry}</li>
+          {garrison.artillery > 0 && <li>Artillery: {garrison.artillery}</li>}
+          {garrison.tanks > 0 && <li>Tanks: {garrison.tanks}</li>}
+          {garrison.aircraft > 0 && <li>Aircraft: {garrison.aircraft}</li>}
+        </ul>
+
         <p className={styles.text}>
           <strong>Faction:</strong> {regionState.fraction}
         </p>

@@ -58,8 +58,9 @@ npm start
 		- pozicionirati prozor blizu pozicije regije (ne treba)
 - postaviti trupe
 	- garnizon sukladno veličini mesta ✓
-		- odlučiti vrste jedinica i ikonice
-		- postaviti ikonice na veća mesta, otvarati prozor sa svim informacijama na hover
+	- dodati razne jedinice (pešaci, tenkovi, topovi, avioni) ✓
+	- izabrati ikonice u assets
+	- staviti ikonice na veća mesta (ili veće poligone)
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
