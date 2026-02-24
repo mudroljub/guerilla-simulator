@@ -1,14 +1,11 @@
 import React, { useRef, useState } from "react";
-import data from "../../data/gradovi-normalizovano.json";
 import styles from "./Map.module.scss";
-import { Settlements, IRegion, Position } from "../../types/types";
+import { IRegion, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
 import { MapProvider } from "../../store/store";
 import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
 import { initRegions } from "./utils";
 import { MAP_SIZE } from "../../config";
-
-const gradovi: Settlements = data;
 
 interface ScrollPos {
   left: number;
@@ -21,7 +18,7 @@ const SFRJ_H = 1057.485;
 const SCALE_X = MAP_SIZE / SFRJ_W
 const SCALE_Y = MAP_SIZE / SFRJ_H
 
-const regions: IRegion[] = initRegions(gradovi, MAP_SIZE)
+const regions: IRegion[] = initRegions()
 
 export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
