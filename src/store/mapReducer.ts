@@ -1,11 +1,7 @@
 import { regionsReducer, RegionAction } from "./regionsReducer";
 import { SelectionAction, selectionReducer } from "./selectionReducer";
-import { RegionData, RegionsState } from "../types/types";
+import { MapState } from "../types/types";
 
-export interface MapState {
-  regionDict: RegionsState;
-  selected: RegionData | null;
-}
 
 export type MapAction = RegionAction | SelectionAction;
 

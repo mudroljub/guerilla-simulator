@@ -1,9 +1,8 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
-import { mapReducer, MapAction, MapState } from "./mapReducer";
-import { RegionData, RegionsState, Status } from "../types/types";
+import { mapReducer, MapAction } from "./mapReducer";
+import { MapState, RegionData, RegionsState, Status } from "../types/types";
 
 interface Store {
-  regions: RegionData[];
   mapState: MapState;
   dispatch: Dispatch<MapAction>;
 }
@@ -27,7 +26,7 @@ const initialState = (regions: RegionData[]): MapState => ({
 export function MapProvider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
   const [mapState, dispatch] = useReducer(mapReducer, regions, initialState);
 
-  const value = useMemo(() => ({ regions, mapState, dispatch }), [regions, mapState]);
+  const value = useMemo(() => ({ mapState, dispatch }), [mapState]);
 
   return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
 }

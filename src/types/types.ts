@@ -28,3 +28,8 @@ export interface RegionState {
 }
 
 export type RegionsState = Record<string, RegionState>
+
+export interface MapState {
+  regionDict: RegionsState;
+  selected: RegionData | null;
+}
