@@ -11,7 +11,7 @@ export default function Modal() {
 
   return (
     <div className={styles.modalWrapper}>
-      <div className={styles.modalContent}>
+      <div className={styles.modalBox}>
         <button
           onClick={() => dispatch({ type: "DESELECT" })}
           className={styles.closeButton}
@@ -19,14 +19,20 @@ export default function Modal() {
           ×
         </button>
 
-        <h2 className={styles.modalTitle}>{selected}</h2>
+        <h2 className={styles.title}>{selected}</h2>
 
-        <p><strong>Garrison:</strong> {region.garrison}</p>
-        <p><strong>Faction:</strong> {region.fraction}</p>
+        <p className={styles.text}>
+          <strong>Garrison:</strong> {region.garrison}
+        </p>
+        <p className={styles.text}>
+          <strong>Faction:</strong> {region.fraction}
+        </p>
 
         <button
           className={styles.attackButton}
-          onClick={() => dispatch({ type: "ATTACK_REGION", region: selected })}
+          onClick={() =>
+            dispatch({ type: "ATTACK_REGION", region: selected })
+          }
         >
           Attack
         </button>
