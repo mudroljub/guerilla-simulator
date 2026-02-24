@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { RegionData, Status } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useMapStore } from "../../store/store";
+import { useStore } from "../../store/store";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function Region({ region }: Props) {
-  const { mapState, dispatch } = useMapStore();
+  const { mapState, dispatch } = useStore();
   const status = mapState.regionDict[region.name].status;
   const isSelected = mapState.selected?.name === region.name;
 

@@ -32,8 +32,8 @@ export function MapProvider({ regions, children }: { regions: RegionData[]; chil
   return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
 }
 
-export const useMapStore = () => {
+export const useStore = () => {
   const ctx = useContext(MapContext);
-  if (!ctx) throw new Error("useMapStore must be used within MapProvider");
+  if (!ctx) throw new Error("useStore must be used within MapProvider");
   return ctx;
 };

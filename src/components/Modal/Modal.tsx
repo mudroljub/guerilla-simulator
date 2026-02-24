@@ -1,8 +1,8 @@
-import { useMapStore } from "../../store/store";
+import { useStore } from "../../store/store";
 import styles from "./Modal.module.scss";
 
 export default function Modal() {
-  const { mapState, dispatch } = useMapStore();
+  const { mapState, dispatch } = useStore();
 
   const selected = mapState.selected;
   if (!selected) return null;
