@@ -8,7 +8,8 @@ interface Props {
 
 export default function Modal({ selected }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore();
-
+  console.log(selected);
+  
   const region = regionDict[selected.name];
 
   return (

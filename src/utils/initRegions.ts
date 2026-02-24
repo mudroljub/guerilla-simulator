@@ -1,7 +1,7 @@
 import { Delaunay } from "d3-delaunay";
-import { RegionData, Settlements } from "../../types/types";
-import data from "../../data/gradovi-normalizovano.json";
-import { MAP_SIZE } from "../../config";
+import { RegionData, Settlements } from "../types/types";
+import data from "../data/gradovi-normalizovano.json";
+import { MAP_SIZE } from "../config";
 
 const gradovi: Settlements = data;
 
