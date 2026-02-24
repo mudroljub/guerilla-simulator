@@ -55,8 +55,7 @@
   pointer-events: none;
 }
 
-.region:hover,
-.region.selected {
+.region:hover {
   .toggle {
     opacity: 1;
     pointer-events: auto;

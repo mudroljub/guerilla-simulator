@@ -63,7 +63,7 @@ npm start
 	- sve prebaciti u svg
 	- staviti ikonice na veća mesta (veće poligone ili samo random po mapi)
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
-- sortirati regione po veličini pre renderovanja, da manji ne idu preko većih
+- sortirati regione po veličini pre renderovanja, da manji ne idu preko većih ✓
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
 	- faza borbe (slično kao axis and allies)
