@@ -55,7 +55,7 @@ npm start
 		- slati region data na select ✓
 		- proslediti još podataka prozoru ✓
 			- regije da imaju populaciju ✓
-		- pozicionirati prozor blizu pozicije regije (previše komplikovano a nije bitno)
+		- pozicionirati prozor blizu pozicije regije (ne treba)
 - postaviti trupe
 	- u svakom mestu garnizon sukladno veličini mesta
 		- odlučiti vrste jedinica i ikonice

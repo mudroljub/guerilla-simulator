@@ -1,4 +1,4 @@
-@import '../../assets/styles/const.scss';
+@use '../../assets/styles/const.scss' as *;
 
 .modalWrapper {
   position: fixed;
