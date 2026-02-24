@@ -10,15 +10,15 @@ export interface SettlementData {
 
 export type Settlements = Record<string, SettlementData>;
 
+export interface RegionData extends SettlementData {
+  name: string;
+  polygon: [number, number][];
+}
+
 export enum Status {
   Occupied = 'occupied',
   Attacked = 'attacked',
   Liberated = 'liberated',
-}
-
-export interface IRegion extends SettlementData {
-  name: string;
-  polygon: [number, number][];
 }
 
 export interface RegionState {

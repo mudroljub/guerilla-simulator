@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { IRegion, Status } from "../../types/types";
+import { RegionData, Status } from "../../types/types";
 import styles from "./Region.module.scss";
 import { useMapStore } from "../../store/store";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ const CITY_THRESHOLD = 0.04;
 const TEXT_OFFSET_Y = -10;
 
 interface Props {
-  region: IRegion;
+  region: RegionData;
 }
 
 const stateStyle = {
@@ -27,7 +27,7 @@ export default function Region({ region }: Props) {
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   const toggle = () => dispatch({
-    type: isSelected ? "UNSELECT" : "SELECT_REGION",
+    type: isSelected ? "DESELECT" : "SELECT_REGION",
     region: region.name
   });
 

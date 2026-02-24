@@ -1,16 +1,16 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction, MapState } from "./mapReducer";
-import { IRegion, RegionsState, Status } from "../types/types";
+import { RegionData, RegionsState, Status } from "../types/types";
 
 interface Store {
-  regions: IRegion[];
+  regions: RegionData[];
   mapState: MapState;
   dispatch: Dispatch<MapAction>;
 }
 
 const MapContext = createContext<Store | undefined>(undefined);
 
-const initialState = (regions: IRegion[]): MapState => ({
+const initialState = (regions: RegionData[]): MapState => ({
   regionDict: regions.reduce((acc, r) => ({
     ...acc,
     [r.name]: {
@@ -24,7 +24,7 @@ const initialState = (regions: IRegion[]): MapState => ({
   selected: null,
 });
 
-export function MapProvider({ regions, children }: { regions: IRegion[]; children: ReactNode }) {
+export function MapProvider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
   const [mapState, dispatch] = useReducer(mapReducer, regions, initialState);
 
   const value = useMemo(() => ({ regions, mapState, dispatch }), [regions, mapState]);

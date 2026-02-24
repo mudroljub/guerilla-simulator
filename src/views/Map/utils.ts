@@ -1,5 +1,5 @@
 import { Delaunay } from "d3-delaunay";
-import { IRegion, Settlements } from "../../types/types";
+import { RegionData, Settlements } from "../../types/types";
 import data from "../../data/gradovi-normalizovano.json";
 import { MAP_SIZE } from "../../config";
 
@@ -20,5 +20,5 @@ export const initRegions = () => {
 
   return regions
     .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
-    .filter((r) => r.polygon) as IRegion[]
+    .filter((r) => r.polygon) as RegionData[]
 }

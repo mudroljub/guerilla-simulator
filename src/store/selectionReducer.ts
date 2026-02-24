@@ -1,6 +1,6 @@
 export type SelectionAction =
   | { type: "SELECT_REGION"; region: string }
-  | { type: "UNSELECT"; region: string };
+  | { type: "DESELECT"; region?: string };
 
 export function selectionReducer(
   selected: string | null,
@@ -10,7 +10,7 @@ export function selectionReducer(
     case "SELECT_REGION":
       return action.region;
 
-    case "UNSELECT":
+    case "DESELECT":
       return null;
 
     default:

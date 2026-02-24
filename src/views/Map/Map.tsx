@@ -1,26 +1,25 @@
 import React, { useRef, useState } from "react";
 import styles from "./Map.module.scss";
-import { IRegion, Position } from "../../types/types";
+import { RegionData, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
-import { MapProvider } from "../../store/store";
 import { SFRJ_D, SFRJ_D_ADRIA } from "./paths";
-import { initRegions } from "./utils";
 import { MAP_SIZE } from "../../config";
+
+interface Props {
+  regions: RegionData[]
+}
 
 interface ScrollPos {
   left: number;
   top: number;
 }
 
-// original viewBox iz svg
-const SFRJ_W = 1219.65;
-const SFRJ_H = 1057.485;
-const SCALE_X = MAP_SIZE / SFRJ_W
-const SCALE_Y = MAP_SIZE / SFRJ_H
+const viewBox_w = 1219.65; // from svg
+const viewBox_h = 1057.485;
+const SCALE_X = MAP_SIZE / viewBox_w
+const SCALE_Y = MAP_SIZE / viewBox_h
 
-const regions: IRegion[] = initRegions()
-
-export default function Map() {
+export default function Map({ regions }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
@@ -47,7 +46,6 @@ export default function Map() {
   const handleMouseUp = () => setDragging(false);
 
   return (
-    <MapProvider regions={regions}>
       <div
         ref={containerRef}
         className={styles.mapContainer}
@@ -104,12 +102,9 @@ export default function Map() {
           />
 
           <g mask="url(#mask-land)">
-            {regions.map((region) => (
-              <Region key={region.name} region={region} />
-            ))}
+            {regions.map((region) => <Region key={region.name} region={region} />)}
           </g>
         </svg>
       </div>
-    </MapProvider>
   );
 }
