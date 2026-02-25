@@ -35,7 +35,7 @@ export default function Icon({ region }: Props) {
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-       <SvgComponent className={styles.icon} width="100" height="100" />
+       <SvgComponent className={styles.icon} />
     </g>
   );
 }

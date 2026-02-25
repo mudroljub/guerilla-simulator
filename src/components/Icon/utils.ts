@@ -22,7 +22,6 @@ import { ReactComponent as GerArt3 } from '../../assets/images/german/artillery/
 // --- GERMAN AIRCRAFT ---
 import { ReactComponent as GerAir2 } from '../../assets/images/german/aircraft/fieseler-fi-156.svg';
 import { ReactComponent as GerAir3 } from '../../assets/images/german/aircraft/junkers-ju87b-stuka.svg';
-import { ReactComponent as GerAir6 } from '../../assets/images/german/aircraft/junkers-ju87d-stuka.svg';
 import { ReactComponent as GerAir8 } from '../../assets/images/german/aircraft/Messerschmitt-Bf-109.svg';
 
 // --- PARTISAN INFANTRY ---
@@ -51,7 +50,7 @@ export const iconDict: Record<Fraction, Partial<Record<UnitType, IconComponent[]
     infantry: [GerInf1, GerInf2, GerInf3, GerInf5, GerInf7, GerInf8],
     tanks: [GerTank3, GerTank4, GerTank5, GerTank6, GerTank7, GerTank8],
     artillery: [GerArt1, GerArt2, GerArt3],
-    aircraft: [GerAir2, GerAir3, GerAir6, GerAir8],
+    aircraft: [GerAir2, GerAir3, GerAir8],
   },
   Italian: {
     infantry: [PartInf1],
