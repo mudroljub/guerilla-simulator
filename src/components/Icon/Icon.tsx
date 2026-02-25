@@ -26,13 +26,12 @@ export default function Icon({ region }: Props) {
       ? getRandomUnit(regionState.garrison) 
       : 'infantry';
 
-    const factionDict = iconDict[regionState.fraction];
-    const iconsArray = factionDict ? factionDict[unitType] : null;
-    
-    return Array.isArray(iconsArray) 
-      ? sample(iconsArray) 
+    const value = iconDict[regionState.fraction][unitType]
+
+    return Array.isArray(value) 
+      ? sample(value) 
       : null;
-  }, [regionState.garrison, regionState.fraction]);
+    }, [regionState.garrison, regionState.fraction]);
 
   if (region.size <= CITY_LABEL_THRESHOLD || !SvgComponent) return null;
 
