@@ -57,12 +57,19 @@ npm start
 			- regije da imaju populaciju ✓
 		- pozicionirati prozor blizu pozicije regije (ne treba)
 - sortirati regione po veličini pre renderovanja, da manji ne idu preko većih ✓
-- postaviti trupe
+- postaviti nemce
 	- garnizon sukladno veličini mesta ✓
 	- dodati razne jedinice (pešaci, tenkovi, topovi, avioni) ✓
+- postaviti ikonice
 	- izabrati ikonice za assets ✓
 	- sve prebaciti u svg ✓
-	- staviti ikonice na veća mesta (veće poligone ili samo random po mapi)
+	- staviti ikonice na veća mesta ✓ 
+	- napraviti komponentu Icon ✓
+		- komponenta prima region data i uzima region state 
+		- na osnovu veličine mesta, frakcije i garnizona prikazuje odgovarajuću ikonicu
+		- prikazati najjaču ikonicu za svako mesto (npr. avion ili tenk ako ima)
+		- možda dinamički učitava ikonice na osnovu naziva
+- postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
