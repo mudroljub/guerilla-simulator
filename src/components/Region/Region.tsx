@@ -4,8 +4,8 @@ import styles from "./Region.module.scss";
 import { useStore } from "../../store/store";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
+import { CITY_LABEL_THRESHOLD } from "../../config";
 
-const CITY_THRESHOLD = 0.04;
 const TEXT_OFFSET_Y = -10;
 
 const stateStyle = {
@@ -45,7 +45,7 @@ export default function Region({ region }: Props) {
         cy={region.position.y}
         r={radius}
         className={classnames(styles.regionCenter, {
-          [styles.toggle]: region.size <= CITY_THRESHOLD,
+          [styles.toggle]: region.size <= CITY_LABEL_THRESHOLD,
         })}
       />
       <text
@@ -53,10 +53,10 @@ export default function Region({ region }: Props) {
         y={region.position.y + TEXT_OFFSET_Y}
         textAnchor="middle"
         className={classnames(styles.label, {
-          [styles.toggle]: region.size <= CITY_THRESHOLD,
+          [styles.toggle]: region.size <= CITY_LABEL_THRESHOLD,
         })}
       >
-        {region.size > CITY_THRESHOLD ? region.name.toUpperCase() : region.name}
+        {region.size > CITY_LABEL_THRESHOLD ? region.name.toUpperCase() : region.name}
       </text>
     </g>
   );

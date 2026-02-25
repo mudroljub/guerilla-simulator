@@ -4,8 +4,9 @@ import { RegionData, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
 import Modal from '../../components/Modal/Modal'
 import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
-import { MAP_SIZE } from "../../config";
+import { CITY_LABEL_THRESHOLD, MAP_SIZE } from "../../config";
 import { useStore } from "../../store/store";
+import { ReactComponent as Icon } from '../../assets/images/germans/infantry/komandir-02.svg';
 
 const viewBox_w = 1219.65; // from svg
 const viewBox_h = 1057.485;
@@ -47,6 +48,10 @@ export default function Map({ regions }: Props) {
   };
 
   const handleMouseUp = () => setDragging(false);
+
+  console.log(regions
+          .filter(r => r.size > CITY_LABEL_THRESHOLD).map(r => r.name));
+  
 
   return (
     <div
@@ -108,6 +113,14 @@ export default function Map({ regions }: Props) {
         <g mask="url(#mask-land)">
           {regions.map((region) => <Region key={region.name} region={region} />)}
         </g>
+
+        {regions
+          .filter(r => r.size > CITY_LABEL_THRESHOLD)
+          .map(r => (
+          <g key={r.name} transform={`translate(${r.position.x}, ${r.position.y})`}>
+            <Icon className={styles.icon} />
+          </g>
+        ))}
       </svg>
     </div>
   );
