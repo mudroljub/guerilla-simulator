@@ -71,7 +71,7 @@ npm start
 			- prikazivati random jedinicu od postojećih ✓
 		- dodati niz ikona za svaku kategoriju ✓
 		- da ne ide random, nego redom po nizu ✓
-		- probrati slike, neke izbaciti
+		- probrati slike ✓
 		- srediti veličine slika makar i ručno
 - dodati legendu mape
 - postaviti partizane
