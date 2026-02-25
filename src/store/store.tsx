@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
 import { MapState, RegionData, RegionDict, RegionState, Status } from "../types/types";
-import { generateGarrison } from "../utils/math";
+import { generateGarrison } from "../utils/generateGarrison";
 
 interface Store {
   mapState: MapState;
