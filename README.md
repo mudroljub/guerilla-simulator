@@ -73,6 +73,7 @@ npm start
 		- da ne ide random, nego redom po nizu ✓
 		- probrati slike, neke izbaciti
 		- srediti veličine slika makar i ručno
+- dodati legendu mape
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
