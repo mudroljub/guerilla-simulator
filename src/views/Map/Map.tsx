@@ -110,7 +110,7 @@ export default function Map({ regions }: Props) {
           {regions.map((region) => <Region key={region.name} region={region} />)}
         </g>
 
-        {regions.map(r => <Icon region={r} />)}
+        {regions.map(r => <Icon key={r.name} region={r} />)}
       </svg>
     </div>
   )

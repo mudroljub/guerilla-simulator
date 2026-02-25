@@ -66,7 +66,7 @@ npm start
 	- staviti ikonice na veća mesta ✓ 
 	- napraviti komponentu Icon ✓
 		- komponenta prima region data i uzima region state 
-		- na osnovu veličine mesta, frakcije i garnizona prikazuje odgovarajuću ikonicu
+		- na osnovu veličine garnizona i frakcije prikazuje odgovarajuću ikonicu
 		- prikazati najjaču ikonicu za svako mesto (npr. avion ili tenk ako ima)
 		- možda dinamički učitava ikonice na osnovu naziva
 - postaviti partizane

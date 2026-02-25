@@ -26,17 +26,20 @@ export enum Status {
   Liberated = 'liberated',
 }
 
-export interface Garrison {
-    infantry: number;
-    artillery: number;
-    tanks: number;
-    aircraft: number;
-}
+export type UnitType =
+  | "infantry"
+  | "artillery"
+  | "tanks"
+  | "aircraft";
+
+export type Garrison = Record<UnitType, number>;
+
+export type Fraction = "German" | "Italian" | "Partisan"
 
 export interface RegionState {
   status: Status;
   garrison: Garrison;
-  fraction: "German" | "Italian" | "Partisan";
+  fraction: Fraction;
 }
 
 export type RegionDict = Record<string, RegionState>
