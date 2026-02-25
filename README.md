@@ -69,7 +69,9 @@ npm start
 		- na osnovu veličine garnizona i frakcije prikazuje odgovarajuću ikonicu ✓
 		- prikazati najjaču ikonicu za svako mesto (bez veze, uvek je avion) ✓
 			- prikazivati random jedinicu od postojećih ✓
-		- dodati niz ikona za svaku kategoriju
+		- dodati niz ikona za svaku kategoriju ✓
+		- da ne ide random, nego redom po nizu
+		- refaktorisati
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
