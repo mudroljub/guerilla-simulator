@@ -4,7 +4,7 @@ import { useRegionStore } from '../../store/store';
 import { Garrison, RegionData, UnitType } from '../../types/types';
 import { sample } from '../../utils/math';
 import styles from "./Icon.module.scss";
-import { getIconForName, iconDict } from "./utils";
+import { nameToIcon, iconDict } from "./utils";
 
 function getRandomUnitType(garrison: Garrison): UnitType {
   const units = (Object.keys(garrison) as UnitType[]).filter(unit => garrison[unit] > 0);
@@ -17,19 +17,19 @@ interface Props {
 
 export default function Icon({ region }: Props) {
   const { regionDict } = useRegionStore();
-  const regionState = regionDict[region.name];
+  const { fraction, garrison } = regionDict[region.name];
 
   const SvgComponent = useMemo(() => {
-    const unitType: UnitType = regionState.fraction === 'German' 
-      ? getRandomUnitType(regionState.garrison) 
+    const unitType: UnitType = fraction === 'German' 
+      ? getRandomUnitType(garrison) 
       : 'infantry';
 
-    const value = iconDict[regionState.fraction][unitType]
-    if (!value) return null
+    const icons = iconDict[fraction][unitType]
+    if (!icons?.length) return null
 
-    return getIconForName(value, region.name);
+    return nameToIcon(icons, region.name)
 
-  }, [regionState.fraction, regionState.garrison, region.name]);
+  }, [fraction, garrison, region.name]);
 
   if (region.size <= CITY_LABEL_THRESHOLD || !SvgComponent) return null;
 
