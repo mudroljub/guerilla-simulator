@@ -30,7 +30,7 @@ const initialState = (regions: RegionData[]): MapState => ({
   }), {} as RegionDict),
 });
 
-export function MapProvider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
+export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
   const [mapState, dispatch] = useReducer(mapReducer, regions, initialState);
 
   const value = useMemo(() => ({ mapState, dispatch }), [mapState]);
@@ -42,4 +42,12 @@ export const useStore = () => {
   const ctx = useContext(MapContext);
   if (!ctx) throw new Error("useStore must be used within MapProvider");
   return ctx;
+};
+
+export const useRegionStore = () => {
+  const { mapState, dispatch } = useStore();
+  return { 
+    regionDict: mapState.regionDict, 
+    dispatch
+   };
 };

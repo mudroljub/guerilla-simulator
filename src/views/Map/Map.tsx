@@ -4,7 +4,7 @@ import { RegionData, Position } from "../../types/types";
 import Region from "../../components/Region/Region";
 import Modal from '../../components/Modal/Modal'
 import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
-import { CITY_LABEL_THRESHOLD, MAP_SIZE } from "../../config";
+import { MAP_SIZE } from "../../config";
 import { useStore } from "../../store/store";
 import Icon from '../../components/Icon/Icon'
 
