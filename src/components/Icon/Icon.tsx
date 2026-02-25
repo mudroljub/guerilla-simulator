@@ -4,18 +4,22 @@ import { Fraction, Garrison, RegionData, UnitType } from '../../types/types';
 import styles from "./Icon.module.scss";
 import React, { useEffect, useState } from "react";
 
-function getRarestUnit(garrison: Garrison): UnitType {
-  if (garrison.aircraft > 0) return "aircraft";
-  if (garrison.tanks > 0) return "tanks";
-  if (garrison.artillery > 0) return "artillery";
-  return "infantry";
+function getRandomUnit(garrison: Garrison): UnitType {
+  const units = (Object.keys(garrison) as UnitType[])
+    .filter(unit => garrison[unit] > 0);
+
+  if (units.length === 0) return "infantry";
+
+  const randIndex = Math.floor(Math.random() * units.length);
+  return units[randIndex];
 }
+
 const icons: Record<Fraction, Partial<Record<UnitType, () => Promise<any>>>> = {
   German: {
     infantry: () => import('../../assets/images/german/infantry/komandir-02.svg'),
     tanks: () => import('../../assets/images/german/tanks/stug3-a.svg'),
     artillery: () => import('../../assets/images/german/artillery/artiljerija-01.svg'),
-    aircraft: () => import('../../assets/images/german/aircraft/avion-odozgo-01.svg'),
+    aircraft: () => import('../../assets/images/german/aircraft/junkers-ju87d-5.svg'),
   },
   Italian: {
     infantry: () => import('../../assets/images/partisan/infantry/bombas-02.svg'),
@@ -27,7 +31,7 @@ const icons: Record<Fraction, Partial<Record<UnitType, () => Promise<any>>>> = {
 
 export const getIcon = (garrison: Garrison, fraction: Fraction) => {
   const unitType: UnitType = fraction === 'German' 
-    ? getRarestUnit(garrison) 
+    ? getRandomUnit(garrison) 
     : 'infantry';
 
   return icons[fraction][unitType];
@@ -56,6 +60,8 @@ export default function Icon({ region }: Props) {
   if (region.size <= CITY_LABEL_THRESHOLD || !Svg) return null;
 
   return (
-    <g transform={`translate(${region.position.x}, ${region.position.y})`}> <Svg className={styles.icon} /> </g>
-  );
+    <g transform={`translate(${region.position.x}, ${region.position.y})`}>
+      <Svg className={styles.icon} width="100" height="100" />
+    </g>
+  )
 }
