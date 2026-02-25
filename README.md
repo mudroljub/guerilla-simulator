@@ -73,6 +73,9 @@ npm start
 		- da ne ide random, nego redom po nizu ✓
 		- probrati slike ✓
 		- srediti veličine slika makar i ručno
+		- više partizana, problem je limit za mala mesta
+		- manje nemaca
+			- nije loše kad su samo partizani
 - dodati legendu mape
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno

@@ -31,7 +31,10 @@ export default function Icon({ region }: Props) {
 
   }, [fraction, garrison, region.name]);
 
-  if (region.size <= CITY_LABEL_THRESHOLD || !SvgComponent) return null;
+  if (fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2) return null;
+  if (fraction === 'Partisan' && region.size <= CITY_LABEL_THRESHOLD / 2) return null;
+
+  if (!SvgComponent) return null;
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
