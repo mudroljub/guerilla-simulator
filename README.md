@@ -70,8 +70,9 @@ npm start
 		- prikazati najjaču ikonicu za svako mesto (bez veze, uvek je avion) ✓
 			- prikazivati random jedinicu od postojećih ✓
 		- dodati niz ikona za svaku kategoriju ✓
-		- da ne ide random, nego redom po nizu
-		- refaktorisati
+		- da ne ide random, nego redom po nizu ✓
+		- probrati slike, neke izbaciti
+		- srediti veličine slika makar i ručno
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke

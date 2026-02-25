@@ -4,9 +4,9 @@ import { useRegionStore } from '../../store/store';
 import { Garrison, RegionData, UnitType } from '../../types/types';
 import { sample } from '../../utils/math';
 import styles from "./Icon.module.scss";
-import { iconDict } from "./utils";
+import { getIconForName, iconDict } from "./utils";
 
-function getRandomUnit(garrison: Garrison): UnitType {
+function getRandomUnitType(garrison: Garrison): UnitType {
   const units = (Object.keys(garrison) as UnitType[]).filter(unit => garrison[unit] > 0);
   return units.length ? sample(units) : "infantry";
 }
@@ -20,24 +20,22 @@ export default function Icon({ region }: Props) {
   const regionState = regionDict[region.name];
 
   const SvgComponent = useMemo(() => {
-    if (!regionState) return null;
-
     const unitType: UnitType = regionState.fraction === 'German' 
-      ? getRandomUnit(regionState.garrison) 
+      ? getRandomUnitType(regionState.garrison) 
       : 'infantry';
 
     const value = iconDict[regionState.fraction][unitType]
+    if (!value) return null
 
-    return Array.isArray(value) 
-      ? sample(value) 
-      : null;
-    }, [regionState.garrison, regionState.fraction]);
+    return getIconForName(value, region.name);
+
+  }, [regionState.fraction, regionState.garrison, region.name]);
 
   if (region.size <= CITY_LABEL_THRESHOLD || !SvgComponent) return null;
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-      <SvgComponent className={styles.icon} width="100" height="100" />
+       <SvgComponent className={styles.icon} width="100" height="100" />
     </g>
   );
 }
