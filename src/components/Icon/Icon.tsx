@@ -8,7 +8,7 @@ import { nameToIcon, iconDict } from "./utils";
 
 function getRandomUnitType(garrison: Garrison): UnitType {
   const units = (Object.keys(garrison) as UnitType[]).filter(unit => garrison[unit] > 0);
-  return units.length ? sample(units) : "infantry";
+  return Math.random() > 0.33 ? sample(units) : "infantry"
 }
 
 interface Props {
@@ -29,7 +29,7 @@ export default function Icon({ region }: Props) {
     return nameToIcon(icons, region.name);
   }, [fraction, unitType, region.name]);
 
-  if ((fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2)) return null;
+  if ((fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 1.5)) return null;
 
   if (!SvgComponent) return null;
 
