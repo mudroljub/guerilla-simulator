@@ -11,7 +11,7 @@ const getTroops = (population: number, minPercent: number, maxPercent: number) =
   Tenkovi   3%
   Avijacija 1%
 */
-export function generateGarrison(
+export function initGarrison(
   population: number,
   minPercent = 0.005,
   maxPercent = 0.02

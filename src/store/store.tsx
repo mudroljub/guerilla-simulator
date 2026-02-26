@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
 import { MapState, RegionData, RegionDict, RegionState, Status } from "../types/types";
-import { generateGarrison } from "../utils/generateGarrison";
+import { initGarrison } from "../utils/initGarrison";
 
 interface Store {
   mapState: MapState;
@@ -17,7 +17,7 @@ const initRegionState = (region: RegionData) : RegionState => {
 
     return {
       status,
-      garrison: generateGarrison(region.population),
+      garrison: initGarrison(region.population),
       fraction: status === Status.Liberated ? "Partisan" : "German",
     }
 }
