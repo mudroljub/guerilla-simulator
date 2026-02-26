@@ -77,6 +77,7 @@ npm start
 		- prikazivati slike samo na većim oblastima ✓
 			- izračunati površine poligona ✓
 		- da nemci budu okrenuti ka istoku a partizani ka zapadu ✓
+			- možda bez nemaca?
 		- previše nemačkih aviona i tenkova, treba više vojnika, podesiti šanse
 		- ukinuti ime u index?
 		- dodati neki hover na ustaničke teritorije

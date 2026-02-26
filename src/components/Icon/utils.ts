@@ -1,6 +1,5 @@
 // --- GERMAN INFANTRY ---
 import { ReactComponent as GerInf1 } from '../../assets/images/german/infantry/komandir-02.svg';
-import { ReactComponent as GerInf2 } from '../../assets/images/german/infantry/mitraljezac-09.svg';
 import { ReactComponent as GerInf3 } from '../../assets/images/german/infantry/mitraljezac-10.svg';
 import { ReactComponent as GerInf5 } from '../../assets/images/german/infantry/narednik-02.svg';
 import { ReactComponent as GerInf7 } from '../../assets/images/german/infantry/ss-07.svg';
@@ -47,7 +46,7 @@ type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
 export const iconDict: Record<Fraction, Partial<Record<UnitType, IconComponent[]>>> = {
   German: {
-    infantry: [GerInf1, GerInf2, GerInf3, GerInf5, GerInf7, GerInf8],
+    infantry: [GerInf1, GerInf3, GerInf5, GerInf7, GerInf8],
     tanks: [GerTank3, GerTank4, GerTank5, GerTank6, GerTank7, GerTank8],
     artillery: [GerArt1, GerArt2, GerArt3],
     aircraft: [GerAir2, GerAir3, GerAir8],
