@@ -29,8 +29,7 @@ export default function Icon({ region }: Props) {
     return nameToIcon(icons, region.name);
   }, [fraction, unitType, region.name]);
 
-  if ((fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2) ||
-      (fraction === 'Partisan' && region.size <= CITY_LABEL_THRESHOLD / 2)) return null;
+  if ((fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2)) return null;
 
   if (!SvgComponent) return null;
 

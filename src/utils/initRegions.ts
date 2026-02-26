@@ -5,6 +5,16 @@ import { MAP_SIZE } from "../config";
 
 const gradovi: Settlements = data;
 
+function polygonArea(points: [number, number][]) {
+  let area = 0;
+  const n = points.length;
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    area += points[i][0] * points[j][1] - points[j][0] * points[i][1];
+  }
+  return Math.abs(area) / 2;
+}
+
 export const initRegions = (): RegionData[] => {
   const regions = Object.entries(gradovi)
     .map(([name, grad]) => ({
@@ -16,12 +26,21 @@ export const initRegions = (): RegionData[] => {
         y: grad.position.y * MAP_SIZE,
       },
     }))
-    .sort((a, b) => a.size - b.size)
+    .sort((a, b) => a.size - b.size);
 
   const delaunay = Delaunay.from(regions.map((o) => [o.position.x, o.position.y]));
   const voronoi = delaunay.voronoi([0, 0, MAP_SIZE, MAP_SIZE]);
 
   return regions
-    .map((obj, i) => ({ ...obj, polygon: voronoi.cellPolygon(i) }))
-    .filter((r) => r.polygon) as RegionData[]
-}
+    .map((obj, i) => {
+      const polygon = voronoi.cellPolygon(i);
+      return polygon
+        ? { 
+            ...obj, 
+            polygon, 
+            area: polygonArea(polygon as [number, number][]) 
+          }
+        : null;
+    })
+    .filter((r): r is RegionData & { area: number } => r !== null);
+};

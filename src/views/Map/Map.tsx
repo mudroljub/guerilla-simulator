@@ -110,7 +110,12 @@ export default function Map({ regions }: Props) {
           {regions.map((region) => <Region key={region.name} region={region} />)}
         </g>
 
-        {regions.map(r => <Icon key={r.name} region={r} />)}
+        {regions
+          .slice()
+          .sort((a, b) => b.area - a.area)
+          .map((r, i) => i < regions.length / 2 && <Icon key={r.name} region={r} />)
+          // icons only in largest areas
+        }
       </svg>
     </div>
   )

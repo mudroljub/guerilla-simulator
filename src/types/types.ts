@@ -16,6 +16,7 @@ export type Settlements = Record<string, SettlementData>;
 export interface RegionData extends SettlementData {
   name: string;
   polygon: [number, number][];
+  area: number;
 }
 
 /** STATES */

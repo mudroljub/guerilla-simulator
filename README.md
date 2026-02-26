@@ -70,15 +70,15 @@ npm start
 		- prikazivati random unit type od postojećih za svako mesto ✓
 		- da bude niz ikona za svaku kategoriju ✓
 		- da ne ide random, nego redom po nizu ✓
-			- ne radi lepo ovo po nazivu, možda globalni index
 		- probrati slike ✓
 		- srediti veličine slika ✓
-		- više partizana, problem je limit za mala mesta ✓
-		- prikazivati slike samo na većim oblastima
-			- izračunati ili proceniti površine poligona
+		- manje nemaca ✓
+		- više partizana (problem bio limit za mala mesta) ✓
+		- prikazivati slike samo na većim oblastima ✓
+			- izračunati površine poligona ✓
+		- previše aviona i tenkova, podesiti šanse
 		- da nemci budu okrenuti ka istoku a partizani ka zapadu
-		- manje nemaca
-			- nije loše kad su samo partizani
+		- dodati neki hover na ustaničke teritorije
 - dodati legendu mape
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
