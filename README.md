@@ -67,13 +67,16 @@ npm start
 	- napraviti komponentu Icon ✓
 		- komponenta prima region data i uzima region state ✓
 		- na osnovu veličine garnizona i frakcije prikazuje odgovarajuću ikonicu ✓
-		- prikazati najjaču ikonicu za svako mesto (bez veze, uvek je avion) ✓
-			- prikazivati random jedinicu od postojećih ✓
-		- dodati niz ikona za svaku kategoriju ✓
+		- prikazivati random unit type od postojećih za svako mesto ✓
+		- da bude niz ikona za svaku kategoriju ✓
 		- da ne ide random, nego redom po nizu ✓
+			- ne radi lepo ovo po nazivu, možda globalni index
 		- probrati slike ✓
-		- srediti veličine slika makar i ručno
-		- više partizana, problem je limit za mala mesta
+		- srediti veličine slika ✓
+		- više partizana, problem je limit za mala mesta ✓
+		- prikazivati slike samo na većim oblastima
+			- izračunati ili proceniti površine poligona
+		- da nemci budu okrenuti ka istoku a partizani ka zapadu
 		- manje nemaca
 			- nije loše kad su samo partizani
 - dodati legendu mape
@@ -102,3 +105,7 @@ npm start
 ### BUGS
 
 - na kraju drag ne treba da otvara prozor
+
+### Dodatno
+
+- napraviti prave svg slike umesto ovih

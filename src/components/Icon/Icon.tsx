@@ -19,26 +19,24 @@ export default function Icon({ region }: Props) {
   const { regionDict } = useRegionStore();
   const { fraction, garrison } = regionDict[region.name];
 
+  const unitType = useMemo<UnitType>(() => {
+    return fraction === "German" ? getRandomUnitType(garrison) : "infantry";
+  }, [fraction, garrison]);
+
   const SvgComponent = useMemo(() => {
-    const unitType: UnitType = fraction === 'German' 
-      ? getRandomUnitType(garrison) 
-      : 'infantry';
+    const icons = iconDict[fraction][unitType];
+    if (!icons?.length) return null;
+    return nameToIcon(icons, region.name);
+  }, [fraction, unitType, region.name]);
 
-    const icons = iconDict[fraction][unitType]
-    if (!icons?.length) return null
-
-    return nameToIcon(icons, region.name)
-
-  }, [fraction, garrison, region.name]);
-
-  if (fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2) return null;
-  if (fraction === 'Partisan' && region.size <= CITY_LABEL_THRESHOLD / 2) return null;
+  if ((fraction === 'German'  && region.size <= CITY_LABEL_THRESHOLD * 2) ||
+      (fraction === 'Partisan' && region.size <= CITY_LABEL_THRESHOLD / 2)) return null;
 
   if (!SvgComponent) return null;
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-       <SvgComponent className={styles.icon} />
+      <SvgComponent className={styles.icon} />
     </g>
-  );
+  )
 }
