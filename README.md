@@ -76,8 +76,9 @@ npm start
 		- više partizana (problem bio limit za mala mesta) ✓
 		- prikazivati slike samo na većim oblastima ✓
 			- izračunati površine poligona ✓
-		- previše aviona i tenkova, podesiti šanse
-		- da nemci budu okrenuti ka istoku a partizani ka zapadu
+		- da nemci budu okrenuti ka istoku a partizani ka zapadu ✓
+		- previše nemačkih aviona i tenkova, treba više vojnika, podesiti šanse
+		- ukinuti ime u index?
 		- dodati neki hover na ustaničke teritorije
 - dodati legendu mape
 - postaviti partizane
