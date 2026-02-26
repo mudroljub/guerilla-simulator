@@ -13,6 +13,7 @@
   transition: stroke 0.4s, stroke-width 0.4s;
 }
 
+.region:hover,
 .selected {
   .path {
     stroke: black;

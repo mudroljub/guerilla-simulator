@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import styles from "./Map.module.scss";
 import { RegionData, Position } from "../../types/types";
-import Region from "../../components/Region/Region";
-import Modal from '../../components/Modal/Modal'
+import Region from "../Region/Region";
+import Modal from '../Modal/Modal'
 import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
 import { MAP_SIZE } from "../../config";
 import { useStore } from "../../store/store";
-import Icon from '../../components/Icon/Icon'
+import Icon from '../Icon/Icon'
 
 const viewBox_w = 1219.65; // from svg
 const viewBox_h = 1057.485;
@@ -114,7 +114,6 @@ export default function Map({ regions }: Props) {
           .slice()
           .sort((a, b) => b.area - a.area)
           .map((r, i) => i < regions.length * 0.5 && <Icon key={r.name} region={r} />)
-          // icons only in largest areas
         }
       </svg>
     </div>

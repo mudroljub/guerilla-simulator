@@ -1,4 +1,4 @@
-import Map from './views/Map/Map'
+import Map from './components/Map/Map'
 import { Provider } from "./store/store";
 import { RegionData } from './types/types';
 import { initRegions } from './utils/initRegions';
