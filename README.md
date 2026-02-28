@@ -79,7 +79,7 @@ npm start
 		- da nemci budu okrenuti ka istoku a partizani ka zapadu ✓
 		- previše nemačkih aviona i tenkova, treba više vojnika, podesiti šanse ✓
 		- dodati hover na ustaničke teritorije ✓
-- dodati legendu mape
+- dodati legendu ✓
 - postaviti partizane
 	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
 - mehanika bitke
@@ -106,6 +106,7 @@ npm start
 
 - na kraju drag ne treba da otvara prozor
 
-### Dodatno
+### Završno
 
+- Sacuvati finalne poligone kao data
 - napraviti prave svg slike umesto ovih
