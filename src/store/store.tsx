@@ -14,11 +14,12 @@ const initRegionState = (region: RegionData) : RegionState => {
     const status = region.size < 0.1 && Math.random() < 0.1
         ? Status.Liberated
         : Status.Occupied
+    const fraction = status === Status.Liberated ? "Partisan" : "German"
 
     return {
       status,
-      garrison: initGarrison(region.population),
-      fraction: status === Status.Liberated ? "Partisan" : "German",
+      fraction,
+      garrison: initGarrison(region.population, fraction),
     }
 }
 

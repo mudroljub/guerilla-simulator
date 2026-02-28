@@ -34,9 +34,9 @@ export default function Modal({ region }: Props) {
         </p>
         <ul className={styles.text}>
           <li>Infantry: {garrison.infantry}</li>
-          {garrison.artillery > 0 && <li>Artillery: {garrison.artillery}</li>}
-          {garrison.tanks > 0 && <li>Tanks: {garrison.tanks}</li>}
-          {garrison.aircraft > 0 && <li>Aircraft: {garrison.aircraft}</li>}
+          {garrison?.artillery! > 0 && <li>Artillery: {garrison.artillery}</li>}
+          {garrison?.tanks! > 0 && <li>Tanks: {garrison.tanks}</li>}
+          {garrison?.aircraft! > 0 && <li>Aircraft: {garrison.aircraft}</li>}
         </ul>
 
         <p className={styles.text}>

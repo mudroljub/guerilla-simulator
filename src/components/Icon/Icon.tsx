@@ -7,7 +7,8 @@ import styles from "./Icon.module.scss";
 import { nameToIcon, iconDict } from "./utils";
 
 function getRandomUnitType(garrison: Garrison): UnitType {
-  const units = (Object.keys(garrison) as UnitType[]).filter(unit => garrison[unit] > 0);
+  const units = (Object.keys(garrison) as UnitType[])
+    .filter(unitType => (garrison[unitType] ?? 0) > 0)
   return Math.random() > 0.33 ? sample(units) : "infantry"
 }
 

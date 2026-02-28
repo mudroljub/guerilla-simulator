@@ -2,7 +2,6 @@ import { RegionDict, Status, Garrison } from "../types/types";
 
 export type RegionAction =
   | { type: "ATTACK_REGION"; region: string; damage?: Partial<Garrison> }
-  | { type: "REINFORCE_REGION"; region: string; troops: Partial<Garrison> };
 
 export function regionsReducer(state: RegionDict, action: RegionAction): RegionDict {
   switch (action.type) {
@@ -21,32 +20,15 @@ export function regionsReducer(state: RegionDict, action: RegionAction): RegionD
           ...state[action.region],
           status: Status.Attacked,
           garrison: {
-            infantry: Math.max(0, current.infantry - (damage.infantry || 0)),
-            artillery: Math.max(0, current.artillery - (damage.artillery || 0)),
-            tanks: Math.max(0, current.tanks - (damage.tanks || 0)),
-            aircraft: Math.max(0, current.aircraft - (damage.aircraft || 0)),
+            infantry: Math.max(0, (current.infantry ?? 0) - (damage.infantry ?? 0)),
+            artillery: Math.max(0, (current.artillery ?? 0) - (damage.artillery ?? 0)),
+            tanks: Math.max(0, (current.tanks ?? 0) - (damage.tanks ?? 0)),
+            aircraft: Math.max(0, (current.aircraft ?? 0) - (damage.aircraft ?? 0)),
           },
         },
       };
     }
 
-    case "REINFORCE_REGION": {
-      const current = state[action.region].garrison;
-      const troops = action.troops;
-
-      return {
-        ...state,
-        [action.region]: {
-          ...state[action.region],
-          garrison: {
-            infantry: current.infantry + (troops.infantry || 0),
-            artillery: current.artillery + (troops.artillery || 0),
-            tanks: current.tanks + (troops.tanks || 0),
-            aircraft: current.aircraft + (troops.aircraft || 0),
-          },
-        },
-      };
-    }
 
     default:
       return state;

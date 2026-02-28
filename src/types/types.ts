@@ -33,7 +33,7 @@ export type UnitType =
   | "tanks"
   | "aircraft";
 
-export type Garrison = Record<UnitType, number>;
+export type Garrison = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
 
 export type Fraction = "German" | "Italian" | "Partisan"
 

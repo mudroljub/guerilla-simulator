@@ -80,8 +80,10 @@ npm start
 		- previše nemačkih aviona i tenkova, treba više vojnika, podesiti šanse ✓
 		- dodati hover na ustaničke teritorije ✓
 - dodati legendu ✓
-- postaviti partizane
-	- inicijalno ustanici drže par manjih mesta, sa silom dovoljnom da osvoje neko susedno
+- postaviti partizane ✓
+	- inicijalno ustanici drže neka manja mesta ✓
+	- odrediti jačinu garnizona (samo pešadija dovoljna da osvoje neko susedno mesto) ✓
+- srediti eslint
 - mehanika bitke
 	- faza napada (susedne oblasti se mogu napasti)
 	- faza borbe (slično kao axis and allies)
