@@ -95,10 +95,11 @@ npm start
 	- faza napada
 		- prikazivati napad dugme samo kad je attackable ✓
 		- implementirati napad
-			- promeniti status oblasti u napadnuto
+			- dodati novo polje na region assaultTroops ✓
+			- dodati izvedeno stanje attacked ✓
 			- dodati vizuelni indikator (💥 ili boja pozadine)
-			- izabrati koliko vojske se prebacuje (input range ili tako nešto)
-			- dodati novo polje na region za napadačke snage
+			- izabrati odakle se napada (ako ima više oslobođenih suseda)
+			- izabrati koliko vojske se prebacuje (input range ili slično)
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
@@ -127,3 +128,4 @@ npm start
 
 - Sacuvati finalne poligone kao data
 - napraviti prave svg slike umesto ovih
+- dodati border na modal?

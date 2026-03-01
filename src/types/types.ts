@@ -24,7 +24,6 @@ export interface RegionData extends SettlementData {
 
 export enum Status {
   Occupied = 'occupied',
-  Attacked = 'attacked',
   Liberated = 'liberated',
 }
 
@@ -44,8 +43,9 @@ export enum Fraction {
 
 export interface RegionState {
   status: Status;
-  garrison: Garrison;
   fraction: Fraction;
+  garrison: Garrison;
+  assaultTroops?: Garrison;
 }
 
 export type RegionDict = Record<string, RegionState>

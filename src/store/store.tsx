@@ -61,5 +61,8 @@ export const useRegionStateExtended = (region: RegionData) => {
     && regionDict[selected.name].status === Status.Occupied 
     && selected.neighbors.some(neighbor => regionDict[neighbor].status === Status.Liberated)
 
-  return { attackable };
+  return { 
+    attackable,
+    attacked: Boolean(regionDict[region.name].assaultTroops)
+  };
 }

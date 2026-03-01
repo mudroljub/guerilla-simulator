@@ -10,7 +10,6 @@ const TEXT_OFFSET_Y = -10;
 
 const stateStyle = {
   [Status.Occupied]: styles.occupied,
-  [Status.Attacked]: styles.attacked,
   [Status.Liberated]: styles.liberated,
 };
 
@@ -21,7 +20,7 @@ interface Props {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useStore();
   const { regionDict, selected } = mapState
-  const { attackable } = useRegionStateExtended(region)
+  const { attackable, attacked } = useRegionStateExtended(region)
 
   const regionStatus = regionDict[region.name].status
   const isSelected = selected?.name === region.name
@@ -44,6 +43,7 @@ export default function Region({ region }: Props) {
       className={classnames(styles.region, stateStyle[regionStatus], { 
         [styles.selected]: isSelected, 
         [styles.blush]: isOccupiedNeighbor || attackable,
+        [styles.attacked]: attacked,
       })}
       onClick={toggle}
     >

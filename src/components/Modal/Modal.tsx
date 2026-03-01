@@ -14,7 +14,7 @@ export default function Modal({ region }: Props) {
 
   const garrison = regionState.garrison
 
-  const attack = () => dispatch({ type: "ATTACK_REGION", region: region.name })
+  const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: garrison })
 
   return (
     <div className={styles.modalWrapper}>
