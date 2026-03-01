@@ -29,10 +29,6 @@
   fill: $blush;
 }
 
-.attacked {
-  fill: black;
-}
-
 .liberated {
   path {
     fill: url(#liberatedPattern);
@@ -62,4 +58,8 @@
     opacity: 1;
     pointer-events: auto;
   }
+}
+
+.attackedIcon {
+  font-size: 2rem;
 }

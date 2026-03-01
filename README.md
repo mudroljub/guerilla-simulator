@@ -97,9 +97,10 @@ npm start
 		- implementirati napad
 			- dodati novo polje na region assaultTroops ✓
 			- dodati izvedeno stanje attacked ✓
-			- dodati vizuelni indikator (💥 ili boja pozadine)
+			- dodati vizuelni indikator (💥) ✓
 			- izabrati odakle se napada (ako ima više oslobođenih suseda)
 			- izabrati koliko vojske se prebacuje (input range ili slično)
+		- stilizovati modal po uzoru na legendu
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
@@ -128,4 +129,3 @@ npm start
 
 - Sacuvati finalne poligone kao data
 - napraviti prave svg slike umesto ovih
-- dodati border na modal?

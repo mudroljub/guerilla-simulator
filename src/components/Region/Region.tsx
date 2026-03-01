@@ -43,7 +43,6 @@ export default function Region({ region }: Props) {
       className={classnames(styles.region, stateStyle[regionStatus], { 
         [styles.selected]: isSelected, 
         [styles.blush]: isOccupiedNeighbor || attackable,
-        [styles.attacked]: attacked,
       })}
       onClick={toggle}
     >
@@ -51,14 +50,25 @@ export default function Region({ region }: Props) {
         className={classnames(styles.path)}
         d={pathData}
       />
-      <circle
-        cx={region.position.x}
-        cy={region.position.y}
-        r={radius}
-        className={classnames(styles.regionCenter, {
-          [styles.toggle]: region.size <= CITY_LABEL_THRESHOLD,
-        })}
-      />
+      {attacked ? 
+        <text
+          x={region.position.x}
+          y={region.position.y + 5}
+          textAnchor="middle"
+          className={styles.attackedIcon}
+        >
+          💥
+        </text>
+        :
+        <circle
+          cx={region.position.x}
+          cy={region.position.y}
+          r={radius}
+          className={classnames(styles.regionCenter, {
+            [styles.toggle]: region.size <= CITY_LABEL_THRESHOLD,
+          })}
+        />
+      }
       <text
         x={region.position.x}
         y={region.position.y + TEXT_OFFSET_Y}
