@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { RegionData, Status } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useStore } from "../../store/store";
+import { useStore, useRegionStateExtended } from "../../store/store";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
 import { CITY_LABEL_THRESHOLD } from "../../config";
@@ -21,6 +21,7 @@ interface Props {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useStore();
   const { regionDict, selected } = mapState
+  const { attackable } = useRegionStateExtended(region);
 
   const regionStatus = regionDict[region.name].status
   const isSelected = selected?.name === region.name
@@ -29,10 +30,6 @@ export default function Region({ region }: Props) {
     regionStatus === Status.Occupied && 
     regionDict[selected.name].status === Status.Liberated && 
     selected.neighbors.includes(region.name)
-
-  const attackable = isSelected
-    && regionDict[selected.name].status === Status.Occupied 
-    && selected.neighbors.some(neighbor => regionDict[neighbor].status === Status.Liberated)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])

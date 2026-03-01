@@ -52,3 +52,14 @@ export const useRegionStore = () => {
     dispatch
    };
 };
+
+export const useRegionStateExtended = (region: RegionData) => {
+  const { mapState } = useStore();
+  const { selected, regionDict } = mapState;
+
+  const attackable = selected?.name === region.name
+    && regionDict[selected.name].status === Status.Occupied 
+    && selected.neighbors.some(neighbor => regionDict[neighbor].status === Status.Liberated)
+
+  return { attackable };
+}
