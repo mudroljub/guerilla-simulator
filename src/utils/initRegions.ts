@@ -33,14 +33,17 @@ export const initRegions = (): RegionData[] => {
 
   return regions
     .map((obj, i) => {
-      const polygon = voronoi.cellPolygon(i);
+      const polygon = voronoi.cellPolygon(i)
+      const neighbors = Array.from(delaunay.neighbors(i)).map((idx) => regions[idx].name)
+
       return polygon
         ? { 
             ...obj, 
             polygon, 
-            area: polygonArea(polygon as [number, number][]) 
+            area: polygonArea(polygon as [number, number][]),
+            neighbors,
           }
         : null;
     })
     .filter((r): r is RegionData & { area: number } => r !== null);
-};
+}
