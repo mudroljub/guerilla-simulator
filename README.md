@@ -106,7 +106,7 @@ npm start
 		- stilizovati modal po uzoru na legendu ✓
 		- implementirati akciju ATTACK ✓
 		- zatvoriti dodatne opcije nakon napada ✓
-		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0
+		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0 i ne može da se poveća
 		- izbaciti višak naslova i informacija iz modala
 	- faza borbe
 		- osmisliti, slično kao axis and allies
