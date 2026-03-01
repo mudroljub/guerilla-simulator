@@ -18,9 +18,7 @@ export default function AttackOptions({ region }: Props) {
 
   const regionState: RegionState = regionDict[region.name]
 
-  const garrison = regionState.garrison
-
-  const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: garrison })
+  const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: regionState.garrison })
 
   useEffect(() => {
     setAttackingForce(regionDict[attackingRegion].garrison.infantry)
@@ -42,12 +40,27 @@ export default function AttackOptions({ region }: Props) {
         <strong>Attack with:</strong>{' '}
         <input
           type="number"
-          min={0}
+          min={1}
           max={regionDict[attackingRegion].garrison.infantry}
           value={attackingForce}
           onChange={(e) => setAttackingForce(Number(e.target.value))}
         />
+        <input
+          type="range"
+          min={1}
+          max={regionDict[attackingRegion].garrison.infantry}
+          value={attackingForce}
+          onChange={(e) => setAttackingForce(Number(e.target.value))}
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseMove={(e) => e.stopPropagation()}
+        />
       </p>
+      <button
+        className={styles.attackButton}
+        onClick={attack}
+      >
+        Send troops ⚔️
+      </button>
     </div>
   )
 }

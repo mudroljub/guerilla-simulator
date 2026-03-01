@@ -51,7 +51,7 @@ export default function Modal({ region }: Props) {
           <strong>Faction:</strong> {regionState.fraction}
         </p>
 
-        {attackable && 
+        {attackable && !expandAttack && 
           <button
             className={styles.attackButton}
             onClick={() => setExpandAttack(true)}
