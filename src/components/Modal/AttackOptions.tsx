@@ -28,6 +28,11 @@ export default function AttackOptions({ region }: Props) {
     setAttackingForce(regionDict[attackingRegion].garrison.infantry)
   }, [attackingRegion, regionDict])
 
+  
+  useEffect(() => {
+    setAttackingRegion(partisanNeighbors[0])
+  }, [partisanNeighbors])
+
   return (
     <div>
       <p className={styles.text}>
