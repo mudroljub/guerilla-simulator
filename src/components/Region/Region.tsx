@@ -20,8 +20,13 @@ interface Props {
 
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useStore();
-  const status = mapState.regionDict[region.name].status;
-  const isSelected = mapState.selected?.name === region.name;
+  const { regionDict, selected } = mapState
+
+  const status = regionDict[region.name].status;
+  const isSelected = selected?.name === region.name;
+  
+  const isNeighbor = selected?.neighbors.includes(region.name)
+  console.log(selected?.neighbors);
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
@@ -33,7 +38,10 @@ export default function Region({ region }: Props) {
 
   return (
     <g
-      className={classnames(styles.region, stateStyle[status], { [styles.selected]: isSelected })}
+      className={classnames(styles.region, stateStyle[status], { 
+        [styles.selected]: isSelected, 
+        [styles.neighbor]: isNeighbor
+      })}
       onClick={toggle}
     >
       <path

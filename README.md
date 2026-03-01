@@ -87,7 +87,9 @@ npm start
 - mehanika bitke
 	- faza napada
 		- dodati regionu susedne oblasti ✓
-		- dodati indikator napada za susedne oblasti
+		- dodati indikator napada za susedne oblasti (roze boja?) ✓
+		- dobaviti susede od selected i menjati im boju na hover ✓
+			- samo ako je izabran oslobođen a susedi nisu
 	- faza borbe (slično kao axis and allies)
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
 - iz većih mesta neprestano poleću avioni i artiljerija tuče partizane

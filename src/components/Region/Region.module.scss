@@ -24,9 +24,13 @@
 .occupied {
   fill: $olive;
 
-  &:hover {
-    fill: $blush;
-  }
+  // &:hover {
+  //   fill: $blush;
+  // }
+}
+
+.neighbor path {
+  fill: $blush;
 }
 
 .attacked {
