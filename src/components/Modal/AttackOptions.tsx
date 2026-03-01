@@ -10,7 +10,7 @@ interface Props {
 export default function AttackOptions({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
 
-  const partisanNeighbors = region.neighbors.filter(neighbor => regionDict[neighbor].fraction === Fraction.Partisan)
+  const partisanNeighbors = region.neighbors.filter(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
 
   const [attackingRegion, setAttackingRegion] = useState(partisanNeighbors[0])
 
@@ -18,7 +18,7 @@ export default function AttackOptions({ region }: Props) {
 
   const attack = () => dispatch({ 
     type: "ATTACK", 
-    region: region.name, 
+    attackedRegion: region.name, 
     attackingRegion,
     attackingForces: {
       infantry: attackingForce,

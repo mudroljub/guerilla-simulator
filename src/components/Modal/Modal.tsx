@@ -11,14 +11,14 @@ interface Props {
 export default function Modal({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
   const { attackable } = useRegionStateExtended(region)
-  const [expandAttack, setExpandAttack] = useState(false)
-  
+  const [showMore, setShowMore] = useState(false)
+
   const regionState: RegionState = regionDict[region.name]
 
   const garrison = regionState.garrison
 
   useEffect(() => {
-    setExpandAttack(false)
+    setShowMore(false)
   }, [region]);
 
   return (
@@ -51,17 +51,16 @@ export default function Modal({ region }: Props) {
           <strong>Faction:</strong> {regionState.fraction}
         </p>
 
-        {attackable && !expandAttack && 
-          <button
-            className={styles.attackButton}
-            onClick={() => setExpandAttack(true)}
-          >
-            Attack {region.name} ⚔️
-          </button>
-        }
-        {expandAttack &&
-          <AttackOptions region={region} />
-        }
+        {attackable && (
+          showMore
+            ? <AttackOptions region={region} />
+            : <button
+                className={styles.attackButton}
+                onClick={() => setShowMore(true)}
+              >
+                Attack {region.name} ⚔️
+              </button>
+        )}
       </div>
     </div>
   )

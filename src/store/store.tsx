@@ -57,7 +57,7 @@ export const useRegionStateExtended = (region: RegionData) => {
 
   const attackable = selected?.name === region.name
     && regionDict[selected.name].fraction === Fraction.German 
-    && selected.neighbors.some(neighbor => regionDict[neighbor].fraction === Fraction.Partisan)
+    && selected.neighbors.some(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
 
   return { 
     attackable,
