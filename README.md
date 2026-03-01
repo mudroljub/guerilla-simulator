@@ -85,9 +85,9 @@ npm start
 	- odrediti jačinu garnizona (samo pešadija dovoljna da osvoje neko susedno mesto) ✓
 - srediti eslint (ne može)
 - mehanika bitke
-	- faza napada (susedne oblasti se mogu napasti)
-		- dodati regionu susedne oblasti
-		- dodati indikator napada
+	- faza napada
+		- dodati regionu susedne oblasti ✓
+		- dodati indikator napada za susedne oblasti
 	- faza borbe (slično kao axis and allies)
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
 - iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
