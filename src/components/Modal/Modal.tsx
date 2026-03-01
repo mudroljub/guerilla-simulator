@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useStore, useRegionStateExtended } from "../../store/store";
 import { RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
@@ -9,12 +10,17 @@ interface Props {
 export default function Modal({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
   const { attackable } = useRegionStateExtended(region)
+  const [expandAttack, setExpandAttack] = useState(false)
   
   const regionState: RegionState = regionDict[region.name]
 
   const garrison = regionState.garrison
 
   const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: garrison })
+
+  useEffect(() => {
+    setExpandAttack(false)
+  }, [region]);
 
   return (
     <div className={styles.modalWrapper}>
@@ -49,10 +55,15 @@ export default function Modal({ region }: Props) {
         {attackable && 
           <button
             className={styles.attackButton}
-            onClick={attack}
+            onClick={() => setExpandAttack(true)}
           >
             Attack ⚔️
           </button>
+        }
+        {expandAttack &&
+          <div>
+            "Još opcija"
+          </div>
         }
       </div>
     </div>
