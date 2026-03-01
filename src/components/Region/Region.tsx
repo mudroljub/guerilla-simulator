@@ -22,9 +22,17 @@ export default function Region({ region }: Props) {
   const { mapState, dispatch } = useStore();
   const { regionDict, selected } = mapState
 
-  const status = regionDict[region.name].status;
-  const isSelected = selected?.name === region.name;
-  const isNeighbor = selected && regionDict[selected.name].status === Status.Liberated && selected.neighbors.includes(region.name)
+  const regionStatus = regionDict[region.name].status
+  const isSelected = selected?.name === region.name
+
+  const isOccupiedNeighbor = selected && 
+    regionStatus === Status.Occupied && 
+    regionDict[selected.name].status === Status.Liberated && 
+    selected.neighbors.includes(region.name)
+
+  const attackable = isSelected
+    && regionDict[selected.name].status === Status.Occupied 
+    && selected.neighbors.some(neighbor => regionDict[neighbor].status === Status.Liberated)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
@@ -36,9 +44,9 @@ export default function Region({ region }: Props) {
 
   return (
     <g
-      className={classnames(styles.region, stateStyle[status], { 
+      className={classnames(styles.region, stateStyle[regionStatus], { 
         [styles.selected]: isSelected, 
-        [styles.neighbor]: isNeighbor
+        [styles.blush]: isOccupiedNeighbor || attackable,
       })}
       onClick={toggle}
     >
