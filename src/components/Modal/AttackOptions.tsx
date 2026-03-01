@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "./AttackOptions.module.scss";
+import styles from "./Modal.module.scss";
 import { useStore } from "../../store/store";
-import { Fraction, RegionData, RegionState } from "../../types/types";
+import { Fraction, RegionData } from "../../types/types";
 
 interface Props {
   region: RegionData;
@@ -16,9 +16,13 @@ export default function AttackOptions({ region }: Props) {
 
   const [attackingForce, setAttackingForce] = useState(regionDict[attackingRegion].garrison.infantry)
 
-  const regionState: RegionState = regionDict[region.name]
-
-  const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: regionState.garrison })
+  const attack = () => dispatch({ 
+    type: "ATTACK", 
+    region: region.name, 
+    assaultTroops: {
+      infantry: attackingForce,
+    },
+  })
 
   useEffect(() => {
     setAttackingForce(regionDict[attackingRegion].garrison.infantry)

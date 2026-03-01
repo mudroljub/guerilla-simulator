@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore, useRegionStateExtended } from "../../store/store";
 import { RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
-import AttackOptions from '../AttackOptions/AttackOptions'
+import AttackOptions from './AttackOptions'
 
 interface Props {
   region: RegionData;
