@@ -35,7 +35,10 @@ export type UnitType =
 
 export type Garrison = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
 
-export type Fraction = "German" | "Italian" | "Partisan"
+export enum Fraction {
+  German = 'German',
+  Partisan = 'Partisan',
+}
 
 export interface RegionState {
   status: Status;

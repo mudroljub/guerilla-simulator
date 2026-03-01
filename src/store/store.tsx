@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
-import { MapState, RegionData, RegionDict, RegionState, Status } from "../types/types";
+import { Fraction, MapState, RegionData, RegionDict, RegionState, Status } from "../types/types";
 import { initGarrison } from "../utils/initGarrison";
 
 interface Store {
@@ -14,7 +14,7 @@ const initRegionState = (region: RegionData) : RegionState => {
     const status = region.size < 0.1 && Math.random() < 0.1
         ? Status.Liberated
         : Status.Occupied
-    const fraction = status === Status.Liberated ? "Partisan" : "German"
+    const fraction = status === Status.Liberated ? Fraction.Partisan : Fraction.German
 
     return {
       status,

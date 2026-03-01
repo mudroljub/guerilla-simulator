@@ -51,9 +51,6 @@ export const iconDict: Record<Fraction, Partial<Record<UnitType, IconComponent[]
     artillery: [GerArt1, GerArt2, GerArt3],
     aircraft: [GerAir2, GerAir3, GerAir8],
   },
-  Italian: {
-    infantry: [PartInf1],
-  },
   Partisan: {
     infantry: [
       PartInf1, PartInf3, PartInf4, PartInf5, PartInf6, PartInf7, PartInf8, PartInf9, PartInf10,
