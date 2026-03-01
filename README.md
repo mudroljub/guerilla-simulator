@@ -93,9 +93,13 @@ npm start
 			- problem: boja se gubi kada kliknemo na suseda za napad ✓
 			- dodati attackable - ako je status okupiran i graniči se sa oslobođenim ✓
 	- faza napada
-		- prikazivati napad dugme samo kad je attackable
-		- kad se klikne napad izabrati koliko se vojske prenosi
-	- faza borbe 
+		- prikazivati napad dugme samo kad je attackable ✓
+		- implementirati napad
+			- promeniti status oblasti u napadnuto
+			- dodati vizuelni indikator (💥 ili boja pozadine)
+			- izabrati koliko vojske se prebacuje (input range ili tako nešto)
+			- dodati novo polje na region za napadačke snage
+	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
 - iz većih mesta neprestano poleću avioni i artiljerija tuče partizane

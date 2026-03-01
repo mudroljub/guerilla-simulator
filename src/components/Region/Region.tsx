@@ -21,7 +21,7 @@ interface Props {
 export default function Region({ region }: Props) {
   const { mapState, dispatch } = useStore();
   const { regionDict, selected } = mapState
-  const { attackable } = useRegionStateExtended(region);
+  const { attackable } = useRegionStateExtended(region)
 
   const regionStatus = regionDict[region.name].status
   const isSelected = selected?.name === region.name

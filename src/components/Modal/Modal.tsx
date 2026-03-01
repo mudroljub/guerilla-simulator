@@ -1,4 +1,4 @@
-import { useStore } from "../../store/store";
+import { useStore, useRegionStateExtended } from "../../store/store";
 import { RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 
@@ -7,11 +7,14 @@ interface Props {
 }
 
 export default function Modal({ region }: Props) {
-  const { mapState: { regionDict }, dispatch } = useStore();
+  const { mapState: { regionDict }, dispatch } = useStore()
+  const { attackable } = useRegionStateExtended(region)
   
-  const regionState: RegionState = regionDict[region.name];
+  const regionState: RegionState = regionDict[region.name]
 
-  const garrison = regionState.garrison;
+  const garrison = regionState.garrison
+
+  const attack = () => dispatch({ type: "ATTACK_REGION", region: region.name })
 
   return (
     <div className={styles.modalWrapper}>
@@ -43,15 +46,15 @@ export default function Modal({ region }: Props) {
           <strong>Faction:</strong> {regionState.fraction}
         </p>
 
-        <button
-          className={styles.attackButton}
-          onClick={() =>
-            dispatch({ type: "ATTACK_REGION", region: region.name })
-          }
-        >
-          Attack
-        </button>
+        {attackable && 
+          <button
+            className={styles.attackButton}
+            onClick={attack}
+          >
+            Attack ⚔️
+          </button>
+        }
       </div>
     </div>
-  );
+  )
 }
