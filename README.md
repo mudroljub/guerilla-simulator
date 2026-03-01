@@ -105,12 +105,13 @@ npm start
 		- implementirati akciju ATTACK ✓
 		- zatvoriti dodatne opcije nakon napada ✓
 		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0 i ne može da se poveća ✓
+		- šta raditi sa teritorijama sa 0 partizana? postaju okupatorske?
 	- srediti modal
 		- boje po uzoru na legendu ✓
 		- dugme hover je bez veze, promeniti ✓
 		- izbaciti višak informacija iz modala ✓
+		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe
-		- dodati ikonice za frakcije
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste

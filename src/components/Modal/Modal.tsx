@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { useStore, useRegionStateExtended } from "../../store/store";
 import { Fraction, RegionData, RegionState } from "../../types/types";
@@ -21,6 +22,13 @@ export default function Modal({ region }: Props) {
     setShowMore(false)
   }, [region]);
 
+  const getIcon = (fraction: Fraction) => fraction === Fraction.Partisan
+    ? <span>★</span>
+    : <span className={styles.germanIcon}>✠</span>
+  const getFlag = (fraction: Fraction) => fraction === Fraction.Partisan
+    ? <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg/330px-Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg.png" className={styles.flag} />
+    : <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Germany_%281935%E2%80%931945%29.svg/330px-Flag_of_Germany_%281935%E2%80%931945%29.svg.png" className={styles.flag} />
+
   return (
     <div className={styles.modalWrapper}>
       <div className={styles.modalBox}>
@@ -31,7 +39,11 @@ export default function Modal({ region }: Props) {
           ×
         </button>
 
-        <h2 className={styles.title}>{region.name}</h2>
+        <h2 className={classnames(styles.title, {
+          [styles.germanIcon]: fraction === Fraction.German
+        })}>
+          {getFlag(fraction)} {region.name}
+        </h2>
 
         <p className={styles.text}>
           <strong>Population:</strong> {region.population}
