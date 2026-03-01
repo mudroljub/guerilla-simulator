@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore, useRegionStateExtended } from "../../store/store";
 import { RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
+import AttackOptions from '../AttackOptions/AttackOptions'
 
 interface Props {
   region: RegionData;
@@ -15,8 +16,6 @@ export default function Modal({ region }: Props) {
   const regionState: RegionState = regionDict[region.name]
 
   const garrison = regionState.garrison
-
-  const attack = () => dispatch({ type: "ATTACK", region: region.name, assaultTroops: garrison })
 
   useEffect(() => {
     setExpandAttack(false)
@@ -61,9 +60,7 @@ export default function Modal({ region }: Props) {
           </button>
         }
         {expandAttack &&
-          <div>
-            "Još opcija"
-          </div>
+          <AttackOptions region={region} />
         }
       </div>
     </div>

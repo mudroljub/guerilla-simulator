@@ -1,0 +1,10 @@
+@use '../../assets/styles/const.scss' as *;
+
+.text {
+  color: $black;
+  margin: 6px 0;
+
+  strong {
+    color: $black;
+  }
+}
