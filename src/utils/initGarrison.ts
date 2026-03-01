@@ -19,7 +19,7 @@ export function initGarrison(
   const maxPercent = 0.02
   const total = getTroops(population, minPercent, maxPercent)
 
-  return fraction === "Partisan"
+  return fraction === Fraction.Partisan
     ? { infantry: total }
     : {
         infantry: getTroops(total, 0.85, 0.95),

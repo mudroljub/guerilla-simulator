@@ -27,11 +27,12 @@ export enum Status {
   Liberated = 'liberated',
 }
 
-export type UnitType =
-  | "infantry"
-  | "artillery"
-  | "tanks"
-  | "aircraft";
+export enum UnitType {
+  infantry = 'infantry',
+  artillery = 'artillery',
+  tanks = 'tanks',
+  aircraft = 'aircraft',
+}
 
 export type Garrison = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
 
