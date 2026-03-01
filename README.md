@@ -89,7 +89,8 @@ npm start
 		- dodati regionu susedne oblasti ✓
 		- dodati indikator napada za susedne oblasti (roze boja?) ✓
 		- dobaviti susede od selected i menjati im boju na hover ✓
-			- samo ako je izabran oslobođen a susedi nisu
+			- samo ako je izabran oslobođen a susedi nisu ✓
+			- problem: boja se gubi kada kliknemo na suseda za napad
 	- faza borbe (slično kao axis and allies)
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
 - iz većih mesta neprestano poleću avioni i artiljerija tuče partizane

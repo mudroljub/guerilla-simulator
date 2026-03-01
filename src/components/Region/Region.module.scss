@@ -23,13 +23,9 @@
 
 .occupied {
   fill: $olive;
-
-  // &:hover {
-  //   fill: $blush;
-  // }
 }
 
-.neighbor path {
+.occupied.neighbor path {
   fill: $blush;
 }
 

@@ -24,9 +24,7 @@ export default function Region({ region }: Props) {
 
   const status = regionDict[region.name].status;
   const isSelected = selected?.name === region.name;
-  
-  const isNeighbor = selected?.neighbors.includes(region.name)
-  console.log(selected?.neighbors);
+  const isNeighbor = selected && regionDict[selected.name].status === Status.Liberated && selected.neighbors.includes(region.name)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
