@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Modal.module.scss";
-import { useStore } from "../../store/store";
-import { Fraction, RegionData } from "../../types/types";
+import { useStore, useRegionStateExtended } from "../../store/store";
+import { RegionData } from "../../types/types";
 
 interface Props {
   region: RegionData;
@@ -9,8 +9,7 @@ interface Props {
 
 export default function AttackOptions({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
-
-  const partisanNeighbors = region.neighbors.filter(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
+  const { partisanNeighbors } = useRegionStateExtended(region)
 
   const [attackingRegion, setAttackingRegion] = useState(partisanNeighbors[0])
 

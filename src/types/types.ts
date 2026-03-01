@@ -42,6 +42,12 @@ export interface RegionState {
   attackingForces?: Garrison;
 }
 
+export interface RegionStateExtended {
+  partisanNeighbors: string[];
+  attackable: boolean;
+  attacked: boolean;
+}
+
 export type RegionDict = Record<string, RegionState>
 
 export interface MapState {

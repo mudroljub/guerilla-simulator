@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
-import { Fraction, MapState, RegionData, RegionDict, RegionState } from "../types/types";
+import { Fraction, MapState, RegionData, RegionDict, RegionState, RegionStateExtended } from "../types/types";
 import { initGarrison } from "../utils/initGarrison";
 
 interface Store {
@@ -51,16 +51,22 @@ export const useRegionStore = () => {
    };
 };
 
-export const useRegionStateExtended = (region: RegionData) => {
+export const useRegionStateExtended = (region: RegionData): RegionStateExtended => {
   const { mapState } = useStore();
   const { selected, regionDict } = mapState;
 
+  const getPartisanNeighbors = (region: RegionData) =>
+    region.neighbors.filter(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
+
+  const partisanNeighbors = getPartisanNeighbors(region)
+
   const attackable = selected?.name === region.name
     && regionDict[selected.name].fraction === Fraction.German 
-    && selected.neighbors.some(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
+    && getPartisanNeighbors(selected).length > 0
 
   return { 
+    partisanNeighbors,
     attackable,
-    attacked: Boolean(regionDict[region.name].attackingForces)
-  };
+    attacked: Boolean(regionDict[region.name].attackingForces),
+  }
 }
