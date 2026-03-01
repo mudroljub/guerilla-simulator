@@ -1,3 +1,4 @@
+@use "sass:color";
 @use '../../assets/styles/const.scss' as *;
 
 .modalWrapper {
@@ -49,9 +50,10 @@
   color: $white;
   border: none;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.4s ease, transform 0.05s ease;
 
   &:hover {
-    background: $blush;
+    background: color.adjust($rose, $lightness: -15%);
+    transform: scale(1.1) rotate(-2deg);
   }
 }

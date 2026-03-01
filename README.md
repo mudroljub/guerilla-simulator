@@ -107,8 +107,8 @@ npm start
 		- implementirati akciju ATTACK ✓
 		- zatvoriti dodatne opcije nakon napada ✓
 		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0 i ne može da se poveća ✓
+		- dugme hover je bez veze, promeniti ✓
 		- izbaciti višak naslova i informacija iz modala
-		- dugme hover je bez veze, promeniti
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
