@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { RegionData, Status } from "../../types/types";
+import { Fraction, RegionData } from "../../types/types";
 import styles from "./Region.module.scss";
 import { useStore, useRegionStateExtended } from "../../store/store";
 import { useMemo } from "react";
@@ -9,9 +9,9 @@ import { CITY_LABEL_THRESHOLD } from "../../config";
 const TEXT_OFFSET_Y = -10;
 
 const stateStyle = {
-  [Status.Occupied]: styles.occupied,
-  [Status.Liberated]: styles.liberated,
-};
+  [Fraction.German]: styles.occupied,
+  [Fraction.Partisan]: styles.liberated,
+}
 
 interface Props {
   region: RegionData;
@@ -22,12 +22,12 @@ export default function Region({ region }: Props) {
   const { regionDict, selected } = mapState
   const { attackable, attacked } = useRegionStateExtended(region)
 
-  const regionStatus = regionDict[region.name].status
+  const regionFraction = regionDict[region.name].fraction
   const isSelected = selected?.name === region.name
 
   const isOccupiedNeighbor = selected && 
-    regionStatus === Status.Occupied && 
-    regionDict[selected.name].status === Status.Liberated && 
+    regionFraction === Fraction.German && 
+    regionDict[selected.name].fraction === Fraction.Partisan && 
     selected.neighbors.includes(region.name)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
@@ -40,7 +40,7 @@ export default function Region({ region }: Props) {
 
   return (
     <g
-      className={classnames(styles.region, stateStyle[regionStatus], { 
+      className={classnames(styles.region, stateStyle[regionFraction], { 
         [styles.selected]: isSelected, 
         [styles.blush]: isOccupiedNeighbor || attackable,
       })}

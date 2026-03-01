@@ -20,12 +20,7 @@ export interface RegionData extends SettlementData {
   neighbors: string[];
 }
 
-/** STATES */
-
-export enum Status {
-  Occupied = 'occupied',
-  Liberated = 'liberated',
-}
+/** STATE */
 
 export enum UnitType {
   infantry = 'infantry',
@@ -42,7 +37,6 @@ export enum Fraction {
 }
 
 export interface RegionState {
-  status: Status;
   fraction: Fraction;
   garrison: Garrison;
   assaultTroops?: Garrison;

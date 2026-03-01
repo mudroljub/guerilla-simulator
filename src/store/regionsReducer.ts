@@ -1,4 +1,4 @@
-import { RegionDict, Status, Garrison } from "../types/types";
+import { RegionDict, Garrison } from "../types/types";
 
 export type RegionAction =
   | { type: "ATTACK"; region: string; assaultTroops: Garrison }
