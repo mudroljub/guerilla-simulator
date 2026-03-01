@@ -56,7 +56,7 @@ export default function Modal({ region }: Props) {
             className={styles.attackButton}
             onClick={() => setExpandAttack(true)}
           >
-            Attack ⚔️
+            Attack {region.name} ⚔️
           </button>
         }
         {expandAttack &&

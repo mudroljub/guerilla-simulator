@@ -101,6 +101,7 @@ npm start
 			- status suvišan kad postoji frakcija, ukinuti ✓
 			- otvoriti opcije napada nakon klika na dugme ✓
 				- BUG: opcije ostaju otvorene za sve oblasti, modal pamti stanje ✓
+					- ne resetovati na promenu (hoću da pogledam odakle napadam), pamtiti stanje
 				- izabrati odakle se napada (ako ima više oslobođenih suseda)
 				- izabrati koliko vojske se prebacuje (input range ili slično)
 		- stilizovati modal po uzoru na legendu ✓
