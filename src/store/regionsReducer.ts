@@ -1,7 +1,7 @@
 import { RegionDict, Garrison } from "../types/types";
 
 export type RegionAction =
-  | { type: "ATTACK"; region: string; assaultTroops: Garrison }
+  | { type: "ATTACK"; region: string; attackingForces: Garrison, attackingRegion: string }
 
 export function regionsReducer(state: RegionDict, action: RegionAction): RegionDict {
   switch (action.type) {
@@ -11,7 +11,7 @@ export function regionsReducer(state: RegionDict, action: RegionAction): RegionD
         ...state,
         [action.region]: {
           ...state[action.region],
-          assaultTroops: action.assaultTroops,
+          attackingForces: action.attackingForces,
         },
       };
     }

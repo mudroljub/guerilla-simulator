@@ -104,6 +104,7 @@ npm start
 				- izabrati odakle se napada (ako ima više oslobođenih suseda) ✓
 				- izabrati koliko vojske se prebacuje (input range ili slično) ✓
 		- stilizovati modal po uzoru na legendu ✓
+		- izbaciti višak naslova i informacija iz modala, srediti razmake
 		- implementirati akciju ATTACK
 	- faza borbe
 		- osmisliti, slično kao axis and allies

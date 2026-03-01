@@ -19,7 +19,8 @@ export default function AttackOptions({ region }: Props) {
   const attack = () => dispatch({ 
     type: "ATTACK", 
     region: region.name, 
-    assaultTroops: {
+    attackingRegion,
+    attackingForces: {
       infantry: attackingForce,
     },
   })

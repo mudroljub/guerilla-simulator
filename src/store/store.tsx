@@ -61,6 +61,6 @@ export const useRegionStateExtended = (region: RegionData) => {
 
   return { 
     attackable,
-    attacked: Boolean(regionDict[region.name].assaultTroops)
+    attacked: Boolean(regionDict[region.name].attackingForces)
   };
 }

@@ -39,7 +39,7 @@ export enum Fraction {
 export interface RegionState {
   fraction: Fraction;
   garrison: Garrison;
-  assaultTroops?: Garrison;
+  attackingForces?: Garrison;
 }
 
 export type RegionDict = Record<string, RegionState>
