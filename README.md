@@ -100,7 +100,7 @@ npm start
 			- dodati vizuelni indikator (💥) ✓
 			- izabrati odakle se napada (ako ima više oslobođenih suseda)
 			- izabrati koliko vojske se prebacuje (input range ili slično)
-		- stilizovati modal po uzoru na legendu
+		- stilizovati modal po uzoru na legendu ✓
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste
