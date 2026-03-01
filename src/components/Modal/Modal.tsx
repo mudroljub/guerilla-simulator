@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore, useRegionStateExtended } from "../../store/store";
-import { RegionData, RegionState } from "../../types/types";
+import { Fraction, RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 import AttackOptions from './AttackOptions'
 
@@ -15,7 +15,7 @@ export default function Modal({ region }: Props) {
 
   const regionState: RegionState = regionDict[region.name]
 
-  const garrison = regionState.garrison
+  const { garrison, fraction } = regionState
 
   useEffect(() => {
     setShowMore(false)
@@ -38,7 +38,7 @@ export default function Modal({ region }: Props) {
         </p>
 
         <p className={styles.text}>
-          <strong>Garrison:</strong>
+          <strong>{fraction}s:</strong>
         </p>
         <ul className={styles.text}>
           <li>Infantry: {garrison.infantry}</li>
@@ -46,10 +46,6 @@ export default function Modal({ region }: Props) {
           {garrison?.tanks! > 0 && <li>Tanks: {garrison.tanks}</li>}
           {garrison?.aircraft! > 0 && <li>Aircraft: {garrison.aircraft}</li>}
         </ul>
-
-        <p className={styles.text}>
-          <strong>Faction:</strong> {regionState.fraction}
-        </p>
 
         {attackable && (
           showMore

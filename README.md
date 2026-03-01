@@ -93,22 +93,24 @@ npm start
 			- problem: boja se gubi kada kliknemo na suseda za napad ✓
 			- dodati attackable - ako je status okupiran i graniči se sa oslobođenim ✓
 	- faza napada
-		- prikazivati napad dugme samo kad je attackable ✓
-		- implementirati napad
-			- dodati novo polje na region assaultTroops ✓
-			- dodati izvedeno stanje attacked ✓
-			- dodati vizuelni indikator (💥) ✓
-			- status suvišan kad postoji frakcija, ukinuti ✓
-			- otvoriti opcije napada nakon klika na dugme ✓
-				- BUG: opcije ostaju otvorene za sve oblasti, modal pamti stanje ✓
-				- izabrati odakle se napada (ako ima više oslobođenih suseda) ✓
-				- izabrati koliko vojske se prebacuje (input range ili slično) ✓
-		- stilizovati modal po uzoru na legendu ✓
+		- prikazivati attack dugme samo kad je attackable ✓
+		- dodati novo polje na region attackingForces ✓
+		- dodati izvedeno stanje attacked ✓
+		- dodati vizuelni indikator (💥) ✓
+		- status suvišan kad postoji frakcija, ukinuti ✓
+		- otvoriti opcije napada nakon klika na dugme ✓
+			- BUG: opcije ostaju otvorene za sve oblasti, modal pamti stanje ✓
+			- izabrati odakle se napada (ako ima više oslobođenih suseda) ✓
+			- izabrati koliko vojske se prebacuje (input range ili slično) ✓
 		- implementirati akciju ATTACK ✓
 		- zatvoriti dodatne opcije nakon napada ✓
 		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0 i ne može da se poveća ✓
+	- srediti modal
+		- boje po uzoru na legendu ✓
 		- dugme hover je bez veze, promeniti ✓
-		- izbaciti višak naslova i informacija iz modala
+		- izbaciti višak informacija iz modala ✓
+		- dodati ikonice za trupe
+		- dodati ikonice za frakcije
 	- faza borbe
 		- osmisliti, slično kao axis and allies
 - u svakom krugu ustanici jačaju, okupacione snage ostaju iste

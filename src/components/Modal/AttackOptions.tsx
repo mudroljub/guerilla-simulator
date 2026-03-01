@@ -28,9 +28,9 @@ export default function AttackOptions({ region }: Props) {
     setAttackingForce(regionDict[attackingRegion].garrison.infantry)
   }, [attackingRegion, regionDict])
 
-  
   useEffect(() => {
-    setAttackingRegion(partisanNeighbors[0])
+    if (!partisanNeighbors.includes(attackingRegion))
+      setAttackingRegion(partisanNeighbors[0])
   }, [partisanNeighbors])
 
   return (
@@ -53,7 +53,8 @@ export default function AttackOptions({ region }: Props) {
           max={regionDict[attackingRegion].garrison.infantry}
           value={attackingForce}
           onChange={(e) => setAttackingForce(Number(e.target.value))}
-        />
+        />{' '}
+        {attackingForce > 1 ? 'Partisans' : 'Partisan'}
         <input
           type="range"
           min={1}
