@@ -133,7 +133,7 @@ npm start
 
 ### BUGS
 
-- na kraju drag ne treba da otvara prozor
+- drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
 
 ### Završno

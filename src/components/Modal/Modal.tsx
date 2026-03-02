@@ -22,12 +22,9 @@ export default function Modal({ region }: Props) {
     setShowMore(false)
   }, [region]);
 
-  const getIcon = (fraction: Fraction) => fraction === Fraction.Partisan
-    ? <span>★</span>
-    : <span className={styles.black}>✠</span>
   const getFlag = (fraction: Fraction) => fraction === Fraction.Partisan
-    ? <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg/330px-Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg.png" className={styles.flag} />
-    : <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Germany_%281935%E2%80%931945%29.svg/330px-Flag_of_Germany_%281935%E2%80%931945%29.svg.png" className={styles.flag} />
+    ? <img alt="icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg/330px-Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg.png" className={styles.flag} />
+    : <img alt="icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Germany_%281935%E2%80%931945%29.svg/330px-Flag_of_Germany_%281935%E2%80%931945%29.svg.png" className={styles.flag} />
 
   return (
     <div className={styles.modalWrapper}>
@@ -53,10 +50,10 @@ export default function Modal({ region }: Props) {
           <strong>{fraction}s:</strong>
         </p>
         <ul className={styles.text}>
-          <li>Infantry: {garrison.infantry} <img className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Civil_Military_Coordination_-_The_Noun_Project.svg" /></li>
-          {garrison?.artillery! > 0 && <li>Artillery: {garrison.artillery} <img className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/6/64/Maki1-historic-15.svg" /></li>}
-          {garrison?.tanks! > 0 && <li>Tanks: {garrison.tanks} <img className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/f/ff/CH-Zusatztafel-Panzer.svg" /></li>}
-          {garrison?.aircraft! > 0 && <li>Aircraft: {garrison.aircraft} <img className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/1/19/Black_aircraft_icon.svg" /></li>}
+          <li>Infantry: {garrison.infantry} <img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Civil_Military_Coordination_-_The_Noun_Project.svg" /></li>
+          {garrison?.artillery! > 0 && <li>Artillery: {garrison.artillery} <img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/6/64/Maki1-historic-15.svg" /></li>}
+          {garrison?.tanks! > 0 && <li>Tanks: {garrison.tanks} <img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/f/ff/CH-Zusatztafel-Panzer.svg" /></li>}
+          {garrison?.aircraft! > 0 && <li>Aircraft: {garrison.aircraft} <img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/1/19/Black_aircraft_icon.svg" /></li>}
         </ul>
 
         {attackable && (

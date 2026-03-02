@@ -31,7 +31,7 @@ export default function AttackOptions({ region }: Props) {
   useEffect(() => {
     if (!partisanNeighbors.includes(attackingRegion))
       setAttackingRegion(partisanNeighbors[0])
-  }, [partisanNeighbors])
+  }, [partisanNeighbors, attackingRegion])
 
   return (
     <div>
