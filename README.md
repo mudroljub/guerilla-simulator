@@ -115,7 +115,8 @@ npm start
 	- faza bitke
 		- osmisliti, slično kao axis and allies
 		- dodati dugme end turn
-- zumirati kada je retina > 1
+- zumirati na vecim ekranima
+- probati draggable bez JS-a?
 - AI
 	- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
 	- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
