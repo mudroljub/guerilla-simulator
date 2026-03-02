@@ -111,22 +111,23 @@ npm start
 		- dugme hover je bez veze, promeniti ✓
 		- izbaciti višak informacija iz modala ✓
 		- dodati ikonice za frakcije ✓
-		- dodati ikonice za trupe
-	- faza borbe
+		- dodati ikonice za trupe ✓
+	- faza bitke
 		- osmisliti, slično kao axis and allies
-- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
-- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
-- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
-	- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
-	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
-	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
-	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
-	- bonus: ofanzive imaju ime: I, II, III
+		- dodati dugme end turn
+- zumirati kada je retina > 1
+- AI
+	- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
+	- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
+	- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
+		- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
+		- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
+		- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
+		- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
+		- bonus: ofanzive imaju ime: I, II, III
 - save game
 	- čuvati stanje da se ne resetuje ni inicijalizuje na reload
 	- resetuje se na new game
-- napredno
-	- dodati razne okupatore nejednakih karakteristika
 - kraj
 	- pobeda: oslobođenje zemlje
 	- poraz: uništenje ustanka
@@ -140,3 +141,7 @@ npm start
 
 - Sacuvati finalne poligone kao data
 - napraviti prave svg slike umesto ovih
+
+### Ideje za kasnije
+
+- dodati razne okupatore nejednakih karakteristika
