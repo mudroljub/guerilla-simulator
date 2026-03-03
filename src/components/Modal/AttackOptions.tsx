@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Modal.module.scss";
-import { useStore, useRegionStateExtended } from "../../store/store";
+import { useStore, useRegionStateDerived } from "../../store/store";
 import { RegionData } from "../../types/types";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default function AttackOptions({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
-  const { partisanNeighbors } = useRegionStateExtended(region)
+  const { partisanNeighbors } = useRegionStateDerived(region)
 
   const [attackingRegion, setAttackingRegion] = useState(partisanNeighbors[0])
 

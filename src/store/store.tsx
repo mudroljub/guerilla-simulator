@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
-import { Fraction, MapState, RegionData, RegionDict, RegionState, RegionStateExtended } from "../types/types";
+import { Fraction, MapState, RegionData, RegionDict, RegionState, RegionStateDerived } from "../types/types";
 import { initGarrison } from "../utils/initGarrison";
 
 interface Store {
@@ -51,7 +51,7 @@ export const useRegionStore = () => {
    };
 };
 
-export const useRegionStateExtended = (region: RegionData): RegionStateExtended => {
+export const useRegionStateDerived = (region: RegionData): RegionStateDerived => {
   const { mapState } = useStore();
   const { selected, regionDict } = mapState;
 

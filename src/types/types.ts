@@ -42,7 +42,7 @@ export interface RegionState {
   attackingForces?: Garrison;
 }
 
-export interface RegionStateExtended {
+export interface RegionStateDerived {
   partisanNeighbors: string[];
   attackable: boolean;
   attacked: boolean;

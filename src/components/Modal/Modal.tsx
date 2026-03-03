@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { useEffect, useState } from "react";
-import { useStore, useRegionStateExtended } from "../../store/store";
+import { useStore, useRegionStateDerived } from "../../store/store";
 import { Fraction, RegionData, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 import AttackOptions from './AttackOptions'
@@ -11,7 +11,7 @@ interface Props {
 
 export default function Modal({ region }: Props) {
   const { mapState: { regionDict }, dispatch } = useStore()
-  const { attackable } = useRegionStateExtended(region)
+  const { attackable } = useRegionStateDerived(region)
   const [showMore, setShowMore] = useState(false)
 
   const regionState: RegionState = regionDict[region.name]

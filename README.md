@@ -113,8 +113,15 @@ npm start
 		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe ✓
 	- faza bitke
-		- osmisliti, slično kao axis and allies
 		- dodati dugme end turn
+		- osmisliti, slično kao axis and allies
+		- pronalazimo sve napadnute oblasti
+		- idemo redom i za svaku bacamo kocke
+			- bacamo za napad
+			- bacamo za odbranu
+			- skidamo mrtve
+			- ponavljamo do razrešenja
+			- novi status oblasti po potrebi
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI
