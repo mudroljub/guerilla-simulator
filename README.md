@@ -128,7 +128,7 @@ npm start
 	- prosleđivati RegionState regionu ✓
 	- ukinuti upotrebu RegionData ✓
 	- refaktor Store i MapState
-	- selected čuvati kao objekat, da ne bi moralo regionDict[selected.name].fraction
+	- ažurirati prošireni selected (ne mora više regionDict[selected.name].fraction)
 	- size zbunjuje, preimenovati u population normalized samo kraće
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?

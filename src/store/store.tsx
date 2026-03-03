@@ -62,7 +62,7 @@ export const useRegionStateDerived = (region: RegionData): RegionStateDerived =>
   const partisanNeighbors = getPartisanNeighbors(region)
 
   const attackable = selected?.name === region.name
-    && regionDict[selected.name].fraction === Fraction.German 
+    && selected.fraction === Fraction.German 
     && getPartisanNeighbors(selected).length > 0
 
   return { 

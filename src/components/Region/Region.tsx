@@ -18,8 +18,7 @@ interface Props {
 }
 
 export default function Region({ region }: Props) {
-  const { mapState, dispatch } = useStore();
-  const { regionDict, selected } = mapState
+  const { mapState: { selected }, dispatch } = useStore();
   const { attackable, attacked } = useRegionStateDerived(region)
 
   const regionFraction = region.fraction
@@ -27,7 +26,7 @@ export default function Region({ region }: Props) {
 
   const isOccupiedNeighbor = selected && 
     regionFraction === Fraction.German && 
-    regionDict[selected.name].fraction === Fraction.Partisan && 
+    selected.fraction === Fraction.Partisan && 
     selected.neighbors.includes(region.name)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
