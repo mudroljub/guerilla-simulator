@@ -113,8 +113,9 @@ npm start
 		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe ✓
 	- faza bitke
-		- dodati dugme end turn
-		- osmisliti, slično kao axis and allies
+		- osmisliti bitku, slično kao axis and allies
+			- pogledati pravila igre
+		- dodati dugme end turn ✓
 		- pronalazimo sve napadnute oblasti
 		- idemo redom i za svaku bacamo kocke
 			- bacamo za napad
@@ -128,7 +129,7 @@ npm start
 	- prosleđivati RegionState regionu ✓
 	- ukinuti upotrebu RegionData ✓
 	- ažurirati selected ✓
-	- refaktor Store i MapState
+	- refaktor Store i MapState ✓
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI

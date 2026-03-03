@@ -6,7 +6,8 @@ function App() {
   return (
     <>
       <Map />
-      <img src={legend} alt="legend" className={styles.legend} />
+      <img className={styles.legend} src={legend} alt="legend" />
+      <button className={styles.button}>End turn</button>
     </>
   )
 }
