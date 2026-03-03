@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { Fraction, RegionState } from "../../types/types";
 import styles from "./Region.module.scss";
-import { useStore, useRegionStateDerived } from "../../store/store";
+import { useStore, useIsAttackable } from "../../store/store";
 import { useMemo } from "react";
 import { getPathData, getRadius } from "./utils";
 import { CITY_LABEL_THRESHOLD } from "../../config";
@@ -19,7 +19,7 @@ interface Props {
 
 export default function Region({ region }: Props) {
   const { state: { selected }, dispatch } = useStore();
-  const { attackable } = useRegionStateDerived(region)
+  const attackable = useIsAttackable(region.name)
 
   const regionFraction = region.fraction
   const isSelected = selected?.name === region.name

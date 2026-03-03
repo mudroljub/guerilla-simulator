@@ -44,11 +44,6 @@ export interface RegionState extends RegionData {
   attackingForces?: Garrison;
 }
 
-export interface RegionStateDerived {
-  partisanNeighbors: string[];
-  attackable: boolean;
-}
-
 /** STORE */
 
 export type RegionDict = Record<string, RegionState>

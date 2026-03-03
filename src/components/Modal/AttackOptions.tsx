@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Modal.module.scss";
-import { useStore, useRegionStateDerived } from "../../store/store";
+import { useStore, useLiberatedNeighbors } from "../../store/store";
 import { RegionState } from "../../types/types";
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 
 export default function AttackOptions({ region }: Props) {
   const { state: { regionDict }, dispatch } = useStore()
-  const { partisanNeighbors } = useRegionStateDerived(region)
+  const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
-  const [attackingRegion, setAttackingRegion] = useState(partisanNeighbors[0])
+  const [attackingRegion, setAttackingRegion] = useState(liberatedNeighbors[0])
 
   const [attackingForce, setAttackingForce] = useState(regionDict[attackingRegion].garrison.infantry)
 
@@ -29,16 +29,16 @@ export default function AttackOptions({ region }: Props) {
   }, [attackingRegion, regionDict])
 
   useEffect(() => {
-    if (!partisanNeighbors.includes(attackingRegion))
-      setAttackingRegion(partisanNeighbors[0])
-  }, [partisanNeighbors, attackingRegion])
+    if (!liberatedNeighbors.includes(attackingRegion))
+      setAttackingRegion(liberatedNeighbors[0])
+  }, [liberatedNeighbors, attackingRegion])
 
   return (
     <div>
       <p className={styles.text}>
         <strong>Attack from:</strong>{' '}
         <select value={attackingRegion} onChange={e => setAttackingRegion(e.target.value)}>
-          {partisanNeighbors.map(opt => (
+          {liberatedNeighbors.map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>
