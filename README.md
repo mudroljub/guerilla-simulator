@@ -125,9 +125,10 @@ npm start
 - restruktuirati podatke
 	- spojiti region data i state ✓
 	- ukinuti upotrebu RegionData
-		- možda uvesti pomoćnu klasu Region? ako trebaju pomoćni metodi
-	- provider u main
+	- provider u main ✓
 	- prosleđivati sve podatke iz mape regionu?
+	- refaktor Store i MapState
+	- size zbunjuje, preimenovati u population normalized samo kraće
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI

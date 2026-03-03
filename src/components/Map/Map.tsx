@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./Map.module.scss";
-import { RegionData, Position } from "../../types/types";
+import { Position } from "../../types/types";
 import Region from "../Region/Region";
 import Modal from '../Modal/Modal'
 import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
@@ -18,16 +18,13 @@ interface ScrollPos {
   top: number;
 }
 
-interface Props {
-  regions: RegionData[]
-}
-
-export default function Map({ regions }: Props) {
+export default function Map() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
-  const { mapState: { selected } } = useStore();
+  const { mapState: { selected, regionDict } } = useStore();
+  const regions = Object.values(regionDict)
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
