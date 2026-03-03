@@ -124,10 +124,11 @@ npm start
 			- novi status oblasti po potrebi
 - restruktuirati podatke
 	- spojiti region data i state ✓
-	- ukinuti upotrebu RegionData
 	- provider u main ✓
-	- prosleđivati sve podatke iz mape regionu?
+	- prosleđivati RegionState regionu ✓
+	- ukinuti upotrebu RegionData
 	- refaktor Store i MapState
+	- selected čuvati kao objekat, da ne bi moralo regionDict[selected.name].fraction
 	- size zbunjuje, preimenovati u population normalized samo kraće
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?

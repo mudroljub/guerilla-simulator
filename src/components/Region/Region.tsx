@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { Fraction, RegionData } from "../../types/types";
+import { Fraction, RegionState } from "../../types/types";
 import styles from "./Region.module.scss";
 import { useStore, useRegionStateDerived } from "../../store/store";
 import { useMemo } from "react";
@@ -14,7 +14,7 @@ const stateStyle = {
 }
 
 interface Props {
-  region: RegionData;
+  region: RegionState;
 }
 
 export default function Region({ region }: Props) {
@@ -22,7 +22,7 @@ export default function Region({ region }: Props) {
   const { regionDict, selected } = mapState
   const { attackable, attacked } = useRegionStateDerived(region)
 
-  const regionFraction = regionDict[region.name].fraction
+  const regionFraction = region.fraction
   const isSelected = selected?.name === region.name
 
   const isOccupiedNeighbor = selected && 
