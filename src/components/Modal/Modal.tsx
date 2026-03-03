@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function Modal({ region }: Props) {
-  const { mapState: { regionDict }, dispatch } = useStore()
+  const { state: { regionDict }, dispatch } = useStore()
   const { attackable } = useRegionStateDerived(region)
   const [showMore, setShowMore] = useState(false)
 

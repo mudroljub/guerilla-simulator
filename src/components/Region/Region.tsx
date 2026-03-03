@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function Region({ region }: Props) {
-  const { mapState: { selected }, dispatch } = useStore();
+  const { state: { selected }, dispatch } = useStore();
   const { attackable, attacked } = useRegionStateDerived(region)
 
   const regionFraction = region.fraction

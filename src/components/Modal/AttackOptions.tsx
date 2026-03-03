@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function AttackOptions({ region }: Props) {
-  const { mapState: { regionDict }, dispatch } = useStore()
+  const { state: { regionDict }, dispatch } = useStore()
   const { partisanNeighbors } = useRegionStateDerived(region)
 
   const [attackingRegion, setAttackingRegion] = useState(partisanNeighbors[0])

@@ -23,7 +23,7 @@ export default function Map() {
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 });
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 });
-  const { mapState: { selected, regionDict } } = useStore();
+  const { state: { selected, regionDict } } = useStore();
   const regions = Object.values(regionDict)
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

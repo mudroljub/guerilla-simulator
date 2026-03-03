@@ -127,9 +127,8 @@ npm start
 	- provider u main ✓
 	- prosleđivati RegionState regionu ✓
 	- ukinuti upotrebu RegionData ✓
+	- ažurirati selected ✓
 	- refaktor Store i MapState
-	- ažurirati prošireni selected (ne mora više regionDict[selected.name].fraction)
-	- size zbunjuje, preimenovati u population normalized samo kraće
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI
