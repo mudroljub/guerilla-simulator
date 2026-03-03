@@ -50,11 +50,11 @@ export interface RegionStateDerived {
   attacked: boolean;
 }
 
-/** MAP STATE */
+/** STORE */
 
 export type RegionDict = Record<string, RegionState>
 
 export interface MapState {
   regionDict: RegionDict;
-  selected: RegionData | null;
+  selected: RegionState | null;
 }

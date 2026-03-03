@@ -126,7 +126,7 @@ npm start
 	- spojiti region data i state ✓
 	- provider u main ✓
 	- prosleđivati RegionState regionu ✓
-	- ukinuti upotrebu RegionData
+	- ukinuti upotrebu RegionData ✓
 	- refaktor Store i MapState
 	- selected čuvati kao objekat, da ne bi moralo regionDict[selected.name].fraction
 	- size zbunjuje, preimenovati u population normalized samo kraće

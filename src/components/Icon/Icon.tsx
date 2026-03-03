@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { CITY_LABEL_THRESHOLD } from '../../config';
 import { useRegionStore } from '../../store/store';
-import { Fraction, Garrison, RegionData, UnitType } from '../../types/types';
+import { Fraction, Garrison, RegionState, UnitType } from '../../types/types';
 import { sample } from '../../utils/math';
 import styles from "./Icon.module.scss";
 import { nameToIcon, iconDict } from "./utils";
@@ -13,7 +13,7 @@ function getRandomUnitType(garrison: Garrison): UnitType {
 }
 
 interface Props {
-  region: RegionData;
+  region: RegionState;
 }
 
 export default function Icon({ region }: Props) {

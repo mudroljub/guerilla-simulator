@@ -1,12 +1,12 @@
 import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { useStore, useRegionStateDerived } from "../../store/store";
-import { Fraction, RegionData, RegionState } from "../../types/types";
+import { Fraction, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 import AttackOptions from './AttackOptions'
 
 interface Props {
-  region: RegionData;
+  region: RegionState;
 }
 
 export default function Modal({ region }: Props) {

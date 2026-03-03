@@ -1,13 +1,13 @@
-import { RegionData } from "../types/types";
+import { RegionState } from "../types/types";
 
 export type SelectionAction =
-  | { type: "SELECT_REGION"; region: RegionData }
-  | { type: "DESELECT"; region?: RegionData };
+  | { type: "SELECT_REGION"; region: RegionState }
+  | { type: "DESELECT"; region?: RegionState };
 
 export function selectionReducer(
-  selected: RegionData | null,
+  selected: RegionState | null,
   action: SelectionAction
-): RegionData | null {
+): RegionState | null {
   switch (action.type) {
     case "SELECT_REGION":
       return action.region;
