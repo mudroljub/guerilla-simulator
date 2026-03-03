@@ -38,7 +38,7 @@ export enum Fraction {
 
 /** REGION STATE */
 
-export interface RegionState {
+export interface Region extends RegionData {
   fraction: Fraction;
   garrison: Garrison;
   attackingForces?: Garrison;
@@ -52,7 +52,7 @@ export interface RegionStateDerived {
 
 /** MAP STATE */
 
-export type RegionDict = Record<string, RegionState>
+export type RegionDict = Record<string, Region>
 
 export interface MapState {
   regionDict: RegionDict;

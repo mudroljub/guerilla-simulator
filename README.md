@@ -123,7 +123,7 @@ npm start
 			- ponavljamo do razrešenja
 			- novi status oblasti po potrebi
 - restruktuirati podatke
-	- spojiti region data i state?
+	- spojiti region data i state i derived state?
 		- možda uvesti pomoćnu klasu Region? ako trebaju pomoćni metodi
 	- provider u main
 	- prosleđivati sve podatke iz mape regionu?
