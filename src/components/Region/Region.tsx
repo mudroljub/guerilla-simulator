@@ -19,7 +19,7 @@ interface Props {
 
 export default function Region({ region }: Props) {
   const { state: { selected }, dispatch } = useStore();
-  const { attackable, attacked } = useRegionStateDerived(region)
+  const { attackable } = useRegionStateDerived(region)
 
   const regionFraction = region.fraction
   const isSelected = selected?.name === region.name
@@ -49,7 +49,7 @@ export default function Region({ region }: Props) {
         className={classnames(styles.path)}
         d={pathData}
       />
-      {attacked ? 
+      {region?.attackingForces ? 
         <text
           x={region.position.x}
           y={region.position.y + 5}

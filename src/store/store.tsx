@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer";
-import { Fraction, MapState, RegionData, RegionDict, RegionStateDerived } from "../types/types";
+import { Fraction, MapState, RegionData, RegionDict, RegionState, RegionStateDerived } from "../types/types";
 import { initRegionState } from "../utils/initRegionState";
 
 interface Store {
@@ -32,22 +32,22 @@ export const useStore = () => {
   return ctx;
 };
 
-export const useRegionStateDerived = (region: RegionData): RegionStateDerived => {
-  const { state } = useStore();
-  const { selected, regionDict } = state;
+const getPartisanNeighbors = (neighbors: string[], dict: RegionDict) =>
+    neighbors.filter(neighbor => dict[neighbor].fraction === Fraction.Partisan && dict[neighbor].garrison.infantry > 0)
 
-  const getPartisanNeighbors = (region: RegionData) =>
-    region.neighbors.filter(neighbor => regionDict[neighbor].fraction === Fraction.Partisan && regionDict[neighbor].garrison.infantry > 0)
+export const useRegionStateDerived = (region: RegionState): RegionStateDerived => {
+  const { state: { selected, regionDict } } = useStore()
 
-  const partisanNeighbors = getPartisanNeighbors(region)
+  return useMemo(() => {
+    const partisanNeighbors = getPartisanNeighbors(region.neighbors, regionDict)
 
-  const attackable = selected?.name === region.name
-    && selected.fraction === Fraction.German 
-    && getPartisanNeighbors(selected).length > 0
+    const attackable = selected?.name === region.name
+      && selected.fraction === Fraction.German 
+      && getPartisanNeighbors(selected.neighbors, regionDict).length > 0
 
-  return { 
-    partisanNeighbors,
-    attackable,
-    attacked: Boolean(regionDict[region.name].attackingForces),
-  }
+    return { 
+      partisanNeighbors,
+      attackable,
+    };
+  }, [region.name, region.neighbors, regionDict, selected])
 }

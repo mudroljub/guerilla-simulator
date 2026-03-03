@@ -47,7 +47,6 @@ export interface RegionState extends RegionData {
 export interface RegionStateDerived {
   partisanNeighbors: string[];
   attackable: boolean;
-  attacked: boolean;
 }
 
 /** STORE */
