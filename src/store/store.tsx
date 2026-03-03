@@ -32,14 +32,6 @@ export const useStore = () => {
   return ctx;
 };
 
-export const useRegionStore = () => {
-  const { state, dispatch } = useStore();
-  return { 
-    regionDict: state.regionDict, 
-    dispatch
-   };
-};
-
 export const useRegionStateDerived = (region: RegionData): RegionStateDerived => {
   const { state } = useStore();
   const { selected, regionDict } = state;
