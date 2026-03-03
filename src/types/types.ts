@@ -3,7 +3,7 @@ export interface Position {
   y: number;
 }
 
-/** DATA */
+/** REGION DATA */
 
 export interface SettlementData {
   position: Position;
@@ -20,7 +20,7 @@ export interface RegionData extends SettlementData {
   neighbors: string[];
 }
 
-/** STATE */
+/** UNITS & FRACTIONS */
 
 export enum UnitType {
   infantry = 'infantry',
@@ -36,6 +36,8 @@ export enum Fraction {
   Partisan = 'Partisan',
 }
 
+/** REGION STATE */
+
 export interface RegionState {
   fraction: Fraction;
   garrison: Garrison;
@@ -47,6 +49,8 @@ export interface RegionStateDerived {
   attackable: boolean;
   attacked: boolean;
 }
+
+/** MAP STATE */
 
 export type RegionDict = Record<string, RegionState>
 
