@@ -6,9 +6,9 @@ export interface Position {
 /** REGION DATA */
 
 export interface SettlementData {
-  position: Position;
   population: number;
-  size: number;
+  size: number;       // population normalized
+  position: Position; // lat-lon normalized
 }
 
 export type Settlements = Record<string, SettlementData>;

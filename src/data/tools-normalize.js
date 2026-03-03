@@ -42,7 +42,7 @@ function coordToPercent(koordinate, latRange, lngRange) {
   return { y, x }
 }
 
-function sizeToPercent(size, minSize, maxSize) {
+function populationToPercent(size, minSize, maxSize) {
   return (size - minSize) / (maxSize - minSize) || 0.0001 // no zero size
 }
 
@@ -56,7 +56,7 @@ const obradjeno = Object.fromEntries(
     {
       position: coordToPercent(grad.koordinate, latRange, lngRange),
       population: grad.stanovnika,
-      size: sizeToPercent(grad.stanovnika, najmanji, najveci),
+      size: populationToPercent(grad.stanovnika, najmanji, najveci),
     }
   ])
 )
