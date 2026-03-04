@@ -119,6 +119,7 @@ npm start
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓
 			- BUG: ne prikazuje napadajuće trupe odmah ✓
 		- dodati indikator bitke u prozoru
+			- umesto zastave ikona bitke
 		- pronalazimo sve napadnute oblasti
 		- idemo redom i za svaku skinemo onoliko jedinica koliko je napalo
 		- bacamo kocke

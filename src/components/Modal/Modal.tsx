@@ -12,6 +12,7 @@ export default function Modal() {
   if (!selected) return null
 
   const { garrison, fraction } = selected
+  const attacked = Boolean(selected.attackingForces)
 
   const getFlag = (fraction: Fraction) => fraction === Fraction.Partisan
     ? <img alt="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg/330px-Flag_of_Yugoslavia_%281943%E2%80%931946%29.svg.png" className={styles.flag} />
@@ -30,7 +31,7 @@ export default function Modal() {
         <h2 className={classnames(styles.title, {
           [styles.black]: fraction === Fraction.German
         })}>
-          {getFlag(fraction)} {selected.name}
+          {attacked ? '💥' : getFlag(fraction)}{attacked ? 'Attack on' : ''} {selected.name}
         </h2>
 
         <p className={styles.text}>

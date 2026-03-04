@@ -18,8 +18,8 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: 0;
+  right: 0;
   background: transparent;
   border: none;
   font-size: 18px;
@@ -70,4 +70,9 @@
 .icon {
   width: 2rem;
   vertical-align: middle;
+}
+
+.hr {
+  border-top: 2px solid $border;
+  margin: 0.75rem 0;
 }
