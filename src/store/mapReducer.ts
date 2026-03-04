@@ -23,19 +23,31 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
         updatedGarrison[unit] = Math.max(0, current - sent);
       }
 
+      const newRegionDict = {
+        ...state.regionDict,
+        [action.attackedRegion]: {
+          ...defender,
+          attackingForces: action.attackingForces,
+        },
+        [action.attackingRegion]: {
+          ...attacker,
+          garrison: updatedGarrison,
+        },
+      };
+
+      // osveži selected ako je pogođen
+      let newSelected = state.selected;
+      if (state.selected) {
+        const name = state.selected.name;
+        if (name === action.attackedRegion || name === action.attackingRegion) {
+          newSelected = newRegionDict[name];
+        }
+      }
+
       return {
         ...state,
-        regionDict: {
-          ...state.regionDict,
-          [action.attackedRegion]: {
-            ...defender,
-            attackingForces: action.attackingForces,
-          },
-          [action.attackingRegion]: {
-            ...attacker,
-            garrison: updatedGarrison,
-          },
-        },
+        regionDict: newRegionDict,
+        selected: newSelected,
       };
     }
 

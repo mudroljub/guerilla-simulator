@@ -117,7 +117,7 @@ npm start
 			- pogledati pravila igre
 		- dodati dugme end turn ✓
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓
-			- BUG: ne prikazuje napadajuće trupe odmah
+			- BUG: ne prikazuje napadajuće trupe odmah ✓
 		- dodati indikator bitke u prozoru
 		- pronalazimo sve napadnute oblasti
 		- idemo redom i za svaku skinemo onoliko jedinica koliko je napalo

@@ -37,17 +37,15 @@ export default function AttackOptions({ region }: Props) {
     <div>
       <hr />
       <p className={styles.text}>
-        <strong>Attack from:</strong>{' '}
+        <span>Attack from</span>{' '}
         <select value={attackingRegion} onChange={e => setAttackingRegion(e.target.value)}>
           {liberatedNeighbors.map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>
           ))}
-        </select>
-      </p>
-      <p className={styles.text}>
-        <strong>Attack with:</strong>{' '}
+        </select><br/>
+        <span>with</span>{' '}
         <input
           type="number"
           min={1}

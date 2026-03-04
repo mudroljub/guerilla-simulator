@@ -1,5 +1,4 @@
 import classnames from "classnames";
-import { useEffect, useState } from "react";
 import { useStore, useIsAttackable } from "../../store/store";
 import { Fraction } from "../../types/types";
 import styles from "./Modal.module.scss";
@@ -8,12 +7,7 @@ import Units from './Units'
 
 export default function Modal() {
   const { dispatch, state: { selected } } = useStore()
-  const [showMore, setShowMore] = useState(false)
   const attackable = useIsAttackable(selected?.name || '')
-
-  useEffect(() => {
-    setShowMore(false)
-  }, [selected]);
 
   if (!selected) return null
 
@@ -49,16 +43,7 @@ export default function Modal() {
           selected.attackingForces && <Units troops={selected.attackingForces} fraction={Fraction.Partisan} />
         }
 
-        {attackable && (
-          showMore
-            ? <AttackOptions region={selected} />
-            : <button
-                className={styles.attackButton}
-                onClick={() => setShowMore(true)}
-              >
-                Attack {selected.name} ⚔️
-              </button>
-        )}
+        {attackable && <AttackOptions region={selected} />}
       </div>
     </div>
   )
