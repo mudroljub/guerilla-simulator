@@ -1,3 +1,5 @@
+@use './assets/styles/const.scss' as *;
+
 .legend {
   position: fixed;
   width: 300px;
@@ -11,5 +13,11 @@
   bottom: 1rem;
   right: 1rem;
   z-index: 9;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  text-transform: uppercase;
   padding: 0.5rem 1rem;
+  background-color: $ash;
 }
