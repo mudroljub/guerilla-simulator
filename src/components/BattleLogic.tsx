@@ -1,12 +1,13 @@
 import { useEffect } from "react"
 import { useStore } from "../store/store"
+import { GamePhase } from "../types/types"
 
 export const BattleLogic = () => {
   const { state, dispatch } = useStore()
-  const { battleQueue, isConductingCombat } = state
+  const { battleQueue, phase } = state
 
   useEffect(() => {
-    if (!isConductingCombat) return
+    if (phase !== GamePhase.CONDUCT_COMBAT) return
 
     if (battleQueue.length === 0) {
       dispatch({ type: "END_CONDUCT_COMBAT" })
@@ -31,7 +32,7 @@ export const BattleLogic = () => {
 
     return () => clearTimeout(timer)
     
-  }, [isConductingCombat, battleQueue, dispatch])
+  }, [phase, battleQueue, dispatch])
 
   return null
 }

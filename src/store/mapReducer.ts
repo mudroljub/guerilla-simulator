@@ -1,4 +1,4 @@
-import { RegionState, Troops, UnitType } from "../types/types";
+import { GamePhase, RegionState, Troops, UnitType } from "../types/types";
 import { MapState } from "./store";
 
 export type MapAction =
@@ -67,7 +67,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return {
         ...state,
         battleQueue,
-        isConductingCombat: true
+        phase: GamePhase.CONDUCT_COMBAT
       }
     }
 
@@ -98,7 +98,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
     case "END_CONDUCT_COMBAT":
       return {
         ...state,
-        isConductingCombat: false,
+        phase: GamePhase.MOBILIZE_NEW_UNITS,
         battleQueue: []
       }
 
