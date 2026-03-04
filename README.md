@@ -157,6 +157,7 @@ npm start
 
 - drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
+- mapa preliva sa ekrana?
 
 ### Završno
 

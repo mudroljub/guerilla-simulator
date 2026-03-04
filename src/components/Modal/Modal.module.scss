@@ -72,7 +72,22 @@
   vertical-align: middle;
 }
 
-.hr {
-  border-top: 2px solid $border;
-  margin: 0.75rem 0;
+.range {
+  -webkit-appearance: none;
+  background: transparent;
+  width: 100%;
+}
+
+/* Chrome / Safari */
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: $rose;
+  border-radius: 4px;
+}
+
+/* Firefox */
+.range::-moz-range-track {
+  height: 4px;
+  background: $rose;
+  border-radius: 4px;
 }

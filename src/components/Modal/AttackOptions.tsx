@@ -35,7 +35,16 @@ export default function AttackOptions({ region }: Props) {
 
   return (
     <div>
-      <div className={styles.hr} />
+      <input
+        type="range"
+        className={styles.range}
+        min={1}
+        max={regionDict[attackingRegion].garrison.infantry}
+        value={attackingForce}
+        onChange={(e) => setAttackingForce(Number(e.target.value))}
+        onMouseDown={(e) => e.stopPropagation()}
+        onMouseMove={(e) => e.stopPropagation()}
+      />
       <p className={styles.text}>
         <span>Attack with</span>{' '}
         <input
@@ -53,16 +62,7 @@ export default function AttackOptions({ region }: Props) {
               {opt}
             </option>
           ))}
-        </select><br/>
-        <input
-          type="range"
-          min={1}
-          max={regionDict[attackingRegion].garrison.infantry}
-          value={attackingForce}
-          onChange={(e) => setAttackingForce(Number(e.target.value))}
-          onMouseDown={(e) => e.stopPropagation()}
-          onMouseMove={(e) => e.stopPropagation()}
-        />
+        </select>
       </p>
       <button
         className={styles.attackButton}
