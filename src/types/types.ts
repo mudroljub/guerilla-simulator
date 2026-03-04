@@ -43,3 +43,12 @@ export interface RegionState extends RegionData {
   garrison: Troops;
   attackingForces?: Troops;
 }
+
+/** GAME PHASES */
+
+export enum GamePhase {
+  COMBAT_MOVE = "COMBAT_MOVE",
+  CONDUCT_COMBAT = "CONDUCT_COMBAT",
+  NON_COMBAT_MOVE = "NON_COMBAT_MOVE",
+  MOBILIZE_NEW_UNITS = "MOBILIZE_NEW_UNITS"
+}

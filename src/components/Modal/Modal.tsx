@@ -19,7 +19,11 @@ export default function Modal() {
     : <img alt="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Germany_%281935%E2%80%931945%29.svg/330px-Flag_of_Germany_%281935%E2%80%931945%29.svg.png" className={styles.flag} />
 
   return (
-    <div className={styles.modalWrapper}>
+    <div 
+      className={styles.modalWrapper}
+      onMouseDown={(e) => e.stopPropagation()}
+      onMouseMove={(e) => e.stopPropagation()}
+    >
       <div className={styles.modalBox}>
         <button
           onClick={() => dispatch({ type: "DESELECT" })}

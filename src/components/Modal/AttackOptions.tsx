@@ -42,8 +42,6 @@ export default function AttackOptions({ region }: Props) {
         max={regionDict[attackingRegion].garrison.infantry}
         value={attackingForce}
         onChange={(e) => setAttackingForce(Number(e.target.value))}
-        onMouseDown={(e) => e.stopPropagation()}
-        onMouseMove={(e) => e.stopPropagation()}
       />
       <p className={styles.text}>
         <span>Attack with</span>{' '}
