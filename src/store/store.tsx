@@ -8,7 +8,7 @@ export type RegionDict = Record<string, RegionState>
 export interface MapState {
   regionDict: RegionDict;
   selected: RegionState | null;
-  isProcessingBattles: boolean;
+  isConductingCombat: boolean;
   battleQueue: string[];
 }
 
@@ -24,7 +24,7 @@ const initialState = (regions: RegionData[]): MapState => {
   for (const region of regions) {
     regionDict[region.name] = initRegionState(region)
   }
-  return { selected: null, regionDict, isProcessingBattles: false, battleQueue: [] }
+  return { selected: null, regionDict, isConductingCombat: false, battleQueue: [] }
 }
 
 export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {

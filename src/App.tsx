@@ -7,7 +7,7 @@ import { useStore } from './store/store'
 function App() {
   const { dispatch } = useStore()
 
-  const onClick = () => dispatch({ type: 'START_BATTLE_PHASE' })
+  const onClick = () => dispatch({ type: 'CONDUCT_COMBAT' })
 
   return (
     <>

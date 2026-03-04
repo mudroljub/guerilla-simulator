@@ -3,16 +3,16 @@ import { MapState } from "./store";
 
 export type MapAction =
   | {
-      type: "ATTACK";
+      type: "COMBAT_MOVE";
       attackedRegion: string;
       attackingRegion: string;
       attackingForces: Troops;
     }
   | { type: "SELECT_REGION"; region: RegionState }
   | { type: "DESELECT"; region?: RegionState }
-  | { type: "START_BATTLE_PHASE" }
-  | { type: "RESOLVE_BATTLE"; regionName: string }
-  | { type: "FINISH_BATTLES" }
+  | { type: "CONDUCT_COMBAT" }
+  | { type: "SIMULATE_BATTLE"; regionName: string }
+  | { type: "END_CONDUCT_COMBAT" }
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
@@ -22,7 +22,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
     case "DESELECT":
       return { ...state, selected: null }
 
-    case "ATTACK": {
+    case "COMBAT_MOVE": {
       const attacker = state.regionDict[action.attackingRegion];
       const defender = state.regionDict[action.attackedRegion];
 
@@ -59,7 +59,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case "START_BATTLE_PHASE": {
+    case "CONDUCT_COMBAT": {
       const battleQueue = Object.values(state.regionDict)
         .filter(region => region.attackingForces)
         .map(region => region.name)
@@ -67,16 +67,16 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return {
         ...state,
         battleQueue,
-        isProcessingBattles: true
+        isConductingCombat: true
       }
     }
 
-    case "RESOLVE_BATTLE": {
-      const region = state.regionDict[action.regionName];
-      if (!region.attackingForces) return state;
+    case "SIMULATE_BATTLE": {
+      const region = state.regionDict[action.regionName]
+      if (!region.attackingForces) return state
 
       // TODO: implement battle logic, new fraction...
-      const newGarrison = { ...region.garrison };
+      const newGarrison = { ...region.garrison }
 
       const regionDict = {
         ...state.regionDict,
@@ -90,16 +90,15 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return {
         ...state,
         regionDict,
-        battleQueue: state.battleQueue.slice(1),
+        battleQueue: state.battleQueue.filter(name => name !== action.regionName),
         selected: null,
-        // TODO: označiti oblast za zumiranje
       }
     }
 
-    case "FINISH_BATTLES":
+    case "END_CONDUCT_COMBAT":
       return {
         ...state,
-        isProcessingBattles: false,
+        isConductingCombat: false,
         battleQueue: []
       }
 

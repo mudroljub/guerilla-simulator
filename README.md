@@ -120,18 +120,18 @@ npm start
 		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe ✓
 	- pogledati pravila axis and allies ✓
-		1. (develop weapon)
-		2. purchase units
-		3. combat move
-		4. conduct combat
+		1. (DEVELOP WEAPON)
+		2. (PURCHASE UNITS)
+		3. COMBAT MOVE
+		4. CONDUCT COMBAT
 			1. place units
 			2. attacking units fire
 			3. defending units fire
 			6. remove casualties
 			7. press attack or retreat
 			8. capture territory
-		5. non-combat move
-		6. mobilize new units
+		5. (NON-COMBAT MOVE)
+		6. MOBILIZE NEW UNITS
 	- faza bitke
 		- dodati dugme end turn ✓
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓

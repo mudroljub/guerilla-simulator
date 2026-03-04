@@ -3,19 +3,18 @@ import { useStore } from "../store/store"
 
 export const BattleLogic = () => {
   const { state, dispatch } = useStore()
-  const { battleQueue, isProcessingBattles } = state
+  const { battleQueue, isConductingCombat } = state
 
   useEffect(() => {
-    if (!isProcessingBattles) return
+    if (!isConductingCombat) return
 
     if (battleQueue.length === 0) {
-      dispatch({ type: "FINISH_BATTLES" })
+      dispatch({ type: "END_CONDUCT_COMBAT" })
       return
     }
 
     const currentRegionName = battleQueue[0]
 
-    // Fokusiranje na regiju
     const element = document.getElementById(currentRegionName)
     if (element) {
       element.scrollIntoView({
@@ -25,15 +24,14 @@ export const BattleLogic = () => {
       })
     }
 
-    // Tajmer za pauzu (da igrač može da isprati šta se dešava)
+    // tajmer za pauzu (da igrač može da isprati šta se dešava)
     const timer = setTimeout(() => {
-      // Razreši bitku u toj trenutnoj regiji, nakon čega ide sledeća
-      dispatch({ type: "RESOLVE_BATTLE", regionName: currentRegionName })      
+      dispatch({ type: "SIMULATE_BATTLE", regionName: currentRegionName })      
     }, 1500)
 
     return () => clearTimeout(timer)
     
-  }, [isProcessingBattles, battleQueue, dispatch])
+  }, [isConductingCombat, battleQueue, dispatch])
 
   return null
 }
