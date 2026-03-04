@@ -43,12 +43,3 @@ export interface RegionState extends RegionData {
   garrison: Troops;
   attackingForces?: Troops;
 }
-
-/** STORE */
-
-export type RegionDict = Record<string, RegionState>
-
-export interface MapState {
-  regionDict: RegionDict;
-  selected: RegionState | null;
-}

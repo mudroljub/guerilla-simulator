@@ -84,15 +84,22 @@ npm start
 	- inicijalno ustanici drže neka manja mesta ✓
 	- odrediti jačinu garnizona (samo pešadija dovoljna da osvoje neko susedno mesto) ✓
 - srediti eslint (ne može)
+- restruktuirati podatke ✓
+	- spojiti region data i state ✓
+	- provider u main ✓
+	- prosleđivati RegionState regionu ✓
+	- ukinuti upotrebu RegionData ✓
+	- ažurirati selected ✓
+	- refaktor Store i MapState ✓
 - mehanika bitke
-	- mogućnost napada
+	- mogućnost napada (attackable) ✓
 		- dodati regionu susedne oblasti ✓
 		- dodati indikator napada za susedne oblasti (roze boja?) ✓
 		- dobaviti susede od selected i menjati im boju na hover ✓
 			- samo ako je izabran oslobođen a susedi nisu ✓
 			- problem: boja se gubi kada kliknemo na suseda za napad ✓
 			- dodati attackable - ako je status okupiran i graniči se sa oslobođenim ✓
-	- faza napada
+	- faza napada ✓
 		- prikazivati attack dugme samo kad je attackable ✓
 		- dodati novo polje na region attackingForces ✓
 		- dodati izvedeno stanje attacked ✓
@@ -106,12 +113,25 @@ npm start
 		- zatvoriti dodatne opcije nakon napada ✓
 		- BUG: kad je moguć napad sa više teritorija, nakon prvog napada range se resetuje na 0 i ne može da se poveća ✓
 		- šta raditi sa teritorijama sa 0 partizana? postaju okupatorske?
-	- srediti modal
+	- srediti modal ✓
 		- boje po uzoru na legendu ✓
 		- dugme hover je bez veze, promeniti ✓
 		- izbaciti višak informacija iz modala ✓
 		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe ✓
+	- pogledati pravila axis and allies ✓
+		1. (develop weapon)
+		2. purchase units
+		3. combat move
+		4. conduct combat
+			1. place units
+			2. attacking units fire
+			3. defending units fire
+			6. remove casualties
+			7. press attack or retreat
+			8. capture territory
+		5. non-combat move
+		6. mobilize new units
 	- faza bitke
 		- dodati dugme end turn ✓
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓
@@ -119,7 +139,6 @@ npm start
 		- BUG: kada prebacim pola partizana pa još pola, ne računa ukupnu brojku ✓
 		- dodati indikator bitke u prozoru ✓
 			- umesto zastave ikona bitke ✓
-		- pogledati pravila axis and allies
 		- pronalazimo sve napadnute oblasti
 		- idemo redom i za svaku skinemo onoliko jedinica koliko je napalo
 		- bacamo kocke
@@ -128,13 +147,10 @@ npm start
 			- skidamo mrtve
 			- ponavljamo do razrešenja
 			- novi status oblasti po potrebi
-- restruktuirati podatke
-	- spojiti region data i state ✓
-	- provider u main ✓
-	- prosleđivati RegionState regionu ✓
-	- ukinuti upotrebu RegionData ✓
-	- ažurirati selected ✓
-	- refaktor Store i MapState ✓
+- efekti bitke
+	- dodati Skip dugme (isprazniti battleQueue u reduceru)
+	- dodati animacije: (dok isProcessingBattles traje) prikazati borbu na trenutnoj regiji, čikice pucaju
+	- zumirati/centrirati oblast bitke
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI

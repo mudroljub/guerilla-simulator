@@ -1,7 +1,16 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
 import { mapReducer, MapAction } from "./mapReducer"
-import { Fraction, MapState, RegionData, RegionDict } from "../types/types"
+import { Fraction, RegionData, RegionState } from "../types/types"
 import { initRegionState } from "../utils/initRegionState"
+
+export type RegionDict = Record<string, RegionState>
+
+export interface MapState {
+  regionDict: RegionDict;
+  selected: RegionState | null;
+  isProcessingBattles: boolean;
+  battleQueue: string[];
+}
 
 interface Store {
   state: MapState;
@@ -15,7 +24,7 @@ const initialState = (regions: RegionData[]): MapState => {
   for (const region of regions) {
     regionDict[region.name] = initRegionState(region)
   }
-  return { selected: null, regionDict }
+  return { selected: null, regionDict, isProcessingBattles: false, battleQueue: [] }
 }
 
 export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
