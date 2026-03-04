@@ -37,15 +37,7 @@ export default function AttackOptions({ region }: Props) {
     <div>
       <div className={styles.hr} />
       <p className={styles.text}>
-        <span>Attack from</span>{' '}
-        <select value={attackingRegion} onChange={e => setAttackingRegion(e.target.value)}>
-          {liberatedNeighbors.map(opt => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select><br/>
-        <span>with</span>{' '}
+        <span>Attack with</span>{' '}
         <input
           type="number"
           min={1}
@@ -53,7 +45,15 @@ export default function AttackOptions({ region }: Props) {
           value={attackingForce}
           onChange={(e) => setAttackingForce(Number(e.target.value))}
         />{' '}
-        {attackingForce > 1 ? 'Partisans' : 'Partisan'}
+        {attackingForce > 1 ? 'Partisans' : 'Partisan'}{' '}
+        <span>from</span>{' '}
+        <select value={attackingRegion} onChange={e => setAttackingRegion(e.target.value)}>
+          {liberatedNeighbors.map(opt => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select><br/>
         <input
           type="range"
           min={1}

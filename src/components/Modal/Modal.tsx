@@ -34,10 +34,6 @@ export default function Modal() {
           {attacked ? '💥' : getFlag(fraction)}{attacked ? 'Attack on' : ''} {selected.name}
         </h2>
 
-        <p className={styles.text}>
-          <strong>Population:</strong> {selected.population}
-        </p>
-
         <Units troops={garrison} fraction={fraction} />
 
         {

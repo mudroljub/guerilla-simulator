@@ -118,6 +118,7 @@ npm start
 		- dodati dugme end turn ✓
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓
 			- BUG: ne prikazuje napadajuće trupe odmah ✓
+		- BUG: kada prebacim pola partizana pa još pola, ne računa ukupnu brojku
 		- dodati indikator bitke u prozoru
 			- umesto zastave ikona bitke
 		- pronalazimo sve napadnute oblasti
