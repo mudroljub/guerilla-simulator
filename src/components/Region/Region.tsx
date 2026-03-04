@@ -39,6 +39,7 @@ export default function Region({ region }: Props) {
 
   return (
     <g
+      id={region.name}
       className={classnames(styles.region, stateStyle[regionFraction], { 
         [styles.selected]: isSelected, 
         [styles.blush]: isOccupiedNeighbor || attackable,

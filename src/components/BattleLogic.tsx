@@ -15,6 +15,16 @@ export const BattleLogic = () => {
 
     const currentRegionName = battleQueue[0]
 
+    // Fokusiranje na regiju
+    const element = document.getElementById(currentRegionName)
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+      })
+    }
+
     // Tajmer za pauzu (da igrač može da isprati šta se dešava)
     const timer = setTimeout(() => {
       // Razreši bitku u toj trenutnoj regiji, nakon čega ide sledeća
