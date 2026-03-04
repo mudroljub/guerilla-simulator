@@ -35,6 +35,7 @@ export default function AttackOptions({ region }: Props) {
 
   return (
     <div>
+      <hr />
       <p className={styles.text}>
         <strong>Attack from:</strong>{' '}
         <select value={attackingRegion} onChange={e => setAttackingRegion(e.target.value)}>

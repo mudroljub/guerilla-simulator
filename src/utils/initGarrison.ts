@@ -1,4 +1,4 @@
-import { Fraction, Garrison } from "../types/types";
+import { Fraction, Troops } from "../types/types";
 
 const rand = (min: number, max: number) => Math.random() * (max - min) + min;
 
@@ -14,7 +14,7 @@ const getTroops = (population: number, minPercent: number, maxPercent: number) =
 export function initGarrison(
   population: number,
   fraction: Fraction
-): Garrison {
+): Troops {
   const minPercent = 0.005
   const maxPercent = 0.02
   const total = getTroops(population, minPercent, maxPercent)

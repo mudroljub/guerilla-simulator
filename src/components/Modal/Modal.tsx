@@ -4,6 +4,7 @@ import { useStore, useIsAttackable } from "../../store/store";
 import { Fraction, RegionState } from "../../types/types";
 import styles from "./Modal.module.scss";
 import AttackOptions from './AttackOptions'
+import Units from './Units'
 
 interface Props {
   region: RegionState;
@@ -46,15 +47,11 @@ export default function Modal({ region }: Props) {
           <strong>Population:</strong> {region.population}
         </p>
 
-        <p className={styles.text}>
-          <strong>{fraction}s:</strong>
-        </p>
-        <ul className={styles.text}>
-          <li><img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Civil_Military_Coordination_-_The_Noun_Project.svg" /> {garrison.infantry} infantry</li>
-          {garrison?.artillery! > 0 && <li><img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/6/64/Maki1-historic-15.svg" /> {garrison.artillery} artillery</li>}
-          {garrison?.tanks! > 0 && <li><img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/f/ff/CH-Zusatztafel-Panzer.svg" /> {garrison.tanks} armor</li>}
-          {garrison?.aircraft! > 0 && <li><img alt="icon" className={styles.icon} src="https://upload.wikimedia.org/wikipedia/commons/1/19/Black_aircraft_icon.svg" /> {garrison.aircraft} aircraft</li>}
-        </ul>
+        <Units troops={garrison} fraction={fraction} />
+
+        {
+          region.attackingForces && <Units troops={region.attackingForces} fraction={Fraction.Partisan} />
+        }
 
         {attackable && (
           showMore

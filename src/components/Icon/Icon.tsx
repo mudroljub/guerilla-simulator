@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { CITY_LABEL_THRESHOLD } from '../../config';
-import { Fraction, Garrison, RegionState, UnitType } from '../../types/types';
+import { Fraction, Troops, RegionState, UnitType } from '../../types/types';
 import { sample } from '../../utils/math';
 import styles from "./Icon.module.scss";
 import { nameToIcon, iconDict } from "./utils";
 
-function getRandomUnitType(garrison: Garrison): UnitType {
+function getRandomUnitType(garrison: Troops): UnitType {
   const units = (Object.keys(garrison) as UnitType[])
     .filter(unitType => (garrison[unitType] ?? 0) > 0)
   return Math.random() > 0.33 ? sample(units) : UnitType.infantry

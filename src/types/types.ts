@@ -29,7 +29,7 @@ export enum UnitType {
   aircraft = 'aircraft',
 }
 
-export type Garrison = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
+export type Troops = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
 
 export enum Fraction {
   German = 'German',
@@ -40,8 +40,8 @@ export enum Fraction {
 
 export interface RegionState extends RegionData {
   fraction: Fraction;
-  garrison: Garrison;
-  attackingForces?: Garrison;
+  garrison: Troops;
+  attackingForces?: Troops;
 }
 
 /** STORE */

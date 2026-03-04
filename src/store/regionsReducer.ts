@@ -1,11 +1,11 @@
-import { RegionDict, Garrison, UnitType } from "../types/types";
+import { RegionDict, Troops, UnitType } from "../types/types";
 
 export type RegionAction =
   | {
       type: "ATTACK";
       attackedRegion: string;
       attackingRegion: string;
-      attackingForces: Garrison;
+      attackingForces: Troops;
     };
 
 export function regionsReducer(
@@ -17,7 +17,7 @@ export function regionsReducer(
       const attacker = state[action.attackingRegion];
       const defender = state[action.attackedRegion];
 
-      const updatedGarrison: Garrison = {} as Garrison;
+      const updatedGarrison: Troops = {} as Troops;
       for (const unit of Object.values(UnitType)) {
         const current = state[action.attackingRegion].garrison[unit] ?? 0;
         const sent = action.attackingForces[unit] ?? 0;
