@@ -137,6 +137,7 @@ npm start
 		- capture territory (novi status oblasti po potrebi)
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
+	- animacija bacanja kockica?
 	- dodati Skip dugme (isprazniti battleQueue u reduceru)
 	- centrirati oblast bitke (baguje)
 - prikazati instrukcije igraču, npr za:
