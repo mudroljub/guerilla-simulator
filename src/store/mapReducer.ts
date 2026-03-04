@@ -16,26 +16,28 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       const attacker = state.regionDict[action.attackingRegion];
       const defender = state.regionDict[action.attackedRegion];
 
-      const updatedGarrison: Troops = {} as Troops;
-      for (const unit of Object.values(UnitType)) {
-        const current = attacker.garrison[unit] ?? 0;
-        const sent = action.attackingForces[unit] ?? 0;
-        updatedGarrison[unit] = Math.max(0, current - sent);
-      }
+      const garrison = Object.values(UnitType).reduce((acc, unit) => ({
+        ...acc,
+        [unit]: Math.max(0, (attacker.garrison[unit] ?? 0) - (action.attackingForces[unit] ?? 0))
+      }), {} as Troops)
+
+      const attackingForces = Object.values(UnitType).reduce((acc, unit) => ({
+        ...acc,
+        [unit]: (defender.attackingForces?.[unit] ?? 0) + (action.attackingForces[unit] ?? 0)
+      }), {} as Troops)
 
       const regionDict = {
         ...state.regionDict,
         [action.attackedRegion]: {
           ...defender,
-          attackingForces: action.attackingForces,
+          attackingForces,
         },
         [action.attackingRegion]: {
           ...attacker,
-          garrison: updatedGarrison,
+          garrison,
         },
       };
 
-      // refresh selected reference (for modal)
       const selected = state.selected 
           ? regionDict[state.selected.name] 
           : null

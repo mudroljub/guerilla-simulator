@@ -113,14 +113,13 @@ npm start
 		- dodati ikonice za frakcije ✓
 		- dodati ikonice za trupe ✓
 	- faza bitke
-		- osmisliti bitku, slično kao axis and allies
-			- pogledati pravila igre
 		- dodati dugme end turn ✓
 		- dodati indikaciju u prozoru sa koliko je trupa napadnuto ✓
 			- BUG: ne prikazuje napadajuće trupe odmah ✓
-		- BUG: kada prebacim pola partizana pa još pola, ne računa ukupnu brojku
-		- dodati indikator bitke u prozoru
-			- umesto zastave ikona bitke
+		- BUG: kada prebacim pola partizana pa još pola, ne računa ukupnu brojku ✓
+		- dodati indikator bitke u prozoru ✓
+			- umesto zastave ikona bitke ✓
+		- pogledati pravila axis and allies
 		- pronalazimo sve napadnute oblasti
 		- idemo redom i za svaku skinemo onoliko jedinica koliko je napalo
 		- bacamo kocke
