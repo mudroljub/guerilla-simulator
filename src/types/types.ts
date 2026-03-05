@@ -8,7 +8,7 @@ export interface Position {
 export interface SettlementData {
   population: number;
   size: number;       // population normalized
-  position: Position; // lat-lon normalized
+  position: Position; // geo normalized * MAP_SIZE
 }
 
 export type Settlements = Record<string, SettlementData>;

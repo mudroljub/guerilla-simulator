@@ -16,7 +16,7 @@ const Battle = () => {
   return (
     <div className={styles.container}>
       <h1>Battle for {region.name}</h1>
-      <Unit fraction={Fraction.German} unitType={UnitType.infantry} />
+      <Unit fraction={Fraction.German} unitType={UnitType.infantry} position={region.position} />
     </div>
   )
 }

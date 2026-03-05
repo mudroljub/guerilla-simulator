@@ -1,5 +1,6 @@
+import classnames from "classnames"
 import { useMemo } from "react"
-import { Fraction, UnitType } from '../../types/types'
+import { Fraction, Position, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from "./Unit.module.scss"
 import { iconDict } from "./data"
@@ -7,9 +8,11 @@ import { iconDict } from "./data"
 interface Props {
   fraction: Fraction;
   unitType: UnitType;
+  position?: Position;
+  className?: string;
 }
 
-export default function Unit({ fraction, unitType }: Props) {
+export default function Unit({ fraction, unitType, position, className }: Props) {
 
   const SvgComponent = useMemo(() => {
     const icons = iconDict[fraction][unitType]
@@ -20,8 +23,9 @@ export default function Unit({ fraction, unitType }: Props) {
   if (!SvgComponent) return null
 
   return (
-    <div>
-      <SvgComponent className={styles.icon} />
-    </div>
+    <SvgComponent 
+      className={classnames(className, styles.unit)} 
+      style={position ? { top: position.y, left: position.x } : undefined} 
+    />
   )
 }
