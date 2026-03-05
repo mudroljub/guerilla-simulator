@@ -181,6 +181,7 @@ npm start
 
 - Sacuvati finalne poligone kao data
 - napraviti prave svg slike umesto ovih
+- favicon
 
 ### Ideje za kasnije
 

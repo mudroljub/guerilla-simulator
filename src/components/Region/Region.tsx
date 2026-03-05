@@ -1,12 +1,12 @@
-import classnames from "classnames";
-import { Fraction, RegionState } from "../../types/types";
-import styles from "./Region.module.scss";
-import { useStore, useIsAttackable } from "../../store/store";
-import { useMemo } from "react";
-import { getPathData, getRadius } from "./utils";
-import { CITY_LABEL_THRESHOLD } from "../../config";
+import classnames from "classnames"
+import { Fraction, RegionState } from "../../types/types"
+import styles from "./Region.module.scss"
+import { useStore, useIsAttackable } from "../../store/store"
+import { useMemo } from "react"
+import { getPathData, getRadius } from "./utils"
+import { CITY_LABEL_THRESHOLD } from "../../config"
 
-const TEXT_OFFSET_Y = -10;
+const TEXT_OFFSET_Y = -10
 
 const stateStyle = {
   [Fraction.German]: styles.occupied,
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function Region({ region }: Props) {
-  const { state: { selected }, dispatch } = useStore();
+  const { state: { selected }, dispatch } = useStore()
   const attackable = useIsAttackable(region.name)
 
   const regionFraction = region.fraction
@@ -35,7 +35,7 @@ export default function Region({ region }: Props) {
   const toggle = () => dispatch({
     type: isSelected ? "DESELECT" : "SELECT_REGION",
     region,
-  });
+  })
 
   return (
     <g
@@ -80,5 +80,5 @@ export default function Region({ region }: Props) {
         {region.size > CITY_LABEL_THRESHOLD ? region.name.toUpperCase() : region.name}
       </text>
     </g>
-  );
+  )
 }

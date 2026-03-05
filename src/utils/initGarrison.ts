@@ -1,9 +1,9 @@
-import { Fraction, Troops } from "../types/types";
+import { Fraction, Troops } from "../types/types"
 
-const rand = (min: number, max: number) => Math.random() * (max - min) + min;
+const rand = (min: number, max: number) => Math.random() * (max - min) + min
 
 const getTroops = (population: number, minPercent: number, maxPercent: number) =>
-  Math.floor(population * rand(minPercent, maxPercent));
+  Math.floor(population * rand(minPercent, maxPercent))
 
 /**
   Pešadija  90%

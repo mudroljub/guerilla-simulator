@@ -1,17 +1,17 @@
-import styles from "./Map.module.scss";
-import Region from "../Region/Region";
-import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths";
-import { MAP_SIZE } from "../../config";
-import { useStore } from "../../store/store";
+import styles from "./Map.module.scss"
+import Region from "../Region/Region"
+import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths"
+import { MAP_SIZE } from "../../config"
+import { useStore } from "../../store/store"
 import Icon from '../Icon/Icon'
 
-const viewBox_w = 1219.65; // from svg
-const viewBox_h = 1057.485;
+const viewBox_w = 1219.65 // from svg
+const viewBox_h = 1057.485
 const SCALE_X = MAP_SIZE / viewBox_w
 const SCALE_Y = MAP_SIZE / viewBox_h
 
 export default function Map() {
-  const { state: { regionDict } } = useStore();
+  const { state: { regionDict } } = useStore()
   const regions = Object.values(regionDict)
 
   return (

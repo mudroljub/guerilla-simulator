@@ -1,7 +1,7 @@
-import classnames from "classnames";
-import { useStore, useIsAttackable } from "../../store/store";
-import { Fraction } from "../../types/types";
-import styles from "./Modal.module.scss";
+import classnames from "classnames"
+import { useStore, useIsAttackable } from "../../store/store"
+import { Fraction } from "../../types/types"
+import styles from "./Modal.module.scss"
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 

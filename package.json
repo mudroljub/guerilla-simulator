@@ -22,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -29,7 +30,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "semi": ["warn", "never"]
+    }
   },
   "browserslist": {
     "production": [

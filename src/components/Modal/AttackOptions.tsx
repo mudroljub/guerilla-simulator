@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import styles from "./Modal.module.scss";
-import { useStore, useLiberatedNeighbors } from "../../store/store";
-import { RegionState } from "../../types/types";
+import { useEffect, useState } from "react"
+import styles from "./Modal.module.scss"
+import { useStore, useLiberatedNeighbors } from "../../store/store"
+import { RegionState } from "../../types/types"
 
 interface Props {
   region: RegionState;

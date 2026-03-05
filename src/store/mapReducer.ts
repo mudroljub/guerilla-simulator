@@ -1,5 +1,5 @@
-import { GamePhase, RegionState, Troops, UnitType } from "../types/types";
-import { MapState } from "./store";
+import { GamePhase, RegionState, Troops, UnitType } from "../types/types"
+import { MapState } from "./store"
 
 export type MapAction =
   | {
@@ -23,8 +23,8 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return { ...state, selected: null }
 
     case "COMBAT_MOVE": {
-      const attacker = state.regionDict[action.attackingRegion];
-      const defender = state.regionDict[action.attackedRegion];
+      const attacker = state.regionDict[action.attackingRegion]
+      const defender = state.regionDict[action.attackedRegion]
 
       const garrison = Object.values(UnitType).reduce((acc, unit) => ({
         ...acc,
@@ -46,7 +46,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
           ...attacker,
           garrison,
         },
-      };
+      }
 
       const selected = state.selected 
           ? regionDict[state.selected.name] 
@@ -75,7 +75,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       const region = state.regionDict[action.regionName]
       if (!region.attackingForces) return state
 
-      console.log(region.attackingForces);
+      console.log(region.attackingForces)
       
 
       // TODO: implement battle logic, new fraction...

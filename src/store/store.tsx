@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react";
+import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from "react"
 import { mapReducer, MapAction } from "./mapReducer"
 import { Fraction, GamePhase, RegionData, RegionState } from "../types/types"
 import { initRegionState } from "../utils/initRegionState"
@@ -17,7 +17,7 @@ interface Store {
   dispatch: Dispatch<MapAction>;
 }
 
-const MapContext = createContext<Store | undefined>(undefined);
+const MapContext = createContext<Store | undefined>(undefined)
 
 const initialState = (regions: RegionData[]): MapState => {
   const regionDict: RegionDict = {}
@@ -28,18 +28,18 @@ const initialState = (regions: RegionData[]): MapState => {
 }
 
 export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
-  const [state, dispatch] = useReducer(mapReducer, regions, initialState);
+  const [state, dispatch] = useReducer(mapReducer, regions, initialState)
 
-  const value = useMemo(() => ({ state, dispatch }), [state]);
+  const value = useMemo(() => ({ state, dispatch }), [state])
 
-  return <MapContext.Provider value={value}>{children}</MapContext.Provider>;
+  return <MapContext.Provider value={value}>{children}</MapContext.Provider>
 }
 
 export const useStore = () => {
-  const ctx = useContext(MapContext);
-  if (!ctx) throw new Error("useStore must be used within MapProvider");
-  return ctx;
-};
+  const ctx = useContext(MapContext)
+  if (!ctx) throw new Error("useStore must be used within MapProvider")
+  return ctx
+}
 
 const getLiberatedNeighbors = (neighbors: string[], dict: RegionDict) =>
     neighbors.filter(neighbor => dict[neighbor].fraction === Fraction.Partisan && dict[neighbor].garrison.infantry > 0)
