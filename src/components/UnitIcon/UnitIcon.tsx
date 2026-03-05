@@ -2,8 +2,9 @@ import { useMemo } from "react"
 import { CITY_LABEL_THRESHOLD } from '../../config'
 import { Fraction, Troops, RegionState, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
-import styles from "./Icon.module.scss"
-import { nameToIcon, iconDict } from "./utils"
+import styles from "./UnitIcon.module.scss"
+import { nameToIcon } from "./utils"
+import { iconDict } from "./data"
 
 function getRandomUnitType(garrison: Troops): UnitType {
   const units = (Object.keys(garrison) as UnitType[])
@@ -15,7 +16,7 @@ interface Props {
   region: RegionState;
 }
 
-export default function Icon({ region }: Props) {
+export default function UnitIcon({ region }: Props) {
   const { fraction, garrison } = region
 
   const unitType = useMemo<UnitType>(() => {

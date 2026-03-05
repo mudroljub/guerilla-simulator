@@ -52,3 +52,7 @@ export enum GamePhase {
   MOBILIZE_NEW_UNITS = "MOBILIZE_NEW_UNITS",
   BOMBARDMENT = "BOMBARDMENT",
 }
+
+/** COMPONENTS */
+
+export type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
