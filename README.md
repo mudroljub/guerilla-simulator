@@ -143,7 +143,7 @@ npm start
 			- uklanja oba niza pogođenih
 		- press attack or retreat (ponavljamo do razrešenja)
 		- capture territory (novi status oblasti po potrebi)
-- odvojiti Map container koji hendla skrol
+- odvojiti Map container koji hendla skrol ✓
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?
