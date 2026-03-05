@@ -130,8 +130,9 @@ npm start
 - implementirati fazu bitke (CONDUCT COMBAT)
 	- pronalazimo sve napadnute oblasti (punimo battleQueue) ✓
 	- dodati osobine jedinica (napad, odbrana, itd) ✓
-	- dodati ekran bitke 
+	- dodati EKRAN BITKE 
 		- sa jedne strane partizani s druge nemci, sve jedinice. 
+		- kad je previše vojske da ne izlaze svi odjednom, nego pristižu pojačanja?
 		- Igrac klikce za svako bacanje. 
 		- Vojnici padaju. 
 		- Moze da se povuce.
