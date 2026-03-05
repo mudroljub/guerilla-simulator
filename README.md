@@ -130,6 +130,11 @@ npm start
 - implementirati fazu bitke (CONDUCT COMBAT)
 	- pronalazimo sve napadnute oblasti (punimo battleQueue) ✓
 	- dodati osobine jedinica (napad, odbrana, itd) ✓
+	- dodati ekran bitke 
+		- sa jedne strane partizani s druge nemci, sve jedinice. 
+		- Igrac klikce za svako bacanje. 
+		- Vojnici padaju. 
+		- Moze da se povuce.
 	- za svaku oblast simulirati:
 		- attacking units fire (bacamo kocke za napad)
 			- iterira napadajuće jedinice i za svaku baca kocku
@@ -147,6 +152,9 @@ npm start
 	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja
 - smanjivati population za svaku (partizansku) mobilizaciju!
 - odvojiti Map container koji hendla skrol ✓
+- Faza bombardovanja 
+	- animacija aviona po putanji.
+	- pesadija ima malu sansu da obori avion. 
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?

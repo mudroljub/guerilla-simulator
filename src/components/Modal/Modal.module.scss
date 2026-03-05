@@ -5,7 +5,6 @@
   position: fixed;
   top: 1rem;
   left: 1rem;
-  z-index: 9;
 }
 
 .modalBox {
@@ -13,7 +12,7 @@
   background: $legend;
   padding: 0.75rem 1rem;
   width: 260px;
-  border: 2px solid $border;
+  border: 2px solid $olive-dark;
 }
 
 .closeButton {

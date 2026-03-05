@@ -1,0 +1,11 @@
+@use '../../assets/styles/const.scss' as *;
+
+.container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $olive;
+  text-align: center;
+  color: $rose;
+}
