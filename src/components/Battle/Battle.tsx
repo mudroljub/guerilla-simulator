@@ -29,37 +29,26 @@ const Battle = () => {
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
 
-  const screenWidth = window.innerWidth
-  const screenHeight = window.innerHeight
-
-  const germanX: [number, number] = [0, screenWidth * 0.4]
-  const partisanX: [number, number] = [screenWidth * 0.6, screenWidth]
-
-  const germanUnits = Object.entries(UnitType).map(([key, type]) => {
-    const yRange: [number, number] = type === UnitType.aircraft 
-      ? [0, screenHeight * 0.25] 
-      : [0, screenHeight]
-
-    return renderUnits(
+  const germans = [UnitType.infantry, UnitType.artillery, UnitType.tanks].map((type) => 
+    renderUnits(
       region.garrison[type] || 0,
       Fraction.German,
       type,
-      germanX,
-      yRange
-    )
-  })
+      [0, window.innerWidth * 0.4],
+      [0, window.innerHeight]
+    ))
 
   const partisans = renderUnits(
     region.attackingForces?.infantry || 0,
     Fraction.Partisan,
     UnitType.infantry,
-    partisanX
+    [window.innerWidth * 0.6, window.innerWidth]
   )
 
   return (
     <div className={styles.container}>
       <h1>Battle for {region.name}</h1>
-      {germanUnits}
+      {germans}
       {partisans}
     </div>
   )
