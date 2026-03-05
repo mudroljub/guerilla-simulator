@@ -1,7 +1,7 @@
 import Map from './components/Map/Map'
 import legend from './assets/images/legenda.webp'
 import styles from "./App.module.scss"
-import { BattleLogic } from './components/BattleLogic'
+import { BattleSimulator } from './components/BattleSimulator'
 import { useStore } from './store/store'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <BattleLogic />
+      <BattleSimulator />
       <Map />
       <img className={styles.legend} src={legend} alt="legend" />
       <button className={styles.button} onClick={onClick}>End turn</button>
