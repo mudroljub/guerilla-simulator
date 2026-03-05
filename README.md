@@ -143,6 +143,9 @@ npm start
 			- uklanja oba niza pogođenih
 		- press attack or retreat (ponavljamo do razrešenja)
 		- capture territory (novi status oblasti po potrebi)
+	- bitke da traju više krugova? mogu dolaziti pojačanja?
+	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja
+- smanjivati population za svaku (partizansku) mobilizaciju!
 - odvojiti Map container koji hendla skrol ✓
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju

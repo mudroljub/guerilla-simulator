@@ -49,5 +49,6 @@ export interface RegionState extends RegionData {
 export enum GamePhase {
   COMBAT_MOVE = "COMBAT_MOVE",
   CONDUCT_COMBAT = "CONDUCT_COMBAT",
-  MOBILIZE_NEW_UNITS = "MOBILIZE_NEW_UNITS"
+  MOBILIZE_NEW_UNITS = "MOBILIZE_NEW_UNITS",
+  BOMBARDMENT = "BOMBARDMENT",
 }
