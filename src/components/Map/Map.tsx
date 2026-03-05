@@ -3,7 +3,7 @@ import Region from "../Region/Region"
 import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths"
 import { MAP_SIZE } from "../../config"
 import { useStore } from "../../store/store"
-import UnitIcon from '../UnitIcon/UnitIcon'
+import UnitIcon from '../Unit/UnitIcon'
 
 const viewBox_w = 1219.65 // from svg
 const viewBox_h = 1057.485

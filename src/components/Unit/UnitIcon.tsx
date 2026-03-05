@@ -2,8 +2,7 @@ import { useMemo } from "react"
 import { CITY_LABEL_THRESHOLD } from '../../config'
 import { Fraction, Troops, RegionState, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
-import styles from "./UnitIcon.module.scss"
-import { nameToIcon } from "./utils"
+import styles from "./Unit.module.scss"
 import { iconDict } from "./data"
 
 function getRandomUnitType(garrison: Troops): UnitType {
@@ -26,8 +25,8 @@ export default function UnitIcon({ region }: Props) {
   const SvgComponent = useMemo(() => {
     const icons = iconDict[fraction][unitType]
     if (!icons?.length) return null
-    return nameToIcon(icons, region.name)
-  }, [fraction, unitType, region.name])
+    return sample(icons)
+  }, [fraction, unitType])
 
   if ((fraction === Fraction.German  && region.size <= CITY_LABEL_THRESHOLD * 1.5)) return null
 

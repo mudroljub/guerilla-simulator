@@ -1,8 +1,10 @@
 import { useStore } from "../../store/store"
-import styles from "./Battle.module.scss";
+import styles from "./Battle.module.scss"
+import Unit from '../Unit/Unit'
+import { Fraction, UnitType } from "../../types/types"
 
 const Battle = () => {
-  const { state, dispatch } = useStore()
+  const { state } = useStore()
   const { battleQueue, regionDict } = state
 
   const current = battleQueue[0]
@@ -14,6 +16,7 @@ const Battle = () => {
   return (
     <div className={styles.container}>
       <h1>Battle for {region.name}</h1>
+      <Unit fraction={Fraction.German} unitType={UnitType.infantry} />
     </div>
   )
 }
