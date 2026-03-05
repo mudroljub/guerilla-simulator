@@ -75,6 +75,9 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       const region = state.regionDict[action.regionName]
       if (!region.attackingForces) return state
 
+      console.log(region.attackingForces);
+      
+
       // TODO: implement battle logic, new fraction...
       const newGarrison = { ...region.garrison }
 
