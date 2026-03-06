@@ -4,6 +4,7 @@ import styles from "./Dice.module.scss"
 
 type Props = {
   className?: string;
+  callback?: Function;
 };
 
 const faces: Record<number, number[]> = {
@@ -15,7 +16,7 @@ const faces: Record<number, number[]> = {
   6: [1, 3, 4, 6, 7, 9],
 }
 
-export default function DiceButton({ className }: Props) {
+export default function DiceButton({ className, callback }: Props) {
   const [rolling, setRolling] = useState(false)
   const [value, setValue] = useState<number | null>(null)
 
@@ -25,7 +26,9 @@ export default function DiceButton({ className }: Props) {
     setRolling(true)
 
     setTimeout(() => {
-      setValue(Math.floor(Math.random() * 6) + 1)
+      const number = Math.floor(Math.random() * 6) + 1
+      setValue(number)
+      callback?.(number)
       setRolling(false)
     }, 700)
   }
