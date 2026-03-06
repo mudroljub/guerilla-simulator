@@ -1,7 +1,7 @@
-import { Delaunay } from "d3-delaunay"
-import { RegionData, Settlements } from "../types/types"
-import data from "../data/gradovi-normalizovano.json"
-import { MAP_SIZE } from "../config"
+import { Delaunay } from 'd3-delaunay'
+import { RegionData, Settlements } from '../types/types'
+import data from '../data/gradovi-normalizovano.json'
+import { MAP_SIZE } from '../config'
 
 const gradovi: Settlements = data
 
@@ -28,21 +28,21 @@ export const initRegions = (): RegionData[] => {
     }))
     .sort((a, b) => a.size - b.size)
 
-  const delaunay = Delaunay.from(regions.map((o) => [o.position.x, o.position.y]))
+  const delaunay = Delaunay.from(regions.map(o => [o.position.x, o.position.y]))
   const voronoi = delaunay.voronoi([0, 0, MAP_SIZE, MAP_SIZE])
 
   return regions
     .map((obj, i) => {
       const polygon = voronoi.cellPolygon(i)
-      const neighbors = Array.from(delaunay.neighbors(i)).map((idx) => regions[idx].name)
+      const neighbors = Array.from(delaunay.neighbors(i)).map(idx => regions[idx].name)
 
       return polygon
-        ? { 
-            ...obj, 
-            polygon, 
-            area: polygonArea(polygon as [number, number][]),
-            neighbors,
-          }
+        ? {
+          ...obj,
+          polygon,
+          area: polygonArea(polygon as [number, number][]),
+          neighbors,
+        }
         : null
     })
     .filter((r): r is RegionData & { area: number } => r !== null)

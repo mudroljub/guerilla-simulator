@@ -1,9 +1,9 @@
-import classnames from "classnames"
-import { useMemo } from "react"
+import classnames from 'classnames'
+import { useMemo } from 'react'
 import { Fraction, Position, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
-import styles from "./Unit.module.scss"
-import { iconDict } from "./data"
+import styles from './Unit.module.scss'
+import { iconDict } from './data'
 
 interface Props {
   fraction: Fraction;
@@ -23,9 +23,9 @@ export default function Unit({ fraction, unitType, position, className }: Props)
   if (!SvgComponent) return null
 
   return (
-    <SvgComponent 
-      className={classnames(className, styles.unit)} 
-      style={position ? { top: position.y, left: position.x } : undefined} 
+    <SvgComponent
+      className={classnames(className, styles.unit)}
+      style={position ? { top: position.y, left: position.x } : undefined}
     />
   )
 }

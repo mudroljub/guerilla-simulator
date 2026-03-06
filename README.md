@@ -139,6 +139,7 @@ npm start
 			- igrac klikce za bacanje ✓
 			- iterira napadajuće jedinice i za svaku baca kocku, plus bonus na glavnu ✓
 			- ukinuti battleQueue? rešavati bitke jednu po jednu, refaktorisati logiku faza
+				- intuitivnije dugmiće koji guraju taj tok
 			- dodati gambling mode (ekstremnije pobede i porazi)
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih

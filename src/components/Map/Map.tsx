@@ -1,8 +1,8 @@
-import styles from "./Map.module.scss"
-import Region from "../Region/Region"
-import { SFRJ_D, SFRJ_D_ADRIA } from "../../data/paths"
-import { MAP_SIZE } from "../../config"
-import { useStore } from "../../store/store"
+import styles from './Map.module.scss'
+import Region from '../Region/Region'
+import { SFRJ_D, SFRJ_D_ADRIA } from '../../data/paths'
+import { MAP_SIZE } from '../../config'
+import { useStore } from '../../store/store'
 import UnitIcon from '../Unit/UnitIcon'
 
 const viewBox_w = 1219.65 // from svg
@@ -63,7 +63,7 @@ export default function Map() {
       />
 
       <g mask="url(#mask-land)">
-        {regions.map((region) => <Region key={region.name} region={region} />)}
+        {regions.map(region => <Region key={region.name} region={region} />)}
       </g>
 
       {regions

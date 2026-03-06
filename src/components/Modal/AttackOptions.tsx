@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
-import styles from "./Modal.module.scss"
-import { useStore, useLiberatedNeighbors } from "../../store/store"
-import { RegionState } from "../../types/types"
+import { useEffect, useState } from 'react'
+import styles from './Modal.module.scss'
+import { useStore, useLiberatedNeighbors } from '../../store/store'
+import { RegionState } from '../../types/types'
 
 interface Props {
   region: RegionState;
@@ -15,9 +15,9 @@ export default function AttackOptions({ region }: Props) {
 
   const [attackingForce, setAttackingForce] = useState(regionDict[attackingRegion].garrison.infantry)
 
-  const attack = () => dispatch({ 
-    type: "COMBAT_MOVE", 
-    attackedRegion: region.name, 
+  const attack = () => dispatch({
+    type: 'COMBAT_MOVE',
+    attackedRegion: region.name,
     attackingRegion,
     attackingForces: {
       infantry: attackingForce,
@@ -41,7 +41,7 @@ export default function AttackOptions({ region }: Props) {
         min={1}
         max={regionDict[attackingRegion].garrison.infantry}
         value={attackingForce}
-        onChange={(e) => setAttackingForce(Number(e.target.value))}
+        onChange={e => setAttackingForce(Number(e.target.value))}
       />
       <p className={styles.text}>
         <span>Attack with</span>{' '}
@@ -50,7 +50,7 @@ export default function AttackOptions({ region }: Props) {
           min={1}
           max={regionDict[attackingRegion].garrison.infantry}
           value={attackingForce}
-          onChange={(e) => setAttackingForce(Number(e.target.value))}
+          onChange={e => setAttackingForce(Number(e.target.value))}
         />{' '}
         {attackingForce > 1 ? 'Partisans' : 'Partisan'}{' '}
         <span>from</span>{' '}

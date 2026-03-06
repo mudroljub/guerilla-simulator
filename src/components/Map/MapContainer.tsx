@@ -1,6 +1,6 @@
-import React, { ReactNode, useRef, useState } from "react"
-import styles from "./Map.module.scss"
-import { Position } from "../../types/types"
+import React, { ReactNode, useRef, useState } from 'react'
+import styles from './Map.module.scss'
+import { Position } from '../../types/types'
 
 interface ScrollPos {
   left: number;
@@ -46,7 +46,7 @@ export default function MapContainer({ children }: Props) {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-        {children}
+      {children}
     </div>
   )
 }

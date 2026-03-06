@@ -1,10 +1,10 @@
-import classnames from "classnames"
-import { Fraction, RegionState } from "../../types/types"
-import styles from "./Region.module.scss"
-import { useStore, useIsAttackable } from "../../store/store"
-import { useMemo } from "react"
-import { getPathData, getRadius } from "./utils"
-import { CITY_LABEL_THRESHOLD } from "../../config"
+import classnames from 'classnames'
+import { Fraction, RegionState } from '../../types/types'
+import styles from './Region.module.scss'
+import { useStore, useIsAttackable } from '../../store/store'
+import { useMemo } from 'react'
+import { getPathData, getRadius } from './utils'
+import { CITY_LABEL_THRESHOLD } from '../../config'
 
 const TEXT_OFFSET_Y = -10
 
@@ -24,24 +24,24 @@ export default function Region({ region }: Props) {
   const regionFraction = region.fraction
   const isSelected = selected?.name === region.name
 
-  const isOccupiedNeighbor = selected && 
-    regionFraction === Fraction.German && 
-    selected.fraction === Fraction.Partisan && 
+  const isOccupiedNeighbor = selected &&
+    regionFraction === Fraction.German &&
+    selected.fraction === Fraction.Partisan &&
     selected.neighbors.includes(region.name)
 
   const pathData = useMemo(() => getPathData(region.polygon), [region.polygon])
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   const toggle = () => dispatch({
-    type: isSelected ? "DESELECT" : "SELECT_REGION",
+    type: isSelected ? 'DESELECT' : 'SELECT_REGION',
     region,
   })
 
   return (
     <g
       id={region.name}
-      className={classnames(styles.region, stateStyle[regionFraction], { 
-        [styles.selected]: isSelected, 
+      className={classnames(styles.region, stateStyle[regionFraction], {
+        [styles.selected]: isSelected,
         [styles.blush]: isOccupiedNeighbor || attackable,
       })}
       onClick={toggle}
@@ -50,7 +50,7 @@ export default function Region({ region }: Props) {
         className={classnames(styles.path)}
         d={pathData}
       />
-      {region?.attackingForces ? 
+      {region?.attackingForces ?
         <text
           x={region.position.x}
           y={region.position.y + 5}

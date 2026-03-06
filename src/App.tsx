@@ -1,7 +1,7 @@
 import Map from './components/Map/Map'
 import MapContainer from './components/Map/MapContainer'
 import legend from './assets/images/legenda.webp'
-import styles from "./App.module.scss"
+import styles from './App.module.scss'
 import { useStore } from './store/store'
 import Modal from './components/Modal/Modal'
 import Battle from './components/Battle/Battle'

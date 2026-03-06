@@ -1,4 +1,4 @@
-import { Fraction, Troops } from "../types/types"
+import { Fraction, Troops } from '../types/types'
 
 const rand = (min: number, max: number) => Math.random() * (max - min) + min
 
@@ -22,9 +22,9 @@ export function initGarrison(
   return fraction === Fraction.Partisan
     ? { infantry: total }
     : {
-        infantry: getTroops(total, 0.85, 0.95),
-        artillery: getTroops(total, 0.05, 0.07),
-        tanks: getTroops(total, 0.025, 0.035),
-        aircraft: getTroops(total, 0.005, 0.015),
+      infantry: getTroops(total, 0.85, 0.95),
+      artillery: getTroops(total, 0.05, 0.07),
+      tanks: getTroops(total, 0.025, 0.035),
+      aircraft: getTroops(total, 0.005, 0.015),
     }
 }

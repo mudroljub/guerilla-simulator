@@ -1,7 +1,7 @@
-import classnames from "classnames"
-import { useStore, useIsAttackable } from "../../store/store"
-import { Fraction } from "../../types/types"
-import styles from "./Modal.module.scss"
+import classnames from 'classnames'
+import { useStore, useIsAttackable } from '../../store/store'
+import { Fraction } from '../../types/types'
+import styles from './Modal.module.scss'
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 
@@ -19,14 +19,14 @@ export default function Modal() {
     : <img alt="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Germany_%281935%E2%80%931945%29.svg/330px-Flag_of_Germany_%281935%E2%80%931945%29.svg.png" className={styles.flag} />
 
   return (
-    <div 
+    <div
       className={styles.modalWrapper}
-      onMouseDown={(e) => e.stopPropagation()}
-      onMouseMove={(e) => e.stopPropagation()}
+      onMouseDown={e => e.stopPropagation()}
+      onMouseMove={e => e.stopPropagation()}
     >
       <div className={styles.modalBox}>
         <button
-          onClick={() => dispatch({ type: "DESELECT" })}
+          onClick={() => dispatch({ type: 'DESELECT' })}
           className={styles.closeButton}
         >
           ×
