@@ -3,16 +3,11 @@ import { MapState } from './store'
 
 export type MapAction =
   | {
-      type: 'COMBAT_MOVE';
-      attackedRegion: string;
-      attackingRegion: string;
-      attackingForces: Troops;
+      type: 'COMBAT_MOVE'; attackedRegion: string; attackingRegion: string; attackingForces: Troops;
     }
   | { type: 'SELECT_REGION'; region: RegionState }
   | { type: 'DESELECT'; region?: RegionState }
   | { type: 'CONDUCT_COMBAT' }
-  | { type: 'SIMULATE_BATTLE'; regionName: string }
-  | { type: 'END_CONDUCT_COMBAT' }
   | { type: 'SET_PHASE'; phase: GamePhase }
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
@@ -78,39 +73,6 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
         phase: action.phase
       }
     }
-
-    case 'SIMULATE_BATTLE': {
-      const region = state.regionDict[action.regionName]
-      if (!region.attackingForces) return state
-
-      console.log(region.attackingForces)
-
-      // TODO: implement battle logic, new fraction...
-      const newGarrison = { ...region.garrison }
-
-      const regionDict = {
-        ...state.regionDict,
-        [action.regionName]: {
-          ...region,
-          garrison: newGarrison,
-          attackingForces: undefined // TODO: null
-        }
-      }
-
-      return {
-        ...state,
-        regionDict,
-        battleQueue: state.battleQueue.filter(name => name !== action.regionName),
-        selected: null,
-      }
-    }
-
-    case 'END_CONDUCT_COMBAT':
-      return {
-        ...state,
-        phase: GamePhase.MOBILIZE_NEW_UNITS,
-        battleQueue: []
-      }
 
     default:
       return state

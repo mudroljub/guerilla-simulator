@@ -137,8 +137,9 @@ npm start
 		- attacking units fire (bacamo kocke za napad)
 			- dodati animaciju kocke ✓
 			- igrac klikce za bacanje ✓
-			- iterira napadajuće jedinice i za svaku baca kocku? ili pogađa procenat vojnika zavisno od kocke?
-			- dodati gambling mode
+			- iterira napadajuće jedinice i za svaku baca kocku, plus bonus na glavnu ✓
+			- ukinuti battleQueue? rešavati bitke jednu po jednu, refaktorisati logiku faza
+			- dodati gambling mode (ekstremnije pobede i porazi)
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
 			- avione tretirati posebno?

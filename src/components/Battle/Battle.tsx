@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit from '../Unit/Unit'
-import { Fraction } from '../../types/types'
+import { Fraction, GamePhase } from '../../types/types'
 import { roll } from '../../utils/math'
 import Dice from '../Dice/Dice'
 import { BattleUnit, initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
 const Battle = () => {
-  const { state } = useStore()
+  const { state, dispatch } = useStore()
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
 
@@ -64,7 +64,8 @@ const Battle = () => {
   }
 
   const handleFinishBattle = () => {
-    console.log('Battle finished. Winner:', winner)
+    // TODO: ažurirati reducer, novo stanje trupa
+    dispatch({ type: 'SET_PHASE', phase: GamePhase.COMBAT_MOVE })
   }
 
   return (
