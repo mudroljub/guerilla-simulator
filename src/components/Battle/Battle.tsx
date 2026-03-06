@@ -1,43 +1,12 @@
 import { useState, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit from '../Unit/Unit'
-import { Fraction, Troops, UnitType } from '../../types/types'
-import { randomInRange, range, roll } from '../../utils/math'
+import { Fraction } from '../../types/types'
+import { roll } from '../../utils/math'
 import Dice from '../Dice/Dice'
-
-interface BattleUnit {
-  id: string
-  fraction: Fraction
-  type: UnitType
-  x: number
-  y: number
-}
-
-const UNIT_STRENGTH: Record<UnitType, number> = {
-  [UnitType.infantry]: 1,
-  [UnitType.artillery]: 2,
-  [UnitType.tanks]: 3,
-  [UnitType.aircraft]: 4,
-}
-
-const initUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]): BattleUnit[] =>
-  range(count || 0, () => ({
-    id: uuidv4(),
-    fraction,
-    type,
-    x: randomInRange(xRange[0], xRange[1]),
-    y: randomInRange(0, window.innerHeight),
-  }))
-
-const initArmy = (
-  troops: Troops,
-  fraction: Fraction,
-  xRange: [number, number]
-): BattleUnit[] => [UnitType.infantry, UnitType.artillery, UnitType.tanks]
-  .flatMap(type => initUnits(troops?.[type] || 0, fraction, type, xRange))
-  .sort(() => Math.random() - 0.5)
+import { BattleUnit, initArmy } from './utils'
+import { UNIT_STRENGTH } from '../../config/units'
 
 const Battle = () => {
   const { state } = useStore()

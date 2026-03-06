@@ -1,3 +1,14 @@
+import { UnitType } from '../types/types'
+
+export const UNIT_STRENGTH: Record<UnitType, number> = {
+  [UnitType.infantry]: 1,
+  [UnitType.artillery]: 2,
+  [UnitType.tanks]: 3,
+  [UnitType.aircraft]: 4,
+}
+
+/* Axis & Allies (modified) */
+
 export const infantry = {
   attack: 1,
   defense: 2,

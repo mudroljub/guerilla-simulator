@@ -1,28 +1,29 @@
-import { GamePhase, RegionState, Troops, UnitType } from "../types/types"
-import { MapState } from "./store"
+import { GamePhase, RegionState, Troops, UnitType } from '../types/types'
+import { MapState } from './store'
 
 export type MapAction =
   | {
-      type: "COMBAT_MOVE";
+      type: 'COMBAT_MOVE';
       attackedRegion: string;
       attackingRegion: string;
       attackingForces: Troops;
     }
-  | { type: "SELECT_REGION"; region: RegionState }
-  | { type: "DESELECT"; region?: RegionState }
-  | { type: "CONDUCT_COMBAT" }
-  | { type: "SIMULATE_BATTLE"; regionName: string }
-  | { type: "END_CONDUCT_COMBAT" }
+  | { type: 'SELECT_REGION'; region: RegionState }
+  | { type: 'DESELECT'; region?: RegionState }
+  | { type: 'CONDUCT_COMBAT' }
+  | { type: 'SIMULATE_BATTLE'; regionName: string }
+  | { type: 'END_CONDUCT_COMBAT' }
+  | { type: 'SET_PHASE'; phase: GamePhase }
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
-    case "SELECT_REGION":
+    case 'SELECT_REGION':
       return { ...state, selected: action.region }
 
-    case "DESELECT":
+    case 'DESELECT':
       return { ...state, selected: null }
 
-    case "COMBAT_MOVE": {
+    case 'COMBAT_MOVE': {
       const attacker = state.regionDict[action.attackingRegion]
       const defender = state.regionDict[action.attackedRegion]
 
@@ -48,9 +49,9 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
         },
       }
 
-      const selected = state.selected 
-          ? regionDict[state.selected.name] 
-          : null
+      const selected = state.selected
+        ? regionDict[state.selected.name]
+        : null
 
       return {
         ...state,
@@ -59,7 +60,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case "CONDUCT_COMBAT": {
+    case 'CONDUCT_COMBAT': {
       const battleQueue = Object.values(state.regionDict)
         .filter(region => region.attackingForces)
         .map(region => region.name)
@@ -71,12 +72,18 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case "SIMULATE_BATTLE": {
+    case 'SET_PHASE': {
+      return {
+        ...state,
+        phase: action.phase
+      }
+    }
+
+    case 'SIMULATE_BATTLE': {
       const region = state.regionDict[action.regionName]
       if (!region.attackingForces) return state
 
       console.log(region.attackingForces)
-      
 
       // TODO: implement battle logic, new fraction...
       const newGarrison = { ...region.garrison }
@@ -98,7 +105,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case "END_CONDUCT_COMBAT":
+    case 'END_CONDUCT_COMBAT':
       return {
         ...state,
         phase: GamePhase.MOBILIZE_NEW_UNITS,
