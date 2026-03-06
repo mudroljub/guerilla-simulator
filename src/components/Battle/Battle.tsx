@@ -4,7 +4,7 @@ import styles from "./Battle.module.scss"
 import Unit from '../Unit/Unit'
 import { Fraction, UnitType } from "../../types/types"
 import { randomInRange, range } from "../../utils/math"
-import DiceButton from './DiceButton'
+import Dice from '../Dice/Dice'
 
 const renderUnits = (
   count: number,
@@ -51,7 +51,7 @@ const Battle = () => {
       <h1>Battle for {region.name}</h1>
       {germans}
       {partisans}
-      <DiceButton className={styles.dice} />
+      <Dice className={styles.dice} />
     </div>
   )
 }
