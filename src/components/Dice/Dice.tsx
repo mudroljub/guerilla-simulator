@@ -1,11 +1,12 @@
-import { useState } from "react"
-import classNames from "classnames"
-import styles from "./Dice.module.scss"
+import { useState } from 'react'
+import classNames from 'classnames'
+import styles from './Dice.module.scss'
+import { roll } from '../../utils/math'
 
 type Props = {
   className?: string;
-  callback?: Function;
-};
+  callback?: (num: number) => void;
+}
 
 const faces: Record<number, number[]> = {
   1: [5],
@@ -26,7 +27,7 @@ export default function DiceButton({ className, callback }: Props) {
     setRolling(true)
 
     setTimeout(() => {
-      const number = Math.floor(Math.random() * 6) + 1
+      const number = roll()
       setValue(number)
       callback?.(number)
       setRolling(false)
@@ -45,7 +46,7 @@ export default function DiceButton({ className, callback }: Props) {
           </span>
         ) : (
           <div className={styles.dice}>
-            {faces[value].map((p) => (
+            {faces[value].map(p => (
               <span key={p} className={classNames(styles.dot, styles[`p${p}`])} />
             ))}
           </div>

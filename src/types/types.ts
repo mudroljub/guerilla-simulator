@@ -29,7 +29,7 @@ export enum UnitType {
   aircraft = 'aircraft',
 }
 
-export type Troops = { infantry: number } & Partial<Record<Exclude<UnitType, "infantry">, number>>;
+export type Troops = { infantry: number } & Partial<Record<Exclude<UnitType, 'infantry'>, number>>;
 
 export enum Fraction {
   German = 'German',
@@ -47,10 +47,10 @@ export interface RegionState extends RegionData {
 /** GAME PHASES */
 
 export enum GamePhase {
-  COMBAT_MOVE = "COMBAT_MOVE",
-  CONDUCT_COMBAT = "CONDUCT_COMBAT",
-  MOBILIZE_NEW_UNITS = "MOBILIZE_NEW_UNITS",
-  BOMBARDMENT = "BOMBARDMENT",
+  COMBAT_MOVE = 'COMBAT_MOVE',
+  CONDUCT_COMBAT = 'CONDUCT_COMBAT',
+  MOBILIZE_NEW_UNITS = 'MOBILIZE_NEW_UNITS',
+  BOMBARDMENT = 'BOMBARDMENT',
 }
 
 /** COMPONENTS */

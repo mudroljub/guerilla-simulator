@@ -4,8 +4,16 @@ import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit from '../Unit/Unit'
 import { Fraction, UnitType } from '../../types/types'
-import { randomInRange, range } from '../../utils/math'
+import { randomInRange, range, roll } from '../../utils/math'
 import Dice from '../Dice/Dice'
+
+interface BattleUnit {
+  id: string
+  fraction: Fraction
+  type: UnitType
+  x: number
+  y: number
+}
 
 const UNIT_STRENGTH: Record<UnitType, number> = {
   [UnitType.infantry]: 1,
@@ -14,7 +22,9 @@ const UNIT_STRENGTH: Record<UnitType, number> = {
   [UnitType.aircraft]: 4,
 }
 
-const createUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]) =>
+const unitTypes = [UnitType.infantry, UnitType.artillery, UnitType.tanks]
+
+const createUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]): BattleUnit[] =>
   range(count || 0, () => ({
     id: uuidv4(),
     fraction,
@@ -28,40 +38,46 @@ const Battle = () => {
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
 
-  const [germans, setGermans] = useState(() =>
-    [UnitType.infantry, UnitType.artillery, UnitType.tanks].flatMap(type =>
-      createUnits(region.garrison[type] || 0, Fraction.German, type, [0, window.innerWidth * 0.4])
-    )
+  const [germans, setGermans] = useState<BattleUnit[]>(() =>
+    unitTypes.flatMap(type => createUnits(
+      region.garrison[type] || 0, Fraction.German, type, [0, window.innerWidth * 0.4]
+    ))
   )
 
-  const [partisans, setPartisans] = useState(() =>
-    createUnits(region.attackingForces?.infantry || 0, Fraction.Partisan, UnitType.infantry, [window.innerWidth * 0.6, window.innerWidth])
+  const [partisans, setPartisans] = useState<BattleUnit[]>(() =>
+    unitTypes.flatMap(type => createUnits(
+      region.attackingForces?.[type] || 0, Fraction.Partisan, type, [window.innerWidth * 0.6, window.innerWidth]
+    ))
   )
 
-  const calculateHits = (units: any[], bonus: number) => units.reduce((total, unit) => {
-    const baseStrength = UNIT_STRENGTH[unit.type as UnitType] || 1
+  const calculateHits = (units: BattleUnit[], bonus: number): number =>
+    units.reduce((total, unit) => {
+      const attack = UNIT_STRENGTH[unit.type] + bonus
+      return roll() <= attack ? total + 1 : total
+    }, 0)
 
-    // Novi prag: bazična snaga + tvoj linearni bonus
-    const effectiveStrength = baseStrength + bonus
-
-    // Bacamo "nevidljivu" kocku (1-6)
-    const roll = Math.random() * 6
-
-    return roll <= effectiveStrength ? total + 1 : total
-  }, 0)
+  const applyHits = (units: BattleUnit[], hits: number): BattleUnit[] => {
+    let remainingHits = hits
+    return units.filter(unit => {
+      const cost = UNIT_STRENGTH[unit.type]
+      if (remainingHits >= cost) {
+        remainingHits -= cost
+        return false
+      }
+      return true
+    })
+  }
 
   const handleBattleRound = (roll: number) => {
     const normalizedRoll = (roll - 1) / 5
-
-    // bonus od -1.5 do 1.5
     const partisanBonus = -1.5 + (normalizedRoll * 3.0)
     const germanBonus = 1.5 - (normalizedRoll * 3.0)
 
     const p_hits = calculateHits(partisans, partisanBonus)
     const g_hits = calculateHits(germans, germanBonus)
 
-    setGermans(prev => prev.slice(0, Math.max(0, prev.length - p_hits)))
-    setPartisans(prev => prev.slice(0, Math.max(0, prev.length - g_hits)))
+    setGermans(prev => applyHits(prev, p_hits))
+    setPartisans(prev => applyHits(prev, g_hits))
   }
 
   return (

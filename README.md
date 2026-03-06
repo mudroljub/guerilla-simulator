@@ -138,9 +138,10 @@ npm start
 			- dodati animaciju kocke ✓
 			- igrac klikce za bacanje ✓
 			- iterira napadajuće jedinice i za svaku baca kocku? ili pogađa procenat vojnika zavisno od kocke?
-				- pravila axis and allies dobra ali nisu vizuelno povezana sa jednom kockom
+			- dodati gambling mode
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
+			- avione tretirati posebno?
 		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?
 		- defending units fire (bacamo kocke za odbranu)
 			- iterira sve odbrambene jedinice i za svaku baca kocku
