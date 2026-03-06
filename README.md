@@ -133,19 +133,21 @@ npm start
 	- dodati EKRAN BITKE ✓
 		- sa jedne strane partizani s druge nemci, sve jedinice. ✓
 		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?
+		- idle animacija za vojnike
+		- dodati zastavničara
 		- attacking units fire (bacamo kocke za napad)
 			- dodati animaciju kocke ✓
 			- igrac klikce za bacanje
-			- iterira napadajuće jedinice i za svaku baca kocku
-			- sve iznad limita se beleže kao pogoci
+			- iterira napadajuće jedinice i za svaku baca kocku? ili pogađa procenat vojnika zavisno od kocke?
+			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
 		- defending units fire (bacamo kocke za odbranu)
 			- iterira sve odbrambene jedinice i za svaku baca kocku
-			- sve iznad limita se beleže kao pogoci
 			- napadajuće jedinice se odvajaju u niz pogođenih
 		- remove casualties (skidamo mrtve)
 			- uklanja oba niza pogođenih (vojnici padaju?)
 		- press attack or retreat (ponavljamo do razrešenja)
+			- dodati dugme za bežanje
 		- capture territory (novi status oblasti po potrebi)
 	- dodati bitku za svaku oblast
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
