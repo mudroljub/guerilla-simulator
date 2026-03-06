@@ -9,3 +9,10 @@
   text-align: center;
   color: $rose;
 }
+
+.dice {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
