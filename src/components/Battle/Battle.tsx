@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
@@ -52,6 +52,16 @@ const Battle = () => {
     initArmy(region.attackingForces!, Fraction.Partisan, [window.innerWidth * 0.6, window.innerWidth])
   )
 
+  const [winner, setWinner] = useState<Fraction | null>(null)
+
+  useEffect(() => {
+    if (germans.length === 0 && partisans.length > 0)
+      setWinner(Fraction.Partisan)
+    else if (partisans.length === 0 && germans.length > 0)
+      setWinner(Fraction.German)
+
+  }, [germans.length, partisans.length])
+
   const calculateHits = (units: BattleUnit[], bonus: number): number =>
     units.reduce((total, unit) => {
       const attack = UNIT_STRENGTH[unit.type] + bonus
@@ -70,8 +80,10 @@ const Battle = () => {
     })
   }
 
-  const handleBattleRound = (roll: number) => {
-    const normalizedRoll = (roll - 1) / 5
+  const handleBattleRound = (rollValue: number) => {
+    if (winner) return
+
+    const normalizedRoll = (rollValue - 1) / 5
     const partisanBonus = -1.5 + (normalizedRoll * 3.0)
     const germanBonus = 1.5 - (normalizedRoll * 3.0)
 
@@ -82,14 +94,16 @@ const Battle = () => {
     setPartisans(prev => applyHits(prev, g_hits))
   }
 
+  const handleFinishBattle = () => {
+    console.log('Battle finished. Winner:', winner)
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>Bitka za {region.name}</h1>
-        <div className={styles.scoreBoard}>
-          <div className={styles.germanSide}>Švabe: {germans.length}</div>
-          <div className={styles.partisanSide}>Partizani: {partisans.length}</div>
-        </div>
+      <h1>Battle for {region.name}</h1>
+      <div className={styles.scoreBoard}>
+        <div>Germans: {germans.length}</div>
+        <div>Partisans: {partisans.length}</div>
       </div>
 
       <div className={styles.battlefield}>
@@ -101,7 +115,21 @@ const Battle = () => {
         ))}
       </div>
 
-      <Dice className={styles.dice} callback={handleBattleRound} />
+      {!winner && <Dice className={styles.dice} callback={handleBattleRound} />}
+
+      {winner && (
+        <div>
+          <h2>{winner === Fraction.Partisan ? 'VICTORY' : 'DEFEAT'}</h2>
+          <p>
+            {winner === Fraction.Partisan
+              ? 'Another Yugoslav town has been liberated!'
+              : 'Partisan forces have suffered a heavy blow.'}
+          </p>
+          <button onClick={handleFinishBattle}>
+              Return to Map
+          </button>
+        </div>
+      )}
     </div>
   )
 }
