@@ -142,6 +142,7 @@ npm start
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
 			- avione tretirati posebno?
+			- BUG: end turn baca grešku kada ništa nije napadnuto
 		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?
 		- defending units fire (bacamo kocke za odbranu)
 			- iterira sve odbrambene jedinice i za svaku baca kocku

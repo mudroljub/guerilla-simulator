@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit from '../Unit/Unit'
-import { Fraction, UnitType } from '../../types/types'
+import { Fraction, Troops, UnitType } from '../../types/types'
 import { randomInRange, range, roll } from '../../utils/math'
 import Dice from '../Dice/Dice'
 
@@ -22,9 +22,7 @@ const UNIT_STRENGTH: Record<UnitType, number> = {
   [UnitType.aircraft]: 4,
 }
 
-const unitTypes = [UnitType.infantry, UnitType.artillery, UnitType.tanks]
-
-const createUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]): BattleUnit[] =>
+const initUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]): BattleUnit[] =>
   range(count || 0, () => ({
     id: uuidv4(),
     fraction,
@@ -33,21 +31,25 @@ const createUnits = (count: number, fraction: Fraction, type: UnitType, xRange: 
     y: randomInRange(0, window.innerHeight),
   }))
 
+const initArmy = (
+  troops: Troops,
+  fraction: Fraction,
+  xRange: [number, number]
+): BattleUnit[] => [UnitType.infantry, UnitType.artillery, UnitType.tanks]
+  .flatMap(type => initUnits(troops?.[type] || 0, fraction, type, xRange))
+  .sort(() => Math.random() - 0.5)
+
 const Battle = () => {
   const { state } = useStore()
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
 
   const [germans, setGermans] = useState<BattleUnit[]>(() =>
-    unitTypes.flatMap(type => createUnits(
-      region.garrison[type] || 0, Fraction.German, type, [0, window.innerWidth * 0.4]
-    ))
+    initArmy(region.garrison, Fraction.German, [0, window.innerWidth * 0.4])
   )
 
   const [partisans, setPartisans] = useState<BattleUnit[]>(() =>
-    unitTypes.flatMap(type => createUnits(
-      region.attackingForces?.[type] || 0, Fraction.Partisan, type, [window.innerWidth * 0.6, window.innerWidth]
-    ))
+    initArmy(region.attackingForces!, Fraction.Partisan, [window.innerWidth * 0.6, window.innerWidth])
   )
 
   const calculateHits = (units: BattleUnit[], bonus: number): number =>
@@ -59,9 +61,9 @@ const Battle = () => {
   const applyHits = (units: BattleUnit[], hits: number): BattleUnit[] => {
     let remainingHits = hits
     return units.filter(unit => {
-      const cost = UNIT_STRENGTH[unit.type]
-      if (remainingHits >= cost) {
-        remainingHits -= cost
+      const defense = UNIT_STRENGTH[unit.type]
+      if (remainingHits >= defense) {
+        remainingHits -= defense
         return false
       }
       return true
