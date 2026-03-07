@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from 'react'
-import { mapReducer, MapAction } from './mapReducer'
+import { reducer, Action } from './reducer'
 import { Fraction, GamePhase, RegionData, RegionState } from '../types/types'
 import { initRegionState } from '../utils/initRegionState'
 
@@ -14,7 +14,7 @@ export interface MapState {
 
 interface Store {
   state: MapState;
-  dispatch: Dispatch<MapAction>;
+  dispatch: Dispatch<Action>;
 }
 
 const MapContext = createContext<Store | undefined>(undefined)
@@ -28,7 +28,7 @@ const initialState = (regions: RegionData[]): MapState => {
 }
 
 export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {
-  const [state, dispatch] = useReducer(mapReducer, regions, initialState)
+  const [state, dispatch] = useReducer(reducer, regions, initialState)
 
   const value = useMemo(() => ({ state, dispatch }), [state])
 

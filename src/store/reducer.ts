@@ -1,7 +1,7 @@
 import { Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 
-export type MapAction =
+export type Action =
   | {
       type: 'ATTACK_REGION'; attackedRegion: string; attackingRegion: string; attackingForces: Troops;
     }
@@ -12,7 +12,7 @@ export type MapAction =
       type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops;
     }
 
-export function mapReducer(state: MapState, action: MapAction): MapState {
+export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
     case 'SELECT_REGION':
       return { ...state, selected: action.region }
