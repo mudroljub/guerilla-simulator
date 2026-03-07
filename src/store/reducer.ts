@@ -11,6 +11,7 @@ export type Action =
   | {
       type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops;
     }
+  | { type: 'END_TURN' }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -54,6 +55,21 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         regionDict,
         selected,
+      }
+    }
+
+    case 'END_TURN': {
+      const hasAttackingForces = Object.values(state.regionDict).some(
+        region => region.attackingForces && Object.values(region.attackingForces).some(count => count > 0)
+      )
+
+      if (hasAttackingForces)
+        return reducer(state, { type: 'START_COMBAT_PHASE' })
+
+      return {
+        ...state,
+        phase: GamePhase.MOBILIZATION,
+        selected: null
       }
     }
 

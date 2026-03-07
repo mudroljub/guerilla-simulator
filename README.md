@@ -143,7 +143,7 @@ npm start
 				- probati jednu po jednu ✓ (zanimljivije, ali sve komplikuje jer mešaju se faze) ✓
 			- prikazivati naziv trenutne faze na mapi ✓
 			- prikazati poruke sukladno fazama ✓
-			- dopustiti End turn i kada nema napada? hendlati taj slučaj
+			- dopustiti End turn i kada nema napada? ✓
 			- kad se završi vrtenje kockice, posle nekog vremena vratiti ikonicu?
 			- intuitivnije dugmiće koji guraju glavni tok
 			- animacija pucanja (vatra ili trzaj)

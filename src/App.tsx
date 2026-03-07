@@ -11,7 +11,7 @@ function App() {
   const { state, dispatch } = useStore()
   const { phase, battleQueue } = state
 
-  const onClick = () => dispatch({ type: 'START_COMBAT_PHASE' })
+  const onClick = () => dispatch({ type: 'END_TURN' })
 
   return (
     <>
@@ -21,7 +21,7 @@ function App() {
       </MapContainer>
       <Modal />
       <img className={styles.legend} src={legend} alt="legend" />
-      <button className={styles.button} onClick={onClick} disabled={!battleQueue.length}>End turn</button>
+      <button className={styles.button} onClick={onClick}>End turn</button>
 
       {phase === GamePhase.COMBAT_PHASE && (
         <Battle key={battleQueue[0]} />
