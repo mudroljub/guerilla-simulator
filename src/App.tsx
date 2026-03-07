@@ -9,8 +9,9 @@ import { GamePhase } from './types/types'
 
 function App() {
   const { state, dispatch } = useStore()
-  const { phase } = state
+  const { phase, battleQueue } = state
 
+  // TODO: dodati uslov, samo ako ima napada
   const onClick = () => dispatch({ type: 'CONDUCT_COMBAT' })
 
   return (
@@ -21,7 +22,9 @@ function App() {
       <Modal />
       <img className={styles.legend} src={legend} alt="legend" />
       <button className={styles.button} onClick={onClick}>End turn</button>
-      {phase === GamePhase.CONDUCT_COMBAT && <Battle />}
+      {phase === GamePhase.CONDUCT_COMBAT && (
+        <Battle key={battleQueue[0]} />
+      )}
     </>
   )
 }

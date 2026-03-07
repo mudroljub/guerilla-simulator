@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit from '../Unit/Unit'
-import { Fraction, GamePhase } from '../../types/types'
+import { Fraction, Troops } from '../../types/types'
 import { roll } from '../../utils/math'
 import Dice from '../Dice/Dice'
 import { BattleUnit, initArmy } from './utils'
@@ -64,8 +64,21 @@ const Battle = () => {
   }
 
   const handleFinishBattle = () => {
-    // TODO: ažurirati reducer, novo stanje trupa
-    dispatch({ type: 'SET_PHASE', phase: GamePhase.COMBAT_MOVE })
+    if (!winner) return
+
+    const survivingArmy = winner === Fraction.German ? germans : partisans
+
+    const survivors: Troops = survivingArmy.reduce((acc, unit) => {
+      acc[unit.type] = (acc[unit.type] || 0) + 1
+      return acc
+    }, {} as Troops)
+
+    dispatch({
+      type: 'END_BATTLE',
+      regionName: region.name,
+      winner,
+      survivors
+    })
   }
 
   return (
@@ -96,7 +109,7 @@ const Battle = () => {
               : 'Partisan forces have suffered a heavy blow.'}
           </p>
           <button onClick={handleFinishBattle}>
-              Return to Map
+              End battle
           </button>
         </div>
       )}

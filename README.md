@@ -138,8 +138,10 @@ npm start
 			- dodati animaciju kocke ✓
 			- igrac klikce za bacanje ✓
 			- iterira napadajuće jedinice i za svaku baca kocku, plus bonus na glavnu ✓
-			- ukinuti battleQueue? rešavati bitke jednu po jednu, refaktorisati logiku faza
-				- intuitivnije dugmiće koji guraju taj tok
+			- ukinuti battleQueue? rešavati bitke jednu po jednu?
+				- probati niz bitaka za redom ✓
+				- probati jednu po jednu
+				- intuitivnije dugmiće koji guraju glavni tok?
 			- dodati gambling mode (ekstremnije pobede i porazi)
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih

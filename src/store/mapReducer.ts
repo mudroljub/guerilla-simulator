@@ -1,4 +1,4 @@
-import { GamePhase, RegionState, Troops, UnitType } from '../types/types'
+import { Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 
 export type MapAction =
@@ -9,6 +9,12 @@ export type MapAction =
   | { type: 'DESELECT'; region?: RegionState }
   | { type: 'CONDUCT_COMBAT' }
   | { type: 'SET_PHASE'; phase: GamePhase }
+  | {
+        type: 'END_BATTLE';
+        regionName: string;
+        winner: Fraction;
+        survivors: Troops;
+      }
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
@@ -67,10 +73,32 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case 'SET_PHASE': {
+    case 'END_BATTLE': {
+      const { regionName, winner, survivors } = action
+      const currentRegion = state.regionDict[regionName]
+
+      const updatedRegion: RegionState = {
+        ...currentRegion,
+        fraction: winner,
+        garrison: survivors,
+        attackingForces: undefined,
+      }
+
+      const regionDict = {
+        ...state.regionDict,
+        [regionName]: updatedRegion,
+      }
+
+      const battleQueue = state.battleQueue.filter(name => name !== regionName)
+      const isQueueEmpty = battleQueue.length === 0
+      const phase = isQueueEmpty ? GamePhase.MOBILIZATION : state.phase
+
       return {
         ...state,
-        phase: action.phase
+        regionDict,
+        battleQueue,
+        phase,
+        selected: null,
       }
     }
 
