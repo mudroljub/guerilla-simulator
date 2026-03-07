@@ -144,22 +144,21 @@ npm start
 			- prikazivati naziv trenutne faze na mapi ✓
 			- prikazati poruke sukladno fazama ✓
 			- dopustiti End turn i kada nema napada? ✓
-			- kad se završi vrtenje kockice, posle nekog vremena vratiti ikonicu?
-			- intuitivnije dugmiće koji guraju glavni tok
-			- animacija pucanja (vatra ili trzaj)
-			- odbrambene jedinice (random) se odvajaju u niz pogođenih
-			- avione tretirati posebno?
-			- BUG: end turn baca grešku kada ništa nije napadnuto
-		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?
-		- defending units fire (bacamo kocke za odbranu)
-			- iterira sve odbrambene jedinice i za svaku baca kocku
-			- napadajuće jedinice se odvajaju u niz pogođenih
-		- remove casualties (skidamo mrtve)
-			- uklanja oba niza pogođenih (vojnici padaju?)
-		- press attack or retreat (ponavljamo do razrešenja)
-			- dodati dugme za bežanje
-		- capture territory (novi status oblasti po potrebi)
-	- dodati bitku za svaku oblast
+			- kad se završi vrtenje kockice, posle nekog vremena vratiti ikonicu? ✓
+			- pre prozora pobede, prvo skinuti švabe i prikazati dobijenu kockicu ✓
+		- defending units fire (koristimo kontra kocku za odbranu) ✓
+			- iterira sve odbrambene jedinice i za svaku baca kocku ✓
+			- napadajuće jedinice se odvajaju u niz pogođenih ✓
+		- remove casualties (skidamo mrtve) ✓
+		- animacija pucanja (vatra ili trzaj)
+		- animacija vojnici padaju? 
+		- info o broju pogodaka sa obe strane
+		- intuitivnije dugmiće na mapi koji guraju glavni tok
+		- avione tretirati posebno?
+		- stilizovati tipografiju i dugmiće
+		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?		
+		- dodati dugme za bežanje
+	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
 	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja
 - smanjivati population za svaku (partizansku) mobilizaciju!

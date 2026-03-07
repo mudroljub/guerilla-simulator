@@ -3,11 +3,6 @@ import classNames from 'classnames'
 import styles from './Dice.module.scss'
 import { roll } from '../../utils/math'
 
-type Props = {
-  className?: string;
-  callback?: (num: number) => void;
-}
-
 const faces: Record<number, number[]> = {
   1: [5],
   2: [1, 9],
@@ -17,18 +12,23 @@ const faces: Record<number, number[]> = {
   6: [1, 3, 4, 6, 7, 9],
 }
 
-export default function DiceButton({ className, callback }: Props) {
+type Props = {
+  className?: string
+  callback?: (num: number) => void
+  value: number | null // Dodajemo ovo
+}
+
+export default function DiceButton({ className, callback, value }: Props) {
   const [rolling, setRolling] = useState(false)
-  const [value, setValue] = useState<number | null>(null)
 
   const rollDice = () => {
-    if (rolling) return
+    if (rolling || value !== null) return // Ne dajemo novi roll dok je stari aktivan
 
     setRolling(true)
 
     setTimeout(() => {
       const number = roll()
-      setValue(number)
+      // Više ne radimo setValue(number) jer to radi roditelj preko callback-a
       callback?.(number)
       setRolling(false)
     }, 700)
@@ -39,6 +39,7 @@ export default function DiceButton({ className, callback }: Props) {
       <button
         className={classNames(styles.button, className)}
         onClick={rollDice}
+        disabled={rolling || value !== null} // Onemogući klik dok traje animacija ili prikaz rezultata
       >
         {rolling || value === null ? (
           <span className={classNames(styles.icon, { [styles.rolling]: rolling })}>
