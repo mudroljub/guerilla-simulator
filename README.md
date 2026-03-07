@@ -139,10 +139,10 @@ npm start
 			- igrac klikce za bacanje ✓
 			- iterira napadajuće jedinice i za svaku baca kocku, plus bonus na glavnu ✓
 			- ukinuti battleQueue? rešavati bitke jednu po jednu?
-				- probati niz bitaka za redom ✓
-				- probati jednu po jednu
-				- intuitivnije dugmiće koji guraju glavni tok?
-			- dodati gambling mode (ekstremnije pobede i porazi)
+				- probati niz bitaka za redom ✓ (može biti dosadno kada ih je više od 3) ✓
+				- probati jednu po jednu ✓ (zanimljivije, ali sve komplikuje jer mešaju se faze) ✓
+			- prikazivati naziv trenutne faze na mapi
+			- intuitivnije dugmiće koji guraju glavni tok
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
 			- avione tretirati posebno?

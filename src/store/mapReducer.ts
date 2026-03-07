@@ -3,28 +3,24 @@ import { MapState } from './store'
 
 export type MapAction =
   | {
-      type: 'COMBAT_MOVE'; attackedRegion: string; attackingRegion: string; attackingForces: Troops;
+      type: 'ATTACK_REGION'; attackedRegion: string; attackingRegion: string; attackingForces: Troops;
     }
   | { type: 'SELECT_REGION'; region: RegionState }
-  | { type: 'DESELECT'; region?: RegionState }
-  | { type: 'CONDUCT_COMBAT' }
-  | { type: 'SET_PHASE'; phase: GamePhase }
+  | { type: 'DESELECT_REGION'; region?: RegionState }
+  | { type: 'START_COMBAT_PHASE' }
   | {
-        type: 'END_BATTLE';
-        regionName: string;
-        winner: Fraction;
-        survivors: Troops;
-      }
+      type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops;
+    }
 
 export function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
     case 'SELECT_REGION':
       return { ...state, selected: action.region }
 
-    case 'DESELECT':
+    case 'DESELECT_REGION':
       return { ...state, selected: null }
 
-    case 'COMBAT_MOVE': {
+    case 'ATTACK_REGION': {
       const attacker = state.regionDict[action.attackingRegion]
       const defender = state.regionDict[action.attackedRegion]
 
@@ -61,7 +57,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       }
     }
 
-    case 'CONDUCT_COMBAT': {
+    case 'START_COMBAT_PHASE': {
       const battleQueue = Object.values(state.regionDict)
         .filter(region => region.attackingForces)
         .map(region => region.name)
@@ -69,7 +65,7 @@ export function mapReducer(state: MapState, action: MapAction): MapState {
       return {
         ...state,
         battleQueue,
-        phase: GamePhase.CONDUCT_COMBAT
+        phase: GamePhase.COMBAT_PHASE
       }
     }
 

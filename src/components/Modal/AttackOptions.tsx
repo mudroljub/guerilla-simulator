@@ -16,7 +16,7 @@ export default function AttackOptions({ region }: Props) {
   const [attackingForce, setAttackingForce] = useState(regionDict[attackingRegion].garrison.infantry)
 
   const attack = () => dispatch({
-    type: 'COMBAT_MOVE',
+    type: 'ATTACK_REGION',
     attackedRegion: region.name,
     attackingRegion,
     attackingForces: {

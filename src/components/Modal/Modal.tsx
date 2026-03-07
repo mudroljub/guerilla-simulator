@@ -26,7 +26,7 @@ export default function Modal() {
     >
       <div className={styles.modalBox}>
         <button
-          onClick={() => dispatch({ type: 'DESELECT' })}
+          onClick={() => dispatch({ type: 'DESELECT_REGION' })}
           className={styles.closeButton}
         >
           ×

@@ -106,7 +106,7 @@ const Battle = () => {
           <p>
             {winner === Fraction.Partisan
               ? 'Another Yugoslav town has been liberated!'
-              : 'Partisan forces have suffered a heavy blow.'}
+              : 'Your forces have suffered a heavy blow.'}
           </p>
           <button onClick={handleFinishBattle}>
               End battle

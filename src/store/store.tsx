@@ -24,7 +24,7 @@ const initialState = (regions: RegionData[]): MapState => {
   for (const region of regions)
     regionDict[region.name] = initRegionState(region)
 
-  return { selected: null, regionDict, phase: GamePhase.COMBAT_MOVE, battleQueue: [] }
+  return { selected: null, regionDict, phase: GamePhase.ATTACK_PHASE, battleQueue: [] }
 }
 
 export function Provider({ regions, children }: { regions: RegionData[]; children: ReactNode }) {

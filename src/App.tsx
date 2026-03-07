@@ -12,7 +12,7 @@ function App() {
   const { phase, battleQueue } = state
 
   // TODO: dodati uslov, samo ako ima napada
-  const onClick = () => dispatch({ type: 'CONDUCT_COMBAT' })
+  const onClick = () => dispatch({ type: 'START_COMBAT_PHASE' })
 
   return (
     <>
@@ -22,7 +22,8 @@ function App() {
       <Modal />
       <img className={styles.legend} src={legend} alt="legend" />
       <button className={styles.button} onClick={onClick}>End turn</button>
-      {phase === GamePhase.CONDUCT_COMBAT && (
+
+      {phase === GamePhase.COMBAT_PHASE && (
         <Battle key={battleQueue[0]} />
       )}
     </>

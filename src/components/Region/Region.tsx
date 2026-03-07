@@ -33,7 +33,7 @@ export default function Region({ region }: Props) {
   const radius = useMemo(() => getRadius(region.size), [region.size])
 
   const toggle = () => dispatch({
-    type: isSelected ? 'DESELECT' : 'SELECT_REGION',
+    type: isSelected ? 'DESELECT_REGION' : 'SELECT_REGION',
     region,
   })
 
