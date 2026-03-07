@@ -141,7 +141,10 @@ npm start
 			- ukinuti battleQueue? rešavati bitke jednu po jednu?
 				- probati niz bitaka za redom ✓ (može biti dosadno kada ih je više od 3) ✓
 				- probati jednu po jednu ✓ (zanimljivije, ali sve komplikuje jer mešaju se faze) ✓
-			- prikazivati naziv trenutne faze na mapi
+			- prikazivati naziv trenutne faze na mapi ✓
+			- prikazati poruke sukladno fazama ✓
+			- dopustiti End turn i kada nema napada? hendlati taj slučaj
+			- kad se završi vrtenje kockice, posle nekog vremena vratiti ikonicu?
 			- intuitivnije dugmiće koji guraju glavni tok
 			- animacija pucanja (vatra ili trzaj)
 			- odbrambene jedinice (random) se odvajaju u niz pogođenih
@@ -169,10 +172,6 @@ npm start
 	- animacija bacanja kockica?
 	- dodati Skip dugme (isprazniti battleQueue u reduceru)
 	- centrirati oblast bitke (baguje)
-- prikazati instrukcije igraču, npr za:
-		COMBAT_MOVE: "Pomerite trupe na neprijateljsku teritoriju."
-		CONDUCT_COMBAT: "Bitke su u toku..."
-		MOBILIZE: "Postavite nove jedinice na vaše teritorije."
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI

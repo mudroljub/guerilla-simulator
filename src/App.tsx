@@ -11,17 +11,17 @@ function App() {
   const { state, dispatch } = useStore()
   const { phase, battleQueue } = state
 
-  // TODO: dodati uslov, samo ako ima napada
   const onClick = () => dispatch({ type: 'START_COMBAT_PHASE' })
 
   return (
     <>
+      {/* redosled određuje z-index */}
       <MapContainer>
         <Map />
       </MapContainer>
       <Modal />
       <img className={styles.legend} src={legend} alt="legend" />
-      <button className={styles.button} onClick={onClick}>End turn</button>
+      <button className={styles.button} onClick={onClick} disabled={!battleQueue.length}>End turn</button>
 
       {phase === GamePhase.COMBAT_PHASE && (
         <Battle key={battleQueue[0]} />
