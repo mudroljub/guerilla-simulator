@@ -19,3 +19,12 @@
   padding: 0.5rem 1rem;
   background-color: $ash;
 }
+
+.title {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  margin-top: 0;
+}
