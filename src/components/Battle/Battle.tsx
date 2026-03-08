@@ -60,7 +60,7 @@ const Battle = () => {
       const defense = UNIT_STRENGTH[unit.type]
       if (remainingHits >= defense) {
         remainingHits -= defense
-        victims.push(unit.key)
+        victims.push(unit.id)
       }
     }
     return victims
@@ -76,7 +76,7 @@ const Battle = () => {
 
     await new Promise(resolve => setTimeout(resolve, REMOVAL_TIME))
 
-    setArmy(prev => prev.filter(u => !victimIds.includes(u.key)))
+    setArmy(prev => prev.filter(u => !victimIds.includes(u.id)))
     setDyingUnits(prev => {
       const newSet = new Set(prev)
       victimIds.forEach(key => newSet.delete(key))
@@ -88,11 +88,11 @@ const Battle = () => {
     units.forEach(u => {
       const delay = Math.random() * 300
       setTimeout(() => {
-        setShootingUnits(prev => new Set(prev).add(u.key))
+        setShootingUnits(prev => new Set(prev).add(u.id))
         setTimeout(() => {
           setShootingUnits(prev => {
             const newSet = new Set(prev)
-            newSet.delete(u.key)
+            newSet.delete(u.id)
             return newSet
           })
         }, 200)
@@ -147,22 +147,24 @@ const Battle = () => {
 
       {germans.map(u => (
         <Unit
-          key={u.key}
+          id={u.id}
+          key={u.id}
           fraction={u.fraction}
           type={u.type}
           position={u.position}
-          isDying={dyingUnits.has(u.key)}
-          isShooting={shootingUnits.has(u.key)}
+          isDying={dyingUnits.has(u.id)}
+          isShooting={shootingUnits.has(u.id)}
         />
       ))}
       {partisans.map(u => (
         <Unit
-          key={u.key}
+          id={u.id}
+          key={u.id}
           fraction={u.fraction}
           type={u.type}
           position={u.position}
-          isDying={dyingUnits.has(u.key)}
-          isShooting={shootingUnits.has(u.key)}
+          isDying={dyingUnits.has(u.id)}
+          isShooting={shootingUnits.has(u.id)}
         />
       ))}
 

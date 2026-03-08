@@ -6,7 +6,7 @@ import styles from './Unit.module.scss'
 import { battleDict } from './data'
 
 export interface UnitProps {
-  key: string
+  id: string
   fraction: Fraction
   type: UnitType
   position?: Position

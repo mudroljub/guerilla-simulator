@@ -5,7 +5,7 @@ import { UnitProps } from '../Unit/Unit'
 
 export const initUnits = (count: number, fraction: Fraction, type: UnitType, xRange: [number, number]): UnitProps[] =>
   range(count || 0, () => ({
-    key: uuidv4(),
+    id: uuidv4(),
     fraction,
     type,
     position: {

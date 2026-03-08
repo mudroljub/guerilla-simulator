@@ -25,7 +25,7 @@ export default function UnitIcon({ region, id, iconDict }: Props) {
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-      <Unit className={styles.icon} fraction={fraction} type={type} key={id} iconDict={iconDict} />
+      <Unit className={styles.icon} fraction={fraction} type={type} id={id} iconDict={iconDict} />
     </g>
   )
 }
