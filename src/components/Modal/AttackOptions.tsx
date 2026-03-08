@@ -23,17 +23,13 @@ export default function AttackOptions({ region }: Props) {
     })
   }, [dispatch])
 
-  const attack = () => {
-    if (!attackingRegion) return
-    dispatch({
-      type: 'ATTACK_REGION',
-      attackedRegion: region.name,
-      attackingRegion,
-      attackingForces: {
-        infantry: attackingForce,
-      },
-    })
-  }
+  useEffect(() => {
+    if (!selectedAttackingRegion)
+      dispatch({
+        type: 'SELECT_ATTACKING_REGION',
+        regionName: liberatedNeighbors[0],
+      })
+  }, [dispatch, liberatedNeighbors, selectedAttackingRegion])
 
   useEffect(() => {
     if (attackingRegion)
@@ -46,6 +42,18 @@ export default function AttackOptions({ region }: Props) {
       setSelectedRegion(liberatedNeighbors[0])
   }, [liberatedNeighbors, attackingRegion, setSelectedRegion])
 
+  const attack = () => {
+    if (!attackingRegion) return
+    dispatch({
+      type: 'ATTACK_REGION',
+      attackedRegion: region.name,
+      attackingRegion,
+      attackingForces: {
+        infantry: attackingForce,
+      },
+    })
+  }
+
   return (
     <div>
       <input
@@ -57,16 +65,7 @@ export default function AttackOptions({ region }: Props) {
         onChange={e => setAttackingForce(Number(e.target.value))}
       />
       <p className={styles.text}>
-        <span>Attack with</span>{' '}
-        <input
-          type="number"
-          min={1}
-          max={attackingRegion ? regionDict[attackingRegion].garrison.infantry : 1}
-          value={attackingForce}
-          onChange={e => setAttackingForce(Number(e.target.value))}
-        />{' '}
-        {attackingForce > 1 ? 'Partisans' : 'Partisan'}{' '}
-        <span>from</span>{' '}
+        <span>Attack from</span>{' '}
         <select
           value={attackingRegion}
           onChange={e => setSelectedRegion(e.target.value)}
@@ -76,7 +75,16 @@ export default function AttackOptions({ region }: Props) {
               {opt}
             </option>
           ))}
-        </select>
+        </select><br/>
+        <span>with</span>{' '}
+        <input
+          type="number"
+          min={1}
+          max={attackingRegion ? regionDict[attackingRegion].garrison.infantry : 1}
+          value={attackingForce}
+          onChange={e => setAttackingForce(Number(e.target.value))}
+        />{' '}
+        {attackingForce > 1 ? 'Partisans' : 'Partisan'}
       </p>
       <button
         className={shared.button}
