@@ -27,6 +27,7 @@ const Battle = () => {
   const [isAnimating, setIsAnimating] = useState(false)
   const [diceValue, setDiceValue] = useState<number | null>(null)
   const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
+  const [shootingUnits, setShootingUnits] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     if (isAnimating) return
@@ -87,6 +88,26 @@ const Battle = () => {
     const g_victims = getVictims(germans, p_hits)
     const p_victims = getVictims(partisans, g_hits)
 
+    // pokreni trzaj za sve jedinice koje pucaju
+    const triggerShooting = (units: UnitProps[], direction: number) => {
+      units.forEach(u => {
+        const delay = Math.random() * 80
+        setTimeout(() => {
+          setShootingUnits(prev => new Set(prev).add(u.key))
+          setTimeout(() => {
+            setShootingUnits(prev => {
+              const newSet = new Set(prev)
+              newSet.delete(u.key)
+              return newSet
+            })
+          }, 200) // trajanje trzaja
+        }, delay)
+      })
+    }
+
+    triggerShooting(germans, -1)
+    triggerShooting(partisans, 1)
+
     await Promise.all([
       animateRemoval(g_victims, setGermans),
       animateRemoval(p_victims, setPartisans)
@@ -127,6 +148,7 @@ const Battle = () => {
           type={u.type}
           position={u.position}
           isDying={dyingUnits.has(u.key)}
+          isShooting={shootingUnits.has(u.key)}
         />
       ))}
       {partisans.map(u => (
@@ -136,6 +158,7 @@ const Battle = () => {
           type={u.type}
           position={u.position}
           isDying={dyingUnits.has(u.key)}
+          isShooting={shootingUnits.has(u.key)}
         />
       ))}
 
