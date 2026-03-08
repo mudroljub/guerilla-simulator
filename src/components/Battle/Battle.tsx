@@ -9,7 +9,7 @@ import { roll } from '../../utils/math'
 import { initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
-const REMOVAL_TIME = 1500
+const REMOVAL_TIME = 1500 // same in Unit.module.scss
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -25,7 +25,6 @@ const Battle = () => {
 
   const [winner, setWinner] = useState<Fraction | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [diceValue, setDiceValue] = useState<number | null>(null)
   const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
   const [shootingUnits, setShootingUnits] = useState<Set<string>>(new Set())
 
@@ -50,9 +49,8 @@ const Battle = () => {
         const chance = Math.abs(modifier)
         if (modifier > 0 && !hit) {
           if (Math.random() < chance) hit = true
-        } else if (modifier < 0 && hit) {
+        } else if (modifier < 0 && hit)
           if (Math.random() < chance) hit = false
-        }
       }
 
       return hit ? total + 1 : total
@@ -109,7 +107,6 @@ const Battle = () => {
   const handleBattleRound = async(rollValue: number) => {
     if (winner || isAnimating) return
 
-    setDiceValue(rollValue)
     setIsAnimating(true)
 
     const p_hits = calculateHits(partisans, rollValue, Fraction.Partisan)
@@ -126,7 +123,7 @@ const Battle = () => {
       animateRemoval(p_victims, setPartisans)
     ])
 
-    setDiceValue(null)
+    // setDiceValue(null)
     setIsAnimating(false)
   }
 
@@ -175,7 +172,7 @@ const Battle = () => {
         />
       ))}
 
-      {!winner && <Dice className={styles.dice} callback={handleBattleRound} value={diceValue} />}
+      {!winner && <Dice className={styles.dice} callback={handleBattleRound} />}
 
       {winner && (
         <div className={shared.blackModal}>
