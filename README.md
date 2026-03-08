@@ -154,13 +154,11 @@ npm start
 		- animacija pucanja (vatra ili trzaj) ✓
 		- uskladiti animaciju kocke sa završetkom animacija vojnika (ili izbaciti reset kocke) ✓
 		- izbaciti iz bitke ikonice koje ne pucaju, ali ih zadržati na mapi ✓
-		- srediti šanse, previše su extremne ✓
+		- srediti šanse, previše su ekstremne ✓
 		- info o stanju trupa sa obe strane ✓
-		- intuitivniji dugmići na mapi koji guraju glavni tok
-			- default ne prebacivati sve jedinice?
-		- avione tretirati posebno?
-		- stilizovati tipografiju i dugmiće
-		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?		
+		- default ne prebacivati sve jedinice? ✓
+		- obeležiti i oblasti sa kojih se napada?
+		- tipografija, dugmići, prozori u shared
 		- dodati dugme za bežanje
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?

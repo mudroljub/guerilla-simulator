@@ -13,8 +13,8 @@ export default function AttackOptions({ region }: Props) {
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
   const [attackingRegion, setAttackingRegion] = useState(liberatedNeighbors[0])
-
-  const [attackingForce, setAttackingForce] = useState(regionDict[attackingRegion].garrison.infantry)
+  const defaultAttackForce = Math.round(regionDict[attackingRegion].garrison.infantry * 0.5)
+  const [attackingForce, setAttackingForce] = useState(defaultAttackForce)
 
   const attack = () => dispatch({
     type: 'ATTACK_REGION',
@@ -26,8 +26,8 @@ export default function AttackOptions({ region }: Props) {
   })
 
   useEffect(() => {
-    setAttackingForce(regionDict[attackingRegion].garrison.infantry)
-  }, [attackingRegion, regionDict])
+    setAttackingForce(defaultAttackForce)
+  }, [defaultAttackForce])
 
   useEffect(() => {
     if (!liberatedNeighbors.includes(attackingRegion))

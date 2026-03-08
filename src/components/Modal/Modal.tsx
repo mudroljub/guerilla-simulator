@@ -35,7 +35,7 @@ export default function Modal() {
         <h2 className={classnames(styles.title, {
           [styles.black]: fraction === Fraction.German
         })}>
-          {attacked ? '💥' : getFlag(fraction)}{attacked ? 'Attack on' : ''} {selected.name}
+          {attacked ? '💥' : getFlag(fraction)}{attacked ? 'Battle for ' : ' '}{selected.name}
         </h2>
 
         <Units troops={garrison} fraction={fraction} />
