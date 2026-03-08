@@ -20,11 +20,14 @@
   background-color: $ash;
 }
 
-.title {
+.message {
   position: fixed;
-  top: 0;
+  top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.2rem;
   margin-top: 0;
+  background: $legend;
+  padding: 0.75rem 1rem;
+  border: 2px solid $olive-dark;
 }

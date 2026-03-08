@@ -8,7 +8,7 @@ import Battle from './components/Battle/Battle'
 import { GamePhase } from './types/types'
 
 export const message: Record<GamePhase, string> = {
-  [GamePhase.ATTACK_PHASE]: 'Move troops into enemy territory.',
+  [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
   [GamePhase.COMBAT_PHASE]: 'Battles are in progress...',
   [GamePhase.MOBILIZATION]: 'Deploy new units to your territories.',
   [GamePhase.BOMBARDMENT]: 'Enemy planes are bombing our towns',
@@ -27,7 +27,7 @@ function App() {
         <Map />
       </MapContainer>
       <Modal />
-      <p className={styles.title}>{message[phase]}</p>
+      <p className={styles.message}>{message[phase]}</p>
       <img className={styles.legend} src={legend} alt="legend" />
       <button className={styles.button} onClick={onClick}>End turn</button>
 

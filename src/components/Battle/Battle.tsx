@@ -10,7 +10,7 @@ import { initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
 const REMOVAL_TIME = 1500
-const MAX_MODIFIER_PERCENT = 1 / 6
+const MAX_MODIFIER_PERCENT = 1 / 2
 const MAX_MODIFIER = MAX_MODIFIER_PERCENT / 100
 
 const Battle = () => {
@@ -142,8 +142,7 @@ const Battle = () => {
     <div className={styles.container}>
       <h1>Battle for {region.name}</h1>
       <div className={styles.scoreBoard}>
-        <div>Germans: {germans.length}</div>
-        <div>Partisans: {partisans.length}</div>
+        <div>Germans: {germans.length} Partisans: {partisans.length}</div>
       </div>
 
       {germans.map(u => (

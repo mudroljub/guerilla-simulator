@@ -155,8 +155,9 @@ npm start
 		- uskladiti animaciju kocke sa završetkom animacija vojnika (ili izbaciti reset kocke) ✓
 		- izbaciti iz bitke ikonice koje ne pucaju, ali ih zadržati na mapi ✓
 		- srediti šanse, previše su extremne ✓
-		- info o broju pogodaka sa obe strane
-		- intuitivnije dugmiće na mapi koji guraju glavni tok
+		- info o stanju trupa sa obe strane ✓
+		- intuitivniji dugmići na mapi koji guraju glavni tok
+			- default ne prebacivati sve jedinice?
 		- avione tretirati posebno?
 		- stilizovati tipografiju i dugmiće
 		- kad je previše vojske da ne izlaze svi odjednom? pristižu pojačanja? jedan vredi za deset?		
@@ -197,6 +198,7 @@ npm start
 - drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
 - mapa preliva sa ekrana?
+- trenutno može borba i u fazi mobilizacije
 
 ### Završno
 
