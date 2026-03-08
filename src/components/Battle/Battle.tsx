@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
-import Unit from '../Unit/Unit'
+import Unit, { UnitProps } from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction, Troops } from '../../types/types'
 import { roll } from '../../utils/math'
-import { BattleUnit, initArmy } from './utils'
+import { initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
 const REMOVAL_TIME = 1500
@@ -16,10 +16,10 @@ const Battle = () => {
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
 
-  const [germans, setGermans] = useState<BattleUnit[]>(() =>
+  const [germans, setGermans] = useState<UnitProps[]>(() =>
     initArmy(region.garrison, Fraction.German, [0, window.innerWidth * 0.4])
   )
-  const [partisans, setPartisans] = useState<BattleUnit[]>(() =>
+  const [partisans, setPartisans] = useState<UnitProps[]>(() =>
     initArmy(region.attackingForces!, Fraction.Partisan, [window.innerWidth * 0.6, window.innerWidth])
   )
 
@@ -34,20 +34,20 @@ const Battle = () => {
     else if (partisans.length === 0 && germans.length > 0) setWinner(Fraction.German)
   }, [germans.length, partisans.length, isAnimating])
 
-  const calculateHits = (units: BattleUnit[], bonus: number): number =>
+  const calculateHits = (units: UnitProps[], bonus: number): number =>
     units.reduce((total, unit) => {
       const attack = UNIT_STRENGTH[unit.type] + bonus
       return roll() <= attack ? total + 1 : total
     }, 0)
 
-  const getVictims = (units: BattleUnit[], hits: number): string[] => {
+  const getVictims = (units: UnitProps[], hits: number): string[] => {
     let remainingHits = hits
     const victims: string[] = []
     for (const unit of units) {
       const defense = UNIT_STRENGTH[unit.type]
       if (remainingHits >= defense) {
         remainingHits -= defense
-        victims.push(unit.id)
+        victims.push(unit.key)
       }
     }
     return victims
@@ -55,7 +55,7 @@ const Battle = () => {
 
   const animateRemoval = useCallback(async(
     victimIds: string[],
-    setArmy: React.Dispatch<React.SetStateAction<BattleUnit[]>>
+    setArmy: React.Dispatch<React.SetStateAction<UnitProps[]>>
   ) => {
     if (victimIds.length === 0) return
 
@@ -63,10 +63,10 @@ const Battle = () => {
 
     await new Promise(resolve => setTimeout(resolve, REMOVAL_TIME))
 
-    setArmy(prev => prev.filter(u => !victimIds.includes(u.id)))
+    setArmy(prev => prev.filter(u => !victimIds.includes(u.key)))
     setDyingUnits(prev => {
       const newSet = new Set(prev)
-      victimIds.forEach(id => newSet.delete(id))
+      victimIds.forEach(key => newSet.delete(key))
       return newSet
     })
   }, [])
@@ -122,20 +122,20 @@ const Battle = () => {
 
       {germans.map(u => (
         <Unit
-          key={u.id}
+          key={u.key}
           fraction={u.fraction}
-          unitType={u.type}
-          position={{ x: u.x, y: u.y }}
-          isDying={dyingUnits.has(u.id)}
+          type={u.type}
+          position={u.position}
+          isDying={dyingUnits.has(u.key)}
         />
       ))}
       {partisans.map(u => (
         <Unit
-          key={u.id}
+          key={u.key}
           fraction={u.fraction}
-          unitType={u.type}
-          position={{ x: u.x, y: u.y }}
-          isDying={dyingUnits.has(u.id)}
+          type={u.type}
+          position={u.position}
+          isDying={dyingUnits.has(u.key)}
         />
       ))}
 

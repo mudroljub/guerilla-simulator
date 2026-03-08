@@ -5,21 +5,22 @@ import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
 import { iconDict } from './data'
 
-interface Props {
+export interface UnitProps {
+  key: string;
   fraction: Fraction;
-  unitType: UnitType;
+  type: UnitType;
   position?: Position;
   className?: string;
   isDying?: boolean;
 }
 
-export default function Unit({ fraction, unitType, position, className, isDying }: Props) {
+export default function Unit({ fraction, type, position, className, isDying }: UnitProps) {
 
   const SvgComponent = useMemo(() => {
-    const icons = iconDict[fraction][unitType]
+    const icons = iconDict[fraction][type]
     if (!icons?.length) return null
     return sample(icons)
-  }, [fraction, unitType])
+  }, [fraction, type])
 
   const dyingClass = useMemo(() => {
     if (!isDying) return ''

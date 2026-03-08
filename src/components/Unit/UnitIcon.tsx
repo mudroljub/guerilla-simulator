@@ -6,24 +6,25 @@ import Unit from './Unit'
 
 function getRandomUnitType(garrison: Troops): UnitType {
   const units = (Object.keys(garrison) as UnitType[])
-    .filter(unitType => (garrison[unitType] ?? 0) > 0)
+    .filter(type => (garrison[type] ?? 0) > 0)
   return Math.random() > 0.33 ? sample(units) : UnitType.infantry
 }
 
 interface Props {
+  key: string,
   region: RegionState;
 }
 
-export default function UnitIcon({ region }: Props) {
+export default function UnitIcon({ region, key }: Props) {
   const { fraction, garrison } = region
 
-  const unitType = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
+  const type = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
 
   if (fraction === Fraction.German) return null //  && region.size <= CITY_LABEL_THRESHOLD * 1.5
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-      <Unit className={styles.icon} fraction={fraction} unitType={unitType} />
+      <Unit className={styles.icon} fraction={fraction} type={type} key={key} />
     </g>
   )
 }
