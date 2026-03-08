@@ -88,10 +88,9 @@ const Battle = () => {
     const g_victims = getVictims(germans, p_hits)
     const p_victims = getVictims(partisans, g_hits)
 
-    // pokreni trzaj za sve jedinice koje pucaju
-    const triggerShooting = (units: UnitProps[], direction: number) => {
+    const triggerShooting = (units: UnitProps[]) => {
       units.forEach(u => {
-        const delay = Math.random() * 80
+        const delay = Math.random() * 200
         setTimeout(() => {
           setShootingUnits(prev => new Set(prev).add(u.key))
           setTimeout(() => {
@@ -100,7 +99,7 @@ const Battle = () => {
               newSet.delete(u.key)
               return newSet
             })
-          }, 200) // trajanje trzaja
+          }, 200)
         }, delay)
       })
     }
