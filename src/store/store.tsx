@@ -10,6 +10,7 @@ export interface MapState {
   selected: RegionState | null;
   phase: GamePhase;
   battleQueue: string[];
+  selectedAttackingRegion?: string;
 }
 
 interface Store {

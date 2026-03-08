@@ -12,6 +12,7 @@ export type Action =
       type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops;
     }
   | { type: 'END_TURN' }
+  | { type: 'SELECT_ATTACKING_REGION', regionName: string }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -113,6 +114,12 @@ export function reducer(state: MapState, action: Action): MapState {
         selected: null,
       }
     }
+
+    case 'SELECT_ATTACKING_REGION':
+      return {
+        ...state,
+        selectedAttackingRegion: action.regionName
+      }
 
     default:
       return state

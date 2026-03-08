@@ -157,7 +157,7 @@ npm start
 		- srediti šanse, previše su ekstremne ✓
 		- info o stanju trupa sa obe strane ✓
 		- default ne prebacivati sve jedinice? ✓
-		- obeležiti i oblasti sa kojih se napada?
+		- obeležiti i oblasti sa kojih se napada ✓
 		- tipografija, dugmići, prozori u shared
 		- dodati dugme za bežanje
 	- dodati bitku za svaku oblast ✓

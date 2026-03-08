@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function Region({ region }: Props) {
-  const { state: { selected }, dispatch } = useStore()
+  const { state: { selected, selectedAttackingRegion }, dispatch } = useStore()
   const attackable = useIsAttackable(region.name)
 
   const regionFraction = region.fraction
@@ -41,7 +41,7 @@ export default function Region({ region }: Props) {
     <g
       id={region.name}
       className={classnames(styles.region, stateStyle[regionFraction], {
-        [styles.selected]: isSelected,
+        [styles.selected]: isSelected || selectedAttackingRegion === region.name,
         [styles.blush]: isOccupiedNeighbor || attackable,
       })}
       onClick={toggle}
