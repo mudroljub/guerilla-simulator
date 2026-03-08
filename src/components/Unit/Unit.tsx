@@ -10,9 +10,10 @@ interface Props {
   unitType: UnitType;
   position?: Position;
   className?: string;
+  isDying?: boolean;
 }
 
-export default function Unit({ fraction, unitType, position, className }: Props) {
+export default function Unit({ fraction, unitType, position, className, isDying }: Props) {
 
   const SvgComponent = useMemo(() => {
     const icons = iconDict[fraction][unitType]
@@ -20,11 +21,16 @@ export default function Unit({ fraction, unitType, position, className }: Props)
     return sample(icons)
   }, [fraction, unitType])
 
+  const dyingClass = useMemo(() => {
+    if (!isDying) return ''
+    return fraction === Fraction.German ? styles.fallingGerman : styles.fallingPartisan
+  }, [isDying, fraction])
+
   if (!SvgComponent) return null
 
   return (
     <SvgComponent
-      className={classnames(className, styles.unit)}
+      className={classnames(className, styles.unit, dyingClass)}
       style={position ? { top: position.y, left: position.x } : undefined}
     />
   )

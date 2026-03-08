@@ -150,8 +150,8 @@ npm start
 			- iterira sve odbrambene jedinice i za svaku baca kocku ✓
 			- napadajuće jedinice se odvajaju u niz pogođenih ✓
 		- remove casualties (skidamo mrtve) ✓
+		- animacija vojnici padaju ✓
 		- animacija pucanja (vatra ili trzaj)
-		- animacija vojnici padaju? 
 		- info o broju pogodaka sa obe strane
 		- intuitivnije dugmiće na mapi koji guraju glavni tok
 		- avione tretirati posebno?

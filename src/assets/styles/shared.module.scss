@@ -1,23 +1,21 @@
+@use "sass:color";
 @use '../../assets/styles/const.scss' as *;
 
-.container {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: $olive;
-  text-align: center;
-  color: $rose;
+.button {
+  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  background: $rose;
+  color: $white;
+  border: none;
+  transition: background 0.4s ease, transform 0.05s ease;
+  
+  &:hover {
+    background: color.adjust($rose, $lightness: -15%);
+    transform: scale(1.1) rotate(-2deg);
+  }
 }
 
-.dice {
-  position: fixed;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.victoryScreen {
+.blackModal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -25,7 +23,7 @@
   background: rgba(0, 0, 0, 0.9);
   padding: 2rem;
   border-radius: 1rem;
-  z-index: 1000;
+  z-index: 9;
   min-width: 300px;
   
   h2 {

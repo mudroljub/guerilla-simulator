@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './Modal.module.scss'
+import shared from '../../assets/styles/shared.module.scss'
 import { useStore, useLiberatedNeighbors } from '../../store/store'
 import { RegionState } from '../../types/types'
 
@@ -63,7 +64,7 @@ export default function AttackOptions({ region }: Props) {
         </select>
       </p>
       <button
-        className={styles.attackButton}
+        className={shared.button}
         onClick={attack}
       >
         Send troops ⚔️

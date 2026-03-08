@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useStore } from '../../store/store'
 import styles from './Battle.module.scss'
+import shared from '../../assets/styles/shared.module.scss'
 import Unit from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction, Troops } from '../../types/types'
@@ -8,7 +9,7 @@ import { roll } from '../../utils/math'
 import { BattleUnit, initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
-const REMOVAL_TIME = 200
+const REMOVAL_TIME = 1500
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -25,6 +26,7 @@ const Battle = () => {
   const [winner, setWinner] = useState<Fraction | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [diceValue, setDiceValue] = useState<number | null>(null)
+  const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     if (isAnimating) return
@@ -57,10 +59,16 @@ const Battle = () => {
   ) => {
     if (victimIds.length === 0) return
 
-    for (const id of victimIds) {
-      await new Promise(resolve => setTimeout(resolve, REMOVAL_TIME))
-      setArmy(prev => prev.filter(u => u.id !== id))
-    }
+    setDyingUnits(prev => new Set([...Array.from(prev), ...victimIds]))
+
+    await new Promise(resolve => setTimeout(resolve, REMOVAL_TIME))
+
+    setArmy(prev => prev.filter(u => !victimIds.includes(u.id)))
+    setDyingUnits(prev => {
+      const newSet = new Set(prev)
+      victimIds.forEach(id => newSet.delete(id))
+      return newSet
+    })
   }, [])
 
   const handleBattleRound = async(rollValue: number) => {
@@ -112,22 +120,32 @@ const Battle = () => {
         <div>Partisans: {partisans.length}</div>
       </div>
 
-      <div className={styles.battlefield}>
-        {germans.map(u => (
-          <Unit key={u.id} fraction={u.fraction} unitType={u.type} position={{ x: u.x, y: u.y }} />
-        ))}
-        {partisans.map(u => (
-          <Unit key={u.id} fraction={u.fraction} unitType={u.type} position={{ x: u.x, y: u.y }} />
-        ))}
-      </div>
+      {germans.map(u => (
+        <Unit
+          key={u.id}
+          fraction={u.fraction}
+          unitType={u.type}
+          position={{ x: u.x, y: u.y }}
+          isDying={dyingUnits.has(u.id)}
+        />
+      ))}
+      {partisans.map(u => (
+        <Unit
+          key={u.id}
+          fraction={u.fraction}
+          unitType={u.type}
+          position={{ x: u.x, y: u.y }}
+          isDying={dyingUnits.has(u.id)}
+        />
+      ))}
 
       {!winner && <Dice className={styles.dice} callback={handleBattleRound} value={diceValue} />}
 
       {winner && (
-        <div className={styles.victoryScreen}>
+        <div className={shared.blackModal}>
           <h2>{winner === Fraction.Partisan ? 'VICTORY' : 'DEFEAT'}</h2>
           <p>{winner === Fraction.Partisan ? 'Another Yugoslav town has been liberated!' : 'Your forces have suffered a heavy blow.'}</p>
-          <button onClick={handleFinishBattle}>End battle</button>
+          <button onClick={handleFinishBattle} className={shared.button}>Back to map</button>
         </div>
       )}
     </div>
