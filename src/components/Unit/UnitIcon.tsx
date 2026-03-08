@@ -11,12 +11,12 @@ function getRandomUnitType(garrison: Troops): UnitType {
 }
 
 interface Props {
-  key: string,
+  id: string,
   region: RegionState;
   iconDict?: IconDict
 }
 
-export default function UnitIcon({ region, key, iconDict }: Props) {
+export default function UnitIcon({ region, id, iconDict }: Props) {
   const { fraction, garrison } = region
 
   const type = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
@@ -25,7 +25,7 @@ export default function UnitIcon({ region, key, iconDict }: Props) {
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-      <Unit className={styles.icon} fraction={fraction} type={type} key={key} iconDict={iconDict} />
+      <Unit className={styles.icon} fraction={fraction} type={type} key={id} iconDict={iconDict} />
     </g>
   )
 }

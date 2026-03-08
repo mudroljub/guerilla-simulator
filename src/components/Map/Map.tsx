@@ -70,7 +70,7 @@ export default function Map() {
       {regions
         .slice()
         .sort((a, b) => b.area - a.area)
-        .map((r, i) => i < regions.length * 0.5 && <UnitIcon key={r.name} region={r} iconDict={mapDict} />)
+        .map((r, i) => i < regions.length * 0.5 && <UnitIcon key={r.name} id={r.name} region={r} iconDict={mapDict} />)
       }
     </svg>
   )
