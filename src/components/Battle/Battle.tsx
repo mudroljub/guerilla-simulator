@@ -35,11 +35,29 @@ const Battle = () => {
     else if (partisans.length === 0 && germans.length > 0) setWinner(Fraction.German)
   }, [germans.length, partisans.length, isAnimating])
 
-  const calculateHits = (units: UnitProps[], bonus: number): number =>
-    units.reduce((total, unit) => {
-      const attack = UNIT_STRENGTH[unit.type] + bonus
-      return roll() <= attack ? total + 1 : total
+  const calculateHits = (units: UnitProps[], rollValue: number, fraction: Fraction): number => {
+    const normalizedRoll = (rollValue - 1) / 5 // 0-1
+    const modifier = fraction === Fraction.Partisan
+      ? -0.5 + normalizedRoll // roll 1 -> -0.5, roll 6 -> +0.5
+      : 0.5 - normalizedRoll  // roll 1 -> +0.5, roll 6 -> -0.5
+
+    return units.reduce((total, unit) => {
+      const baseAttack = UNIT_STRENGTH[unit.type]
+      let hit = roll() <= baseAttack
+
+      // primeni modifikator šanse
+      if (modifier !== 0) {
+        const chance = Math.abs(modifier)
+        if (modifier > 0 && !hit) {
+          if (Math.random() < chance) hit = true
+        } else if (modifier < 0 && hit) {
+          if (Math.random() < chance) hit = false
+        }
+      }
+
+      return hit ? total + 1 : total
     }, 0)
+  }
 
   const getVictims = (units: UnitProps[], hits: number): string[] => {
     let remainingHits = hits
@@ -72,40 +90,36 @@ const Battle = () => {
     })
   }, [])
 
+  const triggerShooting = (units: UnitProps[]) => {
+    units.forEach(u => {
+      const delay = Math.random() * 300 // nasumično do 0.3s
+      setTimeout(() => {
+        setShootingUnits(prev => new Set(prev).add(u.key))
+        setTimeout(() => {
+          setShootingUnits(prev => {
+            const newSet = new Set(prev)
+            newSet.delete(u.key)
+            return newSet
+          })
+        }, 200)
+      }, delay)
+    })
+  }
+
   const handleBattleRound = async(rollValue: number) => {
     if (winner || isAnimating) return
 
     setDiceValue(rollValue)
     setIsAnimating(true)
 
-    const normalizedRoll = (rollValue - 1) / 5
-    const partisanBonus = -1.5 + (normalizedRoll * 3.0)
-    const germanBonus = 1.5 - (normalizedRoll * 3.0)
-
-    const p_hits = calculateHits(partisans, partisanBonus)
-    const g_hits = calculateHits(germans, germanBonus)
+    const p_hits = calculateHits(partisans, rollValue, Fraction.Partisan)
+    const g_hits = calculateHits(germans, rollValue, Fraction.German)
 
     const g_victims = getVictims(germans, p_hits)
     const p_victims = getVictims(partisans, g_hits)
 
-    const triggerShooting = (units: UnitProps[]) => {
-      units.forEach(u => {
-        const delay = Math.random() * 200
-        setTimeout(() => {
-          setShootingUnits(prev => new Set(prev).add(u.key))
-          setTimeout(() => {
-            setShootingUnits(prev => {
-              const newSet = new Set(prev)
-              newSet.delete(u.key)
-              return newSet
-            })
-          }, 200)
-        }, delay)
-      })
-    }
-
-    triggerShooting(germans, -1)
-    triggerShooting(partisans, 1)
+    triggerShooting(germans)
+    triggerShooting(partisans)
 
     await Promise.all([
       animateRemoval(g_victims, setGermans),

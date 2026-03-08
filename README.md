@@ -151,7 +151,9 @@ npm start
 			- napadajuće jedinice se odvajaju u niz pogođenih ✓
 		- remove casualties (skidamo mrtve) ✓
 		- animacija vojnici padaju ✓
-		- animacija pucanja (vatra ili trzaj)
+		- animacija pucanja (vatra ili trzaj) ✓
+		- uskladiti animaciju kocke sa završetkom animacija vojnika (ili izbaciti reset kocke)
+		- izbaciti iz bitke ikonice koje ne pucaju
 		- info o broju pogodaka sa obe strane
 		- intuitivnije dugmiće na mapi koji guraju glavni tok
 		- avione tretirati posebno?
