@@ -9,7 +9,9 @@ import { roll } from '../../utils/math'
 import { initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
 
-const REMOVAL_TIME = 1500 // same in Unit.module.scss
+const REMOVAL_TIME = 1500
+const MAX_MODIFIER_PERCENT = 1 / 6
+const MAX_MODIFIER = MAX_MODIFIER_PERCENT / 100
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -35,23 +37,17 @@ const Battle = () => {
   }, [germans.length, partisans.length, isAnimating])
 
   const calculateHits = (units: UnitProps[], rollValue: number, fraction: Fraction): number => {
-    const normalizedRoll = (rollValue - 1) / 5 // 0-1
+    const normalizedRoll = (rollValue - 1) / 5
     const modifier = fraction === Fraction.Partisan
-      ? -0.5 + normalizedRoll // roll 1 -> -0.5, roll 6 -> +0.5
-      : 0.5 - normalizedRoll  // roll 1 -> +0.5, roll 6 -> -0.5
+      ? normalizedRoll * 2 * MAX_MODIFIER - MAX_MODIFIER
+      : MAX_MODIFIER - normalizedRoll * 2 * MAX_MODIFIER
 
     return units.reduce((total, unit) => {
       const baseAttack = UNIT_STRENGTH[unit.type]
       let hit = roll() <= baseAttack
 
-      // primeni modifikator šanse
-      if (modifier !== 0) {
-        const chance = Math.abs(modifier)
-        if (modifier > 0 && !hit) {
-          if (Math.random() < chance) hit = true
-        } else if (modifier < 0 && hit)
-          if (Math.random() < chance) hit = false
-      }
+      if ((modifier > 0 && !hit) || (modifier < 0 && hit))
+        hit = Math.random() < Math.abs(modifier) ? !hit : hit
 
       return hit ? total + 1 : total
     }, 0)
@@ -90,7 +86,7 @@ const Battle = () => {
 
   const triggerShooting = (units: UnitProps[]) => {
     units.forEach(u => {
-      const delay = Math.random() * 300 // nasumično do 0.3s
+      const delay = Math.random() * 300
       setTimeout(() => {
         setShootingUnits(prev => new Set(prev).add(u.key))
         setTimeout(() => {
@@ -123,7 +119,6 @@ const Battle = () => {
       animateRemoval(p_victims, setPartisans)
     ])
 
-    // setDiceValue(null)
     setIsAnimating(false)
   }
 
