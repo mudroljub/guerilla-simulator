@@ -40,9 +40,24 @@ import { ReactComponent as PartInf17 } from '../../assets/images/partisan/infant
 import { ReactComponent as PartInf19 } from '../../assets/images/partisan/infantry/vojnik-01.svg'
 import { ReactComponent as PartInf20 } from '../../assets/images/partisan/infantry/vojnik-03.svg'
 
-import { Fraction, IconComponent, UnitType } from '../../types/types'
+import { IconDict } from '../../types/types'
 
-export const iconDict: Record<Fraction, Partial<Record<UnitType, IconComponent[]>>> = {
+export const battleDict: IconDict = {
+  German: {
+    infantry: [GerInf1, GerInf3, GerInf5, GerInf7, GerInf8],
+    tanks: [GerTank3, GerTank4, GerTank5, GerTank6, GerTank7, GerTank8],
+    artillery: [GerArt1, GerArt2, GerArt3],
+    aircraft: [GerAir2, GerAir3, GerAir8],
+  },
+  Partisan: {
+    infantry: [
+      PartInf1, PartInf3, PartInf4, PartInf6, PartInf7,
+      PartInf16, PartInf19, PartInf20
+    ],
+  },
+}
+
+export const mapDict: IconDict = {
   German: {
     infantry: [GerInf1, GerInf3, GerInf5, GerInf7, GerInf8],
     tanks: [GerTank3, GerTank4, GerTank5, GerTank6, GerTank7, GerTank8],

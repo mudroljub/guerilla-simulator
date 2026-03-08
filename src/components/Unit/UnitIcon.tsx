@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Fraction, Troops, RegionState, UnitType } from '../../types/types'
+import { Fraction, Troops, RegionState, UnitType, IconDict } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
 import Unit from './Unit'
@@ -13,9 +13,10 @@ function getRandomUnitType(garrison: Troops): UnitType {
 interface Props {
   key: string,
   region: RegionState;
+  iconDict?: IconDict
 }
 
-export default function UnitIcon({ region, key }: Props) {
+export default function UnitIcon({ region, key, iconDict }: Props) {
   const { fraction, garrison } = region
 
   const type = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
@@ -24,7 +25,7 @@ export default function UnitIcon({ region, key }: Props) {
 
   return (
     <g transform={`translate(${region.position.x}, ${region.position.y})`}>
-      <Unit className={styles.icon} fraction={fraction} type={type} key={key} />
+      <Unit className={styles.icon} fraction={fraction} type={type} key={key} iconDict={iconDict} />
     </g>
   )
 }

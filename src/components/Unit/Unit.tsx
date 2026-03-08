@@ -1,27 +1,28 @@
 import classnames from 'classnames'
 import { useMemo } from 'react'
-import { Fraction, Position, UnitType } from '../../types/types'
+import { Fraction, IconDict, Position, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
-import { iconDict } from './data'
+import { battleDict } from './data'
 
 export interface UnitProps {
-  key: string;
-  fraction: Fraction;
-  type: UnitType;
-  position?: Position;
-  className?: string;
-  isDying?: boolean;
+  key: string
+  fraction: Fraction
+  type: UnitType
+  position?: Position
+  className?: string
+  isDying?: boolean
   isShooting?: boolean
+  iconDict?: IconDict
 }
 
-export default function Unit({ fraction, type, position, className, isDying, isShooting }: UnitProps) {
+export default function Unit({ fraction, type, position, className, isDying, isShooting, iconDict = battleDict }: UnitProps) {
 
   const SvgComponent = useMemo(() => {
     const icons = iconDict[fraction][type]
     if (!icons?.length) return null
     return sample(icons)
-  }, [fraction, type])
+  }, [fraction, iconDict, type])
 
   const dyingClass = useMemo(() => {
     if (!isDying) return ''

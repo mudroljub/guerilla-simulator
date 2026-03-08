@@ -55,4 +55,6 @@ export enum GamePhase {
 
 /** COMPONENTS */
 
-export type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+export type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+
+export type IconDict = Record<Fraction, Partial<Record<UnitType, IconComponent[]>>>
