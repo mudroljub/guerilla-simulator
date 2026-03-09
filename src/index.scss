@@ -10,7 +10,6 @@ body {
 }
 
 button, input, select {
-  cursor: pointer;
   font-family: inherit;
   font-size: inherit;
 }
@@ -20,6 +19,11 @@ input, select {
   background-color: white;
 }
 
+select, button {
+  cursor: pointer;
+}
+
 button {
   text-transform: uppercase;
+  font-weight: bold;
 }
