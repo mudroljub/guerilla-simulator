@@ -3,19 +3,18 @@
 
 
 .button {
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 10px;
-  padding: 0.5rem 1rem;
   background: $rose;
   color: $white;
   border: none;
   transition: background 0.4s ease, transform 0.05s ease;
+
+  &.secondary {
+    background: $olive-dark;
+  }
   
   &:hover {
-    background: color.adjust($rose, $lightness: -15%);
+    filter: brightness(1.2);
     transform: scale(1.1) rotate(-2deg);
   }
 
@@ -36,7 +35,6 @@
   background: $olive-dark;
 
   &:hover {
-    background: color.adjust($olive-dark, $lightness: -10%);
     transform: scale(1.1) rotate(2deg);
   }
 }
@@ -50,9 +48,6 @@
   border-radius: 50%;
   background-color: $ash;
   color: $black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 2px solid $olive-dark;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -73,7 +68,7 @@
   padding: 2rem;
   border: 2px solid $olive-dark;
   border-radius: 0.5rem;
-  z-index: 100;
+  z-index: 9;
   min-width: 320px;
   text-align: center;
   box-shadow: 0 0 50px rgba($black, 0.8);
@@ -103,6 +98,6 @@
   padding: 0.75rem 1.5rem;
   border: 2px solid $olive-dark;
   font-weight: bold;
-  z-index: 10;
+  z-index: 9;
   box-shadow: 0 4px 10px rgba($black, 0.2);
 }

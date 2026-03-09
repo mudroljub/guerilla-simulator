@@ -7,27 +7,6 @@
 
   button {
     flex: 1;
-    padding: 12px;
-    cursor: pointer;
     border: none;
-    transition: filter 0.2s;
-
-    &:first-child {
-      background: $olive-dark;
-      color: $white;
-
-      &:hover {
-        filter: brightness(1.2);
-      }
-    }
-
-    &:last-child {
-      background: $rose;
-      color: $white;
-
-      &:hover {
-        filter: brightness(1.2);
-      }
-    }
   }
 }

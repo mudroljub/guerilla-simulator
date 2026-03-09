@@ -3,12 +3,12 @@ import { useStore } from '../../store/store'
 import { GamePhase } from '../../types/types'
 import shared from '../../assets/styles/shared.module.scss'
 import styles from './EndTurn.module.scss'
+import classNames from 'classnames'
 
 const EndTurn = () => {
   const { dispatch, state: { phase, regionDict } } = useStore()
   const [isConfirming, setIsConfirming] = useState(false)
 
-  // Resetuje stanje potvrde pri svakoj promeni faze
   useEffect(() => {
     setIsConfirming(false)
   }, [phase])
