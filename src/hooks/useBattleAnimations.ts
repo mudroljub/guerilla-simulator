@@ -1,12 +1,15 @@
 import { useState, useCallback } from 'react'
+import { sleep } from '../utils/helpers'
 
-const REMOVAL_TIME = 1500
+const REMOVAL_DURATION = 1500
+const MAX_SHOOT_DELAY = 400
+const SHOOT_DURATION = 200
 
 export const useBattleAnimations = () => {
   const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
   const [shootingUnits, setShootingUnits] = useState<Set<string>>(new Set())
 
-  const animateRemoval = useCallback(async (
+  const animateRemoval = useCallback(async(
     victimIds: string[],
     setArmy: React.Dispatch<React.SetStateAction<any[]>>
   ) => {
@@ -14,7 +17,7 @@ export const useBattleAnimations = () => {
 
     setDyingUnits(prev => new Set([...Array.from(prev), ...victimIds]))
 
-    await new Promise(resolve => setTimeout(resolve, REMOVAL_TIME))
+    await new Promise(resolve => setTimeout(resolve, REMOVAL_DURATION))
 
     setArmy(prev => prev.filter(u => !victimIds.includes(u.id)))
     setDyingUnits(prev => {
@@ -24,19 +27,19 @@ export const useBattleAnimations = () => {
     })
   }, [])
 
-  const triggerShooting = useCallback((units: any[]) => {
-    units.forEach(u => {
-      const delay = Math.random() * 300
-      setTimeout(() => {
-        setShootingUnits(prev => new Set(prev).add(u.id))
-        setTimeout(() => {
-          setShootingUnits(prev => {
-            const newSet = new Set(prev)
-            newSet.delete(u.id)
-            return newSet
-          })
-        }, 200)
-      }, delay)
+  const triggerShooting = useCallback(async(units: any[]) => {
+    units.forEach(async u => {
+      const delay = Math.random() * MAX_SHOOT_DELAY
+
+      await sleep(delay)
+      setShootingUnits(prev => new Set(prev).add(u.id))
+
+      await sleep(SHOOT_DURATION)
+      setShootingUnits(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(u.id)
+        return newSet
+      })
     })
   }, [])
 
