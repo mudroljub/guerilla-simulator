@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useLiberatedNeighbors, useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
@@ -27,16 +27,11 @@ const Battle = () => {
     initArmy(region.attackingForces!, Fraction.Partisan, [window.innerWidth * 0.6, window.innerWidth])
   )
 
-  const [winner, setWinner] = useState<Fraction | null>(null)
   const [isAnimating, setIsAnimating] = useState(false)
   const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
   const [shootingUnits, setShootingUnits] = useState<Set<string>>(new Set())
 
-  useEffect(() => {
-    if (isAnimating) return
-    if (germans.length === 0 && partisans.length > 0) setWinner(Fraction.Partisan)
-    else if (partisans.length === 0 && germans.length > 0) setWinner(Fraction.German)
-  }, [germans.length, partisans.length, isAnimating])
+  const hasBothSides = () => partisans.length > 0 && germans.length > 0
 
   const calculateHits = (units: UnitProps[], rollValue: number, fraction: Fraction): number => {
     const normalizedRoll = (rollValue - 1) / 5
@@ -103,7 +98,7 @@ const Battle = () => {
   }
 
   const handleBattleRound = async(rollValue: number) => {
-    if (winner || isAnimating) return
+    if (!hasBothSides() || isAnimating) return
 
     setIsAnimating(true)
 
@@ -174,10 +169,10 @@ const Battle = () => {
         />
       ))}
 
-      {!winner && <Dice className={styles.dice} callback={handleBattleRound} />}
+      {hasBothSides() && <Dice className={styles.dice} callback={handleBattleRound} />}
 
-      {winner && (
-        <EndModal winner={winner} region={region} germans={germans} partisans={partisans} />
+      {!hasBothSides() && (
+        <EndModal region={region} germans={germans} partisans={partisans} />
       )}
       <button className={shared.roundButton} onClick={retreat}>Retreat</button>
     </div>

@@ -4,18 +4,24 @@ import { Fraction, RegionState, Troops } from '../../types/types'
 import { UnitProps } from '../Unit/Unit'
 
 interface Props {
-    winner: Fraction
     germans: UnitProps[]
     partisans: UnitProps[]
     region: RegionState
 }
 
-export default function EndModal({ region, winner, germans, partisans }:Props) {
+export default function EndModal({ region, germans, partisans }:Props) {
   const { dispatch } = useStore()
 
-  const handleFinishBattle = () => {
-    if (!winner) return
-    const survivingArmy = winner === Fraction.German ? germans : partisans
+  const winner = germans.length === 0 && partisans.length > 0
+    ? Fraction.Partisan
+    : partisans.length === 0 && germans.length > 0
+      ? Fraction.German
+      : null
+
+  const endBattle = () => {
+    if (!winner) return null
+
+    const survivingArmy = germans.length > 0 ? germans : partisans
     const survivors: Troops = survivingArmy.reduce((acc, unit) => {
       acc[unit.type] = (acc[unit.type] || 0) + 1
       return acc
@@ -33,7 +39,7 @@ export default function EndModal({ region, winner, germans, partisans }:Props) {
     <div className={shared.blackModal}>
       <h2>{winner === Fraction.Partisan ? 'VICTORY' : 'DEFEAT'}</h2>
       <p>{winner === Fraction.Partisan ? 'Another Yugoslav town has been liberated!' : 'Your forces have suffered a heavy blow.'}</p>
-      <button onClick={handleFinishBattle} className={shared.button}>Back to map</button>
+      <button onClick={endBattle} className={shared.button}>Back to map</button>
     </div>
   )
 }
