@@ -1,12 +1,12 @@
 import classnames from 'classnames'
 import { useStore, useIsAttackable } from '../../store/store'
-import { Fraction } from '../../types/types'
+import { Fraction, GamePhase } from '../../types/types'
 import styles from './Modal.module.scss'
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 
 export default function Modal() {
-  const { dispatch, state: { selected } } = useStore()
+  const { dispatch, state: { selected, phase } } = useStore()
   const attackable = useIsAttackable(selected?.name || '')
 
   if (!selected) return null
@@ -44,7 +44,7 @@ export default function Modal() {
           selected.attackingForces && <Units troops={selected.attackingForces} fraction={Fraction.Partisan} />
         }
 
-        {attackable && <AttackOptions region={selected} />}
+        {phase === GamePhase.ATTACK_PHASE && attackable && <AttackOptions region={selected} />}
       </div>
     </div>
   )

@@ -166,8 +166,7 @@ npm start
 			- opcija na koje susedno oslobođeno mesto se povlači ✓ 
 			- stilizovati dugmiće i inpute bazično ✓
 		- "send troops" da postane "send more troops" kad već ima poslatih trupa ✓
-		- reuse reduce util
-		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad)
+		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad) ✓
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
 	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja
@@ -206,7 +205,6 @@ npm start
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
 - mapa preliva sa ekrana?
 - trenutno može borba i u fazi mobilizacije
-- nakon povlačenja moguće sa istim trupama ponovo napadati - rešenje ne vraćati se na mapu već sledeća bitka ili sledeća faza
 
 ### Završno
 
