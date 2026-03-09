@@ -59,14 +59,19 @@ export function reducer(state: MapState, action: Action): MapState {
         selected,
       }
     }
-
     case 'END_TURN': {
-      const hasAttackingForces = Object.values(state.regionDict).some(
-        region => region.attackingForces && Object.values(region.attackingForces).some(count => count > 0)
-      )
+      const attackingRegions = Object.values(state.regionDict)
+        .filter(region =>
+          region.attackingForces && Object.values(region.attackingForces).some(count => count > 0)
+        )
 
-      if (hasAttackingForces)
-        return reducer(state, { type: 'START_COMBAT_PHASE' })
+      if (attackingRegions.length > 0)
+        return {
+          ...state,
+          battleQueue: attackingRegions.map(r => r.name),
+          phase: GamePhase.COMBAT_PHASE,
+          selected: null
+        }
 
       return {
         ...state,
@@ -154,7 +159,7 @@ export function reducer(state: MapState, action: Action): MapState {
         regionDict,
         battleQueue,
         phase: isQueueEmpty ? GamePhase.MOBILIZATION : state.phase,
-        selected: fallbackRegion,
+        selected: regionDict[retreatingRegion],
         selectedAttackingRegion: undefined,
       }
     }

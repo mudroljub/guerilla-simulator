@@ -165,6 +165,7 @@ npm start
 			- odvojiti modal i još nešto iz battle? ✓
 			- opcija na koje susedno oslobođeno mesto se povlači ✓ 
 		- send troop da postane send more troops kad već ima trupa
+		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad)
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
 	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja
