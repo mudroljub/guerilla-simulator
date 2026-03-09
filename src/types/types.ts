@@ -49,7 +49,7 @@ export interface RegionState extends RegionData {
 export enum GamePhase {
   ATTACK_PHASE = 'ATTACK_PHASE',
   COMBAT_PHASE = 'COMBAT_PHASE',
-  MOBILIZATION = 'MOBILIZATION',
+  MOBILIZATION_PHASE = 'MOBILIZATION_PHASE',
   BOMBARDMENT = 'BOMBARDMENT',
 }
 

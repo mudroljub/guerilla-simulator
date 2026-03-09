@@ -66,7 +66,7 @@ export function reducer(state: MapState, action: Action): MapState {
 
       return {
         ...state,
-        phase: GamePhase.MOBILIZATION,
+        phase: GamePhase.MOBILIZATION_PHASE,
         selected: null
       }
     }
@@ -89,7 +89,7 @@ export function reducer(state: MapState, action: Action): MapState {
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
       const isQueueEmpty = battleQueue.length === 0
-      const phase = isQueueEmpty ? GamePhase.MOBILIZATION : state.phase
+      const phase = isQueueEmpty ? GamePhase.MOBILIZATION_PHASE : state.phase
 
       return {
         ...state,
@@ -134,7 +134,7 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         regionDict,
         battleQueue,
-        phase: battleQueue.length === 0 ? GamePhase.MOBILIZATION : state.phase,
+        phase: battleQueue.length === 0 ? GamePhase.MOBILIZATION_PHASE : state.phase,
         selected: regionDict[retreatingRegion],
         selectedAttackingRegion: undefined
       }
