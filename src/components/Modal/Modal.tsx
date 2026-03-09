@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import { useStore, useIsAttackable } from '../../store/store'
 import { Fraction, GamePhase } from '../../types/types'
 import styles from './Modal.module.scss'
+import shared from '../../assets/styles/shared.module.scss'
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 
@@ -27,7 +28,7 @@ export default function Modal() {
       <div className={styles.modalBox}>
         <button
           onClick={() => dispatch({ type: 'DESELECT_REGION' })}
-          className={styles.closeButton}
+          className={shared.closeButton}
         >
           ×
         </button>

@@ -14,17 +14,6 @@
   border: 2px solid $olive-dark;
 }
 
-.closeButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: $black;
-}
-
 .title {
   margin-top: 0;
   margin-bottom: 0;
@@ -45,7 +34,7 @@
 }
 
 .flag {
-  width: 3rem;
+  width: 2.25rem;
   vertical-align: middle;
 }
 
