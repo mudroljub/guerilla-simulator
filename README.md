@@ -161,8 +161,9 @@ npm start
 		- tipografija, dugmići, prozori u shared ✓
 		- dodati dugme za bežanje ✓
 			- akcija šalje trenutni garnizon, region za povlačenje partizana i broj partizana koji se povlače ✓
-			- opcija na koje susedno oslobođeno mesto se povlači 
 			- odvojiti modal i još nešto iz battle?
+			- ukinuti winner?
+			- opcija na koje susedno oslobođeno mesto se povlači 
 		- send troop da postane send more troops kad već ima trupa
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?

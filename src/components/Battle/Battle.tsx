@@ -8,6 +8,7 @@ import { Fraction, Troops } from '../../types/types'
 import { roll } from '../../utils/math'
 import { initArmy } from './utils'
 import { UNIT_STRENGTH } from '../../config/units'
+import EndModal from './EndModal'
 
 const REMOVAL_TIME = 1500
 const MAX_MODIFIER_PERCENT = 1 / 2
@@ -123,22 +124,6 @@ const Battle = () => {
     setIsAnimating(false)
   }
 
-  const handleFinishBattle = () => {
-    if (!winner) return
-    const survivingArmy = winner === Fraction.German ? germans : partisans
-    const survivors: Troops = survivingArmy.reduce((acc, unit) => {
-      acc[unit.type] = (acc[unit.type] || 0) + 1
-      return acc
-    }, {} as Troops)
-
-    dispatch({
-      type: 'END_BATTLE',
-      regionName: region.name,
-      winner,
-      survivors
-    })
-  }
-
   const retreat = () => {
     const garrison: Troops = germans.reduce((acc, unit) => {
       acc[unit.type] = (acc[unit.type] || 0) + 1
@@ -192,11 +177,7 @@ const Battle = () => {
       {!winner && <Dice className={styles.dice} callback={handleBattleRound} />}
 
       {winner && (
-        <div className={shared.blackModal}>
-          <h2>{winner === Fraction.Partisan ? 'VICTORY' : 'DEFEAT'}</h2>
-          <p>{winner === Fraction.Partisan ? 'Another Yugoslav town has been liberated!' : 'Your forces have suffered a heavy blow.'}</p>
-          <button onClick={handleFinishBattle} className={shared.button}>Back to map</button>
-        </div>
+        <EndModal winner={winner} region={region} germans={germans} partisans={partisans} />
       )}
       <button className={shared.roundButton} onClick={retreat}>Retreat</button>
     </div>
