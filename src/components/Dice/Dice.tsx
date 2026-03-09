@@ -39,6 +39,7 @@ export default function DiceButton({ className, callback }: Props) {
       <button
         className={classNames(styles.button, className)}
         onClick={rollDice}
+        disabled={rolling}
       >
         {rolling || value === null ? (
           <span className={classNames(styles.icon, { [styles.rolling]: rolling })}>

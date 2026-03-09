@@ -1,15 +1,15 @@
 import shared from '../../assets/styles/shared.module.scss'
 import { useStore } from '../../store/store'
-import { Fraction, RegionState, Troops } from '../../types/types'
+import { Fraction, Troops } from '../../types/types'
 import { UnitProps } from '../Unit/Unit'
 
 interface Props {
     germans: UnitProps[]
     partisans: UnitProps[]
-    region: RegionState
+    regionName: string
 }
 
-export default function EndModal({ region, germans, partisans }:Props) {
+export default function EndModal({ regionName, germans, partisans }:Props) {
   const { dispatch } = useStore()
 
   const winner = germans.length === 0 && partisans.length > 0
@@ -29,7 +29,7 @@ export default function EndModal({ region, germans, partisans }:Props) {
 
     dispatch({
       type: 'END_BATTLE',
-      regionName: region.name,
+      regionName,
       winner,
       survivors
     })

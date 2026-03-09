@@ -8,6 +8,7 @@ import Unit from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction, Troops } from '../../types/types'
 import EndModal from './EndModal'
+import BattleUI from './BattleUI'
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -74,11 +75,7 @@ const Battle = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Battle for {region.name}</h1>
-
-      <div className={styles.scoreBoard}>
-        <div>Germans: {germans.length} Partisans: {partisans.length}</div>
-      </div>
+      <BattleUI regionName={region.name} germans={germans.length} partisans={partisans.length} />
 
       {[...germans, ...partisans].map(u => (
         <Unit
@@ -94,7 +91,7 @@ const Battle = () => {
       )}
 
       {!hasBothSides && (
-        <EndModal region={region} germans={germans} partisans={partisans} />
+        <EndModal regionName={region.name} germans={germans} partisans={partisans} />
       )}
 
       <button className={shared.roundButton} onClick={retreat}>
