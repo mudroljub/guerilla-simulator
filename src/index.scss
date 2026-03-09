@@ -1,8 +1,9 @@
+@use './assets/styles/const.scss' as *;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  color: $black;
+  font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
@@ -11,9 +12,14 @@ body {
 button, input, select {
   cursor: pointer;
   font-family: inherit;
+  font-size: inherit;
 }
 
 input, select {
   border: none;
   background-color: white;
+}
+
+button {
+  text-transform: uppercase;
 }

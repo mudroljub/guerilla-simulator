@@ -1,9 +1,14 @@
 @use "sass:color";
 @use '../../assets/styles/const.scss' as *;
 
-/* BUTTONS */
 
 .button {
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  font-weight: bold;
   margin-top: 10px;
   padding: 0.5rem 1rem;
   background: $rose;
@@ -15,6 +20,27 @@
     background: color.adjust($rose, $lightness: -15%);
     transform: scale(1.1) rotate(-2deg);
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    background: $ash;
+    color: color.adjust($ash, $lightness: -30%);
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.confirmButton {
+  @extend .button;
+  background: $olive-dark;
+
+  &:hover {
+    background: color.adjust($olive-dark, $lightness: -10%);
+    transform: scale(1.1) rotate(2deg);
+  }
 }
 
 .roundButton {
@@ -25,34 +51,47 @@
   width: 5rem;
   border-radius: 50%;
   font-weight: bold;
-  text-transform: uppercase;
   background-color: $ash;
+  color: $black;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  border: 2px solid $olive-dark;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
 
-/* MODALS */
+  &:hover {
+    background-color: $white;
+    transform: scale(1.05);
+  }
+}
 
 .blackModal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba($black, 0.95);
   padding: 2rem;
-  border-radius: 1rem;
-  z-index: 9;
-  min-width: 300px;
+  border: 2px solid $olive-dark;
+  border-radius: 0.5rem;
+  z-index: 100;
+  min-width: 320px;
+  text-align: center;
+  box-shadow: 0 0 50px rgba($black, 0.8);
   
   h2 {
     margin: 0 0 1rem 0;
     color: $rose;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
   
   p {
     margin: 0 0 1.5rem 0;
-    color: $rose;
+    color: $ash;
+    line-height: 1.4;
   }
 }
 
@@ -63,6 +102,10 @@
   transform: translateX(-50%);
   margin-top: 0;
   background: $legend;
-  padding: 0.75rem 1rem;
+  color: $olive-dark;
+  padding: 0.75rem 1.5rem;
   border: 2px solid $olive-dark;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba($black, 0.2);
 }

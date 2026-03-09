@@ -8,6 +8,7 @@ const EndTurn = () => {
   const { dispatch, state: { phase, regionDict } } = useStore()
   const [isConfirming, setIsConfirming] = useState(false)
 
+  // Resetuje stanje potvrde pri svakoj promeni faze
   useEffect(() => {
     setIsConfirming(false)
   }, [phase])
@@ -21,7 +22,7 @@ const EndTurn = () => {
     setIsConfirming(false)
   }
 
-  const onInitialClick = () => {
+  const onNextClick = () => {
     if (phase === GamePhase.ATTACK_PHASE && !hasAttacks)
       setIsConfirming(true)
     else
@@ -31,13 +32,21 @@ const EndTurn = () => {
 
   if (isConfirming)
     return (
-      <div className={styles.confirmWrapper}>
-        <p>No battles started. End turn?</p>
+      <div className={shared.blackModal}>
+        <h2>No battles!</h2>
+        <p>You haven't planned any attacks. <br /> End turn anyway?</p>
+
         <div className={styles.buttons}>
-          <button onClick={handleEndTurn} className={shared.button}>
+          <button
+            onClick={handleEndTurn}
+            className={shared.confirmButton}
+          >
             Yes
           </button>
-          <button onClick={() => setIsConfirming(false)} className={shared.button}>
+          <button
+            onClick={() => setIsConfirming(false)}
+            className={shared.button}
+          >
             No
           </button>
         </div>
@@ -45,8 +54,8 @@ const EndTurn = () => {
     )
 
   return (
-    <button className={shared.roundButton} onClick={onInitialClick}>
-      Next phase
+    <button className={shared.roundButton} onClick={onNextClick}>
+      Next
     </button>
   )
 }
