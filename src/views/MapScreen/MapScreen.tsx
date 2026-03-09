@@ -6,6 +6,7 @@ import styles from '../../App.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
 import Modal from '../../components/Modal/Modal'
 import { useStore } from '../../store/store'
+import EndTurn from './EndTurn'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
@@ -15,19 +16,23 @@ export const message: Record<GamePhase, string> = {
 }
 
 export default function MapScreen() {
-  const { dispatch, state: { phase } } = useStore()
-  const onClick = () => dispatch({ type: 'END_TURN' })
+  const { state: { phase } } = useStore()
 
   return (
     <>
-      {/* redosled određuje z-index */}
       <MapContainer>
         <Map />
       </MapContainer>
+
       <Modal />
-      <p className={shared.message}>{phase.replace('_', ' ')}: {message[phase]}</p>
+
+      <p className={shared.message}>
+        {phase.replace('_', ' ')}: {message[phase]}
+      </p>
+
       <img className={styles.legend} src={legend} alt="legend" />
-      <button className={shared.roundButton} onClick={onClick}>Next phase</button>
+
+      <EndTurn />
     </>
   )
 }

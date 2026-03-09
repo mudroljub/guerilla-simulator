@@ -169,7 +169,7 @@ npm start
 		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad) ✓
 	- dodati bitku za svaku oblast ✓
 	- EndModal hendlati nerešeno ✓
-	- potvrdi End phase ako nema napada?
+	- potvrdi End phase ako nema napada ✓
 - smanjivati population za svaku (partizansku) mobilizaciju!
 - odvojiti Map container koji hendla skrol ✓
 - Faza bombardovanja 
