@@ -203,6 +203,7 @@ npm start
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
 - mapa preliva sa ekrana?
 - trenutno može borba i u fazi mobilizacije
+- nakon povlačenja moguće sa istim trupama ponovo napadati - rešenje ne vraćati se na mapu već sledeća bitka ili sledeća faza
 
 ### Završno
 

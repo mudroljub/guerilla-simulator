@@ -154,7 +154,7 @@ export function reducer(state: MapState, action: Action): MapState {
         regionDict,
         battleQueue,
         phase: isQueueEmpty ? GamePhase.MOBILIZATION : state.phase,
-        selected: null,
+        selected: fallbackRegion,
         selectedAttackingRegion: undefined,
       }
     }

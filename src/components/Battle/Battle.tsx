@@ -6,9 +6,10 @@ import styles from './Battle.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
 import Unit from '../Unit/Unit'
 import Dice from '../Dice/Dice'
-import { Fraction, Troops } from '../../types/types'
+import { Fraction } from '../../types/types'
 import EndModal from './EndModal'
 import BattleUI from './BattleUI'
+import { mapUnitsToTroops } from '../../utils/helpers'
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -57,18 +58,14 @@ const Battle = () => {
   }
 
   const retreat = () => {
-    const mapToTroops = (units: any[]) => units.reduce((acc, unit) => {
-      acc[unit.type] = (acc[unit.type] || 0) + 1
-      return acc
-    }, {} as Troops)
-
-    const currentGarrison = mapToTroops(germans)
+    const garrison = mapUnitsToTroops(germans)
+    const retreatingTroops = mapUnitsToTroops(partisans)
 
     dispatch({
       type: 'RETREAT',
       regionName: region.name,
-      garrison: currentGarrison,
-      retreatingTroops: currentGarrison,
+      garrison,
+      retreatingTroops,
       retreatingRegion: liberatedNeighbors[0],
     })
   }
