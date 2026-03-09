@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useStore } from '../../store/store'
+import { useLiberatedNeighbors, useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
 import Unit, { UnitProps } from '../Unit/Unit'
@@ -17,6 +17,7 @@ const Battle = () => {
   const { state, dispatch } = useStore()
   const { battleQueue, regionDict } = state
   const region = regionDict[battleQueue[0]]
+  const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
   const [germans, setGermans] = useState<UnitProps[]>(() =>
     initArmy(region.garrison, Fraction.German, [0, window.innerWidth * 0.4])
@@ -138,6 +139,26 @@ const Battle = () => {
     })
   }
 
+  const retreat = () => {
+    const garrison: Troops = germans.reduce((acc, unit) => {
+      acc[unit.type] = (acc[unit.type] || 0) + 1
+      return acc
+    }, {} as Troops)
+
+    const retreatingTroops: Troops = germans.reduce((acc, unit) => {
+      acc[unit.type] = (acc[unit.type] || 0) + 1
+      return acc
+    }, {} as Troops)
+
+    dispatch({
+      type: 'RETREAT',
+      regionName: region.name,
+      garrison,
+      retreatingTroops,
+      retreatingRegion: liberatedNeighbors[0],
+    })
+  }
+
   return (
     <div className={styles.container}>
       <h1>Battle for {region.name}</h1>
@@ -177,6 +198,7 @@ const Battle = () => {
           <button onClick={handleFinishBattle} className={shared.button}>Back to map</button>
         </div>
       )}
+      <button className={shared.roundButton} onClick={retreat}>Retreat</button>
     </div>
   )
 }

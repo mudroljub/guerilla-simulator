@@ -159,8 +159,11 @@ npm start
 		- default ne prebacivati sve jedinice? ✓
 		- obeležiti i oblasti sa kojih se napada ✓
 		- tipografija, dugmići, prozori u shared ✓
-		- dodati dugme za bežanje (i opcija na koje susedno oslobođeno mesto se povlači)
-			- akcija šalje trenutni garnizon, region za povlačenje partizana i broj partizana koji se povlače
+		- dodati dugme za bežanje ✓
+			- akcija šalje trenutni garnizon, region za povlačenje partizana i broj partizana koji se povlače ✓
+			- opcija na koje susedno oslobođeno mesto se povlači 
+			- odvojiti modal i još nešto iz battle?
+		- send troop da postane send more troops kad već ima trupa
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
 	- u svakom krugu prikazivati izveštaj za svaku teritoriju, sa mogućnošću povlačenja

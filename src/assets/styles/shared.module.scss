@@ -26,8 +26,10 @@
   border-radius: 50%;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 0.5rem 1rem;
   background-color: $ash;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MODALS */

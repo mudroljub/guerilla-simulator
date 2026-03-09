@@ -10,7 +10,7 @@ import { useStore } from '../../store/store'
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
   [GamePhase.COMBAT_PHASE]: 'Battles are in progress...',
-  [GamePhase.MOBILIZATION]: 'Deploy new units to your territories.',
+  [GamePhase.MOBILIZATION]: 'Deploy new partisans to your territories.',
   [GamePhase.BOMBARDMENT]: 'Enemy planes are bombing our towns',
 }
 
@@ -25,9 +25,9 @@ export default function MapScreen() {
         <Map />
       </MapContainer>
       <Modal />
-      <p className={shared.message}>{message[phase]}</p>
+      <p className={shared.message}>{phase.replace('_', ' ')}: {message[phase]}</p>
       <img className={styles.legend} src={legend} alt="legend" />
-      <button className={shared.roundButton} onClick={onClick}>End turn</button>
+      <button className={shared.roundButton} onClick={onClick}>Next phase</button>
     </>
   )
 }
