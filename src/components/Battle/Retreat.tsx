@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import shared from '../../assets/styles/shared.module.scss'
+import styles from './Battle.module.scss'
 
 interface Props {
   liberatedNeighbors: string[]
@@ -23,7 +24,7 @@ const Retreat = ({ liberatedNeighbors, onConfirm, disabled }: Props) => {
     )
 
   return (
-    <div>
+    <div className={styles.retreatWrapper}>
       <p>Retreat to:</p>
       <select
         value={selectedRetreatRegion}

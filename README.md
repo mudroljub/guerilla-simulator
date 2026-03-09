@@ -164,7 +164,7 @@ npm start
 			- ukinuti winner ✓
 			- odvojiti modal i još nešto iz battle? ✓
 			- opcija na koje susedno oslobođeno mesto se povlači ✓ 
-			- stilizovati dugmiće i inpute bez klase, bazično
+			- stilizovati dugmiće i inpute bazično ✓
 		- send troop da postane send more troops kad već ima trupa
 		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad)
 	- dodati bitku za svaku oblast ✓
