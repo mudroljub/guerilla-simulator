@@ -7,7 +7,6 @@ export type Action =
     }
   | { type: 'SELECT_REGION'; region: RegionState }
   | { type: 'DESELECT_REGION'; region?: RegionState }
-  | { type: 'START_COMBAT_PHASE' }
   | {
       type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops;
     }
@@ -39,26 +38,18 @@ export function reducer(state: MapState, action: Action): MapState {
 
       const regionDict = {
         ...state.regionDict,
-        [action.attackedRegion]: {
-          ...defender,
-          attackingForces,
-        },
-        [action.attackingRegion]: {
-          ...attacker,
-          garrison,
-        },
+        [action.attackedRegion]: { ...defender, attackingForces },
+        [action.attackingRegion]: { ...attacker, garrison }
       }
-
-      const selected = state.selected
-        ? regionDict[state.selected.name]
-        : null
 
       return {
         ...state,
         regionDict,
-        selected,
+        selected: state.selected ? regionDict[state.selected.name] : null,
+        selectedAttackingRegion: undefined
       }
     }
+
     case 'END_TURN': {
       const attackingRegions = Object.values(state.regionDict)
         .filter(region =>
@@ -77,18 +68,6 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         phase: GamePhase.MOBILIZATION,
         selected: null
-      }
-    }
-
-    case 'START_COMBAT_PHASE': {
-      const battleQueue = Object.values(state.regionDict)
-        .filter(region => region.attackingForces)
-        .map(region => region.name)
-
-      return {
-        ...state,
-        battleQueue,
-        phase: GamePhase.COMBAT_PHASE
       }
     }
 
@@ -129,38 +108,35 @@ export function reducer(state: MapState, action: Action): MapState {
 
     case 'RETREAT': {
       const { regionName, garrison, retreatingRegion, retreatingTroops } = action
-
-      const battleRegion = state.regionDict[regionName]
       const fallbackRegion = state.regionDict[retreatingRegion]
 
       const updatedFallbackGarrison = Object.values(UnitType).reduce((acc, unit) => ({
         ...acc,
-        [unit]: (fallbackRegion.garrison[unit] ?? 0) + (retreatingTroops[unit] ?? 0),
+        [unit]: (fallbackRegion.garrison[unit] ?? 0) + (retreatingTroops[unit] ?? 0)
       }), {} as Troops)
 
       const regionDict = {
         ...state.regionDict,
         [regionName]: {
-          ...battleRegion,
+          ...state.regionDict[regionName],
           garrison,
-          attackingForces: undefined,
+          attackingForces: undefined
         },
         [retreatingRegion]: {
           ...fallbackRegion,
-          garrison: updatedFallbackGarrison,
-        },
+          garrison: updatedFallbackGarrison
+        }
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
-      const isQueueEmpty = battleQueue.length === 0
 
       return {
         ...state,
         regionDict,
         battleQueue,
-        phase: isQueueEmpty ? GamePhase.MOBILIZATION : state.phase,
+        phase: battleQueue.length === 0 ? GamePhase.MOBILIZATION : state.phase,
         selected: regionDict[retreatingRegion],
-        selectedAttackingRegion: undefined,
+        selectedAttackingRegion: undefined
       }
     }
 
