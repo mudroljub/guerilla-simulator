@@ -4,69 +4,46 @@ import shared from '../../assets/styles/shared.module.scss'
 import { useStore, useLiberatedNeighbors } from '../../store/store'
 import { RegionState } from '../../types/types'
 
-interface Props {
-  region: RegionState
-}
-
-export default function AttackOptions({ region }: Props) {
+export default function AttackOptions({ region }: { region: RegionState }) {
   const { state: { regionDict, selectedAttackingRegion }, dispatch } = useStore()
-  const liberatedNeighbors = useLiberatedNeighbors(region.name)
+  const neighbors = useLiberatedNeighbors(region.name)
 
-  const attackingRegion = selectedAttackingRegion || liberatedNeighbors[0]
-  const maxInfantry = regionDict[attackingRegion].garrison.infantry
+  const source = selectedAttackingRegion || neighbors[0]
+  const max = regionDict[source].garrison.infantry
+  const [attackingForce, setAttackingForce] = useState(Math.round(max * 0.5))
 
-  const [attackingForce, setAttackingForce] = useState(Math.round(maxInfantry * 0.5))
+  useEffect(() => setAttackingForce(Math.round(max * 0.5)), [source, max])
 
-  useEffect(() => {
-    setAttackingForce(Math.round(maxInfantry * 0.5))
-  }, [attackingRegion, maxInfantry])
-
-  const attack = () => {
-    dispatch({
-      type: 'ATTACK_REGION',
-      attackedRegion: region.name,
-      attackingRegion,
-      attackingForces: { infantry: attackingForce }
-    })
+  const commonProps = {
+    min: 1,
+    max,
+    value: attackingForce,
+    onChange: (e: any) => setAttackingForce(Number(e.target.value))
   }
 
   return (
     <div>
-      <input
-        type="range"
-        className={styles.range}
-        min={1}
-        max={maxInfantry}
-        value={attackingForce}
-        onChange={e => setAttackingForce(Number(e.target.value))}
-      />
+      <input type="range" className={styles.range} {...commonProps} />
 
       <p className={styles.text}>
-        <span>Attack from</span>{' '}
+        Attack from{' '}
         <select
-          value={attackingRegion}
+          value={source}
           onChange={e => dispatch({ type: 'SELECT_ATTACKING_REGION', regionName: e.target.value })}
         >
-          {liberatedNeighbors.map(opt => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
+          {neighbors.map(n => <option key={n} value={n}>{n}</option>)}
         </select>
         <br/>
 
-        <span>with</span>{' '}
-        <input
-          type="number"
-          min={1}
-          max={maxInfantry}
-          value={attackingForce}
-          onChange={e => setAttackingForce(Number(e.target.value))}
-        />{' '}
-        {attackingForce > 1 ? 'Partisans' : 'Partisan'}
+        with <input type="number" {...commonProps} /> {attackingForce > 1 ? 'Partisans' : 'Partisan'}
       </p>
 
-      <button className={shared.button} onClick={attack}>
+      <button className={shared.button} onClick={() => dispatch({
+        type: 'ATTACK_REGION',
+        attackedRegion: region.name,
+        attackingRegion: source,
+        attackingForces: { infantry: attackingForce }
+      })}>
         Send troops ⚔️
       </button>
     </div>
