@@ -165,7 +165,7 @@ npm start
 			- odvojiti modal i još nešto iz battle? ✓
 			- opcija na koje susedno oslobođeno mesto se povlači ✓ 
 			- stilizovati dugmiće i inpute bazično ✓
-		- send troop da postane send more troops kad već ima trupa
+		- "send troops" da postane "send more troops" kad već ima poslatih trupa ✓
 		- reuse reduce util
 		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad)
 	- dodati bitku za svaku oblast ✓

@@ -12,6 +12,8 @@ export default function AttackOptions({ region }: { region: RegionState }) {
   const max = regionDict[source].garrison.infantry
   const [attackingForce, setAttackingForce] = useState(Math.round(max * 0.5))
 
+  const hasExistingAttack = Object.values(region.attackingForces || {}).some(count => count > 0)
+
   useEffect(() => setAttackingForce(Math.round(max * 0.5)), [source, max])
 
   const commonProps = {
@@ -44,7 +46,7 @@ export default function AttackOptions({ region }: { region: RegionState }) {
         attackingRegion: source,
         attackingForces: { infantry: attackingForce }
       })}>
-        Send troops ⚔️
+        {hasExistingAttack ? 'Send more troops ⚔️' : 'Send troops ⚔️'}
       </button>
     </div>
   )
