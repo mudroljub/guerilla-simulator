@@ -17,28 +17,6 @@
   transform: translateX(-50%);
 }
 
-.victoryScreen {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.9);
-  padding: 2rem;
-  border-radius: 1rem;
-  z-index: 9;
-  min-width: 300px;
-  
-  h2 {
-    margin: 0 0 1rem 0;
-    color: $rose;
-  }
-  
-  p {
-    margin: 0 0 1.5rem 0;
-    color: $rose;
-  }
-}
-
 .retreatWrapper {
   position: relative;
 }

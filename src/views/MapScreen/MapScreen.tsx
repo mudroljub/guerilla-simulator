@@ -10,7 +10,7 @@ import EndTurn from './EndTurn'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
-  [GamePhase.COMBAT_PHASE]: 'Battles are in progress...',
+  [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
   [GamePhase.MOBILIZATION_PHASE]: 'Deploy new partisans to your territories.',
   [GamePhase.BOMBARDMENT]: 'Enemy planes are bombing our towns',
 }

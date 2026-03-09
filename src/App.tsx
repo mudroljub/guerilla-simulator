@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <MapScreen />
+      {phase !== GamePhase.COMBAT_PHASE && <MapScreen />}
       {phase === GamePhase.COMBAT_PHASE && <BattleScreen />}
     </>
   )
