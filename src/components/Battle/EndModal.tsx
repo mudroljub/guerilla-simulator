@@ -67,7 +67,7 @@ export default function EndModal({ regionName, germans, partisans }: Props) {
         </div>
 
         <button onClick={endBattle} className={shared.button}>
-          Continue War
+          Continue
         </button>
       </div>
     </div>

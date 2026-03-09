@@ -3,12 +3,12 @@ import { useLiberatedNeighbors, useStore } from '../../store/store'
 import { useBattleLogic } from '../../hooks/useBattleLogic'
 import { useBattleAnimations } from '../../hooks/useBattleAnimations'
 import styles from './Battle.module.scss'
-import shared from '../../assets/styles/shared.module.scss'
 import Unit from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction } from '../../types/types'
 import EndModal from './EndModal'
 import BattleUI from './BattleUI'
+import Retreat from './Retreat' // Novi uvoz
 import { mapUnitsToTroops } from '../../utils/helpers'
 
 const Battle = () => {
@@ -18,8 +18,6 @@ const Battle = () => {
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
   const [isAnimating, setIsAnimating] = useState(false)
-  const [isRetreating, setIsRetreating] = useState(false)
-  const [selectedRetreatRegion, setSelectedRetreatRegion] = useState(liberatedNeighbors[0] || '')
 
   const {
     germans, setGermans, partisans, setPartisans,
@@ -34,11 +32,8 @@ const Battle = () => {
     if (!hasBothSides || isAnimating) return
     setIsAnimating(true)
 
-    const pHits = calculateHits(partisans, rollValue, Fraction.Partisan)
-    const gHits = calculateHits(germans, rollValue, Fraction.German)
-
-    const gVictims = getVictims(germans, pHits)
-    const pVictims = getVictims(partisans, gHits)
+    const gVictims = getVictims(germans, calculateHits(partisans, rollValue, Fraction.Partisan))
+    const pVictims = getVictims(partisans, calculateHits(germans, rollValue, Fraction.German))
 
     triggerShooting([...germans, ...partisans])
 
@@ -50,18 +45,13 @@ const Battle = () => {
     setIsAnimating(false)
   }
 
-  const confirmRetreat = () => {
-    if (!selectedRetreatRegion) return
-
-    const garrison = mapUnitsToTroops(germans)
-    const retreatingTroops = mapUnitsToTroops(partisans)
-
+  const handleRetreat = (targetRegion: string) => {
     dispatch({
       type: 'RETREAT',
       regionName: region.name,
-      garrison,
-      retreatingTroops,
-      retreatingRegion: selectedRetreatRegion,
+      garrison: mapUnitsToTroops(germans),
+      retreatingTroops: mapUnitsToTroops(partisans),
+      retreatingRegion: targetRegion,
     })
   }
 
@@ -82,7 +72,7 @@ const Battle = () => {
         />
       ))}
 
-      {hasBothSides && !isRetreating && (
+      {hasBothSides && (
         <Dice className={styles.dice} callback={handleBattleRound} />
       )}
 
@@ -90,37 +80,11 @@ const Battle = () => {
         <EndModal regionName={region.name} germans={germans} partisans={partisans} />
       )}
 
-      <div className={styles.controls}>
-        {!isRetreating ? (
-          <button
-            className={shared.roundButton}
-            onClick={() => setIsRetreating(true)}
-            disabled={isAnimating || liberatedNeighbors.length === 0}
-          >
-            Retreat
-          </button>
-        ) : (
-          <div className={styles.retreatConfirm}>
-            <p>Retreat to:</p>
-            <select
-              value={selectedRetreatRegion}
-              onChange={e => setSelectedRetreatRegion(e.target.value)}
-            >
-              {liberatedNeighbors.map(n => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </select>
-            <div className={styles.buttonGroup}>
-              <button onClick={confirmRetreat} className={shared.confirmButton}>
-                Confirm
-              </button>
-              <button onClick={() => setIsRetreating(false)} className={shared.cancelButton}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+      <Retreat
+        liberatedNeighbors={liberatedNeighbors}
+        onConfirm={handleRetreat}
+        disabled={isAnimating || liberatedNeighbors.length === 0}
+      />
     </div>
   )
 }
