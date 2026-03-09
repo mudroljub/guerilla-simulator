@@ -13,6 +13,7 @@ export type Action =
     }
   | { type: 'END_TURN' }
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
+  | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -120,6 +121,43 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         selectedAttackingRegion: action.regionName
       }
+
+    case 'RETREAT': {
+      const { regionName, garrison, retreatingRegion, retreatingTroops } = action
+
+      const battleRegion = state.regionDict[regionName]
+      const fallbackRegion = state.regionDict[retreatingRegion]
+
+      const updatedFallbackGarrison = Object.values(UnitType).reduce((acc, unit) => ({
+        ...acc,
+        [unit]: (fallbackRegion.garrison[unit] ?? 0) + (retreatingTroops[unit] ?? 0),
+      }), {} as Troops)
+
+      const regionDict = {
+        ...state.regionDict,
+        [regionName]: {
+          ...battleRegion,
+          garrison,
+          attackingForces: undefined,
+        },
+        [retreatingRegion]: {
+          ...fallbackRegion,
+          garrison: updatedFallbackGarrison,
+        },
+      }
+
+      const battleQueue = state.battleQueue.filter(name => name !== regionName)
+      const isQueueEmpty = battleQueue.length === 0
+
+      return {
+        ...state,
+        regionDict,
+        battleQueue,
+        phase: isQueueEmpty ? GamePhase.MOBILIZATION : state.phase,
+        selected: null,
+        selectedAttackingRegion: undefined,
+      }
+    }
 
     default:
       return state
