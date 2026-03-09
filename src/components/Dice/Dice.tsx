@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import classNames from 'classnames'
+import classnames from 'classnames'
 import styles from './Dice.module.scss'
 import { roll } from '../../utils/math'
 
@@ -37,18 +37,18 @@ export default function DiceButton({ className, callback }: Props) {
   return (
     <div className={styles.wrapper}>
       <button
-        className={classNames(styles.button, className)}
+        className={classnames(styles.button, className)}
         onClick={rollDice}
         disabled={rolling}
       >
         {rolling || value === null ? (
-          <span className={classNames(styles.icon, { [styles.rolling]: rolling })}>
+          <span className={classnames(styles.icon, { [styles.rolling]: rolling })}>
             🎲
           </span>
         ) : (
           <div className={styles.dice}>
             {faces[value].map(p => (
-              <span key={p} className={classNames(styles.dot, styles[`p${p}`])} />
+              <span key={p} className={classnames(styles.dot, styles[`p${p}`])} />
             ))}
           </div>
         )}
