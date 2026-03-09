@@ -1,56 +1,32 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Modal.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
 import { useStore, useLiberatedNeighbors } from '../../store/store'
 import { RegionState } from '../../types/types'
 
 interface Props {
-  region: RegionState;
+  region: RegionState
 }
 
 export default function AttackOptions({ region }: Props) {
   const { state: { regionDict, selectedAttackingRegion }, dispatch } = useStore()
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
-  const attackingRegion = selectedAttackingRegion ?? liberatedNeighbors[0]
 
-  const defaultAttackForce = Math.round(regionDict[attackingRegion].garrison.infantry * 0.5)
-  const [attackingForce, setAttackingForce] = useState(defaultAttackForce)
+  const attackingRegion = selectedAttackingRegion || liberatedNeighbors[0]
+  const maxInfantry = regionDict[attackingRegion].garrison.infantry
 
-  const setSelectedRegion = useCallback((value: string) => {
-    dispatch({
-      type: 'SELECT_ATTACKING_REGION',
-      regionName: value,
-    })
-  }, [dispatch])
+  const [attackingForce, setAttackingForce] = useState(Math.round(maxInfantry * 0.5))
 
   useEffect(() => {
-    if (!selectedAttackingRegion)
-      dispatch({
-        type: 'SELECT_ATTACKING_REGION',
-        regionName: liberatedNeighbors[0],
-      })
-  }, [dispatch, liberatedNeighbors, selectedAttackingRegion])
-
-  useEffect(() => {
-    if (attackingRegion)
-      setAttackingForce(defaultAttackForce)
-
-  }, [attackingRegion, defaultAttackForce])
-
-  useEffect(() => {
-    if (!liberatedNeighbors.includes(attackingRegion))
-      setSelectedRegion(liberatedNeighbors[0])
-  }, [liberatedNeighbors, attackingRegion, setSelectedRegion])
+    setAttackingForce(Math.round(maxInfantry * 0.5))
+  }, [attackingRegion, maxInfantry])
 
   const attack = () => {
-    if (!attackingRegion) return
     dispatch({
       type: 'ATTACK_REGION',
       attackedRegion: region.name,
       attackingRegion,
-      attackingForces: {
-        infantry: attackingForce,
-      },
+      attackingForces: { infantry: attackingForce }
     })
   }
 
@@ -60,36 +36,37 @@ export default function AttackOptions({ region }: Props) {
         type="range"
         className={styles.range}
         min={1}
-        max={attackingRegion ? regionDict[attackingRegion].garrison.infantry : 1}
+        max={maxInfantry}
         value={attackingForce}
         onChange={e => setAttackingForce(Number(e.target.value))}
       />
+
       <p className={styles.text}>
         <span>Attack from</span>{' '}
         <select
           value={attackingRegion}
-          onChange={e => setSelectedRegion(e.target.value)}
+          onChange={e => dispatch({ type: 'SELECT_ATTACKING_REGION', regionName: e.target.value })}
         >
           {liberatedNeighbors.map(opt => (
             <option key={opt} value={opt}>
               {opt}
             </option>
           ))}
-        </select><br/>
+        </select>
+        <br/>
+
         <span>with</span>{' '}
         <input
           type="number"
           min={1}
-          max={attackingRegion ? regionDict[attackingRegion].garrison.infantry : 1}
+          max={maxInfantry}
           value={attackingForce}
           onChange={e => setAttackingForce(Number(e.target.value))}
         />{' '}
         {attackingForce > 1 ? 'Partisans' : 'Partisan'}
       </p>
-      <button
-        className={shared.button}
-        onClick={attack}
-      >
+
+      <button className={shared.button} onClick={attack}>
         Send troops ⚔️
       </button>
     </div>

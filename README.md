@@ -166,6 +166,7 @@ npm start
 			- opcija na koje susedno oslobođeno mesto se povlači ✓ 
 			- stilizovati dugmiće i inpute bazično ✓
 		- send troop da postane send more troops kad već ima trupa
+		- reuse reduce util
 		- zabraniti send troop u fazi mobilizacije (tj. kada nije napad)
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?
