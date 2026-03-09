@@ -1,6 +1,8 @@
 @use "sass:color";
 @use '../../assets/styles/const.scss' as *;
 
+/* BUTTONS */
+
 .button {
   margin-top: 10px;
   padding: 0.5rem 1rem;
@@ -14,6 +16,21 @@
     transform: scale(1.1) rotate(-2deg);
   }
 }
+
+.roundButton {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  background-color: $ash;
+}
+
+/* MODALS */
 
 .blackModal {
   position: fixed;
@@ -37,3 +54,13 @@
   }
 }
 
+.message {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
+  background: $legend;
+  padding: 0.75rem 1rem;
+  border: 2px solid $olive-dark;
+}

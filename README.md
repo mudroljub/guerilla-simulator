@@ -158,7 +158,7 @@ npm start
 		- info o stanju trupa sa obe strane ✓
 		- default ne prebacivati sve jedinice? ✓
 		- obeležiti i oblasti sa kojih se napada ✓
-		- tipografija, dugmići, prozori u shared
+		- tipografija, dugmići, prozori u shared ✓
 		- dodati dugme za bežanje
 	- dodati bitku za svaku oblast ✓
 	- bitke da traju više krugova? mogu dolaziti pojačanja?

@@ -2,6 +2,7 @@ import Map from './components/Map/Map'
 import MapContainer from './components/Map/MapContainer'
 import legend from './assets/images/legenda.webp'
 import styles from './App.module.scss'
+import shared from './assets/styles/shared.module.scss'
 import { useStore } from './store/store'
 import Modal from './components/Modal/Modal'
 import Battle from './components/Battle/Battle'
@@ -27,9 +28,9 @@ function App() {
         <Map />
       </MapContainer>
       <Modal />
-      <p className={styles.message}>{message[phase]}</p>
+      <p className={shared.message}>{message[phase]}</p>
       <img className={styles.legend} src={legend} alt="legend" />
-      <button className={styles.button} onClick={onClick}>End turn</button>
+      <button className={shared.roundButton} onClick={onClick}>End turn</button>
 
       {phase === GamePhase.COMBAT_PHASE && (
         <Battle key={battleQueue[0]} />
