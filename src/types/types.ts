@@ -56,6 +56,15 @@ export enum GamePhase {
   BOMBARDMENT = 'BOMBARDMENT',
 }
 
+export interface BombardmentEvent {
+  sourceId: string
+  targets: {
+    regionId: string
+    interceptChance: number
+    neededRoll: number
+  }[]
+}
+
 /** COMPONENTS */
 
 export type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>

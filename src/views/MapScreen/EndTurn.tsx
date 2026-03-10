@@ -17,7 +17,7 @@ const EndTurn = () => {
   )
 
   const handleEndTurn = () => {
-    dispatch({ type: 'END_TURN' })
+    dispatch({ type: 'NEXT_PHASE' })
     setIsConfirming(false)
   }
 
