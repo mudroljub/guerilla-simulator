@@ -180,11 +180,12 @@ npm start
 	- smanjivati population za svaku (partizansku) mobilizaciju ✓
 - Faza bombardovanja 
 	- osmisliti logiku ✓
-		- iz većih gradova avioni bombarduju okolna mesta
-		- partizani imaju malu šansu da obore avion (broj jedinica + bacanje kocke)
+		- iz većih gradova avioni bombarduju okolna mesta ✓
+		- partizani imaju malu šansu da obore avion ✓ (bacanje kocke?)
 	- ažurirati reducer ✓
-	- napraviti animaciju aviona po eliptičnoj putanji
-	- uklopiti animaciju u logiku bombardovanja
+	- napraviti animaciju aviona po eliptičnoj putanji ✓
+	- uklopiti animaciju u logiku bombardovanja ✓
+	- dodati prave ikonice aviona
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?

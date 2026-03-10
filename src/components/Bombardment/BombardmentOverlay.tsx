@@ -53,7 +53,7 @@ const BombardmentOverlay: React.FC = () => {
                   <div key={t.regionName} className={styles.reportTarget}>
                     {t.isShotDown
                       ? ` 💥 Aircraft shot down over ${t.regionName}!`
-                      : ` 💣 ${t.regionName} sustained -${t.damage} casualties.`}
+                      : ` 💣 ${t.damage} partisans killed in ${t.regionName} region.`}
                   </div>
                 ))}
               </div>
