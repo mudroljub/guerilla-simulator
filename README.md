@@ -176,8 +176,8 @@ npm start
  	- dodati nova polja (initialPopulation, totalMobilized) ✓
 	- ažurirati reducer ✓
 	- dodati animacije ✓
-	- dodati izveštaj i poruke
-	- smanjivati population za svaku (partizansku) mobilizaciju
+	- dodati izveštaj/poruku ✓
+	- smanjivati population za svaku (partizansku) mobilizaciju ✓
 - Faza bombardovanja 
 	- animacija aviona po putanji.
 	- pesadija ima malu sansu da obori avion. 

@@ -12,12 +12,25 @@ import MobilizationOverlay from '../../components/Region/MobilizationOverlay'
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
   [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
-  [GamePhase.MOBILIZATION_PHASE]: 'Deploy new partisans to your territories.',
+  [GamePhase.MOBILIZATION_PHASE]: 'New volunteers are joining the resistance!',
   [GamePhase.BOMBARDMENT]: 'Enemy planes are bombing our towns',
 }
 
 export default function MapScreen() {
-  const { state: { phase } } = useStore()
+  const { state: { phase, regionDict } } = useStore()
+
+  const getTotalMobilized = () => Object.values(regionDict).reduce((acc, region) => acc + region.lastMobilizedCount, 0)
+
+  const getMessage = () => {
+    const baseMessage = message[phase]
+
+    if (phase === GamePhase.MOBILIZATION_PHASE) {
+      const total = getTotalMobilized()
+      return `${total.toLocaleString()} new volunteers have joined the National Liberation Army of Yugoslavia!`
+    }
+
+    return baseMessage
+  }
 
   return (
     <>
@@ -29,7 +42,7 @@ export default function MapScreen() {
       <Modal />
 
       <p className={shared.message}>
-        {phase.replace('_', ' ')}: {message[phase]}
+        {phase.replace('_', ' ')}: {getMessage()}
       </p>
 
       <img className={styles.legend} src={legend} alt="legend" />
