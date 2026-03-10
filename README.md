@@ -179,8 +179,12 @@ npm start
 	- dodati izveštaj/poruku ✓
 	- smanjivati population za svaku (partizansku) mobilizaciju ✓
 - Faza bombardovanja 
-	- animacija aviona po putanji.
-	- pesadija ima malu sansu da obori avion. 
+	- osmisliti logiku ✓
+		- iz većih gradova avioni bombarduju okolna mesta
+		- partizani imaju malu šansu da obore avion (broj jedinica + bacanje kocke)
+	- ažurirati reducer ✓
+	- napraviti animaciju aviona po eliptičnoj putanji
+	- uklopiti animaciju u logiku bombardovanja
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?
