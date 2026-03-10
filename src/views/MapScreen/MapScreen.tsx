@@ -7,6 +7,7 @@ import shared from '../../assets/styles/shared.module.scss'
 import Modal from '../../components/Modal/Modal'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
+import { MobilizationOverlay } from '../../components/Region/MobilizationEffect'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
@@ -16,12 +17,15 @@ export const message: Record<GamePhase, string> = {
 }
 
 export default function MapScreen() {
-  const { state: { phase } } = useStore()
+  const { state: { phase, regionDict } } = useStore()
 
   return (
     <>
       <MapContainer>
         <Map />
+        {phase === GamePhase.MOBILIZATION_PHASE && (
+          <MobilizationOverlay regionDict={regionDict} />
+        )}
       </MapContainer>
 
       <Modal />

@@ -42,8 +42,9 @@ export enum Fraction {
 export interface RegionState extends RegionData {
   fraction: Fraction;
   garrison: Troops;
-  attackingForces?: Troops;
   totalMobilized: number;
+  attackingForces?: Troops;
+  lastMobilizedCount?: number;
 }
 
 /** GAME PHASES */

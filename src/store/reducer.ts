@@ -153,20 +153,20 @@ export function reducer(state: MapState, action: Action): MapState {
         const region = state.regionDict[regionId]
 
         if (region.fraction !== Fraction.Partisan) {
-          acc[regionId] = region
+          acc[regionId] = { ...region, lastMobilizedCount: 0 }
           return acc
         }
 
         const limit = Math.floor(region.initialPopulation * MAX_LIMIT_PERCENT)
         const potential = Math.floor(region.population * MOB_RATE)
         const remainingToMobilize = limit - region.totalMobilized
-
         const actualAdded = Math.max(0, Math.min(potential, remainingToMobilize))
 
         acc[regionId] = {
           ...region,
           population: region.population - actualAdded,
           totalMobilized: region.totalMobilized + actualAdded,
+          lastMobilizedCount: actualAdded,
           garrison: {
             ...region.garrison,
             infantry: region.garrison.infantry + actualAdded,
