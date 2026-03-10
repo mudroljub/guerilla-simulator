@@ -57,7 +57,7 @@ export enum GamePhase {
 }
 
 export type BombardmentTarget = {
-  regionId: string
+  regionName: string
   isShotDown: boolean
   damage: number
 }

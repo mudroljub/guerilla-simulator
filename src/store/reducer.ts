@@ -103,9 +103,9 @@ export function reducer(state: MapState, action: Action): MapState {
 
         if (source.fraction === Fraction.German && aircraftCount > 0 && isMajorCity) {
           const targets: BombardmentTarget[] = source.neighbors
-            .filter(id => state.regionDict[id].fraction === Fraction.Partisan)
-            .map(id => {
-              const targetRegion = state.regionDict[id]
+            .filter(name => state.regionDict[name].fraction === Fraction.Partisan)
+            .map(name => {
+              const targetRegion = state.regionDict[name]
 
               const roll = Math.floor(Math.random() * 6) + 1
               const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
@@ -114,7 +114,7 @@ export function reducer(state: MapState, action: Action): MapState {
               const isShotDown = roll >= neededRoll
               const damage = isShotDown ? 0 : Math.floor(targetRegion.garrison.infantry * (0.05 + Math.random() * 0.05))
 
-              return { regionId: id, isShotDown, damage }
+              return { regionName: name, isShotDown, damage }
             })
 
           if (targets.length > 0)
@@ -154,7 +154,7 @@ export function reducer(state: MapState, action: Action): MapState {
       const newRegionDict = { ...state.regionDict }
 
       event.targets.forEach(t => {
-        const region = newRegionDict[t.regionId]
+        const region = newRegionDict[t.regionName]
         if (t.isShotDown) {
           const source = newRegionDict[event.sourceId]
           newRegionDict[event.sourceId] = {
@@ -165,7 +165,7 @@ export function reducer(state: MapState, action: Action): MapState {
             }
           }
         } else
-          newRegionDict[t.regionId] = {
+          newRegionDict[t.regionName] = {
             ...region,
             garrison: {
               ...region.garrison,
@@ -259,11 +259,11 @@ export function reducer(state: MapState, action: Action): MapState {
       const MOB_RATE = 0.005
       const MAX_LIMIT_PERCENT = 0.15
 
-      const updatedRegions = Object.keys(state.regionDict).reduce((acc, regionId) => {
-        const region = state.regionDict[regionId]
+      const updatedRegions = Object.keys(state.regionDict).reduce((acc, regionName) => {
+        const region = state.regionDict[regionName]
 
         if (region.fraction !== Fraction.Partisan) {
-          acc[regionId] = { ...region, lastMobilizedCount: 0 }
+          acc[regionName] = { ...region, lastMobilizedCount: 0 }
           return acc
         }
 
@@ -272,7 +272,7 @@ export function reducer(state: MapState, action: Action): MapState {
         const remainingToMobilize = limit - region.totalMobilized
         const actualAdded = Math.max(0, Math.min(potential, remainingToMobilize))
 
-        acc[regionId] = {
+        acc[regionName] = {
           ...region,
           population: region.population - actualAdded,
           totalMobilized: region.totalMobilized + actualAdded,

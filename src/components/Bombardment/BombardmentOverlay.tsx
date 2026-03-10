@@ -16,7 +16,7 @@ const BombardmentOverlay: React.FC = () => {
     if (!currentEvent || !regionDict) return ''
     const source = regionDict[currentEvent.sourceId]?.position
     const targets = currentEvent.targets
-      .map(t => regionDict[t.regionId]?.position)
+      .map(t => regionDict[t.regionName]?.position)
       .filter(Boolean) as { x: number, y: number }[]
 
     return source && targets.length > 0 ? getBombardmentPath(source, targets) : ''
@@ -44,16 +44,16 @@ const BombardmentOverlay: React.FC = () => {
     return (
       <div className={styles.reportOverlay}>
         <div className={styles.reportBox}>
-          <h2>IZVJEŠTAJ O BOMBARDOVANJU</h2>
+          <h2>BOMBARDMENT REPORT</h2>
           <div className={styles.reportList}>
             {bombardmentEvents.map((event, i) => (
               <div key={i} className={styles.reportItem}>
-                <strong>{event.sourceId}:</strong>
+                <strong>Bombing from {event.sourceId}:</strong>
                 {event.targets.map(t => (
-                  <div key={t.regionId} className={styles.reportTarget}>
+                  <div key={t.regionName} className={styles.reportTarget}>
                     {t.isShotDown
-                      ? ` 💥 Avion oboren iznad regije ${t.regionId}!`
-                      : ` 💣 ${t.regionId} pretrpio -${t.damage} žrtava.`}
+                      ? ` 💥 Aircraft shot down over ${t.regionName}!`
+                      : ` 💣 ${t.regionName} sustained -${t.damage} casualties.`}
                   </div>
                 ))}
               </div>
@@ -63,7 +63,7 @@ const BombardmentOverlay: React.FC = () => {
             className={styles.continueBtn}
             onClick={() => dispatch({ type: 'NEXT_PHASE' })}
           >
-            Zatvori
+            Close
           </button>
         </div>
       </div>
@@ -89,15 +89,15 @@ const BombardmentOverlay: React.FC = () => {
 
       {currentEvent.targets.map(t => (
         <div
-          key={`${currentBombardmentIndex}-${t.regionId}`}
+          key={`${currentBombardmentIndex}-${t.regionName}`}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
-            left: `${regionDict[t.regionId].position.x}px`,
-            top: `${regionDict[t.regionId].position.y}px`
+            left: `${regionDict[t.regionName].position.x}px`,
+            top: `${regionDict[t.regionName].position.y}px`
           }}
         >
           {t.isShotDown ? (
-            <span className={styles.shotDown}>💥 OBOREN!</span>
+            <span className={styles.shotDown}>💥 SHOT DOWN!</span>
           ) : (
             <span className={styles.damage}>-{t.damage} 🎖️</span>
           )}
