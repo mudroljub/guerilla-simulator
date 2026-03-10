@@ -11,13 +11,13 @@ const BombardmentOverlay: React.FC = () => {
   const [showDamage, setShowDamage] = useState(false)
 
   const pathData = useMemo(() => {
-    if (!currentEvent || !regionDict) return ""
+    if (!currentEvent || !regionDict) return ''
     const source = regionDict[currentEvent.sourceId]?.position
     const targets = currentEvent.targets
       .map(t => regionDict[t.regionId]?.position)
       .filter(Boolean) as {x: number, y: number}[]
 
-    return source && targets.length > 0 ? getBombardmentPath(source, targets) : ""
+    return source && targets.length > 0 ? getBombardmentPath(source, targets) : ''
   }, [currentEvent, regionDict])
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const BombardmentOverlay: React.FC = () => {
         </g>
       </svg>
 
-      {currentEvent.targets.map((t) => (
+      {currentEvent.targets.map(t => (
         <div
           key={t.regionId}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}

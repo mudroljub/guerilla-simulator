@@ -105,20 +105,20 @@ export function reducer(state: MapState, action: Action): MapState {
             .filter(id => state.regionDict[id].fraction === Fraction.Partisan)
             .map(id => {
               const targetRegion = state.regionDict[id]
-              
+
               const roll = Math.floor(Math.random() * 6) + 1
               const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
               const neededRoll = Math.max(2, 7 - Math.floor(rawChance * 6))
-              
+
               const isShotDown = roll >= neededRoll
               const damage = isShotDown ? 0 : Math.floor(targetRegion.garrison.infantry * (0.05 + Math.random() * 0.05))
 
               return { regionId: id, isShotDown, damage }
             })
 
-          if (targets.length > 0) {
+          if (targets.length > 0)
             events.push({ sourceId: source.name, targets: targets.slice(0, 2) })
-          }
+
         }
       })
 
@@ -130,14 +130,13 @@ export function reducer(state: MapState, action: Action): MapState {
         })
         .slice(0, 5)
 
-      if (limitedEvents.length === 0) {
+      if (limitedEvents.length === 0)
         return {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
           bombardmentEvents: [],
           currentBombardmentIndex: 0
         }
-      }
 
       return {
         ...state,
@@ -159,20 +158,20 @@ export function reducer(state: MapState, action: Action): MapState {
           const source = newRegionDict[event.sourceId]
           newRegionDict[event.sourceId] = {
             ...source,
-            garrison: { 
-              ...source.garrison, 
-              aircraft: Math.max(0, (source.garrison.aircraft ?? 0) - 1) 
+            garrison: {
+              ...source.garrison,
+              aircraft: Math.max(0, (source.garrison.aircraft ?? 0) - 1)
             }
           }
-        } else {
+        } else
           newRegionDict[t.regionId] = {
             ...region,
-            garrison: { 
-              ...region.garrison, 
-              infantry: Math.max(0, region.garrison.infantry - t.damage) 
+            garrison: {
+              ...region.garrison,
+              infantry: Math.max(0, region.garrison.infantry - t.damage)
             }
           }
-        }
+
       })
 
       return { ...state, regionDict: newRegionDict }

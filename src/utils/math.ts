@@ -7,21 +7,10 @@ export const range = <T>(length: number, fn: (index: number) => T): T[] =>
 
 export const roll = (): number => Math.floor(Math.random() * 6) + 1
 
-export const getArcPath = (startX: number, startY: number, endX: number, endY: number) => {
-  const midX = (startX + endX) / 2
-  const midY = (startY + endY) / 2
-
-  const offset = 40
-  const controlX = midX
-  const controlY = midY - offset
-
-  return `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`
-}
 export interface Point {
   x: number
   y: number
 }
-
 /**
  * Generiše SVG path string (Bezierova kriva) koji povezuje izvor,
  * sve mete redom i vraća se nazad u izvor praveći eliptični krug.

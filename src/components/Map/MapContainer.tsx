@@ -1,6 +1,7 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import styles from './Map.module.scss'
 import { Position } from '../../types/types'
+import { useStore } from '../../store/store'
 
 interface ScrollPos {
   left: number;
@@ -16,6 +17,35 @@ export default function MapContainer({ children }: Props) {
   const [dragging, setDragging] = useState(false)
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 })
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 })
+  const { state } = useStore()
+  const { bombardmentEvents, currentBombardmentIndex, phase } = state
+
+  useEffect(() => {
+    if (phase === 'BOMBARDMENT' && bombardmentEvents && bombardmentEvents[currentBombardmentIndex ?? 0]) {
+      const currentEvent = bombardmentEvents[currentBombardmentIndex ?? 0]
+      const targetId = currentEvent.targets[0]?.regionId
+      const targetRegion = state.regionDict[targetId]
+
+      if (targetRegion && containerRef.current) {
+        const container = containerRef.current
+
+        const regionX = targetRegion.position.x
+        const regionY = targetRegion.position.y
+
+        const { clientWidth } = container
+        const { clientHeight } = container
+
+        const targetScrollLeft = regionX - clientWidth / 2
+        const targetScrollTop = regionY - clientHeight / 2
+
+        container.scrollTo({
+          left: targetScrollLeft,
+          top: targetScrollTop,
+          behavior: 'smooth'
+        })
+      }
+    }
+  }, [phase, currentBombardmentIndex, bombardmentEvents, state.regionDict])
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return
