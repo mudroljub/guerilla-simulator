@@ -8,6 +8,7 @@ import Modal from '../../components/Modal/Modal'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Region/MobilizationOverlay'
+import BombardmentOverlay from '../../components/Bombardment/BombardmentOverlay'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
@@ -37,6 +38,7 @@ export default function MapScreen() {
       <MapContainer>
         <Map />
         {phase === GamePhase.MOBILIZATION_PHASE && <MobilizationOverlay />}
+        {phase === GamePhase.BOMBARDMENT && <BombardmentOverlay />}
       </MapContainer>
 
       <Modal />
