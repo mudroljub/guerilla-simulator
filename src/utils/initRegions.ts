@@ -21,6 +21,7 @@ export const initRegions = (): RegionData[] => {
       name,
       size: grad.size,
       population: grad.population,
+      initialPopulation: grad.population,
       position: {
         x: grad.position.x * MAP_SIZE,
         y: grad.position.y * MAP_SIZE,

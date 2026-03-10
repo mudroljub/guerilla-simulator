@@ -6,10 +6,10 @@ const getTroops = (population: number, minPercent: number, maxPercent: number) =
   Math.floor(population * rand(minPercent, maxPercent))
 
 /**
-  Pešadija  90%
-  Artiljerija 6%
-  Tenkovi   3%
-  Avijacija 1%
+  Pešadija    oko 90%
+  Artiljerija oko 6%
+  Tenkovi     oko 3%
+  Avijacija   oko 1%
 */
 export function initGarrison(
   population: number,

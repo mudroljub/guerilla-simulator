@@ -170,8 +170,13 @@ npm start
 	- dodati bitku za svaku oblast ✓
 	- EndModal hendlati nerešeno ✓
 	- potvrdi End phase ako nema napada ✓
-- smanjivati population za svaku (partizansku) mobilizaciju!
 - odvojiti Map container koji hendla skrol ✓
+- Faza mobilizacije ✓
+	- osmisliti mobilizaciju: automatsko popunjavanje uz info igraču ✓
+ 	- dodati nova polja (initialPopulation, totalMobilized) ✓
+	- ažurirati reducer i akcije
+	- smanjivati population za svaku (partizansku) mobilizaciju
+	- dodati animacije i poruke
 - Faza bombardovanja 
 	- animacija aviona po putanji.
 	- pesadija ima malu sansu da obori avion. 

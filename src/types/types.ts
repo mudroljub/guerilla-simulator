@@ -18,6 +18,7 @@ export interface RegionData extends SettlementData {
   polygon: [number, number][];
   area: number;
   neighbors: string[];
+  initialPopulation: number;
 }
 
 /** UNITS & FRACTIONS */
@@ -42,6 +43,7 @@ export interface RegionState extends RegionData {
   fraction: Fraction;
   garrison: Troops;
   attackingForces?: Troops;
+  totalMobilized: number;
 }
 
 /** GAME PHASES */
