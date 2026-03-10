@@ -56,13 +56,15 @@ export enum GamePhase {
   BOMBARDMENT = 'BOMBARDMENT',
 }
 
-export interface BombardmentEvent {
+export type BombardmentTarget = {
+  regionId: string
+  isShotDown: boolean
+  damage: number
+}
+
+export type BombardmentEvent = {
   sourceId: string
-  targets: {
-    regionId: string
-    interceptChance: number
-    neededRoll: number
-  }[]
+  targets: BombardmentTarget[]
 }
 
 /** COMPONENTS */

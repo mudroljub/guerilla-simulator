@@ -1,90 +1,70 @@
-import React, { useState, useMemo, useEffect } from 'react'
-import classnames from 'classnames'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
-import DiceButton from '../Dice/Dice'
 import styles from './BombardmentOverlay.module.scss'
 
 const BombardmentOverlay: React.FC = () => {
   const { state, dispatch } = useStore()
   const { bombardmentEvents, currentBombardmentIndex = 0, regionDict } = state
 
-  const currentEvent = bombardmentEvents ? bombardmentEvents[currentBombardmentIndex] : null
-  const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
-  const [isPlaneFalling, setIsPlaneFalling] = useState(false)
-
-  useEffect(() => {
-    setCurrentTargetIndex(0)
-    setIsPlaneFalling(false)
-  }, [currentBombardmentIndex])
+  const currentEvent = bombardmentEvents?.[currentBombardmentIndex]
+  const [showDamage, setShowDamage] = useState(false)
 
   const pathData = useMemo(() => {
-    if (!currentEvent || !regionDict) return ''
+    if (!currentEvent || !regionDict) return ""
     const source = regionDict[currentEvent.sourceId]?.position
     const targets = currentEvent.targets
       .map(t => regionDict[t.regionId]?.position)
       .filter(Boolean) as {x: number, y: number}[]
 
-    if (!source || targets.length === 0) return ''
-    return getBombardmentPath(source, targets)
+    return source && targets.length > 0 ? getBombardmentPath(source, targets) : ""
   }, [currentEvent, regionDict])
 
-  if (!currentEvent || !regionDict) return null
+  useEffect(() => {
+    if (!currentEvent) return
 
-  const currentTarget = currentEvent.targets[currentTargetIndex]
-  const targetRegion = regionDict[currentTarget.regionId]
+    setShowDamage(false)
 
-  const handleRollResult = (result: number) => {
-    if (result >= currentTarget.neededRoll) {
-      setIsPlaneFalling(true)
-      setTimeout(() => {
-        dispatch({ type: 'RESOLVE_PLANE_DOWN', sourceId: currentEvent.sourceId })
-        setIsPlaneFalling(false)
-        setCurrentTargetIndex(0)
-      }, 1000)
-    } else {
-      dispatch({ type: 'RESOLVE_BOMBARD_HIT', targetId: currentTarget.regionId })
-      setTimeout(() => {
-        if (currentTargetIndex < currentEvent.targets.length - 1)
-          setCurrentTargetIndex(prev => prev + 1)
-        else {
-          setCurrentTargetIndex(0)
-          dispatch({ type: 'NEXT_PHASE' })
-        }
-      }, 500)
+    const damageTimer = setTimeout(() => setShowDamage(true), 1000)
+
+    const endTimer = setTimeout(() => {
+      dispatch({ type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: currentBombardmentIndex })
+      dispatch({ type: 'NEXT_PHASE' })
+    }, 2000)
+
+    return () => {
+      clearTimeout(damageTimer)
+      clearTimeout(endTimer)
     }
-  }
+  }, [currentBombardmentIndex, currentEvent, dispatch])
+
+  if (!currentEvent) return null
 
   return (
     <div className={styles.container}>
       <svg className={styles.svgLayer}>
         <path d={pathData} className={styles.flightPath} />
-
-        <g
-          className={classnames(styles.plane, { [styles.falling]: isPlaneFalling })}
-          style={{
-            offsetPath: `path("${pathData}")`,
-            offsetDistance: `${(currentTargetIndex / (currentEvent.targets.length + 1)) * 100}%`
-          }}
-        >
+        <g className={styles.planeWrapper} style={{ offsetPath: `path("${pathData}")` }}>
           <text x="-15" y="10" fontSize="30">✈️</text>
         </g>
       </svg>
 
-      {!isPlaneFalling && targetRegion && (
+      {currentEvent.targets.map((t) => (
         <div
-          className={styles.interactionPoint}
+          key={t.regionId}
+          className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
-            left: `${targetRegion.position.x}px`,
-            top: `${targetRegion.position.y}px`
+            left: `${regionDict[t.regionId].position.x}px`,
+            top: `${regionDict[t.regionId].position.y}px`
           }}
         >
-          <div className={styles.targetLabel}>
-            {currentTarget.neededRoll}+
-          </div>
-          <DiceButton callback={handleRollResult} />
+          {t.isShotDown ? (
+            <span className={styles.shotDown}>💥 OBOREN!</span>
+          ) : (
+            <span className={styles.damage}>-{t.damage} 🎖️</span>
+          )}
         </div>
-      )}
+      ))}
     </div>
   )
 }

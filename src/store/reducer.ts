@@ -1,4 +1,4 @@
-import { BombardmentEvent, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
+import { BombardmentEvent, BombardmentTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 
 export type Action =
@@ -11,8 +11,7 @@ export type Action =
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
   | { type: 'MOBILIZE_UNITS' }
   | { type: 'PREPARE_BOMBARDMENT' }
-  | { type: 'RESOLVE_BOMBARD_HIT', targetId: string }
-  | { type: 'RESOLVE_PLANE_DOWN', sourceId: string }
+  | { type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: number }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -91,6 +90,92 @@ export function reducer(state: MapState, action: Action): MapState {
         }
       }
       return state
+    }
+
+    case 'PREPARE_BOMBARDMENT': {
+      const events: BombardmentEvent[] = []
+      const CITY_LABEL_THRESHOLD = 2
+
+      Object.values(state.regionDict).forEach(source => {
+        const aircraftCount = source.garrison.aircraft ?? 0
+        const isMajorCity = source.size <= CITY_LABEL_THRESHOLD
+
+        if (source.fraction === Fraction.German && aircraftCount > 0 && isMajorCity) {
+          const targets: BombardmentTarget[] = source.neighbors
+            .filter(id => state.regionDict[id].fraction === Fraction.Partisan)
+            .map(id => {
+              const targetRegion = state.regionDict[id]
+              
+              const roll = Math.floor(Math.random() * 6) + 1
+              const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
+              const neededRoll = Math.max(2, 7 - Math.floor(rawChance * 6))
+              
+              const isShotDown = roll >= neededRoll
+              const damage = isShotDown ? 0 : Math.floor(targetRegion.garrison.infantry * (0.05 + Math.random() * 0.05))
+
+              return { regionId: id, isShotDown, damage }
+            })
+
+          if (targets.length > 0) {
+            events.push({ sourceId: source.name, targets: targets.slice(0, 2) })
+          }
+        }
+      })
+
+      const limitedEvents = events
+        .sort((a, b) => {
+          const planesA = state.regionDict[a.sourceId].garrison.aircraft ?? 0
+          const planesB = state.regionDict[b.sourceId].garrison.aircraft ?? 0
+          return planesB - planesA
+        })
+        .slice(0, 5)
+
+      if (limitedEvents.length === 0) {
+        return {
+          ...state,
+          phase: GamePhase.ATTACK_PHASE,
+          bombardmentEvents: [],
+          currentBombardmentIndex: 0
+        }
+      }
+
+      return {
+        ...state,
+        bombardmentEvents: limitedEvents,
+        currentBombardmentIndex: 0,
+        phase: GamePhase.BOMBARDMENT
+      }
+    }
+
+    case 'APPLY_BOMBARDMENT_RESULTS': {
+      const event = state.bombardmentEvents?.[action.eventIndex]
+      if (!event) return state
+
+      const newRegionDict = { ...state.regionDict }
+
+      event.targets.forEach(t => {
+        const region = newRegionDict[t.regionId]
+        if (t.isShotDown) {
+          const source = newRegionDict[event.sourceId]
+          newRegionDict[event.sourceId] = {
+            ...source,
+            garrison: { 
+              ...source.garrison, 
+              aircraft: Math.max(0, (source.garrison.aircraft ?? 0) - 1) 
+            }
+          }
+        } else {
+          newRegionDict[t.regionId] = {
+            ...region,
+            garrison: { 
+              ...region.garrison, 
+              infantry: Math.max(0, region.garrison.infantry - t.damage) 
+            }
+          }
+        }
+      })
+
+      return { ...state, regionDict: newRegionDict }
     }
 
     case 'END_BATTLE': {
@@ -206,88 +291,6 @@ export function reducer(state: MapState, action: Action): MapState {
         regionDict: updatedRegions,
         phase: GamePhase.MOBILIZATION_PHASE,
         selected: null
-      }
-    }
-
-    case 'PREPARE_BOMBARDMENT': {
-      const events: BombardmentEvent[] = []
-      const CITY_LABEL_THRESHOLD = 2
-
-      Object.values(state.regionDict).forEach(source => {
-        const aircraftCount = source.garrison.aircraft ?? 0
-        const isMajorCity = source.size <= CITY_LABEL_THRESHOLD
-
-        if (source.fraction === Fraction.German && aircraftCount > 0 && isMajorCity) {
-          const targets = source.neighbors
-            .filter(id => state.regionDict[id].fraction === Fraction.Partisan)
-            .map(id => {
-              const targetRegion = state.regionDict[id]
-              const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
-              const interceptChance = Math.min(rawChance, 0.8)
-              const neededRoll = Math.max(2, 7 - Math.floor(interceptChance * 6))
-              return { regionId: id, interceptChance, neededRoll }
-            })
-
-          if (targets.length > 0)
-            events.push({ sourceId: source.name, targets })
-        }
-      })
-
-      const limitedEvents = events
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 5)
-
-      if (limitedEvents.length === 0)
-        return {
-          ...state,
-          phase: GamePhase.ATTACK_PHASE,
-          bombardmentEvents: [],
-          currentBombardmentIndex: 0
-        }
-
-      return {
-        ...state,
-        bombardmentEvents: limitedEvents,
-        currentBombardmentIndex: 0,
-        phase: GamePhase.BOMBARDMENT
-      }
-    }
-    case 'RESOLVE_BOMBARD_HIT': {
-      const target = state.regionDict[action.targetId]
-      const damagePercent = 0.08 + Math.random() * 0.04
-      const losses = Math.floor(target.garrison.infantry * damagePercent)
-
-      return {
-        ...state,
-        regionDict: {
-          ...state.regionDict,
-          [action.targetId]: {
-            ...target,
-            garrison: {
-              ...target.garrison,
-              infantry: Math.max(0, target.garrison.infantry - losses)
-            }
-          }
-        }
-      }
-    }
-
-    case 'RESOLVE_PLANE_DOWN': {
-      const source = state.regionDict[action.sourceId]
-      const currentPlanes = source.garrison.aircraft ?? 0
-
-      return {
-        ...state,
-        regionDict: {
-          ...state.regionDict,
-          [action.sourceId]: {
-            ...source,
-            garrison: {
-              ...source.garrison,
-              aircraft: Math.max(0, currentPlanes - 1)
-            }
-          }
-        }
       }
     }
 
