@@ -13,6 +13,7 @@ export type Action =
   | { type: 'END_TURN' }
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
+  | { type: 'MOBILIZE_UNITS'}
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -64,11 +65,7 @@ export function reducer(state: MapState, action: Action): MapState {
           selected: null
         }
 
-      return {
-        ...state,
-        phase: GamePhase.MOBILIZATION_PHASE,
-        selected: null
-      }
+      return reducer(state, { type: 'MOBILIZE_UNITS' })
     }
 
     case 'END_BATTLE': {
@@ -89,15 +86,18 @@ export function reducer(state: MapState, action: Action): MapState {
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
       const isQueueEmpty = battleQueue.length === 0
-      const phase = isQueueEmpty ? GamePhase.MOBILIZATION_PHASE : state.phase
 
-      return {
+      const newState = {
         ...state,
         regionDict,
         battleQueue,
-        phase,
         selected: null,
       }
+
+      if (isQueueEmpty)
+        return reducer(newState, { type: 'MOBILIZE_UNITS' })
+
+      return newState
     }
 
     case 'SELECT_ATTACKING_REGION':
@@ -129,14 +129,58 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
+      const isQueueEmpty = battleQueue.length === 0
 
-      return {
+      const newState = {
         ...state,
         regionDict,
         battleQueue,
-        phase: battleQueue.length === 0 ? GamePhase.MOBILIZATION_PHASE : state.phase,
         selected: regionDict[retreatingRegion],
         selectedAttackingRegion: undefined
+      }
+
+      if (isQueueEmpty)
+        return reducer(newState, { type: 'MOBILIZE_UNITS' })
+
+      return newState
+    }
+
+    case 'MOBILIZE_UNITS': {
+      const MOB_RATE = 0.005
+      const MAX_LIMIT_PERCENT = 0.15
+
+      const updatedRegions = Object.keys(state.regionDict).reduce((acc, regionId) => {
+        const region = state.regionDict[regionId]
+
+        if (region.fraction !== Fraction.Partisan) {
+          acc[regionId] = region
+          return acc
+        }
+
+        const limit = Math.floor(region.initialPopulation * MAX_LIMIT_PERCENT)
+        const potential = Math.floor(region.population * MOB_RATE)
+        const remainingToMobilize = limit - region.totalMobilized
+
+        const actualAdded = Math.max(0, Math.min(potential, remainingToMobilize))
+
+        acc[regionId] = {
+          ...region,
+          population: region.population - actualAdded,
+          totalMobilized: region.totalMobilized + actualAdded,
+          garrison: {
+            ...region.garrison,
+            infantry: region.garrison.infantry + actualAdded,
+          },
+        }
+
+        return acc
+      }, {} as Record<string, RegionState>)
+
+      return {
+        ...state,
+        regionDict: updatedRegions,
+        phase: GamePhase.MOBILIZATION_PHASE,
+        selected: null
       }
     }
 
