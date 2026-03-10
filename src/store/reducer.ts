@@ -71,16 +71,28 @@ export function reducer(state: MapState, action: Action): MapState {
       if (state.phase === GamePhase.MOBILIZATION_PHASE)
         return reducer(state, { type: 'PREPARE_BOMBARDMENT' })
 
-      if (state.phase === GamePhase.BOMBARDMENT)
+      if (state.phase === GamePhase.BOMBARDMENT) {
+        const currentIndex = state.currentBombardmentIndex ?? 0
+        const nextIndex = currentIndex + 1
+        const events = state.bombardmentEvents ?? []
+
+        if (nextIndex < events.length)
+          return {
+            ...state,
+            currentBombardmentIndex: nextIndex
+          }
+
         return {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
           bombardmentEvents: [],
-          currentBombardmentIndex: 0
+          currentBombardmentIndex: 0,
+          selected: null
         }
-
+      }
       return state
     }
+
     case 'END_BATTLE': {
       const { regionName, winner, survivors } = action
       const currentRegion = state.regionDict[regionName]
@@ -199,19 +211,20 @@ export function reducer(state: MapState, action: Action): MapState {
 
     case 'PREPARE_BOMBARDMENT': {
       const events: BombardmentEvent[] = []
-      const CHANCE_PER_50_SOLDIERS = 0.05
+      const CITY_LABEL_THRESHOLD = 2
 
       Object.values(state.regionDict).forEach(source => {
         const aircraftCount = source.garrison.aircraft ?? 0
-        if (source.fraction === Fraction.German && aircraftCount > 0) {
+        const isMajorCity = source.size <= CITY_LABEL_THRESHOLD
+
+        if (source.fraction === Fraction.German && aircraftCount > 0 && isMajorCity) {
           const targets = source.neighbors
             .filter(id => state.regionDict[id].fraction === Fraction.Partisan)
             .map(id => {
               const targetRegion = state.regionDict[id]
-              const rawChance = (targetRegion.garrison.infantry / 50) * CHANCE_PER_50_SOLDIERS
+              const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
               const interceptChance = Math.min(rawChance, 0.8)
               const neededRoll = Math.max(2, 7 - Math.floor(interceptChance * 6))
-
               return { regionId: id, interceptChance, neededRoll }
             })
 
@@ -220,14 +233,25 @@ export function reducer(state: MapState, action: Action): MapState {
         }
       })
 
+      const limitedEvents = events
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 5)
+
+      if (limitedEvents.length === 0)
+        return {
+          ...state,
+          phase: GamePhase.ATTACK_PHASE,
+          bombardmentEvents: [],
+          currentBombardmentIndex: 0
+        }
+
       return {
         ...state,
-        bombardmentEvents: events,
+        bombardmentEvents: limitedEvents,
         currentBombardmentIndex: 0,
         phase: GamePhase.BOMBARDMENT
       }
     }
-
     case 'RESOLVE_BOMBARD_HIT': {
       const target = state.regionDict[action.targetId]
       const damagePercent = 0.08 + Math.random() * 0.04

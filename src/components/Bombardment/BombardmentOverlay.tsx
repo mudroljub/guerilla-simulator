@@ -1,34 +1,35 @@
-import { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import classnames from 'classnames'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import DiceButton from '../Dice/Dice'
 import styles from './BombardmentOverlay.module.scss'
 
-const BombardmentOverlay = () => {
+const BombardmentOverlay: React.FC = () => {
   const { state, dispatch } = useStore()
   const { bombardmentEvents, currentBombardmentIndex = 0, regionDict } = state
 
   const currentEvent = bombardmentEvents ? bombardmentEvents[currentBombardmentIndex] : null
-
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
   const [isPlaneFalling, setIsPlaneFalling] = useState(false)
 
+  useEffect(() => {
+    setCurrentTargetIndex(0)
+    setIsPlaneFalling(false)
+  }, [currentBombardmentIndex])
+
   const pathData = useMemo(() => {
     if (!currentEvent || !regionDict) return ''
-
-    const sourceRegion = regionDict[currentEvent.sourceId]
-    if (!sourceRegion) return ''
-
-    const source = sourceRegion.position
+    const source = regionDict[currentEvent.sourceId]?.position
     const targets = currentEvent.targets
       .map(t => regionDict[t.regionId]?.position)
-      .filter(Boolean)
+      .filter(Boolean) as {x: number, y: number}[]
 
+    if (!source || targets.length === 0) return ''
     return getBombardmentPath(source, targets)
   }, [currentEvent, regionDict])
 
-  if (!currentEvent || !bombardmentEvents || bombardmentEvents.length === 0) return null
+  if (!currentEvent || !regionDict) return null
 
   const currentTarget = currentEvent.targets[currentTargetIndex]
   const targetRegion = regionDict[currentTarget.regionId]
@@ -43,7 +44,6 @@ const BombardmentOverlay = () => {
       }, 1000)
     } else {
       dispatch({ type: 'RESOLVE_BOMBARD_HIT', targetId: currentTarget.regionId })
-
       setTimeout(() => {
         if (currentTargetIndex < currentEvent.targets.length - 1)
           setCurrentTargetIndex(prev => prev + 1)
@@ -56,7 +56,7 @@ const BombardmentOverlay = () => {
   }
 
   return (
-    <div className={styles.overlay}>
+    <div className={styles.container}>
       <svg className={styles.svgLayer}>
         <path d={pathData} className={styles.flightPath} />
 
@@ -75,12 +75,12 @@ const BombardmentOverlay = () => {
         <div
           className={styles.interactionPoint}
           style={{
-            left: targetRegion.position.x,
-            top: targetRegion.position.y
+            left: `${targetRegion.position.x}px`,
+            top: `${targetRegion.position.y}px`
           }}
         >
           <div className={styles.targetLabel}>
-            Potrebno: {currentTarget.neededRoll}+
+            {currentTarget.neededRoll}+
           </div>
           <DiceButton callback={handleRollResult} />
         </div>

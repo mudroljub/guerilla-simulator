@@ -7,7 +7,7 @@ import shared from '../../assets/styles/shared.module.scss'
 import Modal from '../../components/Modal/Modal'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
-import MobilizationOverlay from '../../components/Region/MobilizationOverlay'
+import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
 import BombardmentOverlay from '../../components/Bombardment/BombardmentOverlay'
 
 export const message: Record<GamePhase, string> = {
