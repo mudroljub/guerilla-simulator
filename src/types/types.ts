@@ -43,8 +43,8 @@ export interface RegionState extends RegionData {
   fraction: Fraction;
   garrison: Troops;
   totalMobilized: number;
+  lastMobilizedCount: number;
   attackingForces?: Troops;
-  lastMobilizedCount?: number;
 }
 
 /** GAME PHASES */

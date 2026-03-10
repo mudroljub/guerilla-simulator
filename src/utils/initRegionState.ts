@@ -15,5 +15,6 @@ export const initRegionState = (region: RegionData): RegionState => {
     garrison: initialGarrison,
     population: region.population - mobilized,
     totalMobilized: mobilized,
+    lastMobilizedCount: mobilized,
   }
 }
