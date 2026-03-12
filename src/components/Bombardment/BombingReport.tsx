@@ -3,18 +3,18 @@ import styles from './BombingReport.module.scss'
 
 export default function BombingReport() {
   const { state, dispatch } = useStore()
-  const { bombardmentEvents } = state
+  const { bombings } = state
 
-  if (!bombardmentEvents?.length) return null
+  if (!bombings?.length) return null
 
   return (
     <div className={styles.reportOverlay}>
       <div className={styles.reportBox}>
         <h2>BOMBARDMENT REPORT</h2>
         <div className={styles.reportList}>
-          {bombardmentEvents.map((event, i) => (
+          {bombings.map((event, i) => (
             <div key={i} className={styles.reportItem}>
-              <strong>Bombing from {event.sourceId}:</strong>
+              <strong>Bombing from {event.bombingFrom}:</strong>
               {event.targets.map(t => (
                 <div key={t.regionName} className={styles.reportTarget}>
                   {t.isShotDown

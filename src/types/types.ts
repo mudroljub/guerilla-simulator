@@ -56,15 +56,15 @@ export enum GamePhase {
   BOMBARDMENT = 'BOMBARDMENT',
 }
 
-export type BombardmentTarget = {
+export type BombingTarget = {
   regionName: string
   isShotDown: boolean
   damage: number
 }
 
-export type BombardmentEvent = {
-  sourceId: string
-  targets: BombardmentTarget[]
+export type BombingMission = {
+  bombingFrom: string
+  targets: BombingTarget[]
 }
 
 /** COMPONENTS */

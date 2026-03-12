@@ -11,16 +11,16 @@ preload.src = imgSrc
 
 const BombardmentOverlay: React.FC = () => {
   const { state, dispatch } = useStore()
-  const { bombardmentEvents, currentBombardmentIndex = 0, regionDict } = state
+  const { bombings, currentBombardmentIndex = 0, regionDict } = state
 
-  const currentEvent = bombardmentEvents?.[currentBombardmentIndex]
+  const currentEvent = bombings?.[currentBombardmentIndex]
   const [showDamage, setShowDamage] = useState(false)
 
-  const isFinished = currentBombardmentIndex === (bombardmentEvents?.length ?? 0)
+  const isFinished = currentBombardmentIndex === (bombings?.length ?? 0)
 
   const pathData = useMemo(() => {
     if (!currentEvent || !regionDict) return ''
-    const source = regionDict[currentEvent.sourceId]?.position
+    const source = regionDict[currentEvent.bombingFrom]?.position
     const targets = currentEvent.targets
       .map(t => regionDict[t.regionName]?.position)
       .filter(Boolean) as { x: number, y: number }[]

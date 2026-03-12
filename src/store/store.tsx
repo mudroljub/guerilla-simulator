@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useMemo, ReactNode, Dispatch } from 'react'
 import { reducer, Action } from './reducer'
-import { BombardmentEvent, Fraction, GamePhase, RegionData, RegionState } from '../types/types'
+import { BombingMission, Fraction, GamePhase, RegionData, RegionState } from '../types/types'
 import { initRegionState } from '../utils/initRegionState'
 
 export type RegionDict = Record<string, RegionState>
@@ -11,7 +11,7 @@ export interface MapState {
   phase: GamePhase;
   battleQueue: string[];
   selectedAttackingRegion?: string;
-  bombardmentEvents?: BombardmentEvent[]
+  bombings?: BombingMission[]
   currentBombardmentIndex?: number
 }
 

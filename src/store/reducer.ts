@@ -1,4 +1,4 @@
-import { BombardmentEvent, BombardmentTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
+import { BombingMission, BombingTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 
 export type Action =
@@ -72,7 +72,7 @@ export function reducer(state: MapState, action: Action): MapState {
 
       if (state.phase === GamePhase.BOMBARDMENT) {
         const currentIndex = state.currentBombardmentIndex ?? 0
-        const events = state.bombardmentEvents ?? []
+        const events = state.bombings ?? []
         const nextIndex = currentIndex + 1
 
         if (nextIndex <= events.length)
@@ -84,7 +84,7 @@ export function reducer(state: MapState, action: Action): MapState {
         return {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
-          bombardmentEvents: [],
+          bombings: [],
           currentBombardmentIndex: 0,
           selected: null
         }
@@ -94,7 +94,7 @@ export function reducer(state: MapState, action: Action): MapState {
     }
 
     case 'PREPARE_BOMBARDMENT': {
-      const events: BombardmentEvent[] = []
+      const events: BombingMission[] = []
       const CITY_LABEL_THRESHOLD = 2
 
       Object.values(state.regionDict).forEach(source => {
@@ -102,7 +102,7 @@ export function reducer(state: MapState, action: Action): MapState {
         const isMajorCity = source.size <= CITY_LABEL_THRESHOLD
 
         if (source.fraction === Fraction.German && aircraftCount > 0 && isMajorCity) {
-          const targets: BombardmentTarget[] = source.neighbors
+          const targets: BombingTarget[] = source.neighbors
             .filter(name => state.regionDict[name].fraction === Fraction.Partisan)
             .map(name => {
               const targetRegion = state.regionDict[name]
@@ -118,15 +118,15 @@ export function reducer(state: MapState, action: Action): MapState {
             })
 
           if (targets.length > 0)
-            events.push({ sourceId: source.name, targets: targets.slice(0, 2) })
+            events.push({ bombingFrom: source.name, targets: targets.slice(0, 2) })
 
         }
       })
 
       const limitedEvents = events
         .sort((a, b) => {
-          const planesA = state.regionDict[a.sourceId].garrison.aircraft ?? 0
-          const planesB = state.regionDict[b.sourceId].garrison.aircraft ?? 0
+          const planesA = state.regionDict[a.bombingFrom].garrison.aircraft ?? 0
+          const planesB = state.regionDict[b.bombingFrom].garrison.aircraft ?? 0
           return planesB - planesA
         })
         .slice(0, 5)
@@ -135,20 +135,20 @@ export function reducer(state: MapState, action: Action): MapState {
         return {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
-          bombardmentEvents: [],
+          bombings: [],
           currentBombardmentIndex: 0
         }
 
       return {
         ...state,
-        bombardmentEvents: limitedEvents,
+        bombings: limitedEvents,
         currentBombardmentIndex: 0,
         phase: GamePhase.BOMBARDMENT
       }
     }
 
     case 'APPLY_BOMBARDMENT_RESULTS': {
-      const event = state.bombardmentEvents?.[action.eventIndex]
+      const event = state.bombings?.[action.eventIndex]
       if (!event) return state
 
       const newRegionDict = { ...state.regionDict }
@@ -156,8 +156,8 @@ export function reducer(state: MapState, action: Action): MapState {
       event.targets.forEach(t => {
         const region = newRegionDict[t.regionName]
         if (t.isShotDown) {
-          const source = newRegionDict[event.sourceId]
-          newRegionDict[event.sourceId] = {
+          const source = newRegionDict[event.bombingFrom]
+          newRegionDict[event.bombingFrom] = {
             ...source,
             garrison: {
               ...source.garrison,

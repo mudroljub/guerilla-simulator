@@ -18,11 +18,11 @@ export default function MapContainer({ children }: Props) {
   const [startPos, setStartPos] = useState<Position>({ x: 0, y: 0 })
   const [startScroll, setStartScroll] = useState<ScrollPos>({ left: 0, top: 0 })
   const { state } = useStore()
-  const { bombardmentEvents, currentBombardmentIndex, phase } = state
+  const { bombings, currentBombardmentIndex, phase } = state
 
   useEffect(() => {
-    if (phase === 'BOMBARDMENT' && bombardmentEvents && bombardmentEvents[currentBombardmentIndex ?? 0]) {
-      const currentEvent = bombardmentEvents[currentBombardmentIndex ?? 0]
+    if (phase === 'BOMBARDMENT' && bombings && bombings[currentBombardmentIndex ?? 0]) {
+      const currentEvent = bombings[currentBombardmentIndex ?? 0]
       const targetId = currentEvent.targets[0]?.regionName
       const targetRegion = state.regionDict[targetId]
 
@@ -45,7 +45,7 @@ export default function MapContainer({ children }: Props) {
         })
       }
     }
-  }, [phase, currentBombardmentIndex, bombardmentEvents, state.regionDict])
+  }, [phase, currentBombardmentIndex, bombings, state.regionDict])
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return
