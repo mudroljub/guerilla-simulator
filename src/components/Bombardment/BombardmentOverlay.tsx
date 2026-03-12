@@ -2,6 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombardmentOverlay.module.scss'
+import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
+
+const imgSize = 64
+const preload = new Image()
+preload.src = imgSrc
 
 const BombardmentOverlay: React.FC = () => {
   const { state, dispatch } = useStore()
@@ -82,7 +87,13 @@ const BombardmentOverlay: React.FC = () => {
             className={styles.planeWrapper}
             style={{ offsetPath: `path("${pathData}")` }}
           >
-            <text x="-15" y="10" fontSize="30">✈️</text>
+            <image
+              href={imgSrc}
+              x={-imgSize / 2}
+              y={-imgSize / 2}
+              width={imgSize}
+              height={imgSize}
+            />
           </g>
         )}
       </svg>

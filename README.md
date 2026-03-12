@@ -185,7 +185,9 @@ npm start
 	- ažurirati reducer ✓
 	- napraviti animaciju aviona po eliptičnoj putanji ✓
 	- uklopiti animaciju u logiku bombardovanja ✓
-	- dodati prave ikonice aviona
+	- dodati ikonicu aviona ✓
+	- refaktorisati, pregledati kod, ispravljati greške
+	  - BUG: avion se ne vidi jer neki lejeri idu preko njega
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?

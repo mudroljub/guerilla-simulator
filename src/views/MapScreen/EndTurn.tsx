@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react'
 import { useStore } from '../../store/store'
 import { GamePhase } from '../../types/types'
@@ -22,11 +23,10 @@ const EndTurn = () => {
   }
 
   const onNextClick = () => {
-    if (phase === GamePhase.ATTACK_PHASE && !hasAttacks)
-      setIsConfirming(true)
-    else
-      handleEndTurn()
-
+    // if (phase === GamePhase.ATTACK_PHASE && !hasAttacks)
+    //   setIsConfirming(true)
+    // else
+    handleEndTurn()
   }
 
   if (isConfirming)
