@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombardmentOverlay.module.scss'
@@ -9,7 +9,7 @@ const IMG_SIZE = 64
 
 const BombardmentOverlay = () => {
   const { state, dispatch } = useStore()
-  const { bombings = [], currentBombardmentIndex = 0, regionDict } = state
+  const { bombings, currentBombardmentIndex = 0, regionDict } = state
   const [showDamage, setShowDamage] = useState(false)
 
   const currentEvent = bombings[currentBombardmentIndex]
@@ -19,7 +19,7 @@ const BombardmentOverlay = () => {
 
   const pathData = useMemo(() => {
     if (!currentEvent || !regionDict) return ''
-    const source = regionDict[currentEvent.bombingFrom]?.position
+    const source = regionDict[currentEvent.bombingFrom].position
     const targets = currentEvent.targets.map(t => regionDict[t.regionName].position)
 
     return (source && targets.length > 0) ? getBombardmentPath(source, targets) : ''
@@ -63,8 +63,8 @@ const BombardmentOverlay = () => {
           key={`${currentBombardmentIndex}-${target.regionName}`}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
-            left: `${regionDict[target.regionName]?.position.x}px`,
-            top: `${regionDict[target.regionName]?.position.y}px`
+            left: `${regionDict[target.regionName].position.x}px`,
+            top: `${regionDict[target.regionName].position.y}px`
           }}
         >
           {target.isShotDown ? (

@@ -72,10 +72,10 @@ export function reducer(state: MapState, action: Action): MapState {
 
       if (state.phase === GamePhase.BOMBARDMENT) {
         const currentIndex = state.currentBombardmentIndex ?? 0
-        const events = state.bombings ?? []
+        const { bombings } = state
         const nextIndex = currentIndex + 1
 
-        if (nextIndex <= events.length)
+        if (nextIndex <= bombings.length)
           return {
             ...state,
             currentBombardmentIndex: nextIndex
