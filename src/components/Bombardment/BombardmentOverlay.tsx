@@ -3,6 +3,7 @@ import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombardmentOverlay.module.scss'
 import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
+import BombingReport from './BombingReport'
 
 const imgSize = 64
 const preload = new Image()
@@ -45,34 +46,7 @@ const BombardmentOverlay: React.FC = () => {
     }
   }, [currentBombardmentIndex, currentEvent, isFinished, dispatch])
 
-  if (isFinished && bombardmentEvents && bombardmentEvents.length > 0)
-    return (
-      <div className={styles.reportOverlay}>
-        <div className={styles.reportBox}>
-          <h2>BOMBARDMENT REPORT</h2>
-          <div className={styles.reportList}>
-            {bombardmentEvents.map((event, i) => (
-              <div key={i} className={styles.reportItem}>
-                <strong>Bombing from {event.sourceId}:</strong>
-                {event.targets.map(t => (
-                  <div key={t.regionName} className={styles.reportTarget}>
-                    {t.isShotDown
-                      ? ` 💥 Aircraft shot down over ${t.regionName}!`
-                      : ` 💣 ${t.damage} partisans killed in ${t.regionName} region.`}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          <button
-            className={styles.continueBtn}
-            onClick={() => dispatch({ type: 'NEXT_PHASE' })}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    )
+  if (isFinished) return <BombingReport />
 
   if (!currentEvent) return null
 
