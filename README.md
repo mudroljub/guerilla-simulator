@@ -189,7 +189,6 @@ npm start
 	- refaktorisati, pregledati kod, ispravljati greške ✓
 	  - BUG: avion se ne vidi jer neki lejeri idu preko njega ✓
 	- zameniti ikonu bombardovanja (smrt umesto medalje) ✓
-	- možda bacati neku kocku za odbranu?
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?
