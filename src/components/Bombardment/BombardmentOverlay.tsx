@@ -22,7 +22,7 @@ const BombardmentOverlay: React.FC = () => {
     if (!currentEvent || !regionDict) return ''
     const source = regionDict[currentEvent.bombingFrom]?.position
     const targets = currentEvent.targets
-      .map(t => regionDict[t.regionName]?.position)
+      .map(target => regionDict[target.regionName]?.position)
       .filter(Boolean) as { x: number, y: number }[]
 
     return source && targets.length > 0 ? getBombardmentPath(source, targets) : ''
@@ -62,25 +62,24 @@ const BombardmentOverlay: React.FC = () => {
             src={imgSrc}
             width={imgSize}
             height={imgSize}
-            draggable={false}
             alt=""
           />
         </div>
       )}
 
-      {currentEvent.targets.map(t => (
+      {currentEvent.targets.map(target => (
         <div
-          key={`${currentBombardmentIndex}-${t.regionName}`}
+          key={`${currentBombardmentIndex}-${target.regionName}`}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
-            left: `${regionDict[t.regionName].position.x}px`,
-            top: `${regionDict[t.regionName].position.y}px`
+            left: `${regionDict[target.regionName].position.x}px`,
+            top: `${regionDict[target.regionName].position.y}px`
           }}
         >
-          {t.isShotDown ? (
+          {target.isShotDown ? (
             <span className={styles.shotDown}>💥 SHOT DOWN!</span>
           ) : (
-            <span className={styles.damage}>-{t.damage} 🎖️</span>
+            <span className={styles.damage}>-{target.damage} 💀</span>
           )}
         </div>
       ))}

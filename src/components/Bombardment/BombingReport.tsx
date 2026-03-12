@@ -19,7 +19,7 @@ export default function BombingReport() {
                 <div key={t.regionName} className={styles.reportTarget}>
                   {t.isShotDown
                     ? ` 💥 Aircraft shot down over ${t.regionName}!`
-                    : ` 💣 ${t.damage} partisans killed in ${t.regionName} region.`}
+                    : ` 💀 ${t.damage} partisans killed in ${t.regionName} region.`}
                 </div>
               ))}
             </div>
