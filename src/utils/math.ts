@@ -12,26 +12,25 @@ export interface Point {
   y: number
 }
 /**
- * Generiše SVG path string (Bezierova kriva) koji povezuje izvor,
- * sve mete redom i vraća se nazad u izvor praveći eliptični krug.
+ * Generiše SVG path string (Bezierova kriva) koji povezuje ishodište,
+ * sve mete redom i vraća se nazad u ishodište praveći eliptični krug.
  */
 export const getBombardmentPath = (source: Point, targets: Point[]): string => {
   if (targets.length === 0) return ''
 
   let path = `M ${source.x},${source.y}`
 
-  targets.forEach(target => {
-    const midX = (source.x + target.x) / 2
-    const midY = (source.y + target.y) / 2 - 40
+  const firstTarget = targets[0]
+  const midX = (source.x + firstTarget.x) / 2
+  const midY = (source.y + firstTarget.y) / 2 - 40
+  path += ` Q ${midX},${midY} ${firstTarget.x},${firstTarget.y}`
 
-    path += ` Q ${midX},${midY} ${target.x},${target.y}`
-  })
+  for (let i = 1; i < targets.length; i++) {
+    const target = targets[i]
+    path += ` T ${target.x},${target.y}`
+  }
 
-  const lastTarget = targets[targets.length - 1]
-  const returnMidX = (lastTarget.x + source.x) / 2
-  const returnMidY = (lastTarget.y + source.y) / 2 + 40
-
-  path += ` Q ${returnMidX},${returnMidY} ${source.x},${source.y}`
+  path += ` T ${source.x},${source.y}`
 
   return path
 }

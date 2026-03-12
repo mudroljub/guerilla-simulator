@@ -2,30 +2,27 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombardmentOverlay.module.scss'
-import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 import BombingReport from './BombingReport'
+import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 
-const imgSize = 64
-const preload = new Image()
-preload.src = imgSrc
+const IMG_SIZE = 64
 
-const BombardmentOverlay: React.FC = () => {
+const BombardmentOverlay = () => {
   const { state, dispatch } = useStore()
-  const { bombings, currentBombardmentIndex = 0, regionDict } = state
-
-  const currentEvent = bombings?.[currentBombardmentIndex]
+  const { bombings = [], currentBombardmentIndex = 0, regionDict } = state
   const [showDamage, setShowDamage] = useState(false)
 
-  const isFinished = currentBombardmentIndex === (bombings?.length ?? 0)
+  const currentEvent = bombings[currentBombardmentIndex]
+  const isFinished = currentBombardmentIndex === bombings.length
+
+  const isPlaneShotDown = currentEvent?.targets.some(t => t.isShotDown)
 
   const pathData = useMemo(() => {
     if (!currentEvent || !regionDict) return ''
     const source = regionDict[currentEvent.bombingFrom]?.position
-    const targets = currentEvent.targets
-      .map(target => regionDict[target.regionName]?.position)
-      .filter(Boolean) as { x: number, y: number }[]
+    const targets = currentEvent.targets.map(t => regionDict[t.regionName].position)
 
-    return source && targets.length > 0 ? getBombardmentPath(source, targets) : ''
+    return (source && targets.length > 0) ? getBombardmentPath(source, targets) : ''
   }, [currentEvent, regionDict])
 
   useEffect(() => {
@@ -34,11 +31,10 @@ const BombardmentOverlay: React.FC = () => {
     setShowDamage(false)
 
     const damageTimer = setTimeout(() => setShowDamage(true), 1000)
-
     const endTimer = setTimeout(() => {
       dispatch({ type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: currentBombardmentIndex })
       dispatch({ type: 'NEXT_PHASE' })
-    }, 2000)
+    }, 2500) // css animation length
 
     return () => {
       clearTimeout(damageTimer)
@@ -52,18 +48,13 @@ const BombardmentOverlay: React.FC = () => {
   return (
     <div className={styles.container}>
 
-      {pathData && (
+      {pathData && !(showDamage && isPlaneShotDown) && (
         <div
           key={`plane-${currentBombardmentIndex}`}
           className={styles.planeWrapper}
           style={{ offsetPath: `path("${pathData}")` }}
         >
-          <img
-            src={imgSrc}
-            width={imgSize}
-            height={imgSize}
-            alt=""
-          />
+          <img src={imgSrc} width={IMG_SIZE} height={IMG_SIZE} alt="" />
         </div>
       )}
 
@@ -72,8 +63,8 @@ const BombardmentOverlay: React.FC = () => {
           key={`${currentBombardmentIndex}-${target.regionName}`}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
-            left: `${regionDict[target.regionName].position.x}px`,
-            top: `${regionDict[target.regionName].position.y}px`
+            left: `${regionDict[target.regionName]?.position.x}px`,
+            top: `${regionDict[target.regionName]?.position.y}px`
           }}
         >
           {target.isShotDown ? (
@@ -83,7 +74,6 @@ const BombardmentOverlay: React.FC = () => {
           )}
         </div>
       ))}
-
     </div>
   )
 }
