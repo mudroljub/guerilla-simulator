@@ -186,8 +186,9 @@ npm start
 	- napraviti animaciju aviona po eliptičnoj putanji ✓
 	- uklopiti animaciju u logiku bombardovanja ✓
 	- dodati ikonicu aviona ✓
-	- refaktorisati, pregledati kod, ispravljati greške
-	  - BUG: avion se ne vidi jer neki lejeri idu preko njega
+	- refaktorisati, pregledati kod, ispravljati greške ✓
+	  - BUG: avion se ne vidi jer neki lejeri idu preko njega ✓
+	- zameniti ikone bombardovanja (smrt umesto medalje)
 - efekti bitke
 	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
 	- animacija bacanja kockica?

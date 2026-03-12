@@ -47,30 +47,26 @@ const BombardmentOverlay: React.FC = () => {
   }, [currentBombardmentIndex, currentEvent, isFinished, dispatch])
 
   if (isFinished) return <BombingReport />
-
   if (!currentEvent) return null
 
   return (
     <div className={styles.container}>
-      <svg className={styles.svgLayer}>
-        {pathData && <path d={pathData} className={styles.flightPath} />}
 
-        {pathData && (
-          <g
-            key={`plane-${currentBombardmentIndex}`}
-            className={styles.planeWrapper}
-            style={{ offsetPath: `path("${pathData}")` }}
-          >
-            <image
-              href={imgSrc}
-              x={-imgSize / 2}
-              y={-imgSize / 2}
-              width={imgSize}
-              height={imgSize}
-            />
-          </g>
-        )}
-      </svg>
+      {pathData && (
+        <div
+          key={`plane-${currentBombardmentIndex}`}
+          className={styles.planeWrapper}
+          style={{ offsetPath: `path("${pathData}")` }}
+        >
+          <img
+            src={imgSrc}
+            width={imgSize}
+            height={imgSize}
+            draggable={false}
+            alt=""
+          />
+        </div>
+      )}
 
       {currentEvent.targets.map(t => (
         <div
@@ -88,6 +84,7 @@ const BombardmentOverlay: React.FC = () => {
           )}
         </div>
       ))}
+
     </div>
   )
 }
