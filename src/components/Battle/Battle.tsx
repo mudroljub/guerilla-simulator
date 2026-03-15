@@ -27,15 +27,15 @@ const Battle = () => {
     if (processing || !hasBothSides) return
     setProcessing(true)
 
-    setGermans(germans.map(unit => ({ ...unit, state: AnimState.shooting })))
-    setPartisans(partisans.map(unit => ({ ...unit, state: AnimState.shooting })))
+    setGermans(prev => prev.map(unit => ({ ...unit, state: AnimState.shooting })))
+    setPartisans(prev => prev.map(unit => ({ ...unit, state: AnimState.shooting })))
     await sleep(900)
 
     const gVictims = getVictims(germans, calculateHits(partisans, rollValue, Fraction.Partisan))
     const pVictims = getVictims(partisans, calculateHits(germans, rollValue, Fraction.German))
 
-    setGermans(germans.map(unit => ({ ...unit, state: gVictims.includes(unit.id) ? AnimState.dying : AnimState.battle })))
-    setPartisans(partisans.map(unit => ({ ...unit, state: pVictims.includes(unit.id) ? AnimState.dying : AnimState.battle })))
+    setGermans(prev => prev.map(u => ({ ...u, state: gVictims.includes(u.id) ? AnimState.dying : AnimState.battle })))
+    setPartisans(prev => prev.map(u => ({ ...u, state: pVictims.includes(u.id) ? AnimState.dying : AnimState.battle })))
     await sleep(1500)
 
     setGermans(prev => prev.filter(u => !gVictims.includes(u.id)))
