@@ -42,18 +42,21 @@ export default function Unit({
     }
   }
 
+  const idleDelay = useMemo(() => `${Math.random() * 3}s`, [])
+
   if (!SvgComponent) return null
 
-  const inlineStyle = position
-    ? { top: position.y, left: position.x }
-    : undefined
+  const style = {
+    '--idle-delay': idleDelay,
+    ...(position && { top: position.y, left: position.x })
+  }
 
   const animeClass = getAnim()
 
   return (
     <SvgComponent
       className={classNames(styles.unit, animeClass, className)}
-      style={inlineStyle}
+      style={style}
     />
   )
 }
