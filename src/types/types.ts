@@ -30,7 +30,7 @@ export enum UnitType {
   aircraft = 'aircraft',
 }
 
-export enum UnitState {
+export enum AnimState {
   idle = 'idle',
   battle = 'battle',
   shooting = 'shooting',

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useMemo } from 'react'
-import { Fraction, IconDict, Position, UnitState, UnitType } from '../../types/types'
+import { Fraction, IconDict, Position, AnimState, UnitType } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
 import { battleDict } from './data'
@@ -11,7 +11,7 @@ export interface UnitProps {
   type: UnitType
   position?: Position
   className?: string
-  state?: UnitState
+  state?: AnimState
   iconDict?: IconDict
 }
 
@@ -20,7 +20,7 @@ export default function Unit({
   type,
   position,
   className,
-  state = UnitState.dying,
+  state = AnimState.dying,
   iconDict = battleDict,
 }: UnitProps) {
   const SvgComponent = useMemo(() => {
@@ -31,11 +31,11 @@ export default function Unit({
   const getAnim = () => {
     const isGerman = fraction === Fraction.German
     switch (state) {
-      case UnitState.dying:
+      case AnimState.dying:
         return isGerman ? styles.fallingGerman : styles.fallingPartisan
-      case UnitState.shooting:
+      case AnimState.shooting:
         return isGerman ? styles.shootingGerman : styles.shootingPartisan
-      case UnitState.battle:
+      case AnimState.battle:
         return styles.battle
       default:
         return styles.idle

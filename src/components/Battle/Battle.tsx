@@ -5,7 +5,7 @@ import { useBattleAnimations } from '../../hooks/useBattleAnimations'
 import styles from './Battle.module.scss'
 import Unit, { UnitProps } from '../Unit/Unit'
 import Dice from '../Dice/Dice'
-import { Fraction, UnitState } from '../../types/types'
+import { Fraction, AnimState } from '../../types/types'
 import EndModal from './EndModal'
 import BattleUI from './BattleUI'
 import Retreat from './Retreat'
@@ -55,10 +55,10 @@ const Battle = () => {
     })
   }
 
-  const getUnitState = (unit: UnitProps) => {
-    if (shootingUnits.has(unit.id)) return UnitState.shooting
-    if (dyingUnits.has(unit.id)) return UnitState.dying
-    return UnitState.battle
+  const getAnimState = (unit: UnitProps) => {
+    if (shootingUnits.has(unit.id)) return AnimState.shooting
+    if (dyingUnits.has(unit.id)) return AnimState.dying
+    return AnimState.battle
   }
 
   return (
@@ -73,7 +73,7 @@ const Battle = () => {
         <Unit
           key={u.id}
           {...u}
-          state={getUnitState(u)}
+          state={getAnimState(u)}
         />
       ))}
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Fraction, Troops, RegionState, UnitType, IconDict, UnitState } from '../../types/types'
+import { Fraction, Troops, RegionState, UnitType, IconDict, AnimState } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
 import Unit from './Unit'
@@ -25,7 +25,7 @@ export default function UnitIcon({ region, id, iconDict }: Props) {
 
   return (
     <g transform={`translate(${region.position.x - 20}, ${region.position.y - 30})`}>
-      <Unit className={styles.icon} fraction={fraction} type={type} id={id} iconDict={iconDict} state={UnitState.idle} />
+      <Unit className={styles.icon} fraction={fraction} type={type} id={id} iconDict={iconDict} state={AnimState.idle} />
     </g>
   )
 }
