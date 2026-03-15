@@ -43,11 +43,13 @@ export default function Unit({
   }
 
   const idleDelay = useMemo(() => `${Math.random() * 2}s`, [])
+  const shootDelay = useMemo(() => `${Math.random() * .2}s`, [])
 
   if (!SvgComponent) return null
 
   const style = {
     '--idle-delay': idleDelay,
+    '--shoot-delay': shootDelay,
     ...(position && { top: position.y, left: position.x })
   }
 

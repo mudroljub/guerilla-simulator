@@ -17,7 +17,7 @@ const Battle = () => {
   const region = regionDict[battleQueue[0]]
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
-  const [isAnimating, setIsAnimating] = useState(false)
+  const [battleState, setBattleState] = useState(AnimState.idle)
 
   const {
     germans, setGermans, partisans, setPartisans,
@@ -25,24 +25,26 @@ const Battle = () => {
   } = useBattleLogic(region)
 
   const {
-    dyingUnits, shootingUnits, animateRemoval, triggerShooting
+    dyingUnits, animateRemoval
   } = useBattleAnimations()
 
   const handleBattleRound = async(rollValue: number) => {
-    if (!hasBothSides || isAnimating) return
-    setIsAnimating(true)
+    // TODO: disabled na Dice, pomeriti tamo uslov
+    if (battleState !== AnimState.idle || !hasBothSides) return
+    setBattleState(AnimState.shooting)
 
+    await sleep(900)
+    setBattleState(AnimState.dying)
+
+    // TODO: refaktor animateRemoval i dyingUnits
     const gVictims = getVictims(germans, calculateHits(partisans, rollValue, Fraction.Partisan))
     const pVictims = getVictims(partisans, calculateHits(germans, rollValue, Fraction.German))
-
-    await triggerShooting([...germans, ...partisans])
-    await sleep(500)
     await Promise.all([
       animateRemoval(gVictims, setGermans),
       animateRemoval(pVictims, setPartisans)
     ])
 
-    setIsAnimating(false)
+    setBattleState(AnimState.idle)
   }
 
   const handleRetreat = (targetRegion: string) => {
@@ -56,8 +58,8 @@ const Battle = () => {
   }
 
   const getAnimState = (unit: UnitProps) => {
-    if (shootingUnits.has(unit.id)) return AnimState.shooting
-    if (dyingUnits.has(unit.id)) return AnimState.dying
+    if (battleState === AnimState.shooting) return AnimState.shooting
+    if (battleState === AnimState.dying && dyingUnits.has(unit.id)) return AnimState.dying
     return AnimState.battle
   }
 
@@ -88,7 +90,7 @@ const Battle = () => {
       <Retreat
         liberatedNeighbors={liberatedNeighbors}
         onConfirm={handleRetreat}
-        disabled={isAnimating || liberatedNeighbors.length === 0}
+        disabled={battleState !== AnimState.idle || liberatedNeighbors.length === 0}
       />
     </div>
   )

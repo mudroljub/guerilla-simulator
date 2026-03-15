@@ -1,29 +1,9 @@
 import { useState, useCallback } from 'react'
-import { sleep } from '../utils/helpers'
 
 const REMOVAL_DURATION = 1500
-const MAX_SHOOT_DELAY = 400
-const SHOOT_DURATION = 200
 
 export const useBattleAnimations = () => {
-  const [shootingUnits, setShootingUnits] = useState<Set<string>>(new Set())
   const [dyingUnits, setDyingUnits] = useState<Set<string>>(new Set())
-
-  const triggerShooting = useCallback(async(units: any[]) => {
-    units.forEach(async u => {
-      const delay = Math.random() * MAX_SHOOT_DELAY
-
-      await sleep(delay)
-      setShootingUnits(prev => new Set(prev).add(u.id))
-
-      await sleep(SHOOT_DURATION)
-      setShootingUnits(prev => {
-        const newSet = new Set(prev)
-        newSet.delete(u.id)
-        return newSet
-      })
-    })
-  }, [])
 
   const animateRemoval = useCallback(async(
     victimIds: string[],
@@ -45,8 +25,6 @@ export const useBattleAnimations = () => {
 
   return {
     dyingUnits,
-    shootingUnits,
     animateRemoval,
-    triggerShooting
   }
 }
