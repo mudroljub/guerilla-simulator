@@ -9,7 +9,7 @@ import { Fraction, AnimState } from '../../types/types'
 import EndModal from './EndModal'
 import BattleUI from './BattleUI'
 import Retreat from './Retreat'
-import { mapUnitsToTroops } from '../../utils/helpers'
+import { mapUnitsToTroops, sleep } from '../../utils/helpers'
 
 const Battle = () => {
   const { state, dispatch } = useStore()
@@ -35,8 +35,8 @@ const Battle = () => {
     const gVictims = getVictims(germans, calculateHits(partisans, rollValue, Fraction.Partisan))
     const pVictims = getVictims(partisans, calculateHits(germans, rollValue, Fraction.German))
 
-    triggerShooting([...germans, ...partisans])
-
+    await triggerShooting([...germans, ...partisans])
+    await sleep(500)
     await Promise.all([
       animateRemoval(gVictims, setGermans),
       animateRemoval(pVictims, setPartisans)

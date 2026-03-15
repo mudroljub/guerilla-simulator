@@ -194,6 +194,7 @@ npm start
 	- dodati tenk animaciju ✓
 	- sačekati kraj pucanja, pa mala pauza pre umiranja
 		- sve dužine animacije gde se nešto čeka setovati na jednom mestu (iz js-a u css var?)
+	- možda poneko da puca i samostalno ponekad?
 	- dodati zastavničara
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
