@@ -193,7 +193,7 @@ npm start
 	- dodati idle animacije tokom borbe✓ videti partizani animacija✓
 	- dodati tenk animaciju ✓
 	- sačekati kraj pucanja, pa mala pauza pre umiranja ✓
-	- vratiti useBattleLogic u Battle✓, refaktorisati uprostiti
+	- vratiti useBattleLogic u Battle✓, refaktorisati uprostiti✓
 	- možda poneko da puca i samostalno ponekad?
 	- dodati zastavničara
 - faza regrutacije zbunjuje, samo prikazati izveštaj i next
