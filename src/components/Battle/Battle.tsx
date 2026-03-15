@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { useLiberatedNeighbors, useStore } from '../../store/store'
 import { useBattleLogic } from '../../hooks/useBattleLogic'
-import { useBattleAnimations } from '../../hooks/useBattleAnimations'
 import styles from './Battle.module.scss'
-import Unit, { UnitProps } from '../Unit/Unit'
+import Unit from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction, AnimState } from '../../types/types'
 import EndModal from './EndModal'
@@ -17,34 +16,32 @@ const Battle = () => {
   const region = regionDict[battleQueue[0]]
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
 
-  const [battleState, setBattleState] = useState(AnimState.idle)
+  const [processing, setProcessing] = useState(false)
 
   const {
     germans, setGermans, partisans, setPartisans,
     calculateHits, getVictims, hasBothSides
   } = useBattleLogic(region)
 
-  const {
-    dyingUnits, animateRemoval
-  } = useBattleAnimations()
-
   const handleBattleRound = async(rollValue: number) => {
-    // TODO: disabled na Dice, pomeriti tamo uslov
-    if (battleState !== AnimState.idle || !hasBothSides) return
-    setBattleState(AnimState.shooting)
+    if (processing || !hasBothSides) return
+    setProcessing(true)
 
+    setGermans(germans.map(unit => ({ ...unit, state: AnimState.shooting })))
+    setPartisans(partisans.map(unit => ({ ...unit, state: AnimState.shooting })))
     await sleep(900)
-    setBattleState(AnimState.dying)
 
-    // TODO: refaktor animateRemoval i dyingUnits
     const gVictims = getVictims(germans, calculateHits(partisans, rollValue, Fraction.Partisan))
     const pVictims = getVictims(partisans, calculateHits(germans, rollValue, Fraction.German))
-    await Promise.all([
-      animateRemoval(gVictims, setGermans),
-      animateRemoval(pVictims, setPartisans)
-    ])
 
-    setBattleState(AnimState.idle)
+    setGermans(germans.map(unit => ({ ...unit, state: gVictims.includes(unit.id) ? AnimState.dying : AnimState.battle })))
+    setPartisans(partisans.map(unit => ({ ...unit, state: pVictims.includes(unit.id) ? AnimState.dying : AnimState.battle })))
+    await sleep(1500)
+
+    setGermans(prev => prev.filter(u => !gVictims.includes(u.id)))
+    setPartisans(prev => prev.filter(u => !pVictims.includes(u.id)))
+
+    setProcessing(false)
   }
 
   const handleRetreat = (targetRegion: string) => {
@@ -57,11 +54,7 @@ const Battle = () => {
     })
   }
 
-  const getAnimState = (unit: UnitProps) => {
-    if (battleState === AnimState.shooting) return AnimState.shooting
-    if (battleState === AnimState.dying && dyingUnits.has(unit.id)) return AnimState.dying
-    return AnimState.battle
-  }
+  console.log(germans)
 
   return (
     <div className={styles.container}>
@@ -75,7 +68,6 @@ const Battle = () => {
         <Unit
           key={u.id}
           {...u}
-          state={getAnimState(u)}
         />
       ))}
 
@@ -90,7 +82,7 @@ const Battle = () => {
       <Retreat
         liberatedNeighbors={liberatedNeighbors}
         onConfirm={handleRetreat}
-        disabled={battleState !== AnimState.idle || liberatedNeighbors.length === 0}
+        disabled={processing || liberatedNeighbors.length === 0}
       />
     </div>
   )

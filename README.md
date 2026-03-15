@@ -196,6 +196,8 @@ npm start
 		- sve dužine animacije gde se nešto čeka setovati na jednom mestu (iz js-a u css var?)
 	- možda poneko da puca i samostalno ponekad?
 	- dodati zastavničara
+- faza regrutacije zbunjuje, samo prikazati izveštaj i next
+- širina izveštaja bitke treba manja. bolji tekstovi
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima

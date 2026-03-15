@@ -20,7 +20,7 @@ export default function Unit({
   type,
   position,
   className,
-  state = AnimState.dying,
+  state = AnimState.battle,
   iconDict = battleDict,
 }: UnitProps) {
   const SvgComponent = useMemo(() => {
@@ -43,7 +43,7 @@ export default function Unit({
   }
 
   const idleDelay = useMemo(() => `${Math.random() * 2}s`, [])
-  const shootDelay = useMemo(() => `${Math.random() * .2}s`, [])
+  const shootDelay = useMemo(() => `${Math.random() * .4}s`, [])
 
   if (!SvgComponent) return null
 
