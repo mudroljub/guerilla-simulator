@@ -28,7 +28,7 @@ export default function Unit({
     return icons?.length ? sample(icons) : null
   }, [fraction, iconDict, type])
 
-  const getAnim = () => {
+  const getAnimClass = () => {
     const isGerman = fraction === Fraction.German
     switch (state) {
       case AnimState.dying:
@@ -36,7 +36,7 @@ export default function Unit({
       case AnimState.shooting:
         return isGerman ? styles.shootingGerman : styles.shootingPartisan
       case AnimState.battle:
-        return styles.battle
+        return type === UnitType.tanks ? styles.tank : styles.battle
       default:
         return styles.idle
     }
@@ -51,7 +51,7 @@ export default function Unit({
     ...(position && { top: position.y, left: position.x })
   }
 
-  const animeClass = getAnim()
+  const animeClass = getAnimClass()
 
   return (
     <SvgComponent

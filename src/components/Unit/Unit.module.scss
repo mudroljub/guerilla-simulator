@@ -79,7 +79,7 @@
 
 @keyframes battle {
   0% { transform: translate(0, 0); }
-  50% { transform: translate(1px, 0); }
+  50% { transform: translate(2px, 0); }
   100% { transform: translate(0, 0); }
 }
 
@@ -96,5 +96,17 @@
 
 .idle {
   animation: idle 2s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+@keyframes tank {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(40px); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0px); }
+}
+
+.tank {
+  animation: tank 8s ease-in-out infinite;
   animation-delay: var(--idle-delay, 0s);
 }
