@@ -42,7 +42,7 @@ export default function Unit({
     }
   }
 
-  const idleDelay = useMemo(() => `${Math.random() * 3}s`, [])
+  const idleDelay = useMemo(() => `${Math.random() * 2}s`, [])
 
   if (!SvgComponent) return null
 

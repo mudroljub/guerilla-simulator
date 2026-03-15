@@ -84,7 +84,7 @@
 }
 
 .battle {
-  animation: battle 3s ease-in-out infinite;
+  animation: battle 4s ease-in-out infinite;
   animation-delay: var(--idle-delay, 0s);
 }
 
@@ -95,6 +95,6 @@
 }
 
 .idle {
-  animation: idle 3s ease-in-out infinite;
+  animation: idle 2s ease-in-out infinite;
   animation-delay: var(--idle-delay, 0s);
 }
