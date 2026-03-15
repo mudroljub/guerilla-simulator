@@ -192,8 +192,8 @@ npm start
 - bitka animacije
 	- dodati idle animacije tokom borbe✓ videti partizani animacija✓
 	- dodati tenk animaciju ✓
-	- sačekati kraj pucanja, pa mala pauza pre umiranja
-		- sve dužine animacije gde se nešto čeka setovati na jednom mestu (iz js-a u css var?)
+	- sačekati kraj pucanja, pa mala pauza pre umiranja ✓
+	- vratiti useBattleLogic u Battle, refaktorisati uprostiti
 	- možda poneko da puca i samostalno ponekad?
 	- dodati zastavničara
 - faza regrutacije zbunjuje, samo prikazati izveštaj i next
