@@ -23,52 +23,51 @@ const Battle = () => {
   })
   const [processing, setProcessing] = useState(false)
 
-  const setAnim = (animation: AnimState, victims: Record<Fraction, string[]> = { [Fraction.German]: [], [Fraction.Partisan]: [] }) => {
+  const setAnim = (anim: AnimState, victims: Record<Fraction, string[]> = { [Fraction.German]: [], [Fraction.Partisan]: [] }) => {
     setArmies(prev => ({
-      [Fraction.German]: prev[Fraction.German].map(unit => ({ ...unit, state: victims[Fraction.German].includes(unit.id) ? AnimState.dying : animation })),
-      [Fraction.Partisan]: prev[Fraction.Partisan].map(unit => ({ ...unit, state: victims[Fraction.Partisan].includes(unit.id) ? AnimState.dying : animation }))
+      [Fraction.German]: prev[Fraction.German].map(u => ({ ...u, state: victims[Fraction.German].includes(u.id) ? AnimState.dying : anim })),
+      [Fraction.Partisan]: prev[Fraction.Partisan].map(u => ({ ...u, state: victims[Fraction.Partisan].includes(u.id) ? AnimState.dying : anim }))
     }))
   }
 
+  const calculateHits = (attacker: UnitProps[], rollValue: number, fraction: Fraction) => {
+    const normRoll = (rollValue - 1) / 5
+    const mod = fraction === Fraction.Partisan ? normRoll * 0.01 - 0.005 : 0.005 - normRoll * 0.01
+
+    return attacker.reduce((total, u) => {
+      let hit = roll() <= UNIT_STRENGTH[u.type]
+      if (Math.random() < Math.abs(mod)) hit = !hit
+      return hit ? total + 1 : total
+    }, 0)
+  }
+
+  const getVictims = (units: UnitProps[], hits: number) => {
+    const victimIds: string[] = []
+    let h = hits
+    for (const u of units)
+      if (h >= UNIT_STRENGTH[u.type]) {
+        h -= UNIT_STRENGTH[u.type]
+        victimIds.push(u.id)
+      }
+    return victimIds
+  }
+
   const handleBattleRound = async(rollValue: number) => {
-    if (processing || !armies[Fraction.German].length || !armies[Fraction.Partisan].length) return
+    if (processing || armies[Fraction.German].length === 0 || armies[Fraction.Partisan].length === 0) return
     setProcessing(true)
 
     setAnim(AnimState.shooting)
     await sleep(900)
 
-    const battleResults: Record<Fraction, string[]> = { [Fraction.German]: [], [Fraction.Partisan]: [] }
+    const germansDead = getVictims(armies[Fraction.German], calculateHits(armies[Fraction.Partisan], rollValue, Fraction.Partisan))
+    const partisansDead = getVictims(armies[Fraction.Partisan], calculateHits(armies[Fraction.German], rollValue, Fraction.German))
 
-    for (const fraction of [Fraction.German, Fraction.Partisan]) {
-      const isPartisan = fraction === Fraction.Partisan
-      const attackers = isPartisan ? armies[Fraction.Partisan] : armies[Fraction.German]
-      const defenders = isPartisan ? armies[Fraction.German] : armies[Fraction.Partisan]
-      const targetFraction = isPartisan ? Fraction.German : Fraction.Partisan
-
-      const normRoll = (rollValue - 1) / 5
-      const modifier = isPartisan ? normRoll * 0.01 - 0.005 : 0.005 - normRoll * 0.01
-
-      let totalHits = attackers.reduce((total, unit) => {
-        let hit = roll() <= UNIT_STRENGTH[unit.type]
-        if (Math.random() < Math.abs(modifier)) hit = !hit
-        return hit ? total + 1 : total
-      }, 0)
-
-      for (const unit of defenders) {
-        const defense = UNIT_STRENGTH[unit.type]
-        if (totalHits >= defense) {
-          totalHits -= defense
-          battleResults[targetFraction].push(unit.id)
-        }
-      }
-    }
-
-    setAnim(AnimState.battle, battleResults)
+    setAnim(AnimState.battle, { [Fraction.German]: germansDead, [Fraction.Partisan]: partisansDead })
     await sleep(1500)
 
     setArmies(prev => ({
-      [Fraction.German]: prev[Fraction.German].filter(unit => !battleResults[Fraction.German].includes(unit.id)),
-      [Fraction.Partisan]: prev[Fraction.Partisan].filter(unit => !battleResults[Fraction.Partisan].includes(unit.id))
+      [Fraction.German]: prev[Fraction.German].filter(u => !germansDead.includes(u.id)),
+      [Fraction.Partisan]: prev[Fraction.Partisan].filter(u => !partisansDead.includes(u.id))
     }))
 
     setProcessing(false)
@@ -84,14 +83,18 @@ const Battle = () => {
         partisans={armies[Fraction.Partisan].length}
       />
 
-      {[...armies[Fraction.German], ...armies[Fraction.Partisan]].map(unit => (
-        <Unit key={unit.id} {...unit} />
+      {[...armies[Fraction.German], ...armies[Fraction.Partisan]].map(u => (
+        <Unit key={u.id} {...u} />
       ))}
 
       {hasBothSides ? (
         <Dice className={styles.dice} callback={handleBattleRound} />
       ) : (
-        <EndModal regionName={region.name} germans={armies[Fraction.German]} partisans={armies[Fraction.Partisan]} />
+        <EndModal
+          regionName={region.name}
+          germans={armies[Fraction.German]}
+          partisans={armies[Fraction.Partisan]}
+        />
       )}
 
       <Retreat
@@ -103,7 +106,7 @@ const Battle = () => {
           retreatingTroops: mapUnitsToTroops(armies[Fraction.Partisan]),
           retreatingRegion: target,
         })}
-        disabled={processing || !liberatedNeighbors.length}
+        disabled={processing || liberatedNeighbors.length === 0}
       />
     </div>
   )
