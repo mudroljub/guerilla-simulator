@@ -49,7 +49,6 @@ export default function Unit({
     : undefined
 
   const animeClass = getAnim()
-  console.log(animeClass)
 
   return (
     <SvgComponent
