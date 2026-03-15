@@ -190,10 +190,10 @@ npm start
 	  - BUG: avion se ne vidi jer neki lejeri idu preko njega ✓
 	- zameniti ikonu bombardovanja (smrt umesto medalje) ✓
 - efekti bitke
-	- dodati animacije borbe na trenutnoj regiji, čikice pucaju
-	- animacija bacanja kockica?
-	- dodati Skip dugme (isprazniti battleQueue u reduceru)
-	- centrirati oblast bitke (baguje)
+	- dodati idle animacije tokom borbe, čikice pucaju sve vreme? videti partizani animacija
+	- dodati zastavničara
+	- dodati auto-battle (isprazniti battleQueue u reduceru?)
+	- centrirati oblast bitke
 - zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI

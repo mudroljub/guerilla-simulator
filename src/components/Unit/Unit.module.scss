@@ -1,6 +1,5 @@
 .icon {
   pointer-events: none;
-  transform: translate(-20px, -30px);
 }
 
 .unit {
@@ -76,4 +75,26 @@
   100% {
     transform: translate(0, 0);
   }
+}
+
+@keyframes battle {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+.battle {
+  animation: battle 3s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+@keyframes idle {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(0, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+.idle {
+  animation: idle 3s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
 }

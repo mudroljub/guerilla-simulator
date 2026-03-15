@@ -30,6 +30,13 @@ export enum UnitType {
   aircraft = 'aircraft',
 }
 
+export enum UnitState {
+  idle = 'idle',
+  battle = 'battle',
+  shooting = 'shooting',
+  dying = 'dying',
+}
+
 export type Troops = { infantry: number } & Partial<Record<Exclude<UnitType, 'infantry'>, number>>;
 
 export enum Fraction {

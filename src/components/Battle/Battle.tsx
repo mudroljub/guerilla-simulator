@@ -3,12 +3,12 @@ import { useLiberatedNeighbors, useStore } from '../../store/store'
 import { useBattleLogic } from '../../hooks/useBattleLogic'
 import { useBattleAnimations } from '../../hooks/useBattleAnimations'
 import styles from './Battle.module.scss'
-import Unit from '../Unit/Unit'
+import Unit, { UnitProps } from '../Unit/Unit'
 import Dice from '../Dice/Dice'
-import { Fraction } from '../../types/types'
+import { Fraction, UnitState } from '../../types/types'
 import EndModal from './EndModal'
 import BattleUI from './BattleUI'
-import Retreat from './Retreat' // Novi uvoz
+import Retreat from './Retreat'
 import { mapUnitsToTroops } from '../../utils/helpers'
 
 const Battle = () => {
@@ -55,6 +55,12 @@ const Battle = () => {
     })
   }
 
+  const getUnitState = (unit: UnitProps) => {
+    if (shootingUnits.has(unit.id)) return UnitState.shooting
+    if (dyingUnits.has(unit.id)) return UnitState.dying
+    return UnitState.battle
+  }
+
   return (
     <div className={styles.container}>
       <BattleUI
@@ -67,8 +73,7 @@ const Battle = () => {
         <Unit
           key={u.id}
           {...u}
-          isDying={dyingUnits.has(u.id)}
-          isShooting={shootingUnits.has(u.id)}
+          state={getUnitState(u)}
         />
       ))}
 
