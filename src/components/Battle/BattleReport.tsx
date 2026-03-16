@@ -4,14 +4,14 @@ import { useStore } from '../../store/store'
 import { Fraction } from '../../types/types'
 import { mapUnitsToTroops } from '../../utils/helpers'
 import { UnitProps } from '../Unit/Unit'
-import defeatImg from '../../assets/images/pozadina-dimi.gif'
+import defeatImg from '../../assets/images/art/Vojo_Dimitrijević_-_Tifusar.jpg'
 import victoryImg from '../../assets/images/art/Đorđe_Andrejević_Kun_-_Kolona,_ulje.jpg'
 
 const DIARY_MESSAGES = {
   VICTORY: [
     'The National Liberation Army has entered the settlement. The population celebrates their freedom!',
     'The enemy has retreated in disarray. Significant quantities of equipment have been captured.',
-    'Another occupier stronghold has fallen. The road to total liberation is open!'
+    'Another occupier stronghold has fallen. The road to liberation is open!'
   ],
   DEFEAT: [
     'Our units were forced to withdraw in the face of superior enemy numbers.',
@@ -33,7 +33,7 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
   const isDefeat = partisans.length === 0 && germans.length > 0
   const winner = isVictory ? Fraction.Partisan : isDefeat ? Fraction.German : null
 
-  const diaryEntry = useMemo(() => {
+  const description = useMemo(() => {
     const list = isVictory ? DIARY_MESSAGES.VICTORY : DIARY_MESSAGES.DEFEAT
     return list[Math.floor(Math.random() * list.length)]
   }, [isVictory])
@@ -51,22 +51,23 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
     })
   }
 
+  const victoryTitle = `Liberation of ${regionName}`
+  const defeatTitle = `Defeat at ${regionName}`
+
   return (
     <div className={styles.reportOverlay}>
       <div className={styles.reportBox}>
-        <h2>{isVictory ? 'VICTORY' : 'DEFEAT'}</h2>
+        <h2>{isVictory ? victoryTitle : defeatTitle}</h2>
+
         <img src={isVictory ? victoryImg : defeatImg} alt="" />
 
-        <p className={styles.reportTarget}>"{diaryEntry}"</p>
+        <p className={styles.reportTarget}>{description}</p>
 
-        <div>
-          <p>Location: <strong>{regionName}</strong></p>
-          {winner === Fraction.Partisan ? (
-            <p>Liberated by: <strong>{partisans.length} partisans</strong></p>
-          ) : (
-            <p>Occupied by: <strong>{germans.length} germans</strong></p>
-          )}
-        </div>
+        {winner === Fraction.Partisan ? (
+          <b>{regionName} is being liberated by {partisans.length} partisans.</b>
+        ) : (
+          <b>{regionName} remains occupied by {germans.length} Germans.</b>
+        )}
 
         <button onClick={endBattle} className={styles.continueBtn}>
           Continue

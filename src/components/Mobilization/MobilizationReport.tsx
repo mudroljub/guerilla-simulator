@@ -1,5 +1,6 @@
 import { useStore } from '../../store/store'
 import styles from '../../assets/styles/modal.module.scss'
+import imgSrc from '../../assets/images/art/Ismet_Mujezinović_–_Ustanak.jpg'
 
 interface Props {
   onClose: () => void
@@ -23,22 +24,19 @@ export default function MobilizationReport({ onClose }: Props) {
     <div className={styles.reportOverlay} onClick={onClose}>
       <div className={styles.reportBox}>
         <h2>MOBILIZATION REPORT</h2>
+        <img src={imgSrc} alt="" />
+        <p>
+          {total.toLocaleString()} new volunteers joined the partisans
+        </p>
         <div>
           {regions.map(region => (
             <div key={region.name} className={styles.reportItem}>
-              <strong>Mobilization  </strong>
+              <strong>region  </strong>
               <div className={styles.reportTarget}>
                 {region.name}: +{region.lastMobilizedCount.toLocaleString()} recruits
               </div>
             </div>
           ))}
-
-          <div className={styles.reportItem}>
-            <strong>Total</strong>
-            <div className={styles.reportTarget}>
-              {total.toLocaleString()} new volunteers joined the resistance
-            </div>
-          </div>
         </div>
 
         <button

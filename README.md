@@ -199,10 +199,13 @@ npm start
 	- veće kockanje?
 - glavni tok
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
-		- reuse stilove ✓
 	- potvrda ako nema napada ✓
 	- povlačenje levo ✓
-- širina izveštaja bitke treba manja. bolji tekstovi
+- izveštaji
+	- reuse stilove ✓
+	- dodati slike na sve izveštaje
+	- širina izveštaja bitke treba manja✓ 
+	- bolji tekstovi za izveštaj bitke
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima
