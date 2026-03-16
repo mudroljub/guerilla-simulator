@@ -16,7 +16,7 @@ export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
   [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
   [GamePhase.MOBILIZATION_PHASE]: 'New volunteers are joining the partisans!',
-  [GamePhase.BOMBARDMENT]: 'Enemy planes are bombing our towns',
+  [GamePhase.BOMBING_PHASE]: 'Enemy planes are bombing our towns',
 }
 
 export default function MapScreen() {
@@ -43,7 +43,7 @@ export default function MapScreen() {
         {showReport && (
           <MobilizationReport onClose={() => setShowReport(false)} />
         )}
-        {phase === GamePhase.BOMBARDMENT && <BombardmentOverlay />}
+        {phase === GamePhase.BOMBING_PHASE && <BombardmentOverlay />}
       </MapContainer>
 
       <RegionInfo />

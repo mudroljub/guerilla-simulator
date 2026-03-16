@@ -23,7 +23,6 @@ const EndTurn = () => {
   }
 
   const onNextClick = () => {
-    if (phase === GamePhase.MOBILIZATION_PHASE) return
     if (phase === GamePhase.ATTACK_PHASE && !hasAttacks)
       setIsConfirming(true)
     else

@@ -21,7 +21,7 @@ export default function MapContainer({ children }: Props) {
   const { bombings, currentBombardmentIndex, phase } = state
 
   useEffect(() => {
-    if (phase === 'BOMBARDMENT' && bombings[currentBombardmentIndex ?? 0]) {
+    if (phase === 'BOMBING_PHASE' && bombings[currentBombardmentIndex ?? 0]) {
       const currentEvent = bombings[currentBombardmentIndex ?? 0]
       const targetId = currentEvent.targets[0]?.regionName
       const targetRegion = state.regionDict[targetId]

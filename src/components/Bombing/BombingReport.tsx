@@ -10,7 +10,7 @@ export default function BombingReport() {
   return (
     <div className={styles.reportOverlay}>
       <div className={styles.reportBox}>
-        <h2>BOMBARDMENT REPORT</h2>
+        <h2>BOMBING_PHASE REPORT</h2>
         <div>
           {bombings.map((event, i) => (
             <div key={i} className={styles.reportItem}>
