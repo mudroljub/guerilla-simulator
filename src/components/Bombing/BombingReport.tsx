@@ -11,7 +11,7 @@ export default function BombingReport() {
     <div className={styles.reportOverlay}>
       <div className={styles.reportBox}>
         <h2>BOMBARDMENT REPORT</h2>
-        <div className={styles.reportList}>
+        <div>
           {bombings.map((event, i) => (
             <div key={i} className={styles.reportItem}>
               <strong>Bombing from {event.bombingFrom}:</strong>

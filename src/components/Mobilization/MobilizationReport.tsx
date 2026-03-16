@@ -23,7 +23,7 @@ export default function MobilizationReport({ onClose }: Props) {
     <div className={styles.reportOverlay} onClick={onClose}>
       <div className={styles.reportBox}>
         <h2>MOBILIZATION REPORT</h2>
-        <div className={styles.reportList}>
+        <div>
           {regions.map(region => (
             <div key={region.name} className={styles.reportItem}>
               <strong>Mobilization  </strong>

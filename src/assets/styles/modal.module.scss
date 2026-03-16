@@ -18,9 +18,10 @@
 }
 
 .reportBox {
+  overflow-y: auto;
   background: #1a1a1a;
   border: 2px solid #ffcc00;
-  padding: 2.5rem;
+  padding: 1.25rem 2.5rem;
   max-width: 550px;
   width: 90%;
   max-height: 80vh;
@@ -29,12 +30,6 @@
   color: #eee;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   font-family: 'Courier New', Courier, monospace;
-}
-
-.reportList {
-  max-height: 400px;
-  overflow-y: auto;
-  padding-right: 10px;
 
   &::-webkit-scrollbar { width: 4px; }
   &::-webkit-scrollbar-thumb { background: #444; }
@@ -62,24 +57,7 @@
 }
 
 .continueBtn {
-  display: block;
   margin: 2rem auto 0;
-  padding: 12px 40px;
   background: #ffcc00;
-  color: #000;
   border: none;
-  font-size: 1rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #fff;
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
 }

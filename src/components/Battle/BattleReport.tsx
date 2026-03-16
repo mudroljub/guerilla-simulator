@@ -4,7 +4,8 @@ import { useStore } from '../../store/store'
 import { Fraction } from '../../types/types'
 import { mapUnitsToTroops } from '../../utils/helpers'
 import { UnitProps } from '../Unit/Unit'
-import imgSrc from '../../assets/images/pozadina-dimi.gif'
+import defeatImg from '../../assets/images/pozadina-dimi.gif'
+import victoryImg from '../../assets/images/art/Đorđe_Andrejević_Kun_-_Kolona,_ulje.jpg'
 
 const DIARY_MESSAGES = {
   VICTORY: [
@@ -53,13 +54,12 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
   return (
     <div className={styles.reportOverlay}>
       <div className={styles.reportBox}>
-        <small>OFFICIAL DISPATCH</small>
         <h2>{isVictory ? 'VICTORY' : 'DEFEAT'}</h2>
-        <img src={imgSrc} alt="" />
+        <img src={isVictory ? victoryImg : defeatImg} alt="" />
 
         <p className={styles.reportTarget}>"{diaryEntry}"</p>
 
-        <div className={styles.reportList}>
+        <div>
           <p>Location: <strong>{regionName}</strong></p>
           {winner === Fraction.Partisan ? (
             <p>Liberated by: <strong>{partisans.length} partisans</strong></p>
