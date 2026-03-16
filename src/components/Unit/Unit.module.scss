@@ -50,15 +50,9 @@ $recoil: 4px;
   100% { transform: translate(0, 0); }
 }
 
-@keyframes battleLeft {
+@keyframes battle {
   0% { transform: translate(0, 0); }
   50% { transform: translate(-2px, 0); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes battleRight {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(2px, 0); }
   100% { transform: translate(0, 0); }
 }
 

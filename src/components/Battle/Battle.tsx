@@ -4,7 +4,7 @@ import styles from './Battle.module.scss'
 import Unit, { UnitProps } from '../Unit/Unit'
 import Dice from '../Dice/Dice'
 import { Fraction, AnimState } from '../../types/types'
-import EndModal from './EndModal'
+import BattleReport from './BattleReport'
 import BattleUI from './BattleUI'
 import Retreat from './Retreat'
 import { mapUnitsToTroops, sleep } from '../../utils/helpers'
@@ -80,7 +80,7 @@ const Battle = () => {
 
       {hasBothSides
         ? <Dice className={styles.dice} callback={handleBattleRound} />
-        : <EndModal regionName={region.name} germans={armies[Fraction.German]} partisans={armies[Fraction.Partisan]} />
+        : <BattleReport regionName={region.name} germans={armies[Fraction.German]} partisans={armies[Fraction.Partisan]} />
       }
 
       <Retreat

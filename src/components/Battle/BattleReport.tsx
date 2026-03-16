@@ -24,7 +24,7 @@ interface Props {
   regionName: string
 }
 
-export default function EndModal({ regionName, germans, partisans }: Props) {
+export default function BattleReport({ regionName, germans, partisans }: Props) {
   const { dispatch } = useStore()
 
   const isVictory = germans.length === 0 && partisans.length > 0

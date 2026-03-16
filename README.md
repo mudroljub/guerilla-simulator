@@ -197,7 +197,10 @@ npm start
 	- bolji trzaj✓
 	- možda poneko da puca samostalno ponekad?
 	- veće kockanje?
-- faza regrutacije zbunjuje, samo prikazati izveštaj i next
+- glavni tok
+	- faza regrutacije zbunjuje, samo prikazati izveštaj i next
+	- potvrda ako nema napada
+	- povlačenje levo
 - širina izveštaja bitke treba manja. bolji tekstovi
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
