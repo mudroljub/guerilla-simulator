@@ -203,7 +203,7 @@ npm start
 	- povlačenje levo ✓
 - izveštaji
 	- reuse stilove ✓
-	- dodati slike na sve izveštaje
+	- dodati slike na sve izveštaje✓
 	- širina izveštaja bitke treba manja✓ 
 	- bolji tekstovi za izveštaj bitke
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
