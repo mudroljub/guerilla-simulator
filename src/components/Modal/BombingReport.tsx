@@ -1,5 +1,5 @@
 import { useStore } from '../../store/store'
-import styles from './BombingReport.module.scss'
+import styles from './Modal.module.scss'
 
 export default function BombingReport() {
   const { state, dispatch } = useStore()
