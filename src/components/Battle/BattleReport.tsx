@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import shared from '../../assets/styles/shared.module.scss'
+import styles from '../../assets/styles/modal.module.scss'
 import { useStore } from '../../store/store'
 import { Fraction } from '../../types/types'
 import { mapUnitsToTroops } from '../../utils/helpers'
 import { UnitProps } from '../Unit/Unit'
+import imgSrc from '../../assets/images/pozadina-dimi.gif'
 
 const DIARY_MESSAGES = {
   VICTORY: [
@@ -50,14 +51,15 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
   }
 
   return (
-    <div className={shared.blackModal}>
-      <div className={shared.diaryPaper}>
+    <div className={styles.reportOverlay}>
+      <div className={styles.reportBox}>
         <small>OFFICIAL DISPATCH</small>
         <h2>{isVictory ? 'VICTORY' : 'DEFEAT'}</h2>
+        <img src={imgSrc} alt="" />
 
-        <p className={shared.diaryText}>"{diaryEntry}"</p>
+        <p className={styles.reportTarget}>"{diaryEntry}"</p>
 
-        <div className={shared.battleSummary}>
+        <div className={styles.reportList}>
           <p>Location: <strong>{regionName}</strong></p>
           {winner === Fraction.Partisan ? (
             <p>Liberated by: <strong>{partisans.length} partisans</strong></p>
@@ -66,7 +68,7 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
           )}
         </div>
 
-        <button onClick={endBattle} className={shared.button}>
+        <button onClick={endBattle} className={styles.continueBtn}>
           Continue
         </button>
       </div>
