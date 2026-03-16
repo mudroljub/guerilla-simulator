@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
-import styles from './BombardmentOverlay.module.scss'
+import styles from './BombingOverlay.module.scss'
 import BombingReport from './BombingReport'
 import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 
 const IMG_SIZE = 64
 
-const BombardmentOverlay = () => {
+const BombingOverlay = () => {
   const { state, dispatch } = useStore()
   const { bombings, currentBombardmentIndex = 0, regionDict } = state
   const [showDamage, setShowDamage] = useState(false)
@@ -78,4 +78,4 @@ const BombardmentOverlay = () => {
   )
 }
 
-export default BombardmentOverlay
+export default BombingOverlay

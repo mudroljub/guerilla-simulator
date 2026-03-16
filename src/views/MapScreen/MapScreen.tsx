@@ -8,7 +8,7 @@ import RegionInfo from '../../components/RegionInfo/RegionInfo'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
-import BombardmentOverlay from '../../components/Bombing/BombardmentOverlay'
+import BombardmentOverlay from '../../components/Bombing/BombingOverlay'
 import { useEffect, useState } from 'react'
 import MobilizationReport from '../../components/Mobilization/MobilizationReport'
 
