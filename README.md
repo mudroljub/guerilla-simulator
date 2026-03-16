@@ -198,11 +198,11 @@ npm start
 	- možda poneko da puca samostalno ponekad?
 	- veće kockanje?
 - glavni tok
-	- faza regrutacije zbunjuje, samo prikazati izveštaj i next
+	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
 		- reuse stilove ✓
 		- callback animacije za otvaranje prozora
-	- potvrda ako nema napada
-	- povlačenje levo
+	- potvrda ako nema napada ✓
+	- povlačenje levo ✓
 - širina izveštaja bitke treba manja. bolji tekstovi
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke

@@ -16,6 +16,7 @@ const Retreat = ({ liberatedNeighbors, onConfirm, disabled }: Props) => {
     return (
       <button
         className={shared.roundButton}
+        style={{ left: '1rem' }}
         onClick={() => setIsRetreating(true)}
         disabled={disabled}
       >
