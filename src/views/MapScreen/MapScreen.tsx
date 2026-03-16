@@ -4,7 +4,7 @@ import Map from '../../components/Map/Map'
 import legend from '../../assets/images/legenda.webp'
 import styles from '../../App.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
-import Modal from '../../components/Modal/Modal'
+import RegionInfo from '../../components/RegionInfo/RegionInfo'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
@@ -46,7 +46,7 @@ export default function MapScreen() {
         {phase === GamePhase.BOMBARDMENT && <BombardmentOverlay />}
       </MapContainer>
 
-      <Modal />
+      <RegionInfo />
 
       <p className={shared.message}>
         {phase.replace('_', ' ')}: {message[phase]}

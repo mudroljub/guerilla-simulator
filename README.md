@@ -199,6 +199,8 @@ npm start
 	- veće kockanje?
 - glavni tok
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next
+		- srediti stilove
+		- callback animacije za otvaranje prozora
 	- potvrda ako nema napada
 	- povlačenje levo
 - širina izveštaja bitke treba manja. bolji tekstovi

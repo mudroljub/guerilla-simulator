@@ -1,5 +1,5 @@
 import { Fraction, Troops } from '../../types/types'
-import styles from './Modal.module.scss'
+import styles from './RegionInfo.module.scss'
 
 interface Props {
   troops: Troops;

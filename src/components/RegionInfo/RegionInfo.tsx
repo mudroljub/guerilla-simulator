@@ -1,12 +1,12 @@
 import classnames from 'classnames'
 import { useStore, useIsAttackable } from '../../store/store'
 import { Fraction, GamePhase } from '../../types/types'
-import styles from './Modal.module.scss'
+import styles from './RegionInfo.module.scss'
 import shared from '../../assets/styles/shared.module.scss'
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 
-export default function Modal() {
+export default function RegionInfo() {
   const { dispatch, state: { selected, phase } } = useStore()
   const attackable = useIsAttackable(selected?.name || '')
 
