@@ -194,8 +194,9 @@ npm start
 	- dodati tenk animaciju ✓
 	- sačekati kraj pucanja, pa mala pauza pre umiranja ✓
 	- vratiti useBattleLogic u Battle✓, refaktorisati uprostiti✓
-	- možda poneko da puca i samostalno ponekad?
-	- dodati zastavničara
+	- bolji trzaj✓
+	- možda poneko da puca samostalno ponekad?
+	- veće kockanje?
 - faza regrutacije zbunjuje, samo prikazati izveštaj i next
 - širina izveštaja bitke treba manja. bolji tekstovi
 - dodati auto-battle (isprazniti battleQueue u reduceru?)

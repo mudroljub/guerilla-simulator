@@ -1,3 +1,5 @@
+$recoil: 4px;
+
 .icon {
   pointer-events: none;
 }
@@ -13,6 +15,94 @@
 
 .fallingPartisan {
   animation: fallPartisan 1.5s ease-in-out forwards;
+}
+
+.shootingGerman {
+  animation: trzajLevo 0.4s;
+  animation-delay: var(--shoot-delay, 0s);
+}
+
+.shootingPartisan {
+  animation: trzajDesno 0.3s ease-in-out forwards;
+  animation-delay: var(--shoot-delay, 0s);
+}
+
+.battle {
+  animation: battle 4s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+.breath {
+  animation: breath 2s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+.tank {
+  animation: tank 8s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+/* ANIMATIONS */
+
+@keyframes breath {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(0, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes battleLeft {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-2px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes battleRight {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(2px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes tank {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(40px); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0px); }
+}
+
+@keyframes trzajLevo {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(0);
+  }
+
+  26% {
+    transform: translateX(-$recoil);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes trzajDesno {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(0);
+  }
+
+  26% {
+    transform: translateX($recoil);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes fallGerman {
@@ -43,72 +133,4 @@
     transform: translate(0, 100vh) rotate(90deg);
     opacity: 0;
   }
-}
-
-.shootingGerman {
-  animation: shootFromLeft 0.3s ease-in-out forwards;
-  animation-delay: var(--shoot-delay, 0s);
-}
-
-.shootingPartisan {
-  animation: shootFromRight 0.3s ease-in-out forwards;
-  animation-delay: var(--shoot-delay, 0s);
-}
-
-@keyframes shootFromLeft {
-  0% {
-    transform: translate(0, 0);
-  }
-  10% {
-    transform: translate(-10px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes shootFromRight {
-  0% {
-    transform: translate(0, 0);
-  }
-  10% {
-    transform: translate(10px, 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes battle {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(2px, 0); }
-  100% { transform: translate(0, 0); }
-}
-
-.battle {
-  animation: battle 4s ease-in-out infinite;
-  animation-delay: var(--idle-delay, 0s);
-}
-
-@keyframes idle {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(0, 1px); }
-  100% { transform: translate(0, 0); }
-}
-
-.idle {
-  animation: idle 2s ease-in-out infinite;
-  animation-delay: var(--idle-delay, 0s);
-}
-
-@keyframes tank {
-  0% { transform: translateX(0px); }
-  25% { transform: translateX(40px); }
-  50% { transform: translateX(20px); }
-  100% { transform: translateX(0px); }
-}
-
-.tank {
-  animation: tank 8s ease-in-out infinite;
-  animation-delay: var(--idle-delay, 0s);
 }
