@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombardmentOverlay.module.scss'
-import BombingReport from '../Modal/BombingReport'
+import BombingReport from './BombingReport'
 import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 
 const IMG_SIZE = 64

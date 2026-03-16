@@ -1,5 +1,5 @@
 import { useStore } from '../../store/store'
-import styles from './Modal.module.scss'
+import styles from '../../assets/styles/modal.module.scss'
 
 interface Props {
   onClose: () => void

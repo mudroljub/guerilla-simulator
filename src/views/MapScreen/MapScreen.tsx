@@ -8,9 +8,9 @@ import RegionInfo from '../../components/RegionInfo/RegionInfo'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
-import BombardmentOverlay from '../../components/Bombardment/BombardmentOverlay'
+import BombardmentOverlay from '../../components/Bombing/BombardmentOverlay'
 import { useEffect, useState } from 'react'
-import MobilizationReport from '../../components/Modal/MobilizationReport'
+import MobilizationReport from '../../components/Mobilization/MobilizationReport'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
