@@ -26,7 +26,7 @@ export default function MobilizationReport({ onClose }: Props) {
         <div className={styles.reportList}>
           {regions.map(region => (
             <div key={region.name} className={styles.reportItem}>
-              <strong>Mobilization</strong>
+              <strong>Mobilization  </strong>
               <div className={styles.reportTarget}>
                 {region.name}: +{region.lastMobilizedCount.toLocaleString()} recruits
               </div>
