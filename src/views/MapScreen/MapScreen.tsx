@@ -8,7 +8,7 @@ import RegionInfo from '../../components/RegionInfo/RegionInfo'
 import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
-import BombardmentOverlay from '../../components/Bombing/BombingOverlay'
+import BombingOverlay from '../../components/Bombing/BombingOverlay'
 import { useEffect, useState } from 'react'
 import MobilizationReport from '../../components/Mobilization/MobilizationReport'
 
@@ -22,15 +22,15 @@ export const message: Record<GamePhase, string> = {
 export default function MapScreen() {
   const { state: { phase } } = useStore()
 
-  const [showReport, setShowReport] = useState(false)
+  const [showMobilizationReport, setShowMobilizationReport] = useState(false)
 
   useEffect(() => {
     if (phase !== GamePhase.MOBILIZATION_PHASE) {
-      setShowReport(false)
+      setShowMobilizationReport(false)
       return
     }
 
-    const t = setTimeout(() => setShowReport(true), 3000)
+    const t = setTimeout(() => setShowMobilizationReport(true), 3000)
     return () => clearTimeout(t)
 
   }, [phase])
@@ -40,10 +40,10 @@ export default function MapScreen() {
       <MapContainer>
         <Map />
         {phase === GamePhase.MOBILIZATION_PHASE && <MobilizationOverlay />}
-        {showReport && (
-          <MobilizationReport onClose={() => setShowReport(false)} />
+        {showMobilizationReport && (
+          <MobilizationReport onClose={() => setShowMobilizationReport(false)} />
         )}
-        {phase === GamePhase.BOMBING_PHASE && <BombardmentOverlay />}
+        {phase === GamePhase.BOMBING_PHASE && <BombingOverlay />}
       </MapContainer>
 
       <RegionInfo />
