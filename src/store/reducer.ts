@@ -71,21 +71,21 @@ export function reducer(state: MapState, action: Action): MapState {
         return reducer(state, { type: 'PREPARE_BOMBARDMENT' })
 
       if (state.phase === GamePhase.BOMBING_PHASE) {
-        const currentIndex = state.currentBombardmentIndex ?? 0
+        const currentIndex = state.bombingIndex ?? 0
         const { bombings } = state
         const nextIndex = currentIndex + 1
 
         if (nextIndex <= bombings.length)
           return {
             ...state,
-            currentBombardmentIndex: nextIndex
+            bombingIndex: nextIndex
           }
 
         return {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
           bombings: [],
-          currentBombardmentIndex: 0,
+          bombingIndex: 0,
           selected: null
         }
       }
@@ -136,13 +136,13 @@ export function reducer(state: MapState, action: Action): MapState {
           ...state,
           phase: GamePhase.ATTACK_PHASE,
           bombings: [],
-          currentBombardmentIndex: 0
+          bombingIndex: 0
         }
 
       return {
         ...state,
         bombings: limitedEvents,
-        currentBombardmentIndex: 0,
+        bombingIndex: 0,
         phase: GamePhase.BOMBING_PHASE
       }
     }

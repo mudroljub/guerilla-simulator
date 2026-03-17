@@ -11,6 +11,7 @@ import MobilizationOverlay from '../../components/Mobilization/MobilizationOverl
 import BombingOverlay from '../../components/Bombing/BombingOverlay'
 import { useEffect, useState } from 'react'
 import MobilizationReport from '../../components/Mobilization/MobilizationReport'
+import BombingReport from '../../components/Bombing/BombingReport'
 
 export const message: Record<GamePhase, string> = {
   [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
@@ -20,9 +21,11 @@ export const message: Record<GamePhase, string> = {
 }
 
 export default function MapScreen() {
-  const { state: { phase } } = useStore()
+  const { state: { phase, bombings, bombingIndex = 0 } } = useStore()
 
   const [showMobilizationReport, setShowMobilizationReport] = useState(false)
+  const showBombingReport = phase === GamePhase.BOMBING_PHASE && bombingIndex === bombings.length
+  const showPhaseMassage = !(showBombingReport || showMobilizationReport)
 
   useEffect(() => {
     if (phase !== GamePhase.MOBILIZATION_PHASE) {
@@ -39,18 +42,29 @@ export default function MapScreen() {
     <>
       <MapContainer>
         <Map />
-        {phase === GamePhase.MOBILIZATION_PHASE && <MobilizationOverlay />}
-        {showMobilizationReport && (
-          <MobilizationReport onClose={() => setShowMobilizationReport(false)} />
+        {phase === GamePhase.MOBILIZATION_PHASE && (
+          <>
+            <MobilizationOverlay />
+            {showMobilizationReport && (
+              <MobilizationReport onClose={() => setShowMobilizationReport(false)} />
+            )}
+          </>
         )}
-        {phase === GamePhase.BOMBING_PHASE && <BombingOverlay />}
+        {phase === GamePhase.BOMBING_PHASE && (
+          <>
+            {bombings[bombingIndex] && <BombingOverlay />}
+            {showBombingReport && <BombingReport />}
+          </>
+        )}
       </MapContainer>
 
       <RegionInfo />
 
-      <p className={shared.message}>
-        {phase.replace('_', ' ')}: {message[phase]}
-      </p>
+      {showPhaseMassage &&
+        <p className={shared.message}>
+          {phase.replace('_', ' ')}: {message[phase]}
+        </p>
+      }
 
       <img className={styles.legend} src={legend} alt="legend" />
 

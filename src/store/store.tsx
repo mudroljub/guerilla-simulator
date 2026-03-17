@@ -12,7 +12,7 @@ export interface MapState {
   battleQueue: string[];
   selectedAttackingRegion?: string;
   bombings: BombingMission[]
-  currentBombardmentIndex?: number
+  bombingIndex?: number
 }
 
 interface Store {

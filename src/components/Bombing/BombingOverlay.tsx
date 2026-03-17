@@ -2,19 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 import { useStore } from '../../store/store'
 import { getBombardmentPath } from '../../utils/math'
 import styles from './BombingOverlay.module.scss'
-import BombingReport from './BombingReport'
 import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 
 const IMG_SIZE = 64
 
 const BombingOverlay = () => {
   const { state, dispatch } = useStore()
-  const { bombings, currentBombardmentIndex = 0, regionDict } = state
+  const { bombings, bombingIndex = 0, regionDict } = state
   const [showDamage, setShowDamage] = useState(false)
 
-  const currentEvent = bombings[currentBombardmentIndex]
-  const isFinished = currentBombardmentIndex === bombings.length
-
+  const currentEvent = bombings[bombingIndex]
   const isPlaneShotDown = currentEvent?.targets.some(t => t.isShotDown)
 
   const pathData = useMemo(() => {
@@ -22,27 +19,28 @@ const BombingOverlay = () => {
     const source = regionDict[currentEvent.bombingFrom].position
     const targets = currentEvent.targets.map(t => regionDict[t.regionName].position)
 
-    return (source && targets.length > 0) ? getBombardmentPath(source, targets) : ''
+    return (source && targets.length > 0)
+      ? getBombardmentPath(source, targets)
+      : ''
   }, [currentEvent, regionDict])
 
   useEffect(() => {
-    if (!currentEvent || isFinished) return
+    if (!currentEvent) return
 
     setShowDamage(false)
 
     const damageTimer = setTimeout(() => setShowDamage(true), 1000)
     const endTimer = setTimeout(() => {
-      dispatch({ type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: currentBombardmentIndex })
+      dispatch({ type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: bombingIndex })
       dispatch({ type: 'NEXT_PHASE' })
-    }, 2500) // css animation length
+    }, 2500)
 
     return () => {
       clearTimeout(damageTimer)
       clearTimeout(endTimer)
     }
-  }, [currentBombardmentIndex, currentEvent, isFinished, dispatch])
+  }, [bombingIndex, currentEvent, dispatch])
 
-  if (isFinished) return <BombingReport />
   if (!currentEvent) return null
 
   return (
@@ -50,7 +48,7 @@ const BombingOverlay = () => {
 
       {pathData && !(showDamage && isPlaneShotDown) && (
         <div
-          key={`plane-${currentBombardmentIndex}`}
+          key={`plane-${bombingIndex}`}
           className={styles.planeWrapper}
           style={{ offsetPath: `path("${pathData}")` }}
         >
@@ -60,7 +58,7 @@ const BombingOverlay = () => {
 
       {currentEvent.targets.map(target => (
         <div
-          key={`${currentBombardmentIndex}-${target.regionName}`}
+          key={`${bombingIndex}-${target.regionName}`}
           className={`${styles.resultPopup} ${showDamage ? styles.visible : ''}`}
           style={{
             left: `${regionDict[target.regionName].position.x}px`,

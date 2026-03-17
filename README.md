@@ -208,9 +208,10 @@ npm start
 	- bolji tekstovi za izveštaj bitke ✓ 
 	- dodati x za izveštaje ✓
 	- closeButton, confirmModal u modal css ✓
+	- da poruka faze nestaje kada se pojavi izveštaj ✓
+		- izvući BombingReport iz BombingOverlay ✓
 	- ujednačiti stilove za modal
 	- srediti boje, closeButton da se vidi
-	- da poruka faze nestaje kada se pojavi izveštaj
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima
