@@ -178,7 +178,7 @@ npm start
 	- dodati animacije ✓
 	- dodati izveštaj/poruku ✓
 	- smanjivati population za svaku (partizansku) mobilizaciju ✓
-- Faza bombardovanja 
+- Faza bombardovanja ✓
 	- osmisliti logiku ✓
 		- iz većih gradova avioni bombarduju okolna mesta ✓
 		- partizani imaju malu šansu da obore avion ✓ (bacanje kocke?)
@@ -189,7 +189,7 @@ npm start
 	- refaktorisati, pregledati kod, ispravljati greške ✓
 	  - BUG: avion se ne vidi jer neki lejeri idu preko njega ✓
 	- zameniti ikonu bombardovanja (smrt umesto medalje) ✓
-- bitka animacije
+- bitka animacije ✓
 	- dodati idle animacije tokom borbe✓ videti partizani animacija✓
 	- dodati tenk animaciju ✓
 	- sačekati kraj pucanja, pa mala pauza pre umiranja ✓
@@ -197,7 +197,7 @@ npm start
 	- bolji trzaj✓
 	- srediti kockanje✓
 	- možda poneko da puca samostalno ponekad✓
-- glavni tok
+- glavni tok ✓
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
 	- potvrda ako nema napada ✓
 	- povlačenje levo ✓
@@ -214,16 +214,13 @@ npm start
 	- srediti boje, closeButton da se vidi ✓
 - inicijalno selektovati odakle se napada ✓
 - dodati strelicu kao indikator napada od centra do centra ✓
-- probati draggable bez JS-a?
-- AI
-	- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
-	- iz većih mesta neprestano poleću avioni i artiljerija tuče partizane
+- Ofanziva
 	- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
-		- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
-		- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
-		- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
-		- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
-		- bonus: ofanzive imaju ime: I, II, III
+	- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
+	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
+	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
+	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
+	- bonus: ofanzive imaju ime: I, II, III
 - save game
 	- čuvati stanje da se ne resetuje ni inicijalizuje na reload
 	- resetuje se na new game
@@ -233,11 +230,10 @@ npm start
 
 ### BUGS
 
-- mobilizacijski izveštaj može da se zatvori klikom izvan, bez aktiviranja sledeće faze
+- mobilizacijski izveštaj može da se zatvori klikom izvan, bez aktiviranja sledeće faze ✓
+- trenutno može borba i u fazi mobilizacije ✓
 - drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
-- mapa preliva sa ekrana?
-- trenutno može borba i u fazi mobilizacije
 
 ### Završno
 
