@@ -74,14 +74,15 @@ const Battle = () => {
     setProcessing(false)
   }
 
-  const hasBothSides = armies[Fraction.German].length > 0 && armies[Fraction.Partisan].length > 0
+  const battleInProgress = armies[Fraction.German].length > 0 && armies[Fraction.Partisan].length > 0
 
   return (
     <div className={styles.container}>
       <BattleUI regionName={region.name} germans={armies[Fraction.German].length} partisans={armies[Fraction.Partisan].length} />
+
       {[...armies[Fraction.German], ...armies[Fraction.Partisan]].map(u => <Unit key={u.id} {...u} />)}
 
-      {hasBothSides
+      {battleInProgress
         ? <Dice className={styles.dice} callback={handleBattleRound} />
         : <BattleReport regionName={region.name} germans={armies[Fraction.German]} partisans={armies[Fraction.Partisan]} />
       }

@@ -214,9 +214,6 @@ npm start
 	- srediti boje, closeButton da se vidi ✓
 - inicijalno selektovati odakle se napada ✓
 - dodati strelicu kao indikator napada od centra do centra ✓
-- dodati auto-battle (isprazniti battleQueue u reduceru?)
-- centrirati oblast bitke
-- zumirati na vecim ekranima
 - probati draggable bez JS-a?
 - AI
 	- u svakom krugu ustanici jačaju, okupacione snage ostaju iste
@@ -252,3 +249,4 @@ npm start
 
 - dodati razne okupatore nejednakih karakteristika
 - dodati zastavničara?
+- dodati auto-battle (isprazniti battleQueue u reduceru?)
