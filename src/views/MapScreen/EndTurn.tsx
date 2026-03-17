@@ -4,6 +4,7 @@ import { useStore } from '../../store/store'
 import { GamePhase } from '../../types/types'
 import shared from '../../assets/styles/shared.module.scss'
 import styles from './EndTurn.module.scss'
+import modalStyles from '../../assets/styles/modal.module.scss'
 
 const EndTurn = () => {
   const { dispatch, state: { phase, regionDict } } = useStore()
@@ -31,7 +32,7 @@ const EndTurn = () => {
 
   if (isConfirming)
     return (
-      <div className={shared.blackModal}>
+      <div className={modalStyles.confirmModal}>
         <h2>No battles!</h2>
         <p>You haven't planned any attacks. <br /> End turn anyway?</p>
 

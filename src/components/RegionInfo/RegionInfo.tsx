@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import { useStore, useIsAttackable } from '../../store/store'
 import { Fraction, GamePhase } from '../../types/types'
 import styles from './RegionInfo.module.scss'
-import shared from '../../assets/styles/shared.module.scss'
+import shared from '../../assets/styles/modal.module.scss'
 import AttackOptions from './AttackOptions'
 import Units from './Units'
 

@@ -1,7 +1,6 @@
 @use "sass:color";
 @use '../../assets/styles/const.scss' as *;
 
-
 .button {
   margin-top: 10px;
   background: $rose;
@@ -55,43 +54,6 @@
   &:hover {
     background-color: $white;
     transform: scale(1.05);
-  }
-}
-
-.closeButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
-}
-
-.blackModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba($black, 0.95);
-  padding: 2rem;
-  border: 2px solid $olive-dark;
-  border-radius: 0.5rem;
-  z-index: 9;
-  min-width: 320px;
-  text-align: center;
-  box-shadow: 0 0 50px rgba($black, 0.8);
-  
-  h2 {
-    margin: 0 0 1rem 0;
-    color: $rose;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  p {
-    margin: 0 0 1.5rem 0;
-    color: $ash;
-    line-height: 1.4;
   }
 }
 

@@ -1,7 +1,6 @@
 import { useStore } from '../../store/store'
 import styles from '../../assets/styles/modal.module.scss'
 import imgSrc from '../../assets/images/art/Ismet_Mujezinović_–_Ustanak.jpg'
-import shared from '../../assets/styles/shared.module.scss'
 
 interface Props {
   onClose: () => void
@@ -24,7 +23,7 @@ export default function MobilizationReport({ onClose }: Props) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modalBody}>
-        <button onClick={onClick} className={shared.closeButton}>
+        <button onClick={onClick} className={styles.closeButton}>
           ×
         </button>
 

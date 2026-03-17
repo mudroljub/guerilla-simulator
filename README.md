@@ -207,9 +207,10 @@ npm start
 	- širina izveštaja bitke treba manja✓ 
 	- bolji tekstovi za izveštaj bitke ✓ 
 	- dodati x za izveštaje ✓
-		- ujednačiti stilove za modal
-		- closeButton u modal css
-		- srediti boje, closeButton da se vidi
+	- closeButton, confirmModal u modal css ✓
+	- ujednačiti stilove za modal
+	- srediti boje, closeButton da se vidi
+	- da poruka faze nestaje kada se pojavi izveštaj
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima
