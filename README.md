@@ -196,7 +196,7 @@ npm start
 	- vratiti useBattleLogic u Battle✓, refaktorisati uprostiti✓
 	- bolji trzaj✓
 	- srediti kockanje✓
-	- možda poneko da puca samostalno ponekad?
+	- možda poneko da puca samostalno ponekad✓
 - glavni tok
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
 	- potvrda ako nema napada ✓
@@ -206,6 +206,7 @@ npm start
 	- dodati slike na sve izveštaje✓
 	- širina izveštaja bitke treba manja✓ 
 	- bolji tekstovi za izveštaj bitke
+	- izveštaj mobilizacije neprirodno iskače?
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima
@@ -228,6 +229,7 @@ npm start
 
 ### BUGS
 
+- mobilizacijski izveštaj može da se zatvori klikom izvan, bez aktiviranja sledeće faze
 - drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
 - mapa preliva sa ekrana?

@@ -30,7 +30,7 @@ const Battle = () => {
     }))
 
   const calculateHits = (attacker: UnitProps[], rollValue: number, fraction: Fraction) => {
-    const modifier = 0.5 + ((rollValue - 1) / 5) // 0.5-1.5
+    const modifier = 0.5 + ((rollValue - 1) / 5) // 0.5-1.5, tj. 50%-150%
 
     const totalHits = attacker.reduce((total, unit) => {
       const hit = roll() <= UNIT_STRENGTH[unit.type]

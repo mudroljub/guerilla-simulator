@@ -27,8 +27,13 @@ $recoil: 4px;
   animation-delay: var(--shoot-delay, 0s);
 }
 
-.battle {
-  animation: battle 4s ease-in-out infinite;
+.battleLeft {
+  animation: battleLeft 4s ease-in-out infinite;
+  animation-delay: var(--idle-delay, 0s);
+}
+
+.battleRight {
+  animation: battleRight 4s ease-in-out infinite;
   animation-delay: var(--idle-delay, 0s);
 }
 
@@ -50,10 +55,34 @@ $recoil: 4px;
   100% { transform: translate(0, 0); }
 }
 
-@keyframes battle {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-2px, 0); }
-  100% { transform: translate(0, 0); }
+@keyframes battleLeft {
+  0% {
+    transform: translateX(0);
+  }
+  95% {
+    transform: translateX(0);
+  }
+  96% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes battleRight {
+  0% {
+    transform: translateX(0);
+  }
+  95% {
+    transform: translateX(0);
+  }
+  96% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes tank {
