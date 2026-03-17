@@ -212,6 +212,7 @@ npm start
 		- izvući BombingReport iz BombingOverlay ✓
 	- ujednačiti stilove za modal ✓
 	- srediti boje, closeButton da se vidi ✓
+- inicijalno selektovati odakle se napada
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima

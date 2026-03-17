@@ -31,7 +31,7 @@ export default function MobilizationReport({ onClose }: Props) {
         <h2>MOBILIZATION REPORT</h2>
         <img src={imgSrc} alt="" />
         <p>
-          {total.toLocaleString()} new volunteers joined the partisans
+          {total.toLocaleString()} new volunteers joined the partisans!
         </p>
         <div>
           {regions.map(region => (

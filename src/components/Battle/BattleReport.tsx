@@ -6,6 +6,7 @@ import { mapUnitsToTroops } from '../../utils/helpers'
 import { UnitProps } from '../Unit/Unit'
 import defeatImg from '../../assets/images/art/Vojo_Dimitrijević_-_Tifusar.jpg'
 import victoryImg from '../../assets/images/art/Đorđe_Andrejević_Kun_-_Kolona,_ulje.jpg'
+import shared from '../../assets/styles/shared.module.scss'
 
 const DIARY_MESSAGES = {
   VICTORY: [
@@ -66,13 +67,15 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
 
         <p>{description}</p>
 
-        {winner === Fraction.Partisan ? (
-          <b>{regionName} is being liberated by {partisans.length} partisans.</b>
-        ) : (
-          <b>{regionName} remains occupied by {germans.length} Germans.</b>
-        )}
+        <p>
+          {winner === Fraction.Partisan ? (
+            <b>{regionName} is being liberated by {partisans.length} partisans.</b>
+          ) : (
+            <b>{regionName} remains occupied by {germans.length} Germans.</b>
+          )}
+        </p>
 
-        <button onClick={endBattle} className={styles.continueBtn}>
+        <button onClick={endBattle} className={shared.button}>
           Continue
         </button>
       </div>

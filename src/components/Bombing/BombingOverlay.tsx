@@ -4,7 +4,7 @@ import { getBombardmentPath } from '../../utils/math'
 import styles from './BombingOverlay.module.scss'
 import imgSrc from '../../assets/images/german/aircraft/avion-odozgo-01.png'
 
-const IMG_SIZE = 64
+const IMG_SIZE = 72
 
 const BombingOverlay = () => {
   const { state, dispatch } = useStore()
