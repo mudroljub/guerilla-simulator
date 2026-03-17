@@ -18,8 +18,8 @@ export default function BombingReport() {
   )
 
   return (
-    <div className={styles.reportOverlay}>
-      <div className={styles.reportBox}>
+    <div className={styles.overlay}>
+      <div className={styles.modalBody}>
         <h2>BOMBARDMENT REPORT</h2>
         <img src={imgSrc} alt="" />
         <p className={styles.reportTarget}>

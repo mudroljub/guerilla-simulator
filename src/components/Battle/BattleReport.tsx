@@ -6,6 +6,7 @@ import { mapUnitsToTroops } from '../../utils/helpers'
 import { UnitProps } from '../Unit/Unit'
 import defeatImg from '../../assets/images/art/Vojo_Dimitrijević_-_Tifusar.jpg'
 import victoryImg from '../../assets/images/art/Đorđe_Andrejević_Kun_-_Kolona,_ulje.jpg'
+import shared from '../../assets/styles/shared.module.scss'
 
 const DIARY_MESSAGES = {
   VICTORY: [
@@ -55,8 +56,11 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
   const defeatTitle = `Defeat at ${regionName}`
 
   return (
-    <div className={styles.reportOverlay}>
-      <div className={styles.reportBox}>
+    <div className={styles.overlay}>
+      <div className={styles.modalBody}>
+        <button onClick={endBattle} className={shared.closeButton}>
+          ×
+        </button>
         <h2>{isVictory ? victoryTitle : defeatTitle}</h2>
 
         <img src={isVictory ? victoryImg : defeatImg} alt="" />

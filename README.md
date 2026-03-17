@@ -206,7 +206,10 @@ npm start
 	- dodati slike na sve izveštaje✓
 	- širina izveštaja bitke treba manja✓ 
 	- bolji tekstovi za izveštaj bitke ✓ 
-	- izveštaj mobilizacije neprirodno iskače?
+	- dodati x za izveštaje ✓
+		- ujednačiti stilove za modal
+		- closeButton u modal css
+		- srediti boje, closeButton da se vidi
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima

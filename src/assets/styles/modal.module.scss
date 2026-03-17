@@ -1,4 +1,4 @@
-.reportOverlay {
+.overlay {
   position: fixed; 
   
   top: 0;
@@ -14,22 +14,23 @@
   z-index: 1;
   
   backdrop-filter: blur(4px);
-  pointer-events: all;
+  pointer-events: none;
 }
 
-.reportBox {
-  overflow-y: auto;
+.modalBody {
   background: #1a1a1a;
   border: 2px solid #ffcc00;
-  padding: 1.25rem 2.5rem;
-  max-width: 550px;
-  width: 90%;
-  max-height: 80vh;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  color: #eee;
   display: flex;
   flex-direction: column;
-  color: #eee;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   font-family: 'Courier New', Courier, monospace;
+  max-height: 80vh;
+  max-width: 550px;
+  overflow-y: auto;
+  padding: 1.25rem 2.5rem;
+  pointer-events: auto;
+  position: relative;
 
   &::-webkit-scrollbar { width: 4px; }
   &::-webkit-scrollbar-thumb { background: #444; }
