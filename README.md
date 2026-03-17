@@ -195,8 +195,8 @@ npm start
 	- sačekati kraj pucanja, pa mala pauza pre umiranja ✓
 	- vratiti useBattleLogic u Battle✓, refaktorisati uprostiti✓
 	- bolji trzaj✓
+	- srediti kockanje✓
 	- možda poneko da puca samostalno ponekad?
-	- veće kockanje?
 - glavni tok
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
 	- potvrda ako nema napada ✓

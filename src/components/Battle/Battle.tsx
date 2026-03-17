@@ -30,13 +30,16 @@ const Battle = () => {
     }))
 
   const calculateHits = (attacker: UnitProps[], rollValue: number, fraction: Fraction) => {
-    const modifier = ((rollValue - 1) / 5) * 0.01
-    const mod = fraction === Fraction.Partisan ? modifier - 0.005 : 0.005 - modifier
-    return attacker.reduce((total, unit) => {
-      let hit = roll() <= UNIT_STRENGTH[unit.type]
-      if (Math.random() < Math.abs(mod)) hit = !hit
+    const modifier = 0.5 + ((rollValue - 1) / 5) // 0.5-1.5
+
+    const totalHits = attacker.reduce((total, unit) => {
+      const hit = roll() <= UNIT_STRENGTH[unit.type]
       return total + Number(hit)
     }, 0)
+
+    return fraction === Fraction.Partisan
+      ? Math.round(totalHits * modifier)
+      : Math.round(totalHits * 2 - modifier) // 1.5-0.5
   }
 
   const getVictims = (units: UnitProps[], hits: number) => {
