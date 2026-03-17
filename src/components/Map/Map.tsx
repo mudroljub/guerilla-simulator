@@ -5,6 +5,7 @@ import { MAP_SIZE } from '../../config'
 import { useStore } from '../../store/store'
 import UnitIcon from '../Unit/UnitIcon'
 import { mapDict } from '../Unit/data'
+import AttackArrow from '../../components/AttackArrow/AttackArrow'
 
 const viewBox_w = 1219.65 // from svg
 const viewBox_h = 1057.485
@@ -72,6 +73,8 @@ export default function Map() {
         .sort((a, b) => b.area - a.area)
         .map((r, i) => i < regions.length * 0.5 && <UnitIcon key={r.name} id={r.name} region={r} iconDict={mapDict} />)
       }
+
+      <AttackArrow />
     </svg>
   )
 }

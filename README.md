@@ -213,7 +213,7 @@ npm start
 	- ujednačiti stilove za modal ✓
 	- srediti boje, closeButton da se vidi ✓
 - inicijalno selektovati odakle se napada ✓
-- dodati strelicu kao indikator napada od centra do centra 
+- dodati strelicu kao indikator napada od centra do centra ✓
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima
