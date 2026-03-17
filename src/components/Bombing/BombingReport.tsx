@@ -18,9 +18,14 @@ export default function BombingReport() {
     0
   )
 
+  const onClick = () => dispatch({ type: 'NEXT_PHASE' })
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modalBody}>
+        <button onClick={onClick} className={styles.closeButton}>
+          ×
+        </button>
         <h2>BOMBARDMENT REPORT</h2>
         <img src={imgSrc} alt="" />
         <p>
@@ -42,7 +47,7 @@ export default function BombingReport() {
         </div>
         <button
           className={shared.button}
-          onClick={() => dispatch({ type: 'NEXT_PHASE' })}
+          onClick={onClick}
         >
             Close
         </button>
