@@ -21,12 +21,8 @@
 
 .modalBody {
   background: #1a1a1a;
-  border: 2px solid #ffcc00;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  color: #eee;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Courier New', Courier, monospace;
+  color: $ash;
   max-height: 80vh;
   max-width: 550px;
   overflow-y: auto;
@@ -35,42 +31,38 @@
 
   &::-webkit-scrollbar { width: 4px; }
   &::-webkit-scrollbar-thumb { background: #444; }
+
+  h2 {
+    color: $rose;
+  }
 }
 
 .reportItem {
   margin-bottom: 1.2rem;
   padding: 0.8rem;
   background: rgba(255, 255, 255, 0.03);
-  border-left: 4px solid #ffcc00;
+  border-left: 4px solid $rose;
 
   strong {
-    display: block;
-    color: #aaa;
     font-size: 0.8rem;
-    margin-bottom: 0.3rem;
     text-transform: uppercase;
   }
 }
 
-.reportTarget {
-  font-size: 1rem;
-  color: #fff;
-  line-height: 1.4;
-}
-
 .confirmModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background: rgba($black, 0.95);
-  padding: 2rem;
-  border: 2px solid $olive-dark;
   border-radius: 0.5rem;
-  z-index: 9;
-  min-width: 320px;
-  text-align: center;
+  border: 2px solid $olive-dark;
   box-shadow: 0 0 50px rgba($black, 0.8);
+  color: $ash;
+  left: 50%;
+  min-width: 320px;
+  padding: 2rem;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
   
   h2 {
     margin: 0 0 1rem 0;
@@ -81,7 +73,6 @@
   
   p {
     margin: 0 0 1.5rem 0;
-    color: $ash;
     line-height: 1.4;
   }
 }
@@ -93,6 +84,7 @@
   background: transparent;
   border: none;
   font-size: 1.2rem;
+  color: inherit;
 }
 
 .continueBtn {

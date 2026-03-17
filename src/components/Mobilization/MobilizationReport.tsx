@@ -1,6 +1,7 @@
 import { useStore } from '../../store/store'
 import styles from '../../assets/styles/modal.module.scss'
 import imgSrc from '../../assets/images/art/Ismet_Mujezinović_–_Ustanak.jpg'
+import shared from '../../assets/styles/shared.module.scss'
 
 interface Props {
   onClose: () => void
@@ -36,7 +37,7 @@ export default function MobilizationReport({ onClose }: Props) {
           {regions.map(region => (
             <div key={region.name} className={styles.reportItem}>
               <strong>region  </strong>
-              <div className={styles.reportTarget}>
+              <div>
                 {region.name}: +{region.lastMobilizedCount.toLocaleString()} recruits
               </div>
             </div>
@@ -44,7 +45,7 @@ export default function MobilizationReport({ onClose }: Props) {
         </div>
 
         <button
-          className={styles.continueBtn}
+          className={shared.button}
           onClick={onClick}
         >
           Continue

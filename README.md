@@ -201,7 +201,7 @@ npm start
 	- faza regrutacije zbunjuje, samo prikazati izveštaj i next ✓
 	- potvrda ako nema napada ✓
 	- povlačenje levo ✓
-- izveštaji
+- izveštaji ✓
 	- reuse stilove ✓
 	- dodati slike na sve izveštaje✓
 	- širina izveštaja bitke treba manja✓ 
@@ -210,8 +210,8 @@ npm start
 	- closeButton, confirmModal u modal css ✓
 	- da poruka faze nestaje kada se pojavi izveštaj ✓
 		- izvući BombingReport iz BombingOverlay ✓
-	- ujednačiti stilove za modal
-	- srediti boje, closeButton da se vidi
+	- ujednačiti stilove za modal ✓
+	- srediti boje, closeButton da se vidi ✓
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
 - zumirati na vecim ekranima

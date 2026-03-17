@@ -1,6 +1,7 @@
 import { useStore } from '../../store/store'
 import styles from '../../assets/styles/modal.module.scss'
 import imgSrc from '../../assets/images/pozadina-dimi.gif'
+import shared from '../../assets/styles/shared.module.scss'
 
 export default function BombingReport() {
   const { state, dispatch } = useStore()
@@ -22,7 +23,7 @@ export default function BombingReport() {
       <div className={styles.modalBody}>
         <h2>BOMBARDMENT REPORT</h2>
         <img src={imgSrc} alt="" />
-        <p className={styles.reportTarget}>
+        <p>
           Summary: {totalPartisans} partisans killed, {totalPlanes} aircraft shot down.
         </p>
         <div>
@@ -30,7 +31,7 @@ export default function BombingReport() {
             <div key={i} className={styles.reportItem}>
               <strong>Bombing from {event.bombingFrom} base:</strong>
               {event.targets.map(t => (
-                <div key={t.regionName} className={styles.reportTarget}>
+                <div key={t.regionName}>
                   {t.isShotDown
                     ? ` 💥 Aircraft shot down over ${t.regionName}!`
                     : ` 💀 ${t.damage} partisans killed in ${t.regionName} region.`}
@@ -40,7 +41,7 @@ export default function BombingReport() {
           ))}
         </div>
         <button
-          className={styles.continueBtn}
+          className={shared.button}
           onClick={() => dispatch({ type: 'NEXT_PHASE' })}
         >
             Close

@@ -64,7 +64,7 @@ export default function BattleReport({ regionName, germans, partisans }: Props) 
 
         <img src={isVictory ? victoryImg : defeatImg} alt="" />
 
-        <p className={styles.reportTarget}>{description}</p>
+        <p>{description}</p>
 
         {winner === Fraction.Partisan ? (
           <b>{regionName} is being liberated by {partisans.length} partisans.</b>
