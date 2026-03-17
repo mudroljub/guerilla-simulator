@@ -9,12 +9,12 @@ import victoryImg from '../../assets/images/art/Đorđe_Andrejević_Kun_-_Kolona
 
 const DIARY_MESSAGES = {
   VICTORY: [
-    'The National Liberation Army has entered the settlement. The population celebrates their freedom!',
+    'The People\'s Liberation Army has entered the settlement. The population is joining the partisans!',
     'The enemy has retreated in disarray. Significant quantities of equipment have been captured.',
     'Another occupier stronghold has fallen. The road to liberation is open!'
   ],
   DEFEAT: [
-    'Our units were forced to withdraw in the face of superior enemy numbers.',
+    'Our units suffered a heavy defeat. The battle is lost but the war continues.',
     'Heavy losses sustained. Supreme Command orders immediate regrouping.',
     'A temporary setback. The spirit of resistance remains unbroken despite the casualties.'
   ]

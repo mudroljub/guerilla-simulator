@@ -205,7 +205,7 @@ npm start
 	- reuse stilove ✓
 	- dodati slike na sve izveštaje✓
 	- širina izveštaja bitke treba manja✓ 
-	- bolji tekstovi za izveštaj bitke
+	- bolji tekstovi za izveštaj bitke ✓ 
 	- izveštaj mobilizacije neprirodno iskače?
 - dodati auto-battle (isprazniti battleQueue u reduceru?)
 - centrirati oblast bitke
@@ -244,3 +244,4 @@ npm start
 ### Ideje za kasnije
 
 - dodati razne okupatore nejednakih karakteristika
+- dodati zastavničara?

@@ -1,6 +1,6 @@
 import { UnitType } from '../types/types'
 
-export const UNIT_STRENGTH: Record<UnitType, number> = {
+export const UNIT_ROLLS: Record<UnitType, number> = {
   [UnitType.infantry]: 1,
   [UnitType.artillery]: 2,
   [UnitType.tanks]: 3,

@@ -9,7 +9,7 @@ import BattleUI from './BattleUI'
 import Retreat from './Retreat'
 import { mapUnitsToTroops, sleep } from '../../utils/helpers'
 import { roll } from '../../utils/math'
-import { UNIT_STRENGTH } from '../../config/units'
+import { UNIT_ROLLS } from '../../config/units'
 import { initArmy } from './utils'
 
 const Battle = () => {
@@ -33,7 +33,7 @@ const Battle = () => {
     const modifier = 0.5 + ((rollValue - 1) / 5) // 0.5-1.5, tj. 50%-150%
 
     const totalHits = attacker.reduce((total, unit) => {
-      const hit = roll() <= UNIT_STRENGTH[unit.type]
+      const hit = roll() <= UNIT_ROLLS[unit.type]
       return total + Number(hit)
     }, 0)
 
@@ -46,7 +46,7 @@ const Battle = () => {
     const victimIds: string[] = []
     let remainingHits = hits
     for (const unit of units) {
-      const strength = UNIT_STRENGTH[unit.type]
+      const strength = UNIT_ROLLS[unit.type]
       if (remainingHits < strength) break
       remainingHits -= strength
       victimIds.push(unit.id)
