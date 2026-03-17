@@ -16,6 +16,14 @@ export default function AttackOptions({ region }: { region: RegionState }) {
 
   useEffect(() => setAttackingForce(Math.round(max * 0.5)), [attackingRegion, max])
 
+  useEffect(() => {
+    dispatch({ type: 'SELECT_ATTACKING_REGION', regionName: attackingRegion })
+  }, [attackingRegion, dispatch])
+
+  useEffect(() => {
+    dispatch({ type: 'SELECT_ATTACKING_REGION', regionName: neighbors[0] })
+  }, [dispatch, neighbors, region.name])
+
   const inputProps = {
     min: 1,
     max,
