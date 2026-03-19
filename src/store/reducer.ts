@@ -12,7 +12,7 @@ export type Action =
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
   | { type: 'START_MOBILIZATION' }
-  | { type: 'START_BOMBING' }
+  | { type: 'DO_BOMBING' }
   | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
 
 export function reducer(state: MapState, action: Action): MapState {
@@ -70,7 +70,7 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       if (state.phase === GamePhase.MOBILIZATION_PHASE)
-        return reducer(state, { type: 'START_BOMBING' })
+        return reducer(state, { type: 'DO_BOMBING' })
 
       if (state.phase === GamePhase.BOMBING_PHASE) {
         const currentIndex = state.bombingIndex ?? 0
@@ -95,7 +95,7 @@ export function reducer(state: MapState, action: Action): MapState {
       return state
     }
 
-    case 'START_BOMBING': {
+    case 'DO_BOMBING': {
       const bombings: BombingMission[] = Object.values(state.regionDict)
         .filter(region => region.fraction === Fraction.German && (region.garrison.aircraft ?? 0) > 0 && region.size > CITY_THRESHOLD)
         .map(region => ({
