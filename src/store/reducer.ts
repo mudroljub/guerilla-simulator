@@ -1,6 +1,7 @@
 import { CITY_THRESHOLD } from '../config'
 import { BombingMission, BombingTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
+import { getBombingResult } from './utils'
 
 export type Action =
   | { type: 'ATTACK_REGION'; attackedRegion: string; attackingRegion: string; attackingForces: Troops }
@@ -10,7 +11,7 @@ export type Action =
   | { type: 'NEXT_PHASE' }
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
-  | { type: 'MOBILIZE_UNITS' }
+  | { type: 'START_MOBILIZATION' }
   | { type: 'START_BOMBING' }
   | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
 
@@ -65,7 +66,7 @@ export function reducer(state: MapState, action: Action): MapState {
             selected: null
           }
 
-        return reducer(state, { type: 'MOBILIZE_UNITS' })
+        return reducer(state, { type: 'START_MOBILIZATION' })
       }
 
       if (state.phase === GamePhase.MOBILIZATION_PHASE)
@@ -95,69 +96,46 @@ export function reducer(state: MapState, action: Action): MapState {
     }
 
     case 'START_BOMBING': {
-      const events: BombingMission[] = []
-
-      Object.values(state.regionDict).forEach(source => {
-        const aircraftCount = source.garrison.aircraft ?? 0
-        const isBigCity = source.size > CITY_THRESHOLD
-
-        if (source.fraction === Fraction.German && aircraftCount > 0 && isBigCity) {
-          const targets: BombingTarget[] = source.neighbors
-            .filter(name => state.regionDict[name].fraction === Fraction.Partisan)
-            .map(name => {
-              const targetRegion = state.regionDict[name]
-
-              const roll = Math.floor(Math.random() * 6) + 1
-              const rawChance = (targetRegion.garrison.infantry / 50) * 0.05
-              const neededRoll = Math.max(2, 7 - Math.floor(rawChance * 6))
-
-              const isShotDown = roll >= neededRoll
-              const damage = isShotDown ? 0 : Math.floor(targetRegion.garrison.infantry * (0.05 + Math.random() * 0.05))
-
-              return { regionName: name, isShotDown, damage }
-            })
-
-          if (targets.length > 0)
-            events.push({ bombingFrom: source.name, targets: targets.slice(0, 2) })
-
-        }
-      })
-
-      const limitedEvents = events
-        .sort((a, b) => {
-          const planesA = state.regionDict[a.bombingFrom].garrison.aircraft ?? 0
-          const planesB = state.regionDict[b.bombingFrom].garrison.aircraft ?? 0
-          return planesB - planesA
-        })
+      const bombings: BombingMission[] = Object.values(state.regionDict)
+        .filter(region => region.fraction === Fraction.German && (region.garrison.aircraft ?? 0) > 0 && region.size > CITY_THRESHOLD)
+        .map(region => ({
+          bombingFrom: region.name,
+          targets: region.neighbors
+            .filter(n => state.regionDict[n].fraction === Fraction.Partisan)
+            .map((n): BombingTarget => getBombingResult(n, state.regionDict[n]))
+            .slice(0, 2)
+        }))
+        .filter(b => b.targets.length > 0)
+        .sort(() => Math.random() - 0.5)
         .slice(0, 5)
 
-      if (limitedEvents.length === 0)
+      if (bombings.length === 0)
         return {
           ...state,
-          phase: GamePhase.ATTACK_PHASE,
           bombings: [],
-          bombingIndex: 0
+          bombingIndex: 0,
+          phase: GamePhase.ATTACK_PHASE,
         }
 
       return {
         ...state,
-        bombings: limitedEvents,
+        bombings,
         bombingIndex: 0,
-        phase: GamePhase.BOMBING_PHASE
+        phase: GamePhase.BOMBING_PHASE,
       }
     }
 
     case 'APPLY_BOMBING_RESULTS': {
-      const event = state.bombings?.[action.eventIndex]
-      if (!event) return state
+      const bombing = state.bombings?.[action.eventIndex]
+      if (!bombing) return state
 
       const newRegionDict = { ...state.regionDict }
 
-      event.targets.forEach(t => {
+      bombing.targets.forEach(t => {
         const region = newRegionDict[t.regionName]
         if (t.isShotDown) {
-          const source = newRegionDict[event.bombingFrom]
-          newRegionDict[event.bombingFrom] = {
+          const source = newRegionDict[bombing.bombingFrom]
+          newRegionDict[bombing.bombingFrom] = {
             ...source,
             garrison: {
               ...source.garrison,
@@ -195,7 +173,6 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
-      const isQueueEmpty = battleQueue.length === 0
 
       const newState = {
         ...state,
@@ -204,8 +181,8 @@ export function reducer(state: MapState, action: Action): MapState {
         selected: null,
       }
 
-      if (isQueueEmpty)
-        return reducer(newState, { type: 'MOBILIZE_UNITS' })
+      if (battleQueue.length === 0)
+        return reducer(newState, { type: 'START_MOBILIZATION' })
 
       return newState
     }
@@ -250,12 +227,12 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       if (isQueueEmpty)
-        return reducer(newState, { type: 'MOBILIZE_UNITS' })
+        return reducer(newState, { type: 'START_MOBILIZATION' })
 
       return newState
     }
 
-    case 'MOBILIZE_UNITS': {
+    case 'START_MOBILIZATION': {
       const MOB_RATE = 0.005
       const MAX_LIMIT_PERCENT = 0.15
 
