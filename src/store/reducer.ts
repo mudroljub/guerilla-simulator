@@ -1,4 +1,4 @@
-import { BIG_CITY_THRESHOLD } from '../config'
+import { CITY_THRESHOLD } from '../config'
 import { BombingMission, BombingTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 
@@ -99,7 +99,7 @@ export function reducer(state: MapState, action: Action): MapState {
 
       Object.values(state.regionDict).forEach(source => {
         const aircraftCount = source.garrison.aircraft ?? 0
-        const isBigCity = source.size > BIG_CITY_THRESHOLD
+        const isBigCity = source.size > CITY_THRESHOLD
 
         if (source.fraction === Fraction.German && aircraftCount > 0 && isBigCity) {
           const targets: BombingTarget[] = source.neighbors

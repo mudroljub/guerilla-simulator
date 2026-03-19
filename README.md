@@ -214,13 +214,15 @@ npm start
 	- srediti boje, closeButton da se vidi ✓
 - inicijalno selektovati odakle se napada ✓
 - dodati strelicu kao indikator napada od centra do centra ✓
+- BUG: Užice i Sombor nekada počinju kao partizanski ✓
 - Ofanziva
-	- nakon određenog broja krugova (možda nakon što padne par većih mesta) počinje ofanziva
+	- nakon oslobođenja 2-3 grada, počinje ofanziva
 	- okupatori dovlače desetostruko jače snage okolo najvećih oslobođenih mesta
 	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
 	- nakon što osvoje najveća oslobođena mesta (i progone partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, garnizoni se vraćaju na staro (možda naka pojačanja ostaju)
 	- bonus: ofanzive imaju ime: I, II, III
+- svaki krug je jedan mesec, prikazuje se datum negde
 - save game
 	- čuvati stanje da se ne resetuje ni inicijalizuje na reload
 	- resetuje se na new game

@@ -1,3 +1,4 @@
+import { CITY_THRESHOLD } from '../config'
 import { Fraction, RegionData, RegionState, Troops } from '../types/types'
 
 const rand = (min: number, max: number) => Math.random() * (max - min) + min
@@ -30,7 +31,7 @@ export function initGarrison(
 }
 
 export const initRegionState = (region: RegionData): RegionState => {
-  const isPartisan = region.size < 0.1 && Math.random() < 0.1
+  const isPartisan = region.size <= CITY_THRESHOLD && Math.random() <= 0.1
   const fraction = isPartisan ? Fraction.Partisan : Fraction.German
 
   const garrison = initGarrison(region.population, fraction)
