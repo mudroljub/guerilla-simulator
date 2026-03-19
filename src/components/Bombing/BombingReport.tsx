@@ -27,7 +27,7 @@ export default function BombingReport() {
           ×
         </button>
         <h2>BOMBARDMENT REPORT</h2>
-        <img src={imgSrc} alt="" />
+        <img src={imgSrc} alt="" height={300} />
         <p>
           Summary: {totalPartisans} partisans killed, {totalPlanes} aircraft shot down.
         </p>

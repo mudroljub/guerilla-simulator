@@ -103,7 +103,6 @@ export function reducer(state: MapState, action: Action): MapState {
           targets: region.neighbors
             .filter(n => state.regionDict[n].fraction === Fraction.Partisan)
             .map((n): BombingTarget => getBombingResult(n, state.regionDict[n]))
-            .slice(0, 2)
         }))
         .filter(b => b.targets.length > 0)
         .sort(() => Math.random() - 0.5)

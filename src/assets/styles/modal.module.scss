@@ -29,8 +29,10 @@
   padding: 1.25rem 2.5rem;
   position: relative;
 
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-thumb { background: #444; }
+  img {
+    width: 100%;
+    height: auto;
+  }
 
   h2 {
     color: $rose;
