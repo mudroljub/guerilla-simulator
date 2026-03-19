@@ -1,4 +1,4 @@
-import { CITY_THRESHOLD } from '../config'
+import { CITIES_FOR_OFFENSIVE, CITY_THRESHOLD } from '../config'
 import { BombingMission, BombingTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
 import { MapState } from './store'
 import { getBombingResult } from './utils'
@@ -13,6 +13,7 @@ export type Action =
   | { type: 'START_MOBILIZATION' }
   | { type: 'DO_BOMBING' }
   | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
+  | { type: 'START_OFFENSIVE' }
   | { type: 'NEXT_PHASE' }
 
 export function reducer(state: MapState, action: Action): MapState {
@@ -69,8 +70,15 @@ export function reducer(state: MapState, action: Action): MapState {
         return reducer(state, { type: 'START_MOBILIZATION' })
       }
 
-      if (state.phase === GamePhase.MOBILIZATION_PHASE)
+      if (state.phase === GamePhase.MOBILIZATION_PHASE) {
+        const liberatedCities = Object.values(state.regionDict)
+          .filter(region => region.fraction === Fraction.Partisan && region.size > CITY_THRESHOLD)
+
+        if (liberatedCities.length >= CITIES_FOR_OFFENSIVE)
+          return reducer(state, { type: 'START_OFFENSIVE' })
+
         return reducer(state, { type: 'DO_BOMBING' })
+      }
 
       if (state.phase === GamePhase.BOMBING_PHASE) {
         const currentIndex = state.bombingIndex ?? 0
@@ -269,6 +277,12 @@ export function reducer(state: MapState, action: Action): MapState {
         selected: null
       }
     }
+
+    case 'START_OFFENSIVE':
+      return {
+        ...state,
+        phase: GamePhase.ENEMY_OFFENSIVE,
+      }
 
     default:
       return state
