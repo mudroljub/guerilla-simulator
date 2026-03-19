@@ -31,7 +31,7 @@ const BombingOverlay = () => {
 
     const damageTimer = setTimeout(() => setShowDamage(true), 1000)
     const endTimer = setTimeout(() => {
-      dispatch({ type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: bombingIndex })
+      dispatch({ type: 'APPLY_BOMBING_RESULTS', eventIndex: bombingIndex })
       dispatch({ type: 'NEXT_PHASE' })
     }, 2500)
 

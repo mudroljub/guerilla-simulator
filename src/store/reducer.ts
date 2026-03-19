@@ -11,8 +11,8 @@ export type Action =
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
   | { type: 'MOBILIZE_UNITS' }
-  | { type: 'PREPARE_BOMBARDMENT' }
-  | { type: 'APPLY_BOMBARDMENT_RESULTS', eventIndex: number }
+  | { type: 'START_BOMBING' }
+  | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
@@ -69,7 +69,7 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       if (state.phase === GamePhase.MOBILIZATION_PHASE)
-        return reducer(state, { type: 'PREPARE_BOMBARDMENT' })
+        return reducer(state, { type: 'START_BOMBING' })
 
       if (state.phase === GamePhase.BOMBING_PHASE) {
         const currentIndex = state.bombingIndex ?? 0
@@ -94,7 +94,7 @@ export function reducer(state: MapState, action: Action): MapState {
       return state
     }
 
-    case 'PREPARE_BOMBARDMENT': {
+    case 'START_BOMBING': {
       const events: BombingMission[] = []
 
       Object.values(state.regionDict).forEach(source => {
@@ -147,7 +147,7 @@ export function reducer(state: MapState, action: Action): MapState {
       }
     }
 
-    case 'APPLY_BOMBARDMENT_RESULTS': {
+    case 'APPLY_BOMBING_RESULTS': {
       const event = state.bombings?.[action.eventIndex]
       if (!event) return state
 
