@@ -21,7 +21,7 @@ export default function UnitIcon({ region, id, iconDict }: Props) {
 
   const type = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
 
-  if (fraction === Fraction.German) return null //  && region.size <= CITY_LABEL_THRESHOLD * 1.5
+  if (fraction === Fraction.German) return null //  && region.size <= BIG_CITY_THRESHOLD * 1.5
 
   return (
     <g transform={`translate(${region.position.x - 20}, ${region.position.y - 30})`}>
