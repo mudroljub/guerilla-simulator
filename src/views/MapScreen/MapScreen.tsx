@@ -18,6 +18,7 @@ export const message: Record<GamePhase, string> = {
   [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
   [GamePhase.MOBILIZATION_PHASE]: 'New volunteers are joining the partisans!',
   [GamePhase.BOMBING_PHASE]: 'Enemy planes are bombing our towns',
+  [GamePhase.ENEMY_OFFENSIVE]: 'A major enemy offensive has begun',
 }
 
 export default function MapScreen() {

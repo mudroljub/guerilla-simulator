@@ -8,12 +8,12 @@ export type Action =
   | { type: 'SELECT_REGION'; region: RegionState }
   | { type: 'DESELECT_REGION'; region?: RegionState }
   | { type: 'END_BATTLE'; regionName: string; winner: Fraction; survivors: Troops }
-  | { type: 'NEXT_PHASE' }
   | { type: 'SELECT_ATTACKING_REGION', regionName: string }
   | { type: 'RETREAT', regionName: string, garrison: Troops, retreatingRegion: string, retreatingTroops: Troops }
   | { type: 'START_MOBILIZATION' }
   | { type: 'DO_BOMBING' }
   | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
+  | { type: 'NEXT_PHASE' }
 
 export function reducer(state: MapState, action: Action): MapState {
   switch (action.type) {
