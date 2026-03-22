@@ -278,11 +278,48 @@ export function reducer(state: MapState, action: Action): MapState {
       }
     }
 
-    case 'START_OFFENSIVE':
+    case 'START_OFFENSIVE': {
+      const newRegionDict = { ...state.regionDict }
+
+      const liberatedCities = Object.values(state.regionDict).filter(
+        r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
+      )
+
+      liberatedCities.forEach(city => {
+        const germanNeighbors = city.neighbors
+          .map(name => newRegionDict[name])
+          .filter(n => n.fraction === Fraction.German)
+
+        if (germanNeighbors.length === 0) return
+
+        const strongestNeighbor = germanNeighbors.reduce((prev, current) => {
+          const prevSum = Object.values(prev.garrison).reduce((a, b) => a + b, 0)
+          const currSum = Object.values(current.garrison).reduce((a, b) => a + b, 0)
+          return currSum > prevSum ? current : prev
+        })
+
+        const cityGarrisonSize = Object.values(city.garrison).reduce((a, b) => a + b, 0)
+        const offensiveSize = cityGarrisonSize * 6
+
+        const offensiveTroops: Troops = {
+          infantry: Math.floor(offensiveSize * 0.90),
+          [UnitType.artillery]: Math.floor(offensiveSize * 0.06),
+          [UnitType.tanks]: Math.floor(offensiveSize * 0.03),
+          [UnitType.aircraft]: strongestNeighbor.garrison.aircraft || 0
+        }
+        newRegionDict[strongestNeighbor.name] = {
+          ...strongestNeighbor,
+          garrison: offensiveTroops,
+        }
+      })
+
       return {
         ...state,
+        regionDict: newRegionDict,
         phase: GamePhase.ENEMY_OFFENSIVE,
+        selected: null
       }
+    }
 
     default:
       return state

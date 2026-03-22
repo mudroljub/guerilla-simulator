@@ -217,13 +217,18 @@ npm start
 - BUG: Užice i Sombor nekada počinju kao partizanski ✓
 - Ofanziva
 	- napraviti useLiberatedCities hook ✓
-	- nakon oslobođenja 3 grada, počinje ofanziva
-	- faza ofanzive umesto bombardovanja ili posle?
-	- okupatori dovlače desetostruko jače snage do oslobođenih gradova
+	- nakon oslobođenja 3 grada, počinje ofanziva✓
+	- faza ofanzive umesto bombardovanja ✓
+	- okupatori kod svakog oslobođenog grada koncentrišu šestostruko jače snage, na jednoj (najjačoj) susednoj teritoriji ✓
+		- snage nemačke ofanzive su šestostruko jače, uključujući postojeći garnizon ✓
+		- snage ofanzive treba da sadrže: Pešadija oko 90%, Artiljerija oko 6% i Tenkovi oko 3% ✓
+	- ime ofanzive u poruku (I, II, III...)
+	- indikator ikonica tenka
+	- napraviti niz snage ofanzive, kako bi mogle kontinuirano da napadaju
 	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
+		- povlačenje može biti i proboj kroz neprijateljske teritorije?
 	- nakon što osvoje oslobođene gradove (i poteraju partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
-	- ofanzive imaju ime: I, II, III...
 - svaki krug je jedan mesec, prikazuje se datum negde
 - save game
 	- čuvati stanje da se ne resetuje ni inicijalizuje na reload
