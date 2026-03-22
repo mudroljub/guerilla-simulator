@@ -280,6 +280,7 @@ export function reducer(state: MapState, action: Action): MapState {
 
     case 'START_OFFENSIVE': {
       const newRegionDict = { ...state.regionDict }
+      const offensives: string[] = []
 
       const liberatedCities = Object.values(state.regionDict).filter(
         r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
@@ -292,11 +293,13 @@ export function reducer(state: MapState, action: Action): MapState {
 
         if (germanNeighbors.length === 0) return
 
-        const strongestNeighbor = germanNeighbors.reduce((prev, current) => {
+        const offensiveRegion = germanNeighbors.reduce((prev, current) => {
           const prevSum = Object.values(prev.garrison).reduce((a, b) => a + b, 0)
           const currSum = Object.values(current.garrison).reduce((a, b) => a + b, 0)
           return currSum > prevSum ? current : prev
         })
+
+        offensives.push(offensiveRegion.name)
 
         const cityGarrisonSize = Object.values(city.garrison).reduce((a, b) => a + b, 0)
         const offensiveSize = cityGarrisonSize * 6
@@ -305,10 +308,10 @@ export function reducer(state: MapState, action: Action): MapState {
           infantry: Math.floor(offensiveSize * 0.90),
           [UnitType.artillery]: Math.floor(offensiveSize * 0.06),
           [UnitType.tanks]: Math.floor(offensiveSize * 0.03),
-          [UnitType.aircraft]: strongestNeighbor.garrison.aircraft || 0
+          [UnitType.aircraft]: offensiveRegion.garrison.aircraft ?? 0
         }
-        newRegionDict[strongestNeighbor.name] = {
-          ...strongestNeighbor,
+        newRegionDict[offensiveRegion.name] = {
+          ...offensiveRegion,
           garrison: offensiveTroops,
         }
       })
@@ -318,6 +321,7 @@ export function reducer(state: MapState, action: Action): MapState {
         regionDict: newRegionDict,
         phase: GamePhase.ENEMY_OFFENSIVE,
         currentOffensive: state.currentOffensive + 1,
+        offensives,
       }
     }
 

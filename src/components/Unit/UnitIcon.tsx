@@ -1,31 +1,31 @@
 import { useMemo } from 'react'
-import { Fraction, Troops, RegionState, UnitType, IconDict, AnimState } from '../../types/types'
+import { Fraction, RegionState, UnitType, AnimState } from '../../types/types'
 import { sample } from '../../utils/math'
 import styles from './Unit.module.scss'
 import Unit from './Unit'
-
-function getRandomUnitType(garrison: Troops): UnitType {
-  const units = (Object.keys(garrison) as UnitType[])
-    .filter(type => (garrison[type] ?? 0) > 0)
-  return Math.random() > 0.33 ? sample(units) : UnitType.infantry
-}
+import { useStore } from '../../store/store'
+import { mapDict } from '../Unit/data'
 
 interface Props {
   id: string,
   region: RegionState;
-  iconDict?: IconDict
 }
 
-export default function UnitIcon({ region, id, iconDict }: Props) {
-  const { fraction, garrison } = region
+export default function UnitIcon({ region, id }: Props) {
+  const { fraction } = region
+  const { state: { offensives } } = useStore()
 
-  const type = useMemo<UnitType>(() => fraction === Fraction.German ? getRandomUnitType(garrison) : UnitType.infantry, [fraction, garrison])
+  const type = useMemo<UnitType>(() => fraction === Fraction.German
+    ? sample([UnitType.tanks, UnitType.artillery])
+    : UnitType.infantry, [fraction])
 
-  if (fraction === Fraction.German) return null //  && region.size <= CITY_THRESHOLD * 1.5
+  if (fraction === Fraction.German && !offensives.includes(region.name)) return null
+
+  const offsetX = fraction === Fraction.German ? 90 : 20
 
   return (
-    <g transform={`translate(${region.position.x - 20}, ${region.position.y - 30})`}>
-      <Unit className={styles.icon} fraction={fraction} type={type} id={id} iconDict={iconDict} state={AnimState.idle} />
+    <g transform={`translate(${region.position.x - offsetX}, ${region.position.y - 30})`}>
+      <Unit className={styles.icon} fraction={fraction} type={type} id={id} iconDict={mapDict} state={AnimState.idle} />
     </g>
   )
 }
