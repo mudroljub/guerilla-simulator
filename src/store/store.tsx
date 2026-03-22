@@ -11,8 +11,9 @@ export interface MapState {
   selected: RegionState | null;
   phase: GamePhase;
   battleQueue: string[];
-  selectedAttackingRegion?: string;
+  currentOffensive: number
   bombings: BombingMission[]
+  selectedAttackingRegion?: string;
   bombingIndex?: number
 }
 
@@ -28,7 +29,7 @@ const initialState = (regions: RegionData[]): MapState => {
   for (const region of regions)
     regionDict[region.name] = initRegionState(region)
 
-  return { selected: null, regionDict, phase: GamePhase.ATTACK_PHASE, battleQueue: [], bombings: [] }
+  return { selected: null, regionDict, phase: GamePhase.ATTACK_PHASE, battleQueue: [], bombings: [], currentOffensive: 0 }
 }
 
 /** PROVIDER */

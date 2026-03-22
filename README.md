@@ -222,7 +222,7 @@ npm start
 	- okupatori kod svakog oslobođenog grada koncentrišu šestostruko jače snage, na jednoj (najjačoj) susednoj teritoriji ✓
 		- snage nemačke ofanzive su šestostruko jače, uključujući postojeći garnizon ✓
 		- snage ofanzive treba da sadrže: Pešadija oko 90%, Artiljerija oko 6% i Tenkovi oko 3% ✓
-	- ime ofanzive u poruku (I, II, III...)
+	- ime ofanzive u poruku (I, II, III...) ✓
 	- indikator ikonica tenka
 	- napraviti niz snage ofanzive, kako bi mogle kontinuirano da napadaju
 	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)

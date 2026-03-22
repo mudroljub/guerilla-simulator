@@ -12,21 +12,22 @@ import BombingOverlay from '../../components/Bombing/BombingOverlay'
 import { useEffect, useState } from 'react'
 import MobilizationReport from '../../components/Mobilization/MobilizationReport'
 import BombingReport from '../../components/Bombing/BombingReport'
-
-export const message: Record<GamePhase, string> = {
-  [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
-  [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
-  [GamePhase.MOBILIZATION_PHASE]: 'New volunteers are joining the partisans!',
-  [GamePhase.BOMBING_PHASE]: 'Enemy planes are bombing our towns',
-  [GamePhase.ENEMY_OFFENSIVE]: 'A major enemy offensive has begun',
-}
+import { toOrdinalWord } from './utils'
 
 export default function MapScreen() {
-  const { state: { phase, bombings, bombingIndex = 0 } } = useStore()
+  const { state: { phase, bombings, currentOffensive, bombingIndex = 0 } } = useStore()
 
   const [showMobilizationReport, setShowMobilizationReport] = useState(false)
   const showBombingReport = phase === GamePhase.BOMBING_PHASE && bombingIndex === bombings.length
   const showPhaseMassage = !(showBombingReport || showMobilizationReport)
+
+  const message: Record<GamePhase, string> = {
+    [GamePhase.ATTACK_PHASE]: 'Move Partisans into adjacent enemy territory.',
+    [GamePhase.COMBAT_PHASE]: 'Battles in progress...',
+    [GamePhase.MOBILIZATION_PHASE]: 'New volunteers are joining the partisans!',
+    [GamePhase.BOMBING_PHASE]: 'Enemy planes are bombing our towns!',
+    [GamePhase.ENEMY_OFFENSIVE]: `${toOrdinalWord(currentOffensive)} Enemy Offensive has begun!`,
+  }
 
   useEffect(() => {
     if (phase !== GamePhase.MOBILIZATION_PHASE) {

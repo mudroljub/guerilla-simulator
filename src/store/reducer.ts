@@ -317,7 +317,7 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         regionDict: newRegionDict,
         phase: GamePhase.ENEMY_OFFENSIVE,
-        selected: null
+        currentOffensive: state.currentOffensive + 1,
       }
     }
 
