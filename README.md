@@ -3,8 +3,18 @@
 ## Dev
 
 ```
+npm install
 npm start
 ```
+
+Or docker dev:
+
+```
+docker build -t guerilla-simulator .
+docker run -p 3000:3000 guerilla-simulator
+```
+
+open http://localhost:3000/
 
 ## Technology
 
