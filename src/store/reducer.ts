@@ -1,5 +1,14 @@
 import { CITIES_FOR_OFFENSIVE, CITY_THRESHOLD } from '../config'
-import { BombingMission, BombingTarget, Fraction, GamePhase, RegionState, Troops, UnitType } from '../types/types'
+import {
+  BombingMission,
+  BombingTarget,
+  Fraction,
+  GamePhase,
+  RegionState,
+  Troops,
+  UnitType,
+  OffensiveAttack
+} from '../types/types'
 import { MapState } from './store'
 import { getBombingResult } from './utils'
 
@@ -14,6 +23,7 @@ export type Action =
   | { type: 'DO_BOMBING' }
   | { type: 'APPLY_BOMBING_RESULTS', eventIndex: number }
   | { type: 'START_OFFENSIVE' }
+  | { type: 'APPLY_OFFENSIVE_RESULTS', eventIndex: number }
   | { type: 'NEXT_PHASE' }
 
 export function reducer(state: MapState, action: Action): MapState {
@@ -56,7 +66,7 @@ export function reducer(state: MapState, action: Action): MapState {
       if (state.phase === GamePhase.ATTACK_PHASE) {
         const attackingRegions = Object.values(state.regionDict)
           .filter(region =>
-            region.attackingForces && Object.values(region.attackingForces).some(count => count > 0)
+            region.attackingForces && Object.values(region.attackingForces).some(count => (count ?? 0) > 0)
           )
 
         if (attackingRegions.length > 0)
@@ -80,16 +90,28 @@ export function reducer(state: MapState, action: Action): MapState {
         return reducer(state, { type: 'DO_BOMBING' })
       }
 
-      if (state.phase === GamePhase.BOMBING_PHASE) {
-        const currentIndex = state.bombingIndex ?? 0
-        const { bombings } = state
+      if (state.phase === GamePhase.ENEMY_OFFENSIVE) {
+        const currentIndex = state.offensiveAnimationIndex ?? 0
         const nextIndex = currentIndex + 1
 
-        if (nextIndex <= bombings.length)
-          return {
-            ...state,
-            bombingIndex: nextIndex
-          }
+        if (nextIndex < state.offensiveAttacks.length)
+          return { ...state, offensiveAnimationIndex: nextIndex }
+
+        return {
+          ...state,
+          phase: GamePhase.COMBAT_PHASE,
+          offensiveAttacks: [],
+          offensiveAnimationIndex: 0,
+          selected: null
+        }
+      }
+
+      if (state.phase === GamePhase.BOMBING_PHASE) {
+        const currentIndex = state.bombingIndex ?? 0
+        const nextIndex = currentIndex + 1
+
+        if (nextIndex < state.bombings.length)
+          return { ...state, bombingIndex: nextIndex }
 
         return {
           ...state,
@@ -101,6 +123,85 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       return state
+    }
+
+    case 'START_OFFENSIVE': {
+      const offensiveAttacks: OffensiveAttack[] = []
+      const liberatedCities = Object.values(state.regionDict).filter(
+        r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
+      )
+
+      liberatedCities.forEach(city => {
+        const germanNeighbors = city.neighbors
+          .map(name => state.regionDict[name])
+          .filter(n => n.fraction === Fraction.German)
+
+        if (germanNeighbors.length === 0) return
+
+        const offensiveRegion = germanNeighbors.reduce((prev, current) => {
+          const prevSum = Object.values(prev.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+          const currSum = Object.values(current.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+          return currSum > prevSum ? current : prev
+        })
+
+        const cityGarrisonSize = Object.values(city.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+        const totalOffensivePower = cityGarrisonSize * 6
+
+        const plannedTroops: Troops = {
+          infantry: Math.floor(totalOffensivePower * 0.90),
+          [UnitType.artillery]: Math.floor(totalOffensivePower * 0.06),
+          [UnitType.tanks]: Math.floor(totalOffensivePower * 0.03),
+          [UnitType.aircraft]: offensiveRegion.garrison[UnitType.aircraft] || 0
+        }
+
+        offensiveAttacks.push({
+          attackingRegion: offensiveRegion.name,
+          targetRegion: city.name,
+          offensiveTroops: plannedTroops
+        })
+      })
+
+      if (offensiveAttacks.length === 0)
+        return reducer(state, { type: 'DO_BOMBING' })
+
+      return {
+        ...state,
+        phase: GamePhase.ENEMY_OFFENSIVE,
+        offensiveAttacks,
+        offensiveAnimationIndex: 0,
+        currentOffensive: (state.currentOffensive || 0) + 1,
+        battleQueue: []
+      }
+    }
+
+    case 'APPLY_OFFENSIVE_RESULTS': {
+      const attack = state.offensiveAttacks[action.eventIndex]
+      if (!attack) return state
+
+      const newRegionDict = { ...state.regionDict }
+      const attacker = newRegionDict[attack.attackingRegion]
+      const target = newRegionDict[attack.targetRegion]
+
+      const updatedAttackerGarrison = Object.values(UnitType).reduce((acc, unit) => ({
+        ...acc,
+        [unit]: Math.max(0, (attacker.garrison[unit] ?? 0) - (attack.offensiveTroops[unit] ?? 0))
+      }), {} as Troops)
+
+      const updatedTargetAttackingForces = Object.values(UnitType).reduce((acc, unit) => ({
+        ...acc,
+        [unit]: (target.attackingForces?.[unit] ?? 0) + (attack.offensiveTroops[unit] ?? 0)
+      }), {} as Troops)
+
+      newRegionDict[attack.attackingRegion] = { ...attacker, garrison: updatedAttackerGarrison }
+      newRegionDict[attack.targetRegion] = { ...target, attackingForces: updatedTargetAttackingForces }
+
+      return {
+        ...state,
+        regionDict: newRegionDict,
+        battleQueue: state.battleQueue.includes(attack.targetRegion)
+          ? state.battleQueue
+          : [...state.battleQueue, attack.targetRegion]
+      }
     }
 
     case 'DO_BOMBING': {
@@ -117,23 +218,13 @@ export function reducer(state: MapState, action: Action): MapState {
         .slice(0, 5)
 
       if (bombings.length === 0)
-        return {
-          ...state,
-          bombings: [],
-          bombingIndex: 0,
-          phase: GamePhase.ATTACK_PHASE,
-        }
+        return { ...state, bombings: [], bombingIndex: 0, phase: GamePhase.ATTACK_PHASE }
 
-      return {
-        ...state,
-        bombings,
-        bombingIndex: 0,
-        phase: GamePhase.BOMBING_PHASE,
-      }
+      return { ...state, bombings, bombingIndex: 0, phase: GamePhase.BOMBING_PHASE }
     }
 
     case 'APPLY_BOMBING_RESULTS': {
-      const bombing = state.bombings?.[action.eventIndex]
+      const bombing = state.bombings[action.eventIndex]
       if (!bombing) return state
 
       const newRegionDict = { ...state.regionDict }
@@ -180,13 +271,7 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
-
-      const newState = {
-        ...state,
-        regionDict,
-        battleQueue,
-        selected: null,
-      }
+      const newState = { ...state, regionDict, battleQueue, selected: null }
 
       if (battleQueue.length === 0)
         return reducer(newState, { type: 'START_MOBILIZATION' })
@@ -195,10 +280,7 @@ export function reducer(state: MapState, action: Action): MapState {
     }
 
     case 'SELECT_ATTACKING_REGION':
-      return {
-        ...state,
-        selectedAttackingRegion: action.regionName
-      }
+      return { ...state, selectedAttackingRegion: action.regionName }
 
     case 'RETREAT': {
       const { regionName, garrison, retreatingRegion, retreatingTroops } = action
@@ -223,8 +305,6 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
-      const isQueueEmpty = battleQueue.length === 0
-
       const newState = {
         ...state,
         regionDict,
@@ -233,7 +313,7 @@ export function reducer(state: MapState, action: Action): MapState {
         selectedAttackingRegion: undefined
       }
 
-      if (isQueueEmpty)
+      if (battleQueue.length === 0)
         return reducer(newState, { type: 'START_MOBILIZATION' })
 
       return newState
@@ -245,7 +325,6 @@ export function reducer(state: MapState, action: Action): MapState {
 
       const updatedRegions = Object.keys(state.regionDict).reduce((acc, regionName) => {
         const region = state.regionDict[regionName]
-
         if (region.fraction !== Fraction.Partisan) {
           acc[regionName] = { ...region, lastMobilizedCount: 0 }
           return acc
@@ -275,53 +354,6 @@ export function reducer(state: MapState, action: Action): MapState {
         regionDict: updatedRegions,
         phase: GamePhase.MOBILIZATION_PHASE,
         selected: null
-      }
-    }
-
-    case 'START_OFFENSIVE': {
-      const newRegionDict = { ...state.regionDict }
-      const offensives: string[] = []
-
-      const liberatedCities = Object.values(state.regionDict).filter(
-        r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
-      )
-
-      liberatedCities.forEach(city => {
-        const germanNeighbors = city.neighbors
-          .map(name => newRegionDict[name])
-          .filter(n => n.fraction === Fraction.German)
-
-        if (germanNeighbors.length === 0) return
-
-        const offensiveRegion = germanNeighbors.reduce((prev, current) => {
-          const prevSum = Object.values(prev.garrison).reduce((a, b) => a + b, 0)
-          const currSum = Object.values(current.garrison).reduce((a, b) => a + b, 0)
-          return currSum > prevSum ? current : prev
-        })
-
-        offensives.push(offensiveRegion.name)
-
-        const cityGarrisonSize = Object.values(city.garrison).reduce((a, b) => a + b, 0)
-        const offensiveSize = cityGarrisonSize * 6
-
-        const offensiveTroops: Troops = {
-          infantry: Math.floor(offensiveSize * 0.90),
-          [UnitType.artillery]: Math.floor(offensiveSize * 0.06),
-          [UnitType.tanks]: Math.floor(offensiveSize * 0.03),
-          [UnitType.aircraft]: offensiveRegion.garrison.aircraft ?? 0
-        }
-        newRegionDict[offensiveRegion.name] = {
-          ...offensiveRegion,
-          garrison: offensiveTroops,
-        }
-      })
-
-      return {
-        ...state,
-        regionDict: newRegionDict,
-        phase: GamePhase.ENEMY_OFFENSIVE,
-        currentOffensive: state.currentOffensive + 1,
-        offensives,
       }
     }
 

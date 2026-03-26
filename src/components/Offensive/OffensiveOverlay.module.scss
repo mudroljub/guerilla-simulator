@@ -1,0 +1,27 @@
+.unitWrapper {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  animation: moveUnit 1.5s ease-in-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img { width: 100%; height: auto; }
+}
+
+@keyframes moveUnit {
+  0% { offset-distance: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.troopCount {
+  background: rgba(0, 0, 0, 0.8);
+  color: #ff4444;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}

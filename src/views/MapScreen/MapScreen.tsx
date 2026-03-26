@@ -9,16 +9,18 @@ import { useStore } from '../../store/store'
 import EndTurn from './EndTurn'
 import MobilizationOverlay from '../../components/Mobilization/MobilizationOverlay'
 import BombingOverlay from '../../components/Bombing/BombingOverlay'
+import OffensiveOverlay from '../../components/Offensive/OffensiveOverlay'
 import { useEffect, useState } from 'react'
 import MobilizationReport from '../../components/Mobilization/MobilizationReport'
 import BombingReport from '../../components/Bombing/BombingReport'
 import { toOrdinalWord } from './utils'
 
 export default function MapScreen() {
-  const { state: { phase, bombings, currentOffensive, bombingIndex = 0 } } = useStore()
+  const { state: { phase, bombings, currentOffensive, bombingIndex = 0, offensiveAttacks, offensiveAnimationIndex = 0 } } = useStore()
 
   const [showMobilizationReport, setShowMobilizationReport] = useState(false)
   const showBombingReport = phase === GamePhase.BOMBING_PHASE && bombingIndex === bombings.length
+
   const showPhaseMassage = !(showBombingReport || showMobilizationReport)
 
   const message: Record<GamePhase, string> = {
@@ -44,6 +46,7 @@ export default function MapScreen() {
     <>
       <MapContainer>
         <Map />
+
         {phase === GamePhase.MOBILIZATION_PHASE && (
           <>
             <MobilizationOverlay />
@@ -52,10 +55,17 @@ export default function MapScreen() {
             )}
           </>
         )}
+
         {phase === GamePhase.BOMBING_PHASE && (
           <>
             {bombings[bombingIndex] && <BombingOverlay />}
             {showBombingReport && <BombingReport />}
+          </>
+        )}
+
+        {phase === GamePhase.ENEMY_OFFENSIVE && (
+          <>
+            {offensiveAttacks[offensiveAnimationIndex] && <OffensiveOverlay />}
           </>
         )}
       </MapContainer>

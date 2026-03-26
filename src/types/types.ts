@@ -75,6 +75,12 @@ export type BombingMission = {
   targets: BombingTarget[]
 }
 
+export type OffensiveAttack = {
+  attackingRegion: string
+  targetRegion: string
+  offensiveTroops: Troops
+}
+
 /** COMPONENTS */
 
 export type IconComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>
