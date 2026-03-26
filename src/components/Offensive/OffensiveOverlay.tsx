@@ -5,7 +5,7 @@ import unitImg from '../../assets/images/german/tanks/panzer1a-02.svg'
 
 const OffensiveOverlay = () => {
   const { state, dispatch } = useStore()
-  const { offensiveAttacks, offensiveAnimationIndex = 0, regionDict } = state
+  const { offensiveAttacks, offensiveAnimationIndex = 0, regionDict, phase } = state
   const [isMoving, setIsMoving] = useState(false)
 
   const currentAttack = offensiveAttacks[offensiveAnimationIndex]
@@ -19,7 +19,7 @@ const OffensiveOverlay = () => {
   }, [currentAttack, regionDict])
 
   useEffect(() => {
-    if (!currentAttack) return
+    if (!currentAttack || phase !== 'ENEMY_OFFENSIVE') return
 
     setIsMoving(true)
 
@@ -30,9 +30,9 @@ const OffensiveOverlay = () => {
     }, 1500)
 
     return () => clearTimeout(timer)
-  }, [offensiveAnimationIndex, currentAttack, dispatch])
+  }, [offensiveAnimationIndex, currentAttack, dispatch, phase])
 
-  if (!currentAttack) return null
+  if (!currentAttack || phase !== 'ENEMY_OFFENSIVE') return null
 
   return (
     <div className={styles.container}>
@@ -41,10 +41,7 @@ const OffensiveOverlay = () => {
           className={styles.unitWrapper}
           style={{ offsetPath: `path("${pathData}")` }}
         >
-          <img src={unitImg} alt="offensive" />
-          <div className={styles.troopCount}>
-            {Object.values(currentAttack.offensiveTroops).reduce((a, b) => (a || 0) + (b || 0), 0)}
-          </div>
+          <img src={unitImg} alt="offensive" className={styles.tankIcon} />
         </div>
       )}
 
