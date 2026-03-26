@@ -18,10 +18,30 @@ const Battle = () => {
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
   const [processing, setProcessing] = useState(false)
 
-  const [armies, setArmies] = useState<Record<Fraction, UnitProps[]>>(() => ({
-    [Fraction.German]: initArmy(region.garrison, Fraction.German, [0, window.innerWidth * 0.4]),
-    [Fraction.Partisan]: initArmy(region.attackingForces!, Fraction.Partisan, [window.innerWidth * 0.6, window.innerWidth])
-  }))
+  const attackerFraction = region.attackingFraction || Fraction.Partisan
+  const defenderFraction = attackerFraction === Fraction.Partisan ? Fraction.German : Fraction.Partisan
+
+  const [armies, setArmies] = useState<Record<Fraction, UnitProps[]>>(() => {
+    const LEFT_ZONE: [number, number] = [0, window.innerWidth * 0.4]
+    const RIGHT_ZONE: [number, number] = [window.innerWidth * 0.6, window.innerWidth]
+
+    const defenderUnits = initArmy(
+      region.garrison,
+      defenderFraction,
+      defenderFraction === Fraction.German ? LEFT_ZONE : RIGHT_ZONE
+    )
+
+    const attackerUnits = initArmy(
+      region.attackingForces!,
+      attackerFraction,
+      attackerFraction === Fraction.German ? LEFT_ZONE : RIGHT_ZONE
+    )
+
+    return {
+      [defenderFraction]: defenderUnits,
+      [attackerFraction]: attackerUnits
+    } as Record<Fraction, UnitProps[]>
+  })
 
   const setAnim = (anim: AnimState, victims: Record<Fraction, string[]> = { [Fraction.German]: [], [Fraction.Partisan]: [] }) =>
     setArmies(prev => ({
@@ -30,7 +50,7 @@ const Battle = () => {
     }))
 
   const calculateHits = (attacker: UnitProps[], rollValue: number, fraction: Fraction) => {
-    const modifier = 0.5 + ((rollValue - 1) / 5) // 0.5-1.5, tj. 50%-150%
+    const modifier = 0.5 + ((rollValue - 1) / 5)
 
     const totalHits = attacker.reduce((total, unit) => {
       const hit = roll() <= UNIT_ROLLS[unit.type]
@@ -39,7 +59,7 @@ const Battle = () => {
 
     return fraction === Fraction.Partisan
       ? Math.round(totalHits * modifier)
-      : Math.round(totalHits * 2 - modifier) // 1.5-0.5
+      : Math.round(totalHits * 2 - modifier)
   }
 
   const getVictims = (units: UnitProps[], hits: number) => {
@@ -78,7 +98,11 @@ const Battle = () => {
 
   return (
     <div className={styles.container}>
-      <BattleUI regionName={region.name} germans={armies[Fraction.German].length} partisans={armies[Fraction.Partisan].length} />
+      <BattleUI
+        regionName={region.name}
+        germans={armies[Fraction.German].length}
+        partisans={armies[Fraction.Partisan].length}
+      />
 
       {[...armies[Fraction.German], ...armies[Fraction.Partisan]].map(u => <Unit key={u.id} {...u} />)}
 
@@ -88,7 +112,7 @@ const Battle = () => {
       }
 
       <Retreat
-        disabled={processing || !liberatedNeighbors.length}
+        disabled={processing || !liberatedNeighbors.length || attackerFraction === Fraction.German}
         liberatedNeighbors={liberatedNeighbors}
         onConfirm={target => dispatch({
           type: 'RETREAT',

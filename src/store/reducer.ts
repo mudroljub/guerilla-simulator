@@ -50,7 +50,11 @@ export function reducer(state: MapState, action: Action): MapState {
 
       const regionDict = {
         ...state.regionDict,
-        [action.attackedRegion]: { ...defender, attackingForces },
+        [action.attackedRegion]: {
+          ...defender,
+          attackingForces,
+          attackingFraction: Fraction.Partisan
+        },
         [action.attackingRegion]: { ...attacker, garrison }
       }
 
@@ -131,8 +135,8 @@ export function reducer(state: MapState, action: Action): MapState {
         r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
       )
 
-      liberatedCities.forEach(city => {
-        const germanNeighbors = city.neighbors
+      liberatedCities.forEach(liberatedCity => {
+        const germanNeighbors = liberatedCity.neighbors
           .map(name => state.regionDict[name])
           .filter(n => n.fraction === Fraction.German)
 
@@ -144,20 +148,10 @@ export function reducer(state: MapState, action: Action): MapState {
           return currSum > prevSum ? current : prev
         })
 
-        const cityGarrisonSize = Object.values(city.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
-        const totalOffensivePower = cityGarrisonSize * 6
-
-        const plannedTroops: Troops = {
-          infantry: Math.floor(totalOffensivePower * 0.90),
-          [UnitType.artillery]: Math.floor(totalOffensivePower * 0.06),
-          [UnitType.tanks]: Math.floor(totalOffensivePower * 0.03),
-          [UnitType.aircraft]: offensiveRegion.garrison[UnitType.aircraft] || 0
-        }
-
         offensiveAttacks.push({
           attackingRegion: offensiveRegion.name,
-          targetRegion: city.name,
-          offensiveTroops: plannedTroops
+          targetRegion: liberatedCity.name,
+          offensiveTroops: { infantry: 0 }
         })
       })
 
@@ -179,21 +173,25 @@ export function reducer(state: MapState, action: Action): MapState {
       if (!attack) return state
 
       const newRegionDict = { ...state.regionDict }
-      const attacker = newRegionDict[attack.attackingRegion]
-      const target = newRegionDict[attack.targetRegion]
+      const target = { ...newRegionDict[attack.targetRegion] }
+      const source = { ...newRegionDict[attack.attackingRegion] }
 
-      const updatedAttackerGarrison = Object.values(UnitType).reduce((acc, unit) => ({
-        ...acc,
-        [unit]: Math.max(0, (attacker.garrison[unit] ?? 0) - (attack.offensiveTroops[unit] ?? 0))
-      }), {} as Troops)
+      const partisanCount = Object.values(target.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+      const forceMultiplier = 6
+      const requiredPower = Math.max(partisanCount * forceMultiplier, 100)
 
-      const updatedTargetAttackingForces = Object.values(UnitType).reduce((acc, unit) => ({
-        ...acc,
-        [unit]: (target.attackingForces?.[unit] ?? 0) + (attack.offensiveTroops[unit] ?? 0)
-      }), {} as Troops)
+      const forcedOffensiveTroops: Troops = {
+        infantry: Math.floor(requiredPower * 0.90),
+        [UnitType.artillery]: Math.floor(requiredPower * 0.06),
+        [UnitType.tanks]: Math.floor(requiredPower * 0.04),
+        [UnitType.aircraft]: source.garrison[UnitType.aircraft] || 0
+      }
 
-      newRegionDict[attack.attackingRegion] = { ...attacker, garrison: updatedAttackerGarrison }
-      newRegionDict[attack.targetRegion] = { ...target, attackingForces: updatedTargetAttackingForces }
+      newRegionDict[attack.targetRegion] = {
+        ...target,
+        attackingForces: forcedOffensiveTroops,
+        attackingFraction: Fraction.German
+      }
 
       return {
         ...state,
@@ -258,16 +256,15 @@ export function reducer(state: MapState, action: Action): MapState {
       const { regionName, winner, survivors } = action
       const currentRegion = state.regionDict[regionName]
 
-      const updatedRegion: RegionState = {
-        ...currentRegion,
-        fraction: winner,
-        garrison: survivors,
-        attackingForces: undefined,
-      }
-
       const regionDict = {
         ...state.regionDict,
-        [regionName]: updatedRegion,
+        [regionName]: {
+          ...currentRegion,
+          fraction: winner,
+          garrison: survivors,
+          attackingForces: undefined,
+          attackingFraction: undefined
+        }
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
@@ -296,7 +293,8 @@ export function reducer(state: MapState, action: Action): MapState {
         [regionName]: {
           ...state.regionDict[regionName],
           garrison,
-          attackingForces: undefined
+          attackingForces: undefined,
+          attackingFraction: undefined
         },
         [retreatingRegion]: {
           ...fallbackRegion,
@@ -342,8 +340,8 @@ export function reducer(state: MapState, action: Action): MapState {
           lastMobilizedCount: actualAdded,
           garrison: {
             ...region.garrison,
-            infantry: region.garrison.infantry + actualAdded,
-          },
+            infantry: (region.garrison.infantry ?? 0) + actualAdded
+          }
         }
 
         return acc
