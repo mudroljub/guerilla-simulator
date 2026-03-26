@@ -234,8 +234,10 @@ open http://localhost:3000/
 		- snage ofanzive treba da sadrže: Pešadija oko 90%, Artiljerija oko 6% i Tenkovi oko 3% ✓
 	- ime ofanzive u poruku (I, II, III...) ✓
 	- indikator ikonica tenka ✓
+		- indikator se ne koristi u OffensiveOverlay, koristiti iste ikonice
 	- napraviti niz ofanzive, kako bi mogle kontinuirano da napadaju ✓
 	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
+		- dugme povlačenje ne radi
 		- povlačenje može biti i proboj kroz neprijateljske teritorije?
 	- nakon što osvoje oslobođene gradove (i poteraju partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
