@@ -236,9 +236,10 @@ open http://localhost:3000/
 	- indikator ikonica tenka ✓
 		- indikator se ne koristi u OffensiveOverlay, koristiti iste ikonice
 	- napraviti niz ofanzive, kako bi mogle kontinuirano da napadaju ✓
-	- kad napadnu, igrač može birati borbu ili povlačenje
-		- povlačenje može biti i proboj kroz neprijateljske teritorije
-			- ako je proboj, dodaje se bitka odmah sledeća u red
+	- kad napadnu, igrač može birati borbu ili povlačenje ✓
+		- povlačenje može biti i proboj kroz neprijateljske teritorije ✓
+			- ako je proboj, dodaje se bitka odmah sledeća u red ✓
+		- dodati indikator čija je teritorija pri izboru povlačenja
 	- nakon što osvoje oslobođene gradove (i poteraju partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
 - svaki krug je jedan mesec, prikazuje se datum negde
@@ -255,6 +256,7 @@ open http://localhost:3000/
 - trenutno može borba i u fazi mobilizacije ✓
 - drag end ne treba da otvara prozor
 - select koprivnica pokazuje susedne teritorije koje se ne graniče (graniče se izvan mask)
+- mobilizacija dopušta skip na next pre izveštaja. ostaviti tako?
 
 ### Završno
 

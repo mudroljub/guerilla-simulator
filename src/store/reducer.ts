@@ -281,40 +281,51 @@ export function reducer(state: MapState, action: Action): MapState {
 
     case 'RETREAT': {
       const { regionName, garrison, retreatingRegion, retreatingTroops } = action
-      const fallbackRegion = state.regionDict[retreatingRegion]
+      const targetRegion = state.regionDict[retreatingRegion]
+      const sourceRegion = state.regionDict[regionName]
+      const isBreakthrough = targetRegion.fraction === Fraction.German
 
-      const updatedFallbackGarrison = Object.values(UnitType).reduce((acc, unit) => ({
-        ...acc,
-        [unit]: (fallbackRegion.garrison[unit] ?? 0) + (retreatingTroops[unit] ?? 0)
-      }), {} as Troops)
+      const updatedTarget: RegionState = isBreakthrough
+        ? {
+          ...targetRegion,
+          attackingForces: retreatingTroops,
+          attackingFraction: Fraction.Partisan
+        }
+        : {
+          ...targetRegion,
+          garrison: Object.values(UnitType).reduce((acc, unit) => ({
+            ...acc,
+            [unit]: (targetRegion.garrison[unit] ?? 0) + (retreatingTroops[unit] ?? 0)
+          }), {} as Troops)
+        }
 
-      const regionDict = {
+      const baseQueue = state.battleQueue.filter(name => name !== regionName)
+      const newBattleQueue = isBreakthrough && !baseQueue.includes(retreatingRegion)
+        ? [retreatingRegion, ...baseQueue]
+        : baseQueue
+
+      const updatedRegionDict = {
         ...state.regionDict,
         [regionName]: {
-          ...state.regionDict[regionName],
+          ...sourceRegion,
           garrison,
           attackingForces: undefined,
           attackingFraction: undefined
         },
-        [retreatingRegion]: {
-          ...fallbackRegion,
-          garrison: updatedFallbackGarrison
-        }
+        [retreatingRegion]: updatedTarget
       }
 
-      const battleQueue = state.battleQueue.filter(name => name !== regionName)
       const newState = {
         ...state,
-        regionDict,
-        battleQueue,
-        selected: regionDict[retreatingRegion],
+        regionDict: updatedRegionDict,
+        battleQueue: newBattleQueue,
+        selected: updatedRegionDict[retreatingRegion],
         selectedAttackingRegion: undefined
       }
 
-      if (battleQueue.length === 0)
-        return reducer(newState, { type: 'START_MOBILIZATION' })
-
-      return newState
+      return newBattleQueue.length === 0
+        ? reducer(newState, { type: 'START_MOBILIZATION' })
+        : newState
     }
 
     case 'START_MOBILIZATION': {
