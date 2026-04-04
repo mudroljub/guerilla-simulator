@@ -239,7 +239,7 @@ open http://localhost:3000/
 	- kad napadnu, igrač može birati borbu ili povlačenje ✓
 		- povlačenje može biti i proboj kroz neprijateljske teritorije ✓
 			- ako je proboj, dodaje se bitka odmah sledeća u red ✓
-		- dodati indikator čija je teritorija pri izboru povlačenja
+		- dodati indikator čija je teritorija pri izboru povlačenja ✓
 	- nakon što osvoje oslobođene gradove (i poteraju partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
 - svaki krug je jedan mesec, prikazuje se datum negde

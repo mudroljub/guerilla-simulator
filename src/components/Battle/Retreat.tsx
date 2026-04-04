@@ -2,7 +2,7 @@ import { useState } from 'react'
 import shared from '../../assets/styles/shared.module.scss'
 import styles from './Battle.module.scss'
 import { useLiberatedNeighbors, useStore } from '../../store/store'
-import { GamePhase, RegionState } from '../../types/types'
+import { Fraction, GamePhase, RegionState } from '../../types/types'
 
 interface Props {
   region: RegionState
@@ -12,9 +12,12 @@ interface Props {
 
 const Retreat = ({ region, onConfirm, disabled }: Props) => {
   const { state } = useStore()
+  const { phase, regionDict } = state
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
   const [isRetreating, setIsRetreating] = useState(false)
-  const [selectedRetreatRegion, setSelectedRetreatRegion] = useState(liberatedNeighbors[0] || '')
+
+  const regions = (phase === GamePhase.ATTACK_PHASE ? liberatedNeighbors : region.neighbors).map(region => regionDict[region])
+  const [selectedRetreatRegion, setSelectedRetreatRegion] = useState(regions[0].name)
 
   if (!isRetreating)
     return (
@@ -28,8 +31,6 @@ const Retreat = ({ region, onConfirm, disabled }: Props) => {
       </button>
     )
 
-  const retreatingRegions = state.phase === GamePhase.ATTACK_PHASE ? liberatedNeighbors : region.neighbors
-
   return (
     <div className={styles.retreatWrapper}>
       <p>Retreat to:</p>
@@ -37,8 +38,8 @@ const Retreat = ({ region, onConfirm, disabled }: Props) => {
         value={selectedRetreatRegion}
         onChange={e => setSelectedRetreatRegion(e.target.value)}
       >
-        {retreatingRegions.map(n => (
-          <option key={n} value={n}>{n}</option>
+        {regions.map(region => (
+          <option key={region.name} value={region.name}>{region.name} {region.fraction === Fraction.Partisan ? '★' : '✠'}</option>
         ))}
       </select>
       <div>
