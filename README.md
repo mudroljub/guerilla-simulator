@@ -236,9 +236,9 @@ open http://localhost:3000/
 	- indikator ikonica tenka ✓
 		- indikator se ne koristi u OffensiveOverlay, koristiti iste ikonice
 	- napraviti niz ofanzive, kako bi mogle kontinuirano da napadaju ✓
-	- kad napadnu, igrač može birati borbu ili povlačenje (skoro nemoguće je odbraniti)
-		- dugme povlačenje ne radi
-		- povlačenje može biti i proboj kroz neprijateljske teritorije?
+	- kad napadnu, igrač može birati borbu ili povlačenje
+		- povlačenje može biti i proboj kroz neprijateljske teritorije
+			- ako je proboj, dodaje se bitka odmah sledeća u red
 	- nakon što osvoje oslobođene gradove (i poteraju partizane x koraka) ofanziva se završava
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
 - svaki krug je jedan mesec, prikazuje se datum negde

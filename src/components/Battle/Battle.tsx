@@ -3,7 +3,7 @@ import { useLiberatedNeighbors, useStore } from '../../store/store'
 import styles from './Battle.module.scss'
 import Unit, { UnitProps } from '../Unit/Unit'
 import Dice from '../Dice/Dice'
-import { Fraction, AnimState } from '../../types/types'
+import { Fraction, AnimState, GamePhase } from '../../types/types'
 import BattleReport from './BattleReport'
 import BattleUI from './BattleUI'
 import Retreat from './Retreat'
@@ -14,8 +14,10 @@ import { initArmy } from './utils'
 
 const Battle = () => {
   const { state, dispatch } = useStore()
+  const { phase } = state
   const region = state.regionDict[state.battleQueue[0]]
   const liberatedNeighbors = useLiberatedNeighbors(region.name)
+
   const [processing, setProcessing] = useState(false)
 
   const attackerFraction = region.attackingFraction || Fraction.Partisan
@@ -112,8 +114,8 @@ const Battle = () => {
       }
 
       <Retreat
-        disabled={processing || !liberatedNeighbors.length || attackerFraction === Fraction.German}
-        liberatedNeighbors={liberatedNeighbors}
+        disabled={processing || (phase === GamePhase.ATTACK_PHASE && !liberatedNeighbors.length)}
+        region={region}
         onConfirm={target => dispatch({
           type: 'RETREAT',
           regionName: region.name,
