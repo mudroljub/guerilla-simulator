@@ -18,6 +18,8 @@ export interface MapState {
   offensiveAnimationIndex: number
   offensives: string[]
   selectedAttackingRegion?: string
+  offensiveStep: number
+  pursuitTargets: string[]
 }
 
 interface Store {
@@ -42,7 +44,9 @@ const initialState = (regions: RegionData[]): MapState => {
     offensives: [],
     currentOffensive: 0,
     offensiveAttacks: [],
-    offensiveAnimationIndex: 0
+    offensiveAnimationIndex: 0,
+    offensiveStep: 0,
+    pursuitTargets: [],
   }
 }
 

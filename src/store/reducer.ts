@@ -104,7 +104,6 @@ export function reducer(state: MapState, action: Action): MapState {
         return {
           ...state,
           phase: GamePhase.COMBAT_PHASE,
-          offensiveAttacks: [],
           offensiveAnimationIndex: 0,
           selected: null
         }
@@ -130,40 +129,52 @@ export function reducer(state: MapState, action: Action): MapState {
     }
 
     case 'START_OFFENSIVE': {
-      const offensiveAttacks: OffensiveAttack[] = []
-      const liberatedCities = Object.values(state.regionDict).filter(
-        r => r.fraction === Fraction.Partisan && r.size > CITY_THRESHOLD
-      )
+      const isFirstStep = (state.offensiveStep ?? 0) === 0
 
-      liberatedCities.forEach(liberatedCity => {
-        const germanNeighbors = liberatedCity.neighbors
-          .map(name => state.regionDict[name])
-          .filter(n => n.fraction === Fraction.German)
+      const potentialTargets = Object.values(state.regionDict).filter(r => {
+        if (r.fraction !== Fraction.Partisan) return false
 
-        if (germanNeighbors.length === 0) return
+        if (isFirstStep)
+          return r.size > CITY_THRESHOLD
 
-        const offensiveRegion = germanNeighbors.reduce((prev, current) => {
-          const prevSum = Object.values(prev.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
-          const currSum = Object.values(current.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
-          return currSum > prevSum ? current : prev
-        })
+        // U 2. i 3. koraku napadamo samo one regije u koje su partizani pobegli
+        return state.pursuitTargets?.includes(r.name)
 
-        offensiveAttacks.push({
-          attackingRegion: offensiveRegion.name,
-          targetRegion: liberatedCity.name,
-          offensiveTroops: { infantry: 0 }
-        })
       })
 
+      const offensiveAttacks: OffensiveAttack[] = potentialTargets
+        .map(target => {
+          const germanNeighbors = target.neighbors
+            .map(name => state.regionDict[name])
+            .filter(n => n.fraction === Fraction.German)
+
+          if (germanNeighbors.length === 0) return null
+
+          const offensiveRegion = germanNeighbors.reduce((prev, current) => {
+            const prevSum = Object.values(prev.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+            const currSum = Object.values(current.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
+            return currSum > prevSum ? current : prev
+          })
+
+          return {
+            attackingRegion: offensiveRegion.name,
+            targetRegion: target.name,
+            offensiveTroops: { infantry: 0 }
+          }
+        })
+        .filter((a): a is OffensiveAttack => a !== null)
+
+      // Ako nema meta (ili niko nije pobegao u 2/3 koraku), završavamo ofanzivu
       if (offensiveAttacks.length === 0)
-        return reducer(state, { type: 'DO_BOMBING' })
+        return reducer({ ...state, offensiveStep: 0, pursuitTargets: [] }, { type: 'DO_BOMBING' })
 
       return {
         ...state,
         phase: GamePhase.ENEMY_OFFENSIVE,
         offensiveAttacks,
         offensiveAnimationIndex: 0,
-        currentOffensive: (state.currentOffensive || 0) + 1,
+        pursuitTargets: [], // Resetujemo listu za sledeći krug povlačenja unutar ovog koraka
+        currentOffensive: isFirstStep ? (state.currentOffensive || 0) + 1 : state.currentOffensive,
         battleQueue: []
       }
     }
@@ -172,9 +183,8 @@ export function reducer(state: MapState, action: Action): MapState {
       const attack = state.offensiveAttacks[action.eventIndex]
       if (!attack) return state
 
-      const newRegionDict = { ...state.regionDict }
-      const target = { ...newRegionDict[attack.targetRegion] }
-      const source = { ...newRegionDict[attack.attackingRegion] }
+      const target = state.regionDict[attack.targetRegion]
+      const source = state.regionDict[attack.attackingRegion]
 
       const partisanCount = Object.values(target.garrison).reduce((a, b) => (a || 0) + (b || 0), 0)
       const forceMultiplier = 6
@@ -187,10 +197,13 @@ export function reducer(state: MapState, action: Action): MapState {
         [UnitType.aircraft]: source.garrison[UnitType.aircraft] || 0
       }
 
-      newRegionDict[attack.targetRegion] = {
-        ...target,
-        attackingForces: forcedOffensiveTroops,
-        attackingFraction: Fraction.German
+      const newRegionDict = {
+        ...state.regionDict,
+        [attack.targetRegion]: {
+          ...target,
+          attackingForces: forcedOffensiveTroops,
+          attackingFraction: Fraction.German
+        }
       }
 
       return {
@@ -225,13 +238,11 @@ export function reducer(state: MapState, action: Action): MapState {
       const bombing = state.bombings[action.eventIndex]
       if (!bombing) return state
 
-      const newRegionDict = { ...state.regionDict }
-
-      bombing.targets.forEach(t => {
-        const region = newRegionDict[t.regionName]
+      const updatedRegionDict = bombing.targets.reduce((acc, t) => {
+        const region = acc[t.regionName]
         if (t.isShotDown) {
-          const source = newRegionDict[bombing.bombingFrom]
-          newRegionDict[bombing.bombingFrom] = {
+          const source = acc[bombing.bombingFrom]
+          acc[bombing.bombingFrom] = {
             ...source,
             garrison: {
               ...source.garrison,
@@ -239,24 +250,25 @@ export function reducer(state: MapState, action: Action): MapState {
             }
           }
         } else
-          newRegionDict[t.regionName] = {
+          acc[t.regionName] = {
             ...region,
             garrison: {
               ...region.garrison,
-              infantry: Math.max(0, region.garrison.infantry - t.damage)
+              infantry: Math.max(0, (region.garrison.infantry ?? 0) - t.damage)
             }
           }
 
-      })
+        return acc
+      }, { ...state.regionDict })
 
-      return { ...state, regionDict: newRegionDict }
+      return { ...state, regionDict: updatedRegionDict }
     }
 
     case 'END_BATTLE': {
       const { regionName, winner, survivors } = action
       const currentRegion = state.regionDict[regionName]
 
-      const regionDict = {
+      const updatedRegionDict = {
         ...state.regionDict,
         [regionName]: {
           ...currentRegion,
@@ -268,10 +280,23 @@ export function reducer(state: MapState, action: Action): MapState {
       }
 
       const battleQueue = state.battleQueue.filter(name => name !== regionName)
-      const newState = { ...state, regionDict, battleQueue, selected: null }
+      const newState = { ...state, regionDict: updatedRegionDict, battleQueue, selected: null }
 
-      if (battleQueue.length === 0)
+      if (battleQueue.length === 0) {
+        const currentStep = state.offensiveStep ?? 0
+        const isOffensiveActive = (state.offensiveAttacks?.length ?? 0) > 0
+
+        if (isOffensiveActive) {
+          // Nastavljamo ofanzivu samo ako smo ispod praga od 3 koraka i ako neko beži
+          if (currentStep < 2 && (state.pursuitTargets?.length ?? 0) > 0)
+            return reducer({ ...newState, offensiveStep: currentStep + 1 }, { type: 'START_OFFENSIVE' })
+
+          // Kraj ofanzive (3 koraka prošla ili niko nije bežao)
+          return reducer({ ...newState, offensiveStep: 0, offensiveAttacks: [], pursuitTargets: [] }, { type: 'START_MOBILIZATION' })
+        }
+
         return reducer(newState, { type: 'START_MOBILIZATION' })
+      }
 
       return newState
     }
@@ -284,6 +309,9 @@ export function reducer(state: MapState, action: Action): MapState {
       const targetRegion = state.regionDict[retreatingRegion]
       const sourceRegion = state.regionDict[regionName]
       const isBreakthrough = targetRegion.fraction === Fraction.German
+
+      // Dodajemo regiju u koju se beži u listu meta za sledeći krug poterne ofanzive
+      const pursuitTargets = [...(state.pursuitTargets ?? []), retreatingRegion]
 
       const updatedTarget: RegionState = isBreakthrough
         ? {
@@ -319,13 +347,25 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         regionDict: updatedRegionDict,
         battleQueue: newBattleQueue,
+        pursuitTargets,
         selected: updatedRegionDict[retreatingRegion],
         selectedAttackingRegion: undefined
       }
 
-      return newBattleQueue.length === 0
-        ? reducer(newState, { type: 'START_MOBILIZATION' })
-        : newState
+      if (newBattleQueue.length === 0) {
+        const currentStep = state.offensiveStep ?? 0
+        const isOffensiveActive = (state.offensiveAttacks?.length ?? 0) > 0
+
+        if (isOffensiveActive) {
+          if (currentStep < 2)
+            return reducer({ ...newState, offensiveStep: currentStep + 1 }, { type: 'START_OFFENSIVE' })
+
+          return reducer({ ...newState, offensiveStep: 0, offensiveAttacks: [], pursuitTargets: [] }, { type: 'START_MOBILIZATION' })
+        }
+        return reducer(newState, { type: 'START_MOBILIZATION' })
+      }
+
+      return newState
     }
 
     case 'START_MOBILIZATION': {
@@ -362,7 +402,9 @@ export function reducer(state: MapState, action: Action): MapState {
         ...state,
         regionDict: updatedRegions,
         phase: GamePhase.MOBILIZATION_PHASE,
-        selected: null
+        selected: null,
+        offensiveStep: 0,
+        pursuitTargets: []
       }
     }
 
