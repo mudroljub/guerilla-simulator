@@ -32,25 +32,33 @@ const EndTurn = () => {
 
   if (isConfirming)
     return (
-      <div className={modalStyles.confirmModal}>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          handleEndTurn()
+        }}
+        className={modalStyles.confirmModal}
+      >
         <h2>No battles!</h2>
         <p>You haven't planned any attacks. <br /> End turn anyway?</p>
 
         <div className={styles.buttons}>
           <button
-            onClick={handleEndTurn}
+            type="submit"
             className={shared.confirmButton}
+            autoFocus
           >
             Yes
           </button>
           <button
+            type="button"
             onClick={() => setIsConfirming(false)}
             className={shared.button}
           >
             No
           </button>
         </div>
-      </div>
+      </form>
     )
 
   return (
