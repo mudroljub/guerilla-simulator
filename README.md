@@ -244,8 +244,8 @@ open http://localhost:3000/
 	- BUG: teritorije koje je zauzela nemačka ofanziva su ostale partizanske ✓
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni ✓
 - previše ikonica u bici koči, smanjiti✓
+	- izbaciti mrdanje tokom bitke, bar tenkova?✓ (ne treba kad nema previše ikonica)
 - svaki krug je jedan mesec, prikazuje se datum negde
-- izbaciti mrdanje tokom bitke, bar tenkova?
 - ograničiti da može samo jedno povlačenje u toku faze bitke
 - save game
 	- čuvati stanje da se ne resetuje ni inicijalizuje na reload

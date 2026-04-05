@@ -35,8 +35,8 @@ export default function Unit({
         return isGerman ? styles.fallingGerman : styles.fallingPartisan
       case AnimState.shooting:
         return isGerman ? styles.shootingGerman : styles.shootingPartisan
-      // case AnimState.battle:
-      //   return type === UnitType.tanks ? styles.tank : (isGerman ? styles.battleLeft : styles.battleRight)
+      case AnimState.battle:
+        return type === UnitType.tanks ? styles.tank : (isGerman ? styles.battleLeft : styles.battleRight)
       case AnimState.idle:
         return styles.breath
       default:
