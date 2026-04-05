@@ -241,9 +241,9 @@ open http://localhost:3000/
 			- ako je proboj, dodaje se bitka odmah sledeća u red ✓
 		- dodati indikator čija je teritorija pri izboru povlačenja ✓
 	- nakon što snage ofanzive poteraju partizane 3 koraka ofanziva se završava ✓
-	- BUG: teritorije koje je zauzela nemačka ofanziva su ostale partizanske
-	- možda uslov za ofanzivu da bude 1 grad?
-	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni
+	- BUG: teritorije koje je zauzela nemačka ofanziva su ostale partizanske ✓
+	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni ✓
+- previše ikonica u bici koči, smanjiti
 - svaki krug je jedan mesec, prikazuje se datum negde
 - izbaciti mrdanje tokom bitke, bar tenkova?
 - ograničiti da može samo jedno povlačenje u toku faze bitke
