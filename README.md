@@ -243,7 +243,7 @@ open http://localhost:3000/
 	- nakon što snage ofanzive poteraju partizane 3 koraka ofanziva se završava ✓
 	- BUG: teritorije koje je zauzela nemačka ofanziva su ostale partizanske ✓
 	- pojačanja odlaze, u novookupiranim gradovima ostaju garnizoni ✓
-- previše ikonica u bici koči, smanjiti
+- previše ikonica u bici koči, smanjiti✓
 - svaki krug je jedan mesec, prikazuje se datum negde
 - izbaciti mrdanje tokom bitke, bar tenkova?
 - ograničiti da može samo jedno povlačenje u toku faze bitke
